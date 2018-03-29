@@ -43,11 +43,11 @@
 ## 页面渲染流程图
 
 
-![页面渲染流程图]('https://raw.githubusercontent.com/yhlben/blog/master/images/huizong.png')
+![页面渲染流程图](https://raw.githubusercontent.com/yhlben/blog/master/images/huizong.png)
 
 ##浏览器缓存图
 
-![浏览器缓存图]('https://raw.githubusercontent.com/yhlben/blog/master/images/browser-caching.jpg')
+![浏览器缓存图](https://raw.githubusercontent.com/yhlben/blog/master/images/browser-caching.jpg)
 
 
 
