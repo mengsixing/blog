@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>rxjs | yhlben</title>
+<meta name="generator" content="Jekyll v3.7.3" />
+<meta property="og:title" content="rxjs" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Rx基础" />
+<meta property="og:description" content="Rx基础" />
+<link rel="canonical" href="http://localhost:4000/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/2018/03/15/rxjs.html" />
+<meta property="og:url" content="http://localhost:4000/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/2018/03/15/rxjs.html" />
+<meta property="og:site_name" content="yhlben" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-03-15T00:55:23+08:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/2018/03/15/rxjs.html","headline":"rxjs","dateModified":"2018-03-15T00:55:23+08:00","datePublished":"2018-03-15T00:55:23+08:00","description":"Rx基础","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/2018/03/15/rxjs.html"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="yhlben" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">yhlben</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+              <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+              <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">rxjs</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-03-15T00:55:23+08:00" itemprop="datePublished">Mar 15, 2018
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h1 id="rx基础">Rx基础</h1>
+
+<p>基本概念：</p>
+
+<h2 id="observable">Observable</h2>
+
+<p>Observable (可观察对象): 表示一个概念，这个概念是一个可调用的未来值或事件的集合。
+Observables 是使用 Rx.Observable.create 或创建操作符创建的，并使用观察者来订阅它，然后执行它并发送 next / error / complete 通知给观察者，而且执行可能会被清理。这四个方面全部编码在 Observables 实例中。</p>
+
+<p>Observable 的核心关注点：</p>
+
+<ul>
+  <li>创建 Observables</li>
+  <li>订阅 Observables</li>
+  <li>执行 Observables</li>
+  <li>清理 Observables</li>
+</ul>
+
+<h2 id="observer">Observer</h2>
+
+<p>Observer (观察者): 一个回调函数的集合，它知道如何去监听由 Observable 提供的值。
+观察者是由 Observable 发送的值的消费者。观察者只是一组回调函数的集合，每个回调函数对应一种 Observable 发送的通知类型：next、error 和 complete 。</p>
+
+<h2 id="subscription">Subscription</h2>
+
+<p>Subscription (订阅): 表示 Observable 的执行，主要用于取消 Observable 的执行。
+Subscription 是表示可清理资源的对象，通常是 Observable 的执行。Subscription 有一个重要的方法，即 unsubscribe，它不需要任何参数，只是用来清理由 Subscription 占用的资源。</p>
+
+<h2 id="operators">Operators</h2>
+
+<p>操作符是 Observable 类型上的方法，比如 .map(…)、.filter(…)、.merge(…)，等等。当操作符被调用时，它们不会改变已经存在的 Observable 实例。相反，它们返回一个新的 Observable ，它的 subscription 逻辑基于第一个 Observable 。</p>
+<blockquote>
+  <p>操作符是函数，它基于当前的 Observable 创建一个新的 Observable。这是一个无副作用的操作：前面的 Observable 保持不变。
+操作符是采用函数式编程风格的纯函数 (pure function)，使用像 map、filter、concat、flatMap 等这样的操作符来处理集合。</p>
+</blockquote>
+
+<h2 id="subject">Subject</h2>
+
+<p>Subject (主体): 相当于 EventEmitter，并且是将值或事件多路推送给多个 Observer 的唯一方式。
+RxJS Subject 是一种特殊类型的 Observable，它允许将值多播给多个观察者，所以 Subject 是多播的，而普通的 Observables 是单播的(每个已订阅的观察者都拥有 Observable 的独立执行)。
+变种：
+BehaviorSubject：Subject 的其中一个变体就是 BehaviorSubject，它有一个“当前值”的概念。它保存了发送给消费者的最新值。并且当有新的观察者订阅时，会立即从 BehaviorSubject 那接收到“当前值”。
+ReplaySubject： 类似于 BehaviorSubject，它可以发送旧值给新的订阅者，但它还可以记录 Observable 执行的一部分。
+AsyncSubject： 只有当 Observable 执行完成时(执行 complete())，它才会将执行的最后一个值发送给观察者。</p>
+
+<h2 id="schedulers">Schedulers</h2>
+
+<p>Schedulers (调度器): 用来控制并发并且是中央集权的调度员，允许我们在发生计算时进行协调，例如 setTimeout 或 requestAnimationFrame 或其他。</p>
+
+<p>调度器控制着何时启动 subscription 和何时发送通知。它由三部分组成：</p>
+
+<ul>
+  <li>调度器是一种数据结构。 它知道如何根据优先级或其他标准来存储任务和将任务进行排序。</li>
+  <li>调度器是执行上下文。 它表示在何时何地执行任务(举例来说，立即的，或另一种回调函数机制(比如 setTimeout 或 process.nextTick)，或动画帧)。</li>
+  <li>调度器有一个(虚拟的)时钟。 调度器功能通过它的 getter 方法 now() 提供了“时间”的概念。在具体调度器上安排的任务将严格遵循该时钟所表示的时间。</li>
+  <li>调度器可以让你规定 Observable 在什么样的执行上下文中发送通知给它的观察者。</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>调度器</th>
+      <th>目的</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Rx.Scheduler.queue</td>
+      <td>当前事件帧中的队列调度(蹦床调度器)。用于迭代操作。</td>
+    </tr>
+    <tr>
+      <td>Rx.Scheduler.asap</td>
+      <td>微任务的队列调度，它使用可用的最快速的传输机制，比如 Node.js 的 process.nextTick() 或 Web Worker 的 MessageChannel 或 setTimeout 或其他。用于异步转换。</td>
+    </tr>
+    <tr>
+      <td>Rx.Scheduler.async</td>
+      <td>使用 setInterval 的调度。用于基于时间的操作符。</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="小示例">小示例：</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//第一步，创建一个可观察对象（也可以通过fromEvent...）</span>
+<span class="kd">var</span> <span class="nx">observable</span><span class="o">=</span> <span class="nx">Rx</span><span class="p">.</span><span class="nx">Observable</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">observer</span><span class="p">)</span> <span class="p">{</span>
+	<span class="nx">observer</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="s1">'first'</span><span class="p">);</span>
+	<span class="nx">setInterval</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+		<span class="nx">observer</span><span class="p">.</span><span class="nx">next</span><span class="p">(</span><span class="s1">'5'</span><span class="p">);</span>
+	<span class="p">},</span><span class="mi">1000</span><span class="p">);</span>
+	<span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+		<span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">'错误'</span><span class="p">)</span>
+	<span class="p">},</span><span class="mi">3000</span><span class="p">);</span>
+	<span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+		<span class="nx">observer</span><span class="p">.</span><span class="nx">complete</span><span class="p">(</span><span class="s1">'6'</span><span class="p">);</span>
+	<span class="p">},</span><span class="mi">6000</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">map</span><span class="p">(</span><span class="nx">e</span><span class="o">=&gt;</span><span class="nx">e</span><span class="p">.</span><span class="nx">bold</span><span class="p">())</span> <span class="c1">// 使用操作符过滤观察流</span>
+<span class="p">.</span><span class="nx">observeOn</span><span class="p">(</span><span class="nx">Rx</span><span class="p">.</span><span class="nx">Scheduler</span><span class="p">.</span><span class="k">async</span><span class="p">);</span> <span class="c1">//让流变为异步</span>
+
+<span class="kd">var</span> <span class="nx">subject</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Rx</span><span class="p">.</span><span class="nx">Subject</span><span class="p">();</span>
+
+<span class="c1">//增加两个监听函数</span>
+<span class="kd">var</span> <span class="nx">observer1</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="o">=&gt;</span><span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">)};</span>
+<span class="kd">var</span> <span class="nx">observer2</span> <span class="o">=</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span><span class="o">=&gt;</span><span class="p">{</span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'监听2'</span><span class="p">)};</span>
+
+<span class="c1">//未使用subject传播</span>
+<span class="c1">// var subscription1 = observable.subscribe(observer1);</span>
+<span class="c1">// var subscription2 = observable.subscribe(observer2);</span>
+
+<span class="c1">//使用subject多播给多个观察者</span>
+ <span class="kd">var</span> <span class="nx">subscription1</span> <span class="o">=</span> <span class="nx">subject</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">observer1</span><span class="p">);</span>
+ <span class="kd">var</span> <span class="nx">subscription2</span> <span class="o">=</span> <span class="nx">subject</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">observer2</span><span class="p">);</span>
+<span class="nx">observable</span><span class="p">.</span><span class="nx">subscribe</span><span class="p">(</span><span class="nx">subject</span><span class="p">);</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'waibu'</span><span class="p">);</span>
+
+<span class="c1">//增加取消监听</span>
+<span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+	<span class="nx">subscription1</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">();</span>
+	<span class="nx">subscription2</span><span class="p">.</span><span class="nx">unsubscribe</span><span class="p">();</span>
+<span class="p">},</span><span class="mi">1500</span><span class="p">);</span>
+
+
+</code></pre></div></div>
+
+  </div><a class="u-url" href="/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/2018/03/15/rxjs.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">yhlben</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">yhlben</li><li><a class="u-email" href="mailto:yinhengliben@gmail.com">yinhengliben@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/yhlben"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">yhlben</span></a></li><li><a href="https://www.twitter.com/yhlben"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">yhlben</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>个人学习总结</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>

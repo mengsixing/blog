@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.4.0 -->
+<title>函数式编程 | yhlben</title>
+<meta name="generator" content="Jekyll v3.7.3" />
+<meta property="og:title" content="函数式编程" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="函数式编程" />
+<meta property="og:description" content="函数式编程" />
+<link rel="canonical" href="http://localhost:4000/2018/02/03/functional.html" />
+<meta property="og:url" content="http://localhost:4000/2018/02/03/functional.html" />
+<meta property="og:site_name" content="yhlben" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-02-03T05:11:45+08:00" />
+<script type="application/ld+json">
+{"url":"http://localhost:4000/2018/02/03/functional.html","headline":"函数式编程","dateModified":"2018-02-03T05:11:45+08:00","datePublished":"2018-02-03T05:11:45+08:00","description":"函数式编程","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/02/03/functional.html"},"@type":"BlogPosting","@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="yhlben" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">yhlben</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+              <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+              <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/about/">About</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">函数式编程</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-02-03T05:11:45+08:00" itemprop="datePublished">Feb 3, 2018
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h1 id="函数式编程">函数式编程</h1>
+
+<h2 id="函数式编程起源">函数式编程起源</h2>
+
+<ul>
+  <li>函数式编程的起源，是一门叫做范畴论（Category Theory）的数学分支。</li>
+  <li>彼此之间存在某种关系的概念、事物、对象等等，都构成”范畴”。随便什么东西，只要能找出它们之间的关系，就能定义一个”范畴”</li>
+  <li>箭头表示范畴成员之间的关系，正式的名称叫做”态射”（morphism）。范畴论认为，同一个范畴的所有成员，就是不同状态的”变形”（transformation）。通过”态射”，一个成员可以变形成另一个成员。</li>
+</ul>
+
+<h2 id="函数式编程基础">函数式编程基础</h2>
+
+<ul>
+  <li>函数式编程（Functional Programming）其实相对于计算机的历史而言是一个非常古老的概念，甚至早于第一台计算机的诞生。函数式编程的基础模型来源于 λ 演算，而 λ 演算并非设计于在计算机上执行，它是由 Alonzo Church 和 Stephen Cole Kleene 在 20 世纪三十年代引入的一套用于研究函数定义、函数应用和递归的形式系统。</li>
+  <li>函数式编程不是用函数来编程，也不是传统的面向对象编程。主旨在于将
+复杂的函数复合成简单的函数。运算过程尽量携程一系列嵌套调用。</li>
+  <li>JavaScript是披着C外衣的Lisp</li>
+  <li>真正火热是随着React的高阶函数而逐步升温</li>
+</ul>
+
+<h2 id="纯函数">纯函数</h2>
+
+<ul>
+  <li>对于相同的输入，永远得到相同的输出，而且没有任何可观察的副作用，也不依赖外部环境的状态</li>
+  <li>Array.clice是纯函数，因为它没有副作用，对于固定的输入，输出总是固定的</li>
+</ul>
+
+<h2 id="函数的柯里化">函数的柯里化</h2>
+
+<ul>
+  <li>传递给函数一部分参数来调用它，让它返回一个函数区处理剩下的参数。</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var checkage=&gt;min=&gt;(age=&gt;age&gt;min)
+var checkage20=checkage(20)
+checkage20(100)
+</code></pre></div></div>
+
+<h2 id="函数组合">函数组合</h2>
+
+<ul>
+  <li>解决类似的函数嵌套问题f(h(j(k())))</li>
+  <li>var compose=(f,g)=&gt;(x=&gt;f(g(x)));</li>
+</ul>
+
+<h2 id="point-free">Point Free</h2>
+
+<ul>
+  <li>把一些对象自带的方法转化成纯函数，不要命名转瞬即逝的中间变量</li>
+</ul>
+
+<h2 id="声明式于命令式代码">声明式于命令式代码</h2>
+<ul>
+  <li>命令式代码：我们通过编写一条又一条的指令，去让计算机执行一些动作，这其中一半都会涉及到很多繁杂的细节</li>
+  <li>声明式代码：我们通过写表达式的方法来表明我们想干什么，问不是通过一步步的指示</li>
+</ul>
+
+<h2 id="惰性函数">惰性函数</h2>
+
+<ul>
+  <li>惰性函数式 “比较懒的函数”，只执行一次就不执行了</li>
+</ul>
+
+<hr />
+
+<h2 id="高阶函数">高阶函数</h2>
+
+<ul>
+  <li>函数当参数，把传入的函数做一个封装，然后返回这个封装函数，达到更高程度的抽象。</li>
+</ul>
+
+<h2 id="尾调用优化">尾调用优化</h2>
+
+<ul>
+  <li>函数内部的最后一个动作式函数的调用。该调用的返回值，直接返回给函数。</li>
+  <li>函数调用自身，称为递归。如果尾调用自身，就称为尾递归。</li>
+  <li>递归需要保存大量的调用记录，很容易发生栈溢出错误，如果使用尾递归优化，将递归变为循环，那么只需要保存一个调用记录，这样就不会发生栈溢出错误了</li>
+</ul>
+
+<h2 id="闭包">闭包</h2>
+
+<ul>
+  <li>虽然外部a执行完毕，栈上的帧被释放，但是堆上的作用域并不能被释放，因此x依旧可以被外部函数访问，这样就形成的闭包</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">function</span> <span class="nx">a</span><span class="p">(</span><span class="nx">x</span><span class="p">){</span>
+	<span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">y</span><span class="p">){</span>
+		<span class="k">return</span> <span class="nx">x</span><span class="o">+</span><span class="nx">y</span><span class="p">;</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">a1</span><span class="o">=</span><span class="nx">a</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="nx">a1</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="c1">//4</span>
+</code></pre></div></div>
+
+<h2 id="函子">函子</h2>
+
+<ul>
+  <li>函数不仅可以用于同一个范畴中值得转换，还可以用于将一个范畴转换成另一个范畴。这就涉及到了函子(Functor)</li>
+  <li>函子是函数式编程里面最重要的数据类型，也是基本的运算单位和功能单位。</li>
+  <li>函子是一种范畴，也就是说，是一个容器，它包含了值和变形关系。比较特殊的是，它的变形关系可以一次作用于每一个值，将当前容器变形成另一个容器。</li>
+</ul>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Functor</span> <span class="p">{</span>
+    <span class="kd">constructor</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">val</span> <span class="o">=</span> <span class="nx">val</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">map</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">Functor</span><span class="p">.</span><span class="k">of</span><span class="p">(</span><span class="nx">f</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">val</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">Functor</span><span class="p">.</span><span class="k">of</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">new</span> <span class="k">this</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<h2 id="maybe函子">Maybe函子</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Maybe</span> <span class="kd">extends</span> <span class="nx">Functor</span> <span class="p">{</span>
+    <span class="kd">constructor</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">val</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">isnothing</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">!!!</span><span class="k">this</span><span class="p">.</span><span class="nx">val</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">map</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">isnothing</span><span class="p">())</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">Maybe</span><span class="p">.</span><span class="k">of</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">Maybe</span><span class="p">.</span><span class="k">of</span><span class="p">(</span><span class="nx">f</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">val</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="either函子-右值是正常情况下使用的值">Either函子 右值是正常情况下使用的值</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Either</span> <span class="kd">extends</span> <span class="nx">Functor</span> <span class="p">{</span>
+    <span class="kd">constructor</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">val</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">isnothing</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="o">!!!</span><span class="k">this</span><span class="p">.</span><span class="nx">val</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">map</span><span class="p">(</span><span class="nx">left</span><span class="p">,</span> <span class="nx">right</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">isnothing</span><span class="p">())</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">Either</span><span class="p">.</span><span class="k">of</span><span class="p">(</span><span class="nx">left</span><span class="p">(</span><span class="kc">null</span><span class="p">));</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">Either</span><span class="p">.</span><span class="k">of</span><span class="p">(</span><span class="nx">right</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">val</span><span class="p">));</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="ap函子">AP函子</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Ap</span> <span class="kd">extends</span> <span class="nx">Functor</span> <span class="p">{</span>
+    <span class="kd">constructor</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">val</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">ap</span><span class="p">(</span><span class="nx">F</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">Ap</span><span class="p">.</span><span class="k">of</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">val</span><span class="p">(</span><span class="nx">F</span><span class="p">.</span><span class="nx">val</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="monad函子">Monad函子</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">Monad</span> <span class="kd">extends</span> <span class="nx">Functor</span> <span class="p">{</span>
+    <span class="kd">constructor</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">val</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">join</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">val</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">map</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">Monad</span><span class="p">.</span><span class="k">of</span><span class="p">(</span><span class="nx">f</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">val</span><span class="p">)).</span><span class="nx">join</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="io函子">IO函子</h2>
+
+<div class="language-javascript highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nx">IO</span> <span class="kd">extends</span> <span class="nx">Functor</span> <span class="p">{</span>
+    <span class="kd">constructor</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">();</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">val</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">flatMap</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">val</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">map</span><span class="p">(</span><span class="nx">f</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">IO</span><span class="p">.</span><span class="k">of</span><span class="p">(</span><span class="nx">f</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">val</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">IO</span><span class="p">.</span><span class="k">of</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">readOne</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">IO</span><span class="p">.</span><span class="k">of</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nb">window</span><span class="p">.</span><span class="nx">aaa</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+    <span class="p">})</span>
+<span class="p">}</span>
+<span class="nx">readOne</span><span class="p">().</span><span class="nx">flatMap</span><span class="p">()()</span>
+</code></pre></div></div>
+
+<h2 id="常用的函数式编程的库">常用的函数式编程的库</h2>
+<ul>
+  <li>RxJS</li>
+  <li>CycleJS</li>
+  <li>LoadshJS</li>
+  <li>UnderscoreJS</li>
+  <li>RamdaJS</li>
+</ul>
+
+<h2 id="小结">小结</h2>
+
+<ul>
+  <li>1、面向过程编程：想到哪写到哪</li>
+  <li>2、面向对象编程：共有的属性和方法封装到一个类里 （封装 继承 多态）</li>
+  <li>3、面向切面编程：统计一个函数的执行时间</li>
+  <li>4、函数式编程：   提纯无关业务的村函数，函数套函数产生神奇的效果</li>
+  <li>5、函数式编程不是用函数来编程，函数套函数让函数更强大</li>
+  <li>6、javascript函数称为一等公民</li>
+  <li>7、对于函数式编程来讲，同样的输入一定会有同样的输出，永远不依赖外部的状态</li>
+  <li>8、纯函数可以记忆（同样的输入一定会有同样的输出），不跟外界有任何关系，抽象代码方便单元测试</li>
+  <li>9、函数式编程新建一个独立的js，通过代码的提纯，新建共有的common.js -&gt;libs 工具库</li>
+  <li>10、函数柯里化：函数接受一堆参数，返回一个新函数，继续接受参数，能够处理业务逻辑</li>
+  <li>11、函数柯里化：他可以记住参数，相当于是对参数的一种缓存</li>
+  <li>12、函数组合是为了解决柯里化函数所最后生成的洋葱式的代码</li>
+  <li>13、组合函数相当于把一页页的洋葱贴起来</li>
+  <li>14、一目了然和系统提供的api保持一致，还有不要生成转瞬即逝的代码</li>
+  <li>15、声明式的代码越来越受欢迎，只要提供一条条的指令，程序接知道怎么做而不是一步一步的告诉</li>
+  <li>16、惰性函数就是比较懒的函数，下一次就不想再求值了</li>
+  <li>17、高阶函数：函数传给函数，让函数具有更复杂的能力和功能</li>
+  <li>18、尾递归的性能要高于传统纯函数递归的性能</li>
+  <li>19、函数式编程其实就是函数的种种核心技巧的拼接，但是函数是变成会充盈着大量的闭包，闭包是js中常见的核心知识</li>
+  <li>20、常用的函数式编程的库：RxJS，CycleJS，LoadshJS，UnderscoreJS，RamdaJS</li>
+  <li>21、抽象业务逻辑，系统里有很多可以复用，组合起来有更强大的功能的时候，抽库，增加代码健壮性，方便单元测试。</li>
+  <li>22、函数式编程的唯一影响因素就是输入和输出</li>
+  <li>23、解决多线程死锁问题，每一个函数式编程里面，根本不设计到外部的那个被几个线程争执的变量。</li>
+  <li>24、范畴代表一个容器，容器内部有两种因素组成，一个value，一个变形关系。</li>
+  <li>25、变形关系也是函数，这个变形关系只能作用于单独的该容器下的一个元素，但是范畴和范畴之间可以相互转化，用到的也是变形函数，但是这个变形函数非常特殊，
+因为它能作用于当前容器的每一个元素，他有一个特殊的名字——函子，这些函子本身都是数学方法，后来被依次利用到函数式编程中</li>
+  <li>26、本来一个函数不可以调用自身的函数，函子可以，容器只留出一个接口map，可以运行容器内的函数</li>
+  <li>27、一个容器一旦接受了变形关系，接受一个函子，接受一个函数，就可以变成一个新的容器</li>
+  <li>28、加一层容错机制  Maybe，处理不纯的函数 IO</li>
+</ul>
+
+
+  </div><a class="u-url" href="/2018/02/03/functional.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">yhlben</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">yhlben</li><li><a class="u-email" href="mailto:yinhengliben@gmail.com">yinhengliben@gmail.com</a></li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/yhlben"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">yhlben</span></a></li><li><a href="https://www.twitter.com/yhlben"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#twitter"></use></svg> <span class="username">yhlben</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>个人学习总结</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
