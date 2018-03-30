@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-03-30T15:02:39+08:00</updated><id>http://localhost:4000/</id><title type="html">yhlben</title><subtitle>个人学习总结</subtitle><entry><title type="html">Welcome to Jekyll!</title><link href="http://localhost:4000/jekyll/update/2018/03/30/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2018-03-30T13:59:08+08:00</published><updated>2018-03-30T13:59:08+08:00</updated><id>http://localhost:4000/jekyll/update/2018/03/30/welcome-to-jekyll</id><content type="html" xml:base="http://localhost:4000/jekyll/update/2018/03/30/welcome-to-jekyll.html">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.3">Jekyll</generator><link href="/feed.xml" rel="self" type="application/atom+xml" /><link href="/" rel="alternate" type="text/html" /><updated>2018-03-30T15:40:11+08:00</updated><id>/</id><title type="html">Your awesome title</title><subtitle>Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</subtitle><entry><title type="html">Welcome to Jekyll!</title><link href="/jekyll/update/2018/03/30/welcome-to-jekyll.html" rel="alternate" type="text/html" title="Welcome to Jekyll!" /><published>2018-03-30T15:32:25+08:00</published><updated>2018-03-30T15:32:25+08:00</updated><id>/jekyll/update/2018/03/30/welcome-to-jekyll</id><content type="html" xml:base="/jekyll/update/2018/03/30/welcome-to-jekyll.html">&lt;p&gt;You’ll find this post in your &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run &lt;code class=&quot;highlighter-rouge&quot;&gt;jekyll serve&lt;/code&gt;, which launches a web server and auto-regenerates your site when a file is updated.&lt;/p&gt;
 
 &lt;p&gt;To add new posts, simply add a file in the &lt;code class=&quot;highlighter-rouge&quot;&gt;_posts&lt;/code&gt; directory that follows the convention &lt;code class=&quot;highlighter-rouge&quot;&gt;YYYY-MM-DD-name-of-post.ext&lt;/code&gt; and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.&lt;/p&gt;
 
@@ -10,7 +10,7 @@
 &lt;span class=&quot;n&quot;&gt;print_hi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Tom'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;c1&quot;&gt;#=&amp;gt; prints 'Hi, Tom' to STDOUT.&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
 
-&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary></entry><entry><title type="html">rxjs</title><link href="http://localhost:4000/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/2018/03/15/rxjs.html" rel="alternate" type="text/html" title="rxjs" /><published>2018-03-15T00:55:23+08:00</published><updated>2018-03-15T00:55:23+08:00</updated><id>http://localhost:4000/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/2018/03/15/rxjs</id><content type="html" xml:base="http://localhost:4000/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/2018/03/15/rxjs.html">&lt;h1 id=&quot;rx基础&quot;&gt;Rx基础&lt;/h1&gt;
+&lt;p&gt;Check out the &lt;a href=&quot;https://jekyllrb.com/docs/home&quot;&gt;Jekyll docs&lt;/a&gt; for more info on how to get the most out of Jekyll. File all bugs/feature requests at &lt;a href=&quot;https://github.com/jekyll/jekyll&quot;&gt;Jekyll’s GitHub repo&lt;/a&gt;. If you have questions, you can ask them on &lt;a href=&quot;https://talk.jekyllrb.com/&quot;&gt;Jekyll Talk&lt;/a&gt;.&lt;/p&gt;</content><author><name></name></author><summary type="html">You’ll find this post in your _posts directory. Go ahead and edit it and re-build the site to see your changes. You can rebuild the site in many different ways, but the most common way is to run jekyll serve, which launches a web server and auto-regenerates your site when a file is updated.</summary></entry><entry><title type="html">rxjs</title><link href="/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/2018/03/15/rxjs.html" rel="alternate" type="text/html" title="rxjs" /><published>2018-03-15T00:55:23+08:00</published><updated>2018-03-15T00:55:23+08:00</updated><id>/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/2018/03/15/rxjs</id><content type="html" xml:base="/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/2018/03/15/rxjs.html">&lt;h1 id=&quot;rx基础&quot;&gt;Rx基础&lt;/h1&gt;
 
 &lt;p&gt;基本概念：&lt;/p&gt;
 
@@ -132,7 +132,7 @@ AsyncSubject： 只有当 Observable 执行完成时(执行 complete())，它才
 &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">Rx基础</summary></entry><entry><title type="html">observer</title><link href="http://localhost:4000/2018/02/21/observer.html" rel="alternate" type="text/html" title="observer" /><published>2018-02-21T23:16:31+08:00</published><updated>2018-02-21T23:16:31+08:00</updated><id>http://localhost:4000/2018/02/21/observer</id><content type="html" xml:base="http://localhost:4000/2018/02/21/observer.html">&lt;p&gt;直接上代码:&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">Rx基础</summary></entry><entry><title type="html">observer</title><link href="/2018/02/21/observer.html" rel="alternate" type="text/html" title="observer" /><published>2018-02-21T23:16:31+08:00</published><updated>2018-02-21T23:16:31+08:00</updated><id>/2018/02/21/observer</id><content type="html" xml:base="/2018/02/21/observer.html">&lt;p&gt;直接上代码:&lt;/p&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    var Observer = (function() {
         var _message = {};
@@ -168,7 +168,7 @@ AsyncSubject： 只有当 Observable 执行完成时(执行 complete())，它才
 
         }
     })()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">直接上代码:</summary></entry><entry><title type="html">node</title><link href="http://localhost:4000/2018/02/21/node.html" rel="alternate" type="text/html" title="node" /><published>2018-02-21T23:16:31+08:00</published><updated>2018-02-21T23:16:31+08:00</updated><id>http://localhost:4000/2018/02/21/node</id><content type="html" xml:base="http://localhost:4000/2018/02/21/node.html">&lt;ul&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><summary type="html">直接上代码:</summary></entry><entry><title type="html">node</title><link href="/2018/02/21/node.html" rel="alternate" type="text/html" title="node" /><published>2018-02-21T23:16:31+08:00</published><updated>2018-02-21T23:16:31+08:00</updated><id>/2018/02/21/node</id><content type="html" xml:base="/2018/02/21/node.html">&lt;ul&gt;
   &lt;li&gt;node适用于I/O密集型，不适合于CPU密集型&lt;/li&gt;
   &lt;li&gt;
     &lt;p&gt;帮助实践轮询的libuv库V8不是一个线程&lt;/p&gt;
@@ -191,7 +191,7 @@ AsyncSubject： 只有当 Observable 执行完成时(执行 complete())，它才
     &lt;p&gt;老生代采用 标记清除（mark-swap），移动清除（mark-compact）&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;node测试工具 node-inspector&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><summary type="html">node适用于I/O密集型，不适合于CPU密集型 帮助实践轮询的libuv库V8不是一个线程</summary></entry><entry><title type="html">http</title><link href="http://localhost:4000/2018/02/14/http.html" rel="alternate" type="text/html" title="http" /><published>2018-02-14T20:04:14+08:00</published><updated>2018-02-14T20:04:14+08:00</updated><id>http://localhost:4000/2018/02/14/http</id><content type="html" xml:base="http://localhost:4000/2018/02/14/http.html">&lt;h2 id=&quot;输入一个网址后发生了什么&quot;&gt;输入一个网址后发生了什么？&lt;/h2&gt;
+&lt;/ul&gt;</content><author><name></name></author><summary type="html">node适用于I/O密集型，不适合于CPU密集型 帮助实践轮询的libuv库V8不是一个线程</summary></entry><entry><title type="html">http</title><link href="/2018/02/14/http.html" rel="alternate" type="text/html" title="http" /><published>2018-02-14T20:04:14+08:00</published><updated>2018-02-14T20:04:14+08:00</updated><id>/2018/02/14/http</id><content type="html" xml:base="/2018/02/14/http.html">&lt;h2 id=&quot;输入一个网址后发生了什么&quot;&gt;输入一个网址后发生了什么？&lt;/h2&gt;
 
 &lt;ul&gt;
   &lt;li&gt;1、输入网址并回车&lt;/li&gt;
@@ -318,7 +318,7 @@ AsyncSubject： 只有当 Observable 执行完成时(执行 complete())，它才
   &lt;li&gt;减速上传&lt;/li&gt;
   &lt;li&gt;安全&lt;/li&gt;
   &lt;li&gt;外网发布&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><category term="asd" /><summary type="html">输入一个网址后发生了什么？</summary></entry><entry><title type="html">函数式编程</title><link href="http://localhost:4000/2018/02/03/functional.html" rel="alternate" type="text/html" title="函数式编程" /><published>2018-02-03T05:11:45+08:00</published><updated>2018-02-03T05:11:45+08:00</updated><id>http://localhost:4000/2018/02/03/functional</id><content type="html" xml:base="http://localhost:4000/2018/02/03/functional.html">&lt;h1 id=&quot;函数式编程&quot;&gt;函数式编程&lt;/h1&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="asd" /><summary type="html">输入一个网址后发生了什么？</summary></entry><entry><title type="html">函数式编程</title><link href="/2018/02/03/functional.html" rel="alternate" type="text/html" title="函数式编程" /><published>2018-02-03T05:11:45+08:00</published><updated>2018-02-03T05:11:45+08:00</updated><id>/2018/02/03/functional</id><content type="html" xml:base="/2018/02/03/functional.html">&lt;h1 id=&quot;函数式编程&quot;&gt;函数式编程&lt;/h1&gt;
 
 &lt;h2 id=&quot;函数式编程起源&quot;&gt;函数式编程起源&lt;/h2&gt;
 
@@ -571,7 +571,7 @@ checkage20(100)
   &lt;li&gt;26、本来一个函数不可以调用自身的函数，函子可以，容器只留出一个接口map，可以运行容器内的函数&lt;/li&gt;
   &lt;li&gt;27、一个容器一旦接受了变形关系，接受一个函子，接受一个函数，就可以变成一个新的容器&lt;/li&gt;
   &lt;li&gt;28、加一层容错机制  Maybe，处理不纯的函数 IO&lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><summary type="html">函数式编程</summary></entry><entry><title type="html">linux</title><link href="http://localhost:4000/2018/01/11/linux.html" rel="alternate" type="text/html" title="linux" /><published>2018-01-11T22:12:48+08:00</published><updated>2018-01-11T22:12:48+08:00</updated><id>http://localhost:4000/2018/01/11/linux</id><content type="html" xml:base="http://localhost:4000/2018/01/11/linux.html">&lt;p&gt;#linux快捷键&lt;/p&gt;
+&lt;/ul&gt;</content><author><name></name></author><summary type="html">函数式编程</summary></entry><entry><title type="html">linux</title><link href="/2018/01/11/linux.html" rel="alternate" type="text/html" title="linux" /><published>2018-01-11T22:12:48+08:00</published><updated>2018-01-11T22:12:48+08:00</updated><id>/2018/01/11/linux</id><content type="html" xml:base="/2018/01/11/linux.html">&lt;p&gt;#linux快捷键&lt;/p&gt;
 
 &lt;h2 id=&quot;终端快捷键&quot;&gt;终端快捷键&lt;/h2&gt;
 
@@ -605,7 +605,7 @@ checkage20(100)
     &lt;div class=&quot;language-shell highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;ls&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; ^a 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name></name></author><category term="linux" /><summary type="html">#linux快捷键</summary></entry><entry><title type="html">前端性能优化</title><link href="http://localhost:4000/2017/12/15/performance.html" rel="alternate" type="text/html" title="前端性能优化" /><published>2017-12-15T06:16:15+08:00</published><updated>2017-12-15T06:16:15+08:00</updated><id>http://localhost:4000/2017/12/15/performance</id><content type="html" xml:base="http://localhost:4000/2017/12/15/performance.html">&lt;h1 id=&quot;前端性能优化&quot;&gt;前端性能优化&lt;/h1&gt;
+&lt;/ul&gt;</content><author><name></name></author><category term="linux" /><summary type="html">#linux快捷键</summary></entry><entry><title type="html">前端性能优化</title><link href="/2017/12/15/performance.html" rel="alternate" type="text/html" title="前端性能优化" /><published>2017-12-15T06:16:15+08:00</published><updated>2017-12-15T06:16:15+08:00</updated><id>/2017/12/15/performance</id><content type="html" xml:base="/2017/12/15/performance.html">&lt;h1 id=&quot;前端性能优化&quot;&gt;前端性能优化&lt;/h1&gt;
 
 &lt;h2 id=&quot;网络层面优化&quot;&gt;网络层面优化&lt;/h2&gt;
 
@@ -658,11 +658,11 @@ checkage20(100)
 
 &lt;h2 id=&quot;页面渲染流程图&quot;&gt;页面渲染流程图&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/huizong.png&quot; alt=&quot;页面渲染流程图&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/huizong.png&quot; alt=&quot;页面渲染流程图&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;##浏览器缓存图&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://localhost:4000/images/browser-caching.jpg&quot; alt=&quot;浏览器缓存图&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><category term="性能优化" /><summary type="html">前端性能优化</summary></entry><entry><title type="html">nginx负载均衡简单配置</title><link href="http://localhost:4000/2017/12/14/nginx-conf.html" rel="alternate" type="text/html" title="nginx负载均衡简单配置" /><published>2017-12-14T06:32:22+08:00</published><updated>2017-12-14T06:32:22+08:00</updated><id>http://localhost:4000/2017/12/14/nginx-conf</id><content type="html" xml:base="http://localhost:4000/2017/12/14/nginx-conf.html">&lt;h2 id=&quot;最简单的nginx负载均衡&quot;&gt;最简单的nginx负载均衡&lt;/h2&gt;
+&lt;p&gt;&lt;img src=&quot;/images/browser-caching.jpg&quot; alt=&quot;浏览器缓存图&quot; /&gt;&lt;/p&gt;</content><author><name></name></author><category term="性能优化" /><summary type="html">前端性能优化</summary></entry><entry><title type="html">nginx负载均衡简单配置</title><link href="/2017/12/14/nginx-conf.html" rel="alternate" type="text/html" title="nginx负载均衡简单配置" /><published>2017-12-14T06:32:22+08:00</published><updated>2017-12-14T06:32:22+08:00</updated><id>/2017/12/14/nginx-conf</id><content type="html" xml:base="/2017/12/14/nginx-conf.html">&lt;h2 id=&quot;最简单的nginx负载均衡&quot;&gt;最简单的nginx负载均衡&lt;/h2&gt;
 
 &lt;div class=&quot;language-nginx highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
 &lt;span class=&quot;k&quot;&gt;worker_processes&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
@@ -682,7 +682,7 @@ checkage20(100)
 	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><category term="nginx" /><summary type="html">最简单的nginx负载均衡</summary></entry><entry><title type="html">常用数据结构</title><link href="http://localhost:4000/2017/12/11/structure.html" rel="alternate" type="text/html" title="常用数据结构" /><published>2017-12-11T00:56:08+08:00</published><updated>2017-12-11T00:56:08+08:00</updated><id>http://localhost:4000/2017/12/11/structure</id><content type="html" xml:base="http://localhost:4000/2017/12/11/structure.html">&lt;h1 id=&quot;数据结构分类&quot;&gt;数据结构分类&lt;/h1&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name></name></author><category term="nginx" /><summary type="html">最简单的nginx负载均衡</summary></entry><entry><title type="html">常用数据结构</title><link href="/2017/12/11/structure.html" rel="alternate" type="text/html" title="常用数据结构" /><published>2017-12-11T00:56:08+08:00</published><updated>2017-12-11T00:56:08+08:00</updated><id>/2017/12/11/structure</id><content type="html" xml:base="/2017/12/11/structure.html">&lt;h1 id=&quot;数据结构分类&quot;&gt;数据结构分类&lt;/h1&gt;
 
 &lt;h2 id=&quot;按逻辑结构分类&quot;&gt;按逻辑结构分类&lt;/h2&gt;
 
