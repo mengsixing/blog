@@ -1,3 +1,11 @@
+PATH
+  remote: .
+  specs:
+    type-on-strap (0.4.2)
+      jekyll (~> 3.3)
+      jekyll-paginate (~> 1.1)
+      jekyll-seo-tag (~> 2.3)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -27,8 +35,7 @@ GEM
       pathutil (~> 0.9)
       rouge (>= 1.7, < 4)
       safe_yaml (~> 1.0)
-    jekyll-feed (0.9.3)
-      jekyll (~> 3.3)
+    jekyll-paginate (1.1.0)
     jekyll-sass-converter (1.5.2)
       sass (~> 3.4)
     jekyll-seo-tag (2.4.0)
@@ -42,13 +49,10 @@ GEM
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
     mercenary (0.3.6)
-    minima (2.4.1)
-      jekyll (~> 3.5)
-      jekyll-feed (~> 0.9)
-      jekyll-seo-tag (~> 2.1)
     pathutil (0.16.1)
       forwardable-extended (~> 2.6)
     public_suffix (3.0.2)
+    rake (10.5.0)
     rb-fsevent (0.10.3)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
@@ -65,10 +69,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  jekyll (~> 3.7.3)
-  jekyll-feed (~> 0.6)
-  minima (~> 2.0)
-  tzinfo-data
+  bundler (~> 1.12)
+  rake (~> 10.0)
+  type-on-strap!
 
 BUNDLED WITH
    1.16.1

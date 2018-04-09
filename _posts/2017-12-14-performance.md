@@ -49,11 +49,11 @@ tags: 性能优化
 
 ## 页面渲染流程图
 
-![页面渲染流程图]({{ "/images/huizong.png" | absolute_url }})
+![页面渲染流程图]({{ site.baseurl }}/assets/img/blog/huizong.png)
 
 ##浏览器缓存图
 
-![浏览器缓存图]({{ "/images/browser-caching.jpg" | absolute_url }})
+![浏览器缓存图]({{ site.baseurl }}/assets/img/blog/browser-caching.jpg)
 
 
 
