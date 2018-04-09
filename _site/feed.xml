@@ -5,7 +5,271 @@
         <atom:link href="/blog/feed.xml" rel="self" type="application/rss+xml"/>
         <link>http://localhost:4000/blog/</link>
         <description></description>
-        <pubDate>Mon, 09 Apr 2018 15:20:04 +0800</pubDate>
+        <pubDate>Mon, 09 Apr 2018 15:45:56 +0800</pubDate>
+        
+        <item>
+            <title>设计模式总结</title>
+            <link>/blog/redux/2018/03/30/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.html</link>
+            <guid isPermaLink="true">/blog/redux/2018/03/30/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F.html</guid>
+            <description>&lt;h2 id=&quot;简单工厂模式&quot;&gt;简单工厂模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;由一个对象决定创建某一种产品对象类的实例，主要用来创建同一类对象。（只关心创建结果）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;建造者模式&quot;&gt;建造者模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;将一个复杂对象的构建层与其表示层相互分离，同样的构建过程可采用不同的表示。（参与创建的具体过程）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;原型模式&quot;&gt;原型模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;用原型实例指向创建对象的类，使用于创建新的对象的类共享原型对象的属性以及方法。（类似原型继承prototype）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;单例模式&quot;&gt;单例模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;只允许实例化一次的对象类，有时我们也用一个对象来规划一个命名空间，仅仅有条的管理对象上的属性和方法。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;外观模式&quot;&gt;外观模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;为一组复杂的子系统接口提供一个更高级的统一接口，通过这个接口使得对子系统接口的访问更加容易。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;（在js中有时候会用于对底层结构兼容性做统一的封装来简化用户的使用，例如：兼容 addEventListener attachEvent）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;适配器模式&quot;&gt;适配器模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;将一个类的接口转化为另外一个接口，以满足用户需求，使类之间接口不兼容问题通过适配器得以解决。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;（适配对象，适配代码库，适配数据等）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;代理模式&quot;&gt;代理模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;由于一个对象不能直接引用另一个对象，所以需要通过代理对象在这两个对象之间起到中介的作用。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;（例如：ajax跨域，通过jsonp做代理，即可解决）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;装饰器模式&quot;&gt;装饰器模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;在不改变原对象的基础上，通过对其进行包装扩展（添加属性或方法）使原有对象可以满足用户的更复杂需求。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;（例如：增加属性，扩展原方法等）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;桥接模式&quot;&gt;桥接模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;桥接模式（Bridge）将抽象部分与它的实现部分分离，使它们都可以独立地变化。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;（一个实现未必不变地绑定在一个接口上，抽象类（函数）的实现可以在运行时刻进行配置，一个对象甚至可以在运行时刻改变它的实现，同将抽象和实现也进行了充分的解耦，也有利于分层，从而产生更好的结构化系统。）主要用于解耦&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;组合模式&quot;&gt;组合模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;又称部分-整体模式，想对象组合成树形结构以表示“部分-整体”的层次结构，组合模式使得用户对单个对象和组合对象的使用具有一致性。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;（组合模式通过继承同一父类，使其具有统一的方法，便于统一管理和使用，结构清晰）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;享元模式&quot;&gt;享元模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;运用共享技术有效的支持大量的细粒度对象，避免对象间拥有相同内容造成多余开销。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;（例如：性能优化，分页显示，只需操作一页的DOM）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;模板方法模式&quot;&gt;模板方法模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;父类中定义一组操作算法骨架，而将一些实现步骤延迟到了子类中，使得子类可以不改变父类的算法结构的同事可更新定义算法中某些实现步骤&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;（类似后端的Interface）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;观察者模式&quot;&gt;观察者模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;又被称为发布——订阅者模式，定义了一种依赖关系，解决了主题对象与观察者之间功能的耦合。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;(解决类和对象之间的耦合，解耦2个相互因爱的对象，使其依赖于观察者的消息机制)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;状态模式&quot;&gt;状态模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;当一个对象的内部状态发生改变时，会导致其行为的改变，这看起来像是改变了对象。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;（解决程序中臃肿的分支判断语句问题，将每一个分支转化为一种状态独立出来）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;策略模式&quot;&gt;策略模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;将定义的一组算法封装起来，使其相互之间可以替换，封装的算法具有一定的独立性，不会随客户端变化而变化。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;（每组算法处理的业务是相同的。）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;职责链模式&quot;&gt;职责链模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;解决请求的发送者与请求的接受者之间的耦合，通过职责链的多个对象分解请求流程，实现请求在多个对象之间的传递，直到最后一个对象完成请求的处理。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;（需求拆解，每个模块功能单一，依次执行模块）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;命令模式&quot;&gt;命令模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;将请求与实现解耦并封装成独立的对象，从而使不同的请求对客户端的实现参数化。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;（解耦，命令发起者和执行者。）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;访问者模式&quot;&gt;访问者模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;针对于对象结构中的元素，定义在不改变该对象的前提下，访问结构中元素的新方法。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;（解决数据与数据操作方法之间的耦合，将数据的操作方法独立于数据，使其可以自由化演变）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;中介者模式&quot;&gt;中介者模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;通过中介者对象封装一系列对象之间的交互，是对象之间不再相互引用，降低他们之间的耦合，有时中介者对象也可以改变对象之间的交互。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;（类似于观察者模式，但是单向的，由中介者统一管理）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;备忘录模式&quot;&gt;备忘录模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;在不破坏对象的封装性的前提下，在对象之外捕获并保存该对象内部的状态，以便日后对象使用或者对象恢复到之前的某个状态。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;（分页加载，对已加载的页进行缓存）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;迭代器模式&quot;&gt;迭代器模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;在不暴露对象内部结构的同事，可以顺序地访问聚合对象内部的元素。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;（隐形地将循环语句移到了迭代器中）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;解释器模式&quot;&gt;解释器模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;对于一种语言，给出其文法表示形式，并定义一种解释器，通过使用这种解释器，来解释语言中定义的句子。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;table&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;（解析dom树html&amp;gt;head&lt;/td&gt;
+        &lt;td&gt;body&amp;gt;button）&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;数据访问对象模式&quot;&gt;数据访问对象模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;抽象和封装对数据源的访问和存储，DAO通过对象数据源链接的管理，方便对数据的访问和存储。&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;（封装操作数据库层DAO）&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&quot;mvc模式&quot;&gt;MVC模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;view-&amp;gt;controller-&amp;gt;model-&amp;gt;view&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;(在MVC，当你有变化的时候你需要同时维护三个对象和三个交互，这显然让事情复杂化了)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;/blog/assets/img/blog/mvc.png&quot; alt=&quot;MVC模式&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;mvp模式&quot;&gt;MVP模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;view-&amp;gt;presenter-&amp;gt;model-&amp;gt;presenter-&amp;gt;view&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;(MVP与MVC有着一个重大的区别：在MVP中View并不直接使用Model，它们之间的通信是通过Presenter (MVC中的Controller)来进行的，所有的交互都发生在Presenter内部，而在MVC中View会直接从Model中读取数据而不是通过 Controller。)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;/blog/assets/img/blog/mvp.png&quot; alt=&quot;MVP模式&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;mvvm模式&quot;&gt;MVVM模式&lt;/h2&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;view&amp;lt;-&amp;gt;viewModel-&amp;gt;model-&amp;gt;viewModel&amp;lt;-&amp;gt;view&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;(MVVM 模式将 Presenter 改名为 ViewModel，基本上与 MVP 模式完全一致。唯一的区别是，它采用双向绑定（data-binding）：View的变动，自动反映在 ViewModel，反之亦然。)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;&lt;img src=&quot;/blog/assets/img/blog/mvvm.png&quot; alt=&quot;MVVM模式&quot; /&gt;&lt;/p&gt;
+</description>
+            <pubDate>Fri, 30 Mar 2018 15:32:25 +0800</pubDate>
+        </item>
         
         <item>
             <title>redux使用总结</title>
@@ -1481,16 +1745,6 @@ checkage20(100)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 </description>
             <pubDate>Sun, 10 Dec 2017 17:42:48 +0800</pubDate>
-        </item>
-        
-        <item>
-            <title>Feature images</title>
-            <link>/blog/2014/11/29/feature-images.html</link>
-            <guid isPermaLink="true">/blog/2014/11/29/feature-images.html</guid>
-            <description>&lt;p&gt;This is an example of a post which includes a feature image specified in the front matter of the post. The feature image spans the full-width of the page, and is shown with the title on permalink pages.&lt;/p&gt;
-
-</description>
-            <pubDate>Sat, 29 Nov 2014 00:00:00 +0800</pubDate>
         </item>
         
     </channel>
