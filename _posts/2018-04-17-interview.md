@@ -1,7 +1,8 @@
 ---
 layout: post
 title: Html相关面试题
-tags: []
+date:   2018-05-12 16:16:01 -0600
+tags: intrtview
 ---
 ### 1、DOCTYPE有什么用？
 
