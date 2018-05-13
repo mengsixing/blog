@@ -5,7 +5,7 @@
         <atom:link href="/blog/feed.xml" rel="self" type="application/rss+xml"/>
         <link>http://localhost:4000/blog/</link>
         <description></description>
-        <pubDate>Sun, 13 May 2018 11:41:20 +0800</pubDate>
+        <pubDate>Sun, 13 May 2018 17:49:47 +0800</pubDate>
         
         <item>
             <title>图解http总结</title>
@@ -256,21 +256,247 @@
     &lt;/tr&gt;
     &lt;tr&gt;
       &lt;td&gt;If-Match&lt;/td&gt;
-      &lt;td&gt; &lt;/td&gt;
+      &lt;td&gt;如果Etag一致时服务器才接受请求&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;If-Modified-Since&lt;/td&gt;
+      &lt;td&gt;如果资源更新了，则希望能处理请求&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;If-None-Match&lt;/td&gt;
+      &lt;td&gt;如果Etag不一致时服务器才接受请求&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;If-Range&lt;/td&gt;
+      &lt;td&gt;范围请求&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;If-Unmodified-Since&lt;/td&gt;
+      &lt;td&gt;如果资源未更新，则希望处理请求&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Max-Forwards&lt;/td&gt;
+      &lt;td&gt;没经过一层代理，字段值-1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Proxy-Authorization&lt;/td&gt;
+      &lt;td&gt;告知服务器认证信息&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Range&lt;/td&gt;
+      &lt;td&gt;范围请求&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Referer&lt;/td&gt;
+      &lt;td&gt;告知服务器请求的原始资源URI&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;TE&lt;/td&gt;
+      &lt;td&gt;告知服务器客户端能够处理响应的传输编码，以及优先级&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;User-Agent&lt;/td&gt;
+      &lt;td&gt;告知服务器客户端信息&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;响应首部字段&quot;&gt;响应首部字段&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Accept-Ranges&lt;/td&gt;
+      &lt;td&gt;告知客户端能否处理范围请求&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Age&lt;/td&gt;
+      &lt;td&gt;告知客户端，源服务器在多久之前创建了响应&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;ETag&lt;/td&gt;
+      &lt;td&gt;告知客户端实体标识&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Location&lt;/td&gt;
+      &lt;td&gt;将响应接收方引导至某个与请求URI位置不容的资源&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Proxy-Authenticate&lt;/td&gt;
+      &lt;td&gt;把由代理服务器所要求的认证信息发送给客户端&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Retry-After&lt;/td&gt;
+      &lt;td&gt;告知客户端多久以后再次发送请求&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Server&lt;/td&gt;
+      &lt;td&gt;告知客户端服务器端信息&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Vary&lt;/td&gt;
+      &lt;td&gt;对缓存进行控制&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;WWW-Authenticate&lt;/td&gt;
+      &lt;td&gt;用于http访问认证&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h3 id=&quot;实体首部字段&quot;&gt;实体首部字段&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Allow&lt;/td&gt;
+      &lt;td&gt;通知客户端能够支持的方法Get，Head等&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Content-Encoding&lt;/td&gt;
+      &lt;td&gt;告知客户端，服务器对实体的主体部分采用的内容编码&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Content-Language&lt;/td&gt;
+      &lt;td&gt;告知客户端，服务器对实体的主体部分使用的自然语言&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Content-Length&lt;/td&gt;
+      &lt;td&gt;实体的主体部分的发小&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Content-Location&lt;/td&gt;
+      &lt;td&gt;给出报文主体部分对应的URI&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Content-MD5&lt;/td&gt;
+      &lt;td&gt;检查报文主体在传输过程中是否保持完整&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Content-Range&lt;/td&gt;
+      &lt;td&gt;告知客户端返回的实体属于哪一部分&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Content-Type&lt;/td&gt;
+      &lt;td&gt;实体主体的媒体类型&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Expires&lt;/td&gt;
+      &lt;td&gt;告知客户端资源失效的日期&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Last——modified&lt;/td&gt;
+      &lt;td&gt;资源最终的修改时间&lt;/td&gt;
     &lt;/tr&gt;
   &lt;/tbody&gt;
 &lt;/table&gt;
 
 &lt;h2 id=&quot;确保web安全的https&quot;&gt;确保web安全的https&lt;/h2&gt;
 
+&lt;p&gt;http缺点&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;通信使用铭文，内容可能会被窃听&lt;/li&gt;
+  &lt;li&gt;不验证通信方的身份，因此有可能遭遇伪装&lt;/li&gt;
+  &lt;li&gt;无法证明报文的完整性，所以有可能已遭篡改&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;https&lt;/p&gt;
+
+&lt;p&gt;http+加密+认证+完整性保护 = https&lt;/p&gt;
+
+&lt;p&gt;对称加密，非对称加密
+https慢，通信慢（加密解密耗时，http通信部分变长）&lt;/p&gt;
+
 &lt;h2 id=&quot;确认访问用户身份认证&quot;&gt;确认访问用户身份认证&lt;/h2&gt;
+
+&lt;table&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Basic认证&lt;/td&gt;
+      &lt;td&gt;http请求首部字段Authorization&lt;/td&gt;
+      &lt;td&gt;容易被窃听&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Digest认证&lt;/td&gt;
+      &lt;td&gt;认证时加上质询码，降低窃听危险&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;SSL客户端认证&lt;/td&gt;
+      &lt;td&gt;在客户端安装证书，以确保客户端身份&lt;/td&gt;
+      &lt;td&gt;客户端必须安装证书，需要收费&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;基于表单认证&lt;/td&gt;
+      &lt;td&gt;Session+Cookie&lt;/td&gt;
+      &lt;td&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 
 &lt;h2 id=&quot;基于http的功能追加协议&quot;&gt;基于http的功能追加协议&lt;/h2&gt;
 
+&lt;h3 id=&quot;http瓶颈&quot;&gt;http瓶颈&lt;/h3&gt;
+&lt;p&gt;一条连接上只可发送一个请求&lt;/p&gt;
+
+&lt;p&gt;请求只能从客户端开始。客户端不可以接收除响应意外的指令&lt;/p&gt;
+
+&lt;p&gt;请求/响应首部未经压缩就发送。首部信息越多延迟越大&lt;/p&gt;
+
+&lt;p&gt;发送冗长的首部。每次互相发送相同的首部造成的浪费较多&lt;/p&gt;
+
+&lt;p&gt;可任意选择数据压缩格式。非强制压缩发送&lt;/p&gt;
+
+&lt;h3 id=&quot;解决方案&quot;&gt;解决方案&lt;/h3&gt;
+
+&lt;p&gt;ajax（局部更新）&lt;/p&gt;
+
+&lt;p&gt;comet（长连接，耗费资源）&lt;/p&gt;
+
+&lt;p&gt;SPDY
+在http层和SSL层之间，增加SPDY会话层，用以实现：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;多路复用（只适用于同一域名下）&lt;/li&gt;
+  &lt;li&gt;赋予请求优先级&lt;/li&gt;
+  &lt;li&gt;压缩http首部&lt;/li&gt;
+  &lt;li&gt;推送功能&lt;/li&gt;
+  &lt;li&gt;服务器提示功能&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;WebSocket
+不使用http协议，避免协议瓶颈。
+推送功能
+减少通信量，首部信息小&lt;/p&gt;
+
+&lt;p&gt;Http2&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;SPDY&lt;/li&gt;
+  &lt;li&gt;Http Speed + Mobility&lt;/li&gt;
+  &lt;li&gt;Network-Friendly Http Upgrade&lt;/li&gt;
+&lt;/ul&gt;
+
 &lt;h2 id=&quot;构建web内容的技术&quot;&gt;构建web内容的技术&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;XML&lt;/li&gt;
+  &lt;li&gt;JSON&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id=&quot;web的攻击技术&quot;&gt;web的攻击技术&lt;/h2&gt;
 
+&lt;ul&gt;
+  &lt;li&gt;XSS&lt;/li&gt;
+  &lt;li&gt;SQL注入攻击&lt;/li&gt;
+  &lt;li&gt;OS命令注入攻击（只要能调用shell函数的地方就存在被攻击的风险）&lt;/li&gt;
+  &lt;li&gt;HTTP首部注入攻击（增加空白行，篡改请求报文实体）&lt;/li&gt;
+  &lt;li&gt;目录遍历攻击（通过推测目录，获取本无权限获取的资源）&lt;/li&gt;
+  &lt;li&gt;远程文件包含漏洞（传递参数获取文件，可传递攻击者的文件）&lt;/li&gt;
+  &lt;li&gt;不正确的错误消息处理&lt;/li&gt;
+  &lt;li&gt;会话劫持（攻击者拿到用户会话id宠儿冒充用户）&lt;/li&gt;
+  &lt;li&gt;跨站点伪造请求CSRF（通过设置陷阱，强制对已认证用户进行非预期的个人信息操作）&lt;/li&gt;
+&lt;/ul&gt;
 </description>
             <pubDate>Sat, 12 May 2018 00:00:00 +0800</pubDate>
         </item>
