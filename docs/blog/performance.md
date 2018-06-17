@@ -42,11 +42,11 @@
 
 ## 页面渲染流程图
 
-![页面渲染流程图]({{ site.baseurl }}/assets/img/blog/huizong.png)
+![页面渲染流程图](/blog/huizong.png)
 
 ##浏览器缓存图
 
-![浏览器缓存图]({{ site.baseurl }}/assets/img/blog/browser-caching.jpg)
+![浏览器缓存图](/blog/browser-caching.jpg)
 
 
 

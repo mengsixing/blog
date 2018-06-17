@@ -1,3 +1,5 @@
+# 设计模式
+
 ## 简单工厂模式
 
 > 由一个对象决定创建某一种产品对象类的实例，主要用来创建同一类对象。（只关心创建结果）
@@ -136,7 +138,7 @@
 
 > (在MVC，当你有变化的时候你需要同时维护三个对象和三个交互，这显然让事情复杂化了)
 
-![MVC模式]({{ site.baseurl }}/assets/img/blog/mvc.png)
+![MVC模式](/blog/mvc.png)
 
 ## MVP模式
 
@@ -144,7 +146,7 @@
 
 > (MVP与MVC有着一个重大的区别：在MVP中View并不直接使用Model，它们之间的通信是通过Presenter (MVC中的Controller)来进行的，所有的交互都发生在Presenter内部，而在MVC中View会直接从Model中读取数据而不是通过 Controller。)
 
-![MVP模式]({{ site.baseurl }}/assets/img/blog/mvp.png)
+![MVP模式](/blog/mvp.png)
 
 ## MVVM模式
 
@@ -152,4 +154,4 @@
 
 > (MVVM 模式将 Presenter 改名为 ViewModel，基本上与 MVP 模式完全一致。唯一的区别是，它采用双向绑定（data-binding）：View的变动，自动反映在 ViewModel，反之亦然。)
 
-![MVVM模式]({{ site.baseurl }}/assets/img/blog/mvvm.png)
+![MVVM模式](/blog/mvvm.png)

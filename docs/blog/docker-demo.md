@@ -1,4 +1,7 @@
-目录
+# docker 微服务小demo
+
+
+## 目录
 
 ```
 .
@@ -30,20 +33,20 @@ EXPOSE 3456
 CMD node test.js
 ```
 
-3、生成容器
+## 生成容器
 
 ``` 
 docker image build . -t mytest1
 ```
 
 
-4、运行容器
+## 运行容器
 
 ``` 
 docker container run -p 8000:3456 mytest1
 ```
 
-5、访问
+## 访问
 
 ```
 localhost:8000
