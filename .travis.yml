@@ -19,7 +19,7 @@ deploy:
   repo: 'yhlben.github.io'
   email: 'yinhengliben@gmail.com'
   name: 'yhlben'
-  github-token: $REPO_TOKEN  
+  github-token: $GITHUB_TOKEN  
   keep-history: true
   on:
     branch: master
