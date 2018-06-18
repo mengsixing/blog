@@ -14,7 +14,7 @@ deploy:
   skip-cleanup: true
   target-branch: 'master'
   local-dir: './docs/.vuepress/dist'
-  repo: 'yhlben/yhlben.github.io.git'
+  repo: 'yhlben.github.io'
   email: 'yinhengliben@gmail.com'
   name: 'yhlben'
   github-token: $REPO_TOKEN  
