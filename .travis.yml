@@ -10,5 +10,12 @@ before_install:
 before_script:
 - git config user.name "yhlben"
 - git config user.email 'yinhengliben@gmail.com'
-script:
-- npm run ci
+script: true
+deploy:
+  provider: script
+  script: deploy.sh
+  skip-cleanup: true
+  github-token: $REPO_TOKEN  
+  keep-history: true
+  on:
+    branch: master
