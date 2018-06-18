@@ -14,12 +14,11 @@ deploy:
     branch: v1.8.47
   provider: pages
   skip-cleanup: true
-  target-branch: 'master'
   local-dir: 'docs/.vuepress/dist'
   repo: 'yhlben.github.io'
   email: 'yinhengliben@gmail.com'
   name: 'yhlben'
-  github-token: $GITHUB_TOKEN  
+  github-token: $REPO_TOKEN  
   keep-history: true
   on:
     branch: master
