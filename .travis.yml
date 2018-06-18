@@ -10,11 +10,15 @@ before_install:
 before_script:
 - git config user.name "yhlben"
 - git config user.email 'yinhengliben@gmail.com'
-script: true
+script: 
+- npm run docs:build
 deploy:
-  provider: script
-  script: ./deploy.sh
+  provider: pages
   skip-cleanup: true
+  local-dir: './docs/.vuepress/dist'
+  repo: 'https://github.com/yhlben/yhlben.github.io.git'
+  email: 'yinhengliben@gmail.com'
+  name: 'yhlben'
   github-token: $REPO_TOKEN  
   keep-history: true
   on:
