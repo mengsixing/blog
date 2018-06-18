@@ -15,7 +15,7 @@ deploy:
   provider: pages
   skip-cleanup: true
   target-branch: 'master'
-  local-dir: './docs/.vuepress/dist'
+  local-dir: 'docs/.vuepress/dist'
   repo: 'yhlben.github.io'
   email: 'yinhengliben@gmail.com'
   name: 'yhlben'
