@@ -13,7 +13,7 @@ before_script:
 script: true
 deploy:
   provider: script
-  script: deploy.sh
+  script: ./deploy.sh
   skip-cleanup: true
   github-token: $REPO_TOKEN  
   keep-history: true
