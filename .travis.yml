@@ -13,11 +13,12 @@ deploy:
   edge:
     branch: v1.8.47
   provider: pages
+  target-branch: master
   skip-cleanup: true
-  local-dir: 'docs/.vuepress/dist'
-  repo: 'yhlben.github.io'
-  email: 'yinhengliben@gmail.com'
-  name: 'yhlben'
+  local-dir: docs/.vuepress/dist
+  repo: yhlben.github.io
+  email: yinhengliben@gmail.com
+  name: yhlben
   github-token: $REPO_TOKEN  
   keep-history: true
   on:
