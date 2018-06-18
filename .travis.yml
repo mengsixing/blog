@@ -9,4 +9,6 @@ install:
 - npm install vuepress -g
 
 script:
+- git config user.name 'yhlben'
+- git config user.email 'yinhengliben@gmail.com'
 - npm run ci
