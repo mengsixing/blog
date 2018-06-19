@@ -5,6 +5,9 @@ module.exports = {
   themeConfig: {
     repo: 'yhlben/blog',
     nav: [{
+      text: '博客',
+      link: '/blog/'
+    }, {
       text: '日志',
       link: '/work/'
     }, {
