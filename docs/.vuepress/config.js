@@ -16,6 +16,7 @@ module.exports = {
     }],
     sidebar: {
       '/blog/': [
+        'css-houdini-star',
         'node',
         'base-select',
         'base-sort',
