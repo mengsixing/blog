@@ -1,28 +1,28 @@
-# docker 微服务小demo
+# docker 微服务小 demo
 
 ## 目录
+
 ```
 .
 ├ test.js
 ├ DockerFile
 ├ package.json
-
 ```
 
 1、test.js。
 
-``` js
-const Koa = require('koa');
+```js
+const Koa = require("koa");
 const app = new Koa();
-app.use(function(ctx){
-  ctx.body='hello docker';
-})
+app.use(function(ctx) {
+  ctx.body = "hello docker";
+});
 app.listen(3456);
 ```
 
-2、DockerFile配置。
+2、DockerFile 配置。
 
-``` dockerfile
+```dockerfile
 FROM node
 COPY . /app
 WORKDIR /app
@@ -32,16 +32,19 @@ CMD node test.js
 ```
 
 ## 生成容器
-``` 
+
+```
 docker image build . -t mytest1
 ```
 
 ## 运行容器
-``` 
+
+```
 docker container run -p 8000:3456 mytest1
 ```
 
 ## 访问
+
 ```
 localhost:8000
 ```

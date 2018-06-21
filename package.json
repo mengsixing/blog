@@ -1,15 +1,14 @@
 {
   "name": "vuepress-blog",
   "version": "1.0.0",
-  "description": "",
+  "description": "my personal blog",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "prettier ./docs/blog/*",
-    "docs:build": "vuepress build docs",
-    "ci": "./deploy.sh"
+    "lint":"mdl -r '~MD013,~MD033' ./docs/blog",
+    "lint:fix": "prettier --write ./docs/**/*.md",
+    "docs:build": "vuepress build docs"
   },
-  "author": "",
+  "author": "yhlben",
   "license": "ISC",
   "devDependencies": {
     "prettier": "1.13.5"
