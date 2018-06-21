@@ -1,8 +1,6 @@
 # docker 微服务小demo
 
-
 ## 目录
-
 ```
 .
 ├ test.js
@@ -11,7 +9,7 @@
 
 ```
 
-1、test.js
+1、test.js。
 
 ``` js
 const Koa = require('koa');
@@ -22,7 +20,7 @@ app.use(function(ctx){
 app.listen(3456);
 ```
 
-2、DockerFile配置
+2、DockerFile配置。
 
 ``` dockerfile
 FROM node
@@ -34,20 +32,16 @@ CMD node test.js
 ```
 
 ## 生成容器
-
 ``` 
 docker image build . -t mytest1
 ```
 
-
 ## 运行容器
-
 ``` 
 docker container run -p 8000:3456 mytest1
 ```
 
 ## 访问
-
 ```
 localhost:8000
 ```

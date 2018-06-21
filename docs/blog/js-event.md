@@ -8,9 +8,9 @@
 
 ## 事件处理程序
 
-DOM0级事件:使用dom0级的时间处理程序被认为是元素的方法，this是当前元素
+DOM0级事件:使用dom0级的时间处理程序被认为是元素的方法，this是当前元素。
 
-DOM2级事件：主要定义addEventListener removeEventListener 两个方法，this是当前元素
+DOM2级事件：主要定义addEventListener removeEventListener 两个方法，this是当前元素。
 
 ## 事件对象
 
@@ -23,16 +23,14 @@ e.target;
 e.bubbles; // 是否冒泡
 e.cancelable; // 是可以取消默认事件
 e.eventPhase; // 1 捕获阶段 2处理阶段 3冒泡阶段
-...
+//......
 ```
 
 ### 事件对象中与位置相关的属性
 
-clientX CLientY：相对于浏览器可视区域，滑动后，点击同一位置，值不变
-
-pageX pageY：相对于浏览器页面，滑动后，点击同一位置，值会变
-
-screenX screenY：相对于设备屏幕，如果浏览器窗口移动，则会改变
+* clientX CLientY：相对于浏览器可视区域，滑动后，点击同一位置，值不变。
+* pageX pageY：相对于浏览器页面，滑动后，点击同一位置，值会变。
+* screenX screenY：相对于设备屏幕，如果浏览器窗口移动，则会改变。
 
 ## 事件类型
 
@@ -48,10 +46,10 @@ screenX screenY：相对于设备屏幕，如果浏览器窗口移动，则会�
 
 ### 焦点事件：元素获得或失去焦点时触发。
 
-* blur 失去焦点(不冒泡)
-* focusin (冒泡) 
-* focusout (冒泡) 
-* focus(不冒泡)
+* blur 失去焦点(不冒泡)。
+* focusin (冒泡) 。
+* focusout (冒泡) 。
+* focus(不冒泡)。
 
 ### 鼠标和滚轮事件
 
@@ -62,15 +60,15 @@ screenX screenY：相对于设备屏幕，如果浏览器窗口移动，则会�
 * mouseleave 
 * mousemove 
 * mouseup
-* mouseout 鼠标位于一个元素外部，然后将其首次移动到另一元素边界之内时触发
-* mouseover 鼠标位于一个元素上，然后将鼠标移入另一个元素时触发
+* mouseout 鼠标位于一个元素外部，然后将其首次移动到另一元素边界之内时触发。
+* mouseover 鼠标位于一个元素上，然后将鼠标移入另一个元素时触发。
 
 ### 键盘与文本事件
 
 * keydown 按下键盘上的```任意键```时触发，按住不放会重复触发。
 * keyup 
 * keypress 按下键盘上的```字符键```时触发，按住不放会重复触发。
-* textInput 当用户在可编辑区域中输入字符时触发,按下```实际字符键```才触发(如果敲退格键，不触发，因为不是实际字符键)
+* textInput 当用户在可编辑区域中输入字符时触发,按下```实际字符键```才触发(如果敲退格键，不触发，因为不是实际字符键)。
 
 ### 复合事件：输入组合件触发
 
@@ -124,5 +122,5 @@ touchstart mouseover mousemove mousedown mouseup click touchend
 移除dom时，为了避免与dom绑定的事件也一并被回收，应该一并清空事件处理程序。
 
 ## 模拟事件
-createEvent()  参数：UIEvent MouseEvents MutationEvents 一般化的dom变动 HTMLEvents
-dispatchEvent() 触发事件
+createEvent() 参数：UIEvent MouseEvents MutationEvents 一般化的dom变动 HTMLEvents。
+dispatchEvent() 触发事件。

@@ -33,7 +33,7 @@ function selectSort() {
 ```
 
 ## 插入排序
-类似于人们按数组或字母顺序对数据进行排序，后面的要为前面腾位置。（叠卷子）
+类似于人们按数组或字母顺序对数据进行排序，后面的要为前面腾位置（叠卷子）。
 ``` javascript
 function insertSort(){
     var temp,inner;

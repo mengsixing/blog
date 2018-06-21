@@ -11,39 +11,39 @@ Redux 是 JavaScript 状态容器，提供可预测化的状态管理。
 
 ## 工作流
 
-redux把所有的状态都存在了一个对象里，这个对象是只读的，必须通过指定工作流才能修改
+redux把所有的状态都存在了一个对象里，这个对象是只读的，必须通过指定工作流才能修改。
 
-view -> dispatch(action) -> reducer -> store(subscribe) -> view
+view -> dispatch(action) -> reducer -> store(subscribe) -> view。
 
-视图层 -> 触发action事件，传递type参数 -> 根据type参数，匹配reducer规则 -> 返回新store,触发监听事件 -> 重绘视图
+视图层 -> 触发action事件，传递type参数 -> 根据type参数，匹配reducer规则 -> 返回新store,触发监听事件 -> 重绘视图。
 
 ## 优化
 
 reducer是一个纯函数，故不能有副作用。
 
-* 搭配immutable，优化reducer
-* reselect 优化mapStateToProps
+* 搭配immutable，优化 reducer 。
+* reselect 优化 mapStateToProps 。
 
 ## API
 
-* createStore 创建store
-* combineReducers 合并reducer
-* applyMiddleware 添加中间件
-* bindActionCreators 绑定dispatch到action
-* compose 函数组合
+* createStore 创建store。
+* combineReducers 合并reducer。
+* applyMiddleware 添加中间件。
+* bindActionCreators 绑定dispatch到action。
+* compose 函数组合。
 
 store对象：
-* 维持应用的 state；
-* 提供 getState() 方法获取 state；
-* 提供 dispatch(action) 方法更新 state；
-* 通过 subscribe(listener) 注册监听器，可通过但会的对象取消监听;
+* 维持应用的 state。
+* 提供 getState() 方法获取 state。
+* 提供 dispatch(action) 方法更新 state。
+* 通过 subscribe(listener) 注册监听器，可通过但会的对象取消监听。
 * 通过 replaceReducer(nextReducer) 替换 store 当前用来计算 state 的 reducer。
 
 
 ### react-redux
 
-* Provider 提供子组件可访问store能力
-* connect 连接 React 组件与 Redux store
+* Provider 提供子组件可访问store能力。
+* connect 连接 React 组件与 Redux store。
 
 connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])
 

@@ -16,6 +16,7 @@ module.exports = {
     }],
     sidebar: {
       '/blog/': [
+        'html5-program',
         'css-houdini-star',
         'node',
         'base-select',
@@ -40,6 +41,7 @@ module.exports = {
       ],
       '/work/': [
         '2018-06-19',
+        '2018-06-20',
       ],
     },
     lastUpdated: '最后更新',
