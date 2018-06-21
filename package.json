@@ -5,9 +5,13 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "prettier ./docs/blog/*",
     "docs:build": "vuepress build docs",
-    "ci":"./deploy.sh"
+    "ci": "./deploy.sh"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "1.13.5"
+  }
 }

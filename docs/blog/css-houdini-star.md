@@ -1,6 +1,57 @@
 ## CSS Houdini画一片星空
 
+### CSS Houdini简介
+
+CSS Houdini 是由一群来自 Mozilla, Apple, Opera, Microsoft, HP, Intel, IBM, Adobe 与 Google 的工程师所组成的工作小组，志在建立一系列的 API，让开发者能够介入浏览器的 CSS engine 操作，带给开发者更多的解決方案，用来解決 CSS 长久以来的问题：
+
+* Cross-Browser isse
+* CSS Polyfill 的制作困难
+
+主要API：
+
+* Box Tree API 
+> DOM tree 中的每个元素都有一个 Box Modal ，而在浏览器解析过程中，还会将其拆分成 fragments。Box Tree API 让开发者可以获取 fragments 。
+
+* CSS Layout API 
+> 让开发者自己定义layout，在css中使用。
+
+``` css
+.xxx {
+    display:layout(my-layout);
+}
+```
+* CSS Painting API 
+
+> 在css中使用paint，类似canvans语法，可以画自定义背景等。
+
+* CSS Parser API
+
+> 更直接地暴露CSS解析器的API，用于将任意类似CSS的语言解析为css表示。
+
+* CSS Properties and Values API 
+
+定义变量，类似于 css-next 。
+``` css
+:root { --main-color: #ff00ff; --main-bg: rgb(200, 255, 255); --block-font-size: 1rem; }
+```
+
+* CSS Typed OM 	
+
+> CSS Typed OM 就是 CSSOM 的强化版，最主要的功能在于将 CSSOM 所使用的字串值转换成具有意义的 JavaScript 表示形态。
+``` js
+const map = document.querySelector('.example').styleMap; console.log( map.get('font-size') );
+```
+
+* Font Metrics API
+
+> 为文档内和文档外的内容提供基本的字体指标。
+
+* Worklets
+
+> 引入单独的js文件。
+
 ### CSS Painting API
+
 在css中使用paint，类似canvans语法，可以画自定义背景等。
 
 ``` css
@@ -129,4 +180,8 @@ class SkyStar {
 registerPaint('sky-star', SkyStar);
 ```
 
-[参考链接](https://www.w3cplus.com/css/CSS-Houdini-starry-sky.html)
+参考链接
+
+[css-houdini](https://www.w3cplus.com/css/css-houdini.html)
+[CSS-Houdini-starry-sky](https://www.w3cplus.com/css/CSS-Houdini-starry-sky.html)
+
