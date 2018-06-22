@@ -117,8 +117,8 @@ select.options[0] = null;
 
 ## 富文本编辑
 
-- 顾问本的本质是页面中嵌入一个包含空 HTML 页面的 iframe 。通过设置 designMode=“on” 属性这个空白 HTML 页面可以被编辑，可编辑对象是 body 元素的 HTML 代码
-- 使用 contenteditable 属性
+- 顾问本的本质是页面中嵌入一个包含空 HTML 页面的 iframe 。通过设置 designMode=“on” 属性这个空白 HTML 页面可以被编辑，可编辑对象是 body 元素的 HTML 代码。
+- 使用 contenteditable 属性。
 
 ### 操作富文本
 
