@@ -12,9 +12,9 @@
 
 - command + ; 显示使用过的命令。
 - command + shift + h 弹出历史记录窗口。
-- Command+d 水平切分，⌘+Shift+d 垂直切分。
-- command+Option+e 全屏展示所有的 tab，可以搜索。
-- Command+/ 找到光标。
+- Command + d 水平切分，⌘+Shift+d 垂直切分。
+- command + Option + e 全屏展示所有的 tab，可以搜索。
+- Command + / 找到光标。
 
 ## linux 命令
 

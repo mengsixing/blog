@@ -165,7 +165,7 @@ function HashTable() {
   this.get = get;
   this.buildChains = buildChains;
 }
-//开链发解决冲突
+//开链法解决冲突
 function buildChains() {
   for (var i = 0; i < this.table.length; i++) {
     this.table[i] = new Array();
