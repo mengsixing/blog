@@ -7,7 +7,7 @@ env:
     secure: A3Fqtq63ECA2GxviendYj5KNWrwqiI8tAu+B/12f+xqmA+zcG9kst9YwTKbcnJQm/v9GGp8VeS5+ecEzgXRX2io8Ng+CDYeWuQ4vXomM1D3Yt/BuiWBHYqQ2eQP6nyFSUiRkrP9uPN1dy2ILcVvxt5lWliHdT8LJ0fLDJe2AQXLObbkyGcATKFTAbDCxY7LecQgaIPi9O5Qx3snbFH6OBVqdKOSEyPfCPPWVyb6zRQ+lF1+BOlZ+q+MxNSSFKLL/kq79P/2GdM8SYue+/Nca5q6T6fJ9Y1Kh1hC3ZBHqYeHbHdQFXk6lFm4sJE+Y2dI3sxH/fiEfUaS0Bh5OMC7Vgckavb9nqp5v2zyHeMqd1zfWOMHmiltJqCPaiGzLWzmTWbFFCgUAwuw8gOjHhh6Dtw/kR/XPRDY+62wVJh75dULjnTctTCBsyTuQ9M6dpr24/Nixs6oHFBZORuy3ZxDifyXl5XEaEJehVZUt02twXvG2/2lJ042BYQCXfw8F7zJ+smXUVHnQrVt2wzLn3ResFd82SalvdBnl5Eq5hZEVjnfDy/GY3y/EpWI6+O2VrCIA05Jt5xmAuCjGDk0ZO8s2QDHUg9Wh4JTIyWsgqLTUozQ1TyIYySYZi5VXyYEhxEA9/BYYiy8cVY2EBjDJJJlKXIOrqOAE5LFt9++djRKpB4o=
 before_install:
 - npm install vuepress -g
-script: 
+script:
 - npm run docs:build
 deploy:
   edge:
@@ -19,7 +19,7 @@ deploy:
   repo: yhlben/yhlben.github.io
   email: yinhengliben@gmail.com
   name: yhlben
-  github-token: $REPO_TOKEN  
+  github-token: $REPO_TOKEN
   keep-history: true
   on:
     branch: master
