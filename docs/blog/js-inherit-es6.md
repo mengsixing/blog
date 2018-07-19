@@ -1,4 +1,4 @@
-# es6 继承
+# ES6 继承
 
 es6 采用 class extends进行继承。
 
