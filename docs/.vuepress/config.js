@@ -16,6 +16,7 @@ module.exports = {
     }],
     sidebar: {
       '/blog/': [
+        'js-module',
         'js-inherit-es6',
         'js-inherit',
         'js-form',
