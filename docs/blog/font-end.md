@@ -1,4 +1,6 @@
-# 我的学习清单
+## 我的前端知识清单
+
+做前端也有几年了，整理了一份平时常用的技术列表，欢迎大家补充。
 
 ## html方向
 
@@ -79,11 +81,18 @@
 ## 服务器端
 
 * node
+* koa
 * nginx
 * mongodb
 * pm2
 * docker
 * k8s
+
+## 原生应用
+
+* react-native
+* weex
+* flutter
 
 ## 持续集成
 
