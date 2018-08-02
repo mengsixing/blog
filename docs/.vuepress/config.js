@@ -16,6 +16,7 @@ module.exports = {
     }],
     sidebar: {
       '/blog/': [
+        'font-end',
         'css-devicePixelRatio',
         'js-module',
         'js-inherit-es6',
