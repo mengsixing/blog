@@ -3,18 +3,10 @@
 [![Build Status](https://www.travis-ci.org/yhlben/blog.svg?branch=master)](https://www.travis-ci.org/yhlben/blog)
 [![CodeFactor](https://www.codefactor.io/repository/github/yhlben/blog/badge)](https://www.codefactor.io/repository/github/yhlben/blog)
 
-It's my whole life!
+记录工作中遇到的问题，平时看书的总结，面试题，以及一些个人思考。
 
-## mardown格式检查
-
-``` shell
-gem install mdl
-```
-
-[markdownlint](https://github.com/markdownlint/markdownlint)
-
-## 格式化工具
+代码风格，语法检查：
 
 [prettier](https://github.com/prettier/prettier)
 
-> 使用vuepress和travisCI构建。
+[markdownlint](https://github.com/markdownlint/markdownlint)
