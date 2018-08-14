@@ -1,15 +1,15 @@
 # ES6 module
 
-## es6 之前的模块
+## ES6 之前的模块
 
 在 ES6 之前，社区制定了一些模块加载方案，最主要的有 CommonJS 和 AMD 两种。前者用于服务器，后者用于浏览器。
 
 - CommonJS 和 AMD 模块，都只能在运行时确定这些东西。
 
-## es6 模块
+## ES6 模块
 
 - 自动采用严格模式。
-- es6 可以在编译时完成模块加载。
+- ES6 可以在编译时完成模块加载。
 
 ### export 模块
 
@@ -122,13 +122,13 @@ import("my_module").then(res => {
 
 - 代码是在模块作用域之中云进行，而不是在全局作用域中运行。
 
-### es6 模块和 commonjs 模块的差异
+### ES6 模块和 commonjs 模块的差异
 
-- commonjs 模块输出的是一个值的复制，es6 模块输出的是值的引用。
-- commonjs 模块是运行时加载，es6 模块是编译时输出接口。
+- commonjs 模块输出的是一个值的复制，ES6 模块输出的是值的引用。
+- commonjs 模块是运行时加载，ES6 模块是编译时输出接口。
 
-- es6 模块是动态引用，并且不会缓存值，模块里面的变量绑定其所在的模块。
-- es6 输入的模块变量知识一个“符号链接”，所以这个变量是只读的，对他重新赋值会报错。
+- ES6 模块是动态引用，并且不会缓存值，模块里面的变量绑定其所在的模块。
+- ES6 输入的模块变量知识一个“符号链接”，所以这个变量是只读的，对他重新赋值会报错。
 
 ```js
 import { a } from "my_module";
@@ -193,9 +193,9 @@ console.log("b.js 执行完毕");
 - 输出 在 a.js 之中，b.done = true。
 - 输出 a.js 执行完毕。
 
-#### es6 模块循环加载
+#### ES6 模块循环加载
 
-es6 加载的变量都是动态引用其所在模块的。只要应用存在，代码就能执行。
+ES6 加载的变量都是动态引用其所在模块的。只要应用存在，代码就能执行。
 
 ```js
 // a.js
@@ -219,6 +219,6 @@ export let bar = 'bar';
 
 参考资料：
 
-[module 语法](http://es6.ruanyifeng.com/#docs/module)
+[module 语法](http://ES6.ruanyifeng.com/#docs/module)
 
-[module 加载的实现](http://es6.ruanyifeng.com/#docs/module-loader)
+[module 加载的实现](http://ES6.ruanyifeng.com/#docs/module-loader)
