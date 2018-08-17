@@ -7,6 +7,11 @@
 - ctrl + y 撤销上个操作。
 - ctrl + w 删除光标前一个单词。
 - ctrl + h 删除光标位置的前一个字符。
+- ctrl + c 结束正在运行的程序。
+- ctrl + d 结束输入或退出shell。
+- ctrl + s 暂停屏幕输出。
+- ctrl + q 恢复屏幕输出。
+- ctrl + l 清屏，等同于clear。
 
 ## iTerm2 快捷键
 
@@ -30,4 +35,57 @@ scp index.html root@xxx:/root/mytest/
 
 ```shell
 ls | grep ^a
+```
+
+- ps 命令
+
+显示进程信息
+
+```shell
+ps -ef #显示所有命令，连带命令行
+```
+
+- kill 命令
+
+杀死单个进程
+
+``` shell
+kill 12345
+```
+
+- pkill 命令
+
+按照进程名杀死进程
+
+``` shell
+pgrep -l Safari
+pkill Safari
+```
+
+- w 命令
+
+显示已经登陆系统的用户列表，并显示用户正在执行的指令
+
+``` shell
+w
+```
+
+## 网络管理
+
+查看和配置网络基本信息
+
+- ifconfig
+- ip
+
+排查网络故障
+
+- tracerout
+
+找到占用网络端口的进程
+
+- ss
+- netstat
+
+``` js
+netstat -an | grep ':80'
 ```
