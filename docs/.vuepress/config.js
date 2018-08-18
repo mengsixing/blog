@@ -16,6 +16,7 @@ module.exports = {
     }],
     sidebar: {
       '/blog/': [
+        'dns-cdn',
         'js-test',
         'font-end',
         'css-devicePixelRatio',
