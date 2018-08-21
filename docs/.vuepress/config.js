@@ -16,6 +16,7 @@ module.exports = {
     }],
     sidebar: {
       '/blog/': [
+        'dns-cdn',
         'js-test',
         'font-end',
         'css-devicePixelRatio',
@@ -44,6 +45,7 @@ module.exports = {
         'node',
         'docker-micro-service',
         'linux',
+        'linux-login',
         'nginx-load-balancing',
         'fontend-interview',
       ],
