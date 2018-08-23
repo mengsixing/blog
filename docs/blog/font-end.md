@@ -1,4 +1,4 @@
-## 我的前端知识清单
+# 我的前端知识清单
 
 工作4年了，整理了一份平时常用的技术列表，欢迎大家补充。
 
@@ -17,7 +17,7 @@
 * css2语法
 * css3新语法
 * houdini
-* 预处理器less，sass，stylus，css-next 
+* 预处理器less，sass，stylus，css-next
 * 后处理器，postcss插件，autofixer等
 
 ## javascript方向
@@ -29,31 +29,34 @@
 
 ## 框架方向
 
-* react技术栈
-    * react
-    * react-router(search-router)
-    * immutable
-    * redux
-    * redux-saga
-    * redux-observable
-    * reselect
-    * mobx
-    * ant-design（ui框架）
-    * 服务器端渲染 (nextjs)
-    * create-react-app
-    * dva-cli
+### react技术栈
 
-* vue技术栈
-    * vue
-    * vue-router
-    * vuex
-    * element（pc端ui框架）
-    * vant（移动端ui框架）
-    * 服务器端渲染(nuxt)
-    * vue-cli
+* react
+* react-router(search-router)
+* immutable
+* redux
+* redux-saga
+* redux-observable
+* reselect
+* mobx
+* ant-design（ui框架）
+* 服务器端渲染 (nextjs)
+* create-react-app
+* dva-cli
 
-* ajax库
-    * axios
+### vue技术栈
+
+* vue
+* vue-router
+* vuex
+* element（pc端ui框架）
+* vant（移动端ui框架）
+* 服务器端渲染(nuxt)
+* vue-cli
+
+### ajax库
+
+* axios
 
 ## 前端工程
 
@@ -99,4 +102,3 @@
 * travisCI
 * gitlab
 * jenkins
-

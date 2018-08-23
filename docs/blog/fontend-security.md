@@ -62,6 +62,10 @@ CSRF 攻击之所以能够成功，是因为黑客可以完全伪造用户的请
 
 如果你原本想访问A网站，但是有人偷偷做了手脚，让你实际上打开的是B网站，这就叫流量劫持。
 
-[DNS劫持](/blog/dns-cdn.html)
+常见的劫持包括：[DNS劫持](/blog/dns-cdn.html)，路由器弱口令，WiFi 弱口令等。
+
+---
+
+参考资料：
 
 [流量劫持](http://fex.baidu.com/blog/2014/04/traffic-hijack/)
