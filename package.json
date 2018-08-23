@@ -4,13 +4,19 @@
   "description": "my personal blog",
   "main": "index.js",
   "scripts": {
-    "lint":"mdl -r '~MD013,~MD033' ./docs/blog",
+    "lint": "mdl -r '~MD013,~MD033' ./docs/blog",
     "lint:fix": "prettier --write ./docs/**/*.md",
     "docs:build": "vuepress build docs"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn run lint"
+    }
   },
   "author": "yhlben",
   "license": "ISC",
   "devDependencies": {
-    "prettier": "1.13.5"
+    "prettier": "1.13.5",
+    "husky": "^0.14.3"
   }
 }

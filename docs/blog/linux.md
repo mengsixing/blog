@@ -23,6 +23,14 @@
 
 ## linux 命令
 
+- open 命令
+
+打开文件夹
+
+``` shell
+open .
+```
+
 - scp 命令
 
 ```shell

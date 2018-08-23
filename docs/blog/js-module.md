@@ -217,6 +217,8 @@ export let bar = 'bar';
 - 输出 b.js。
 - 执行 console.log(foo); 报错，因为foo没有定义。
 
+---
+
 参考资料：
 
 [module 语法](http://ES6.ruanyifeng.com/#docs/module)
