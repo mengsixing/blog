@@ -1,6 +1,6 @@
 # 最简单的 nginx 负载均衡
 
-``` nginx
+```nginx
 worker_processes 4;
 events{
     worker_connections 1024;

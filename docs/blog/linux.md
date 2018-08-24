@@ -8,10 +8,10 @@
 - ctrl + w 删除光标前一个单词。
 - ctrl + h 删除光标位置的前一个字符。
 - ctrl + c 结束正在运行的程序。
-- ctrl + d 结束输入或退出shell。
+- ctrl + d 结束输入或退出 shell。
 - ctrl + s 暂停屏幕输出。
 - ctrl + q 恢复屏幕输出。
-- ctrl + l 清屏，等同于clear。
+- ctrl + l 清屏，等同于 clear。
 
 ## iTerm2 快捷键
 
@@ -27,7 +27,7 @@
 
 打开文件夹
 
-``` shell
+```shell
 open .
 ```
 
@@ -57,7 +57,7 @@ ps -ef #显示所有命令，连带命令行
 
 杀死单个进程
 
-``` shell
+```shell
 kill 12345
 ```
 
@@ -65,7 +65,7 @@ kill 12345
 
 按照进程名杀死进程
 
-``` shell
+```shell
 pgrep -l Safari
 pkill Safari
 ```
@@ -74,7 +74,7 @@ pkill Safari
 
 显示已经登陆系统的用户列表，并显示用户正在执行的指令
 
-``` shell
+```shell
 w
 ```
 
@@ -94,6 +94,6 @@ w
 - ss
 - netstat
 
-``` js
+```js
 netstat -an | grep ':80'
 ```

@@ -16,6 +16,7 @@ module.exports = {
     }],
     sidebar: {
       '/blog/': [
+        'https',
         'fontend-security',
         'dns-cdn',
         'js-test',

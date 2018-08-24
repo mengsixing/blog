@@ -114,7 +114,7 @@ import("my_module").then(res => {
 <script type="application/javascript" scr="foo2.js" defer></script>
 ```
 
-2、使用浏览器 script 标签加载module
+2、使用浏览器 script 标签加载 module
 
 ```js
 <script type="module" scr="foo.js" />
@@ -185,9 +185,9 @@ console.log("b.js 执行完毕");
 // 执行a.js
 ```
 
-- 执行a.js。
-- 执行到a第二行，加载b.js。
-- 执行到b的第二行，执行a.js (因为 a.js 还没有执行完，从 exports 属性只能取回已经执行的部分，即：a中的 exports.done = false;)。
+- 执行 a.js。
+- 执行到 a 第二行，加载 b.js。
+- 执行到 b 的第二行，执行 a.js (因为 a.js 还没有执行完，从 exports 属性只能取回已经执行的部分，即：a 中的 exports.done = false;)。
 - 输出 在 b.js 之中，a.done = false。
 - 输出 b.js 执行完毕。
 - 输出 在 a.js 之中，b.done = true。
@@ -199,23 +199,23 @@ ES6 加载的变量都是动态引用其所在模块的。只要应用存在，�
 
 ```js
 // a.js
-import {bar} from './b';
-console.log('a.js');
+import { bar } from "./b";
+console.log("a.js");
 console.log(bar);
-export let foo = 'foo';
+export let foo = "foo";
 
 // b.js
-import {foo} from './a';
-console.log('b.js');
+import { foo } from "./a";
+console.log("b.js");
 console.log(foo);
-export let bar = 'bar';
+export let bar = "bar";
 ```
 
-- 执行a.js。
-- 执行第一行，引用b.js。
-- 执行b.js第一行，从a.js输入了foo接口，这时不会去执行a.js。
+- 执行 a.js。
+- 执行第一行，引用 b.js。
+- 执行 b.js 第一行，从 a.js 输入了 foo 接口，这时不会去执行 a.js。
 - 输出 b.js。
-- 执行 console.log(foo); 报错，因为foo没有定义。
+- 执行 console.log(foo); 报错，因为 foo 没有定义。
 
 ---
 
