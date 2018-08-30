@@ -27,13 +27,13 @@
 
 打开文件夹
 
-```shell
+```sh
 open .
 ```
 
 - scp 命令
 
-```shell
+```sh
 scp index.html root@xxx:/root/mytest/
 ```
 
@@ -41,7 +41,7 @@ scp index.html root@xxx:/root/mytest/
 
 查找 a 开头的文件或文件夹。
 
-```shell
+```sh
 ls | grep ^a
 ```
 
@@ -49,7 +49,7 @@ ls | grep ^a
 
 显示进程信息
 
-```shell
+```sh
 ps -ef #显示所有命令，连带命令行
 ```
 
@@ -57,7 +57,7 @@ ps -ef #显示所有命令，连带命令行
 
 杀死单个进程
 
-```shell
+```sh
 kill 12345
 ```
 
@@ -65,7 +65,7 @@ kill 12345
 
 按照进程名杀死进程
 
-```shell
+```sh
 pgrep -l Safari
 pkill Safari
 ```
@@ -74,7 +74,7 @@ pkill Safari
 
 显示已经登陆系统的用户列表，并显示用户正在执行的指令
 
-```shell
+```sh
 w
 ```
 

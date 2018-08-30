@@ -4,7 +4,7 @@
 
 ### 1、生成密钥
 
-```shell
+```sh
 cd ~/.ssh/
 ssh-keygen -t rsa -C "my_name" -f "my_key"
 # 这一步会生成 my_key.pub（公钥） my_key(私钥)
@@ -12,20 +12,20 @@ ssh-keygen -t rsa -C "my_name" -f "my_key"
 
 ### 2、将公钥放在目标服务器上
 
-```shell
+```sh
 scp ./my_key.pub root@192.168.1.1:/root/.ssh/
 # 这里使用scp命令远程复制公钥(注意要存放在登录用户所在目录的.ssh文件夹里，这里使用root用户登录，故存在root用户的用户目录)
 ```
 
 ### 3、将公钥存放进目标服务器 authorized_keys 里
 
-```shell
+```sh
 cat my_key.pub >> authorized_keys
 ```
 
 ### 4、这样就可以免密登录了
 
-```shell
+```sh
 ssh -i ~/.ssh/my_key root@192.168.1.1
 # -i指定私钥的路径
 ```
@@ -36,14 +36,14 @@ ssh -i ~/.ssh/my_key root@192.168.1.1
 
 ### 1、进入 config 文件
 
-```shell
+```sh
 cd ~/.ssh/
 vi config
 ```
 
 ### 2、编辑 config 文件
 
-```shell
+```sh
 User root
 Host aliyun
 HostName 192.168.1.1
@@ -60,13 +60,13 @@ LogLevel INFO
 
 ### 3、现在可以一键登录了
 
-```shell
+```sh
 ssh aliyun
 ```
 
 ### 4、配置多个服务器登录
 
-```shell
+```sh
 Host aliyun
     User root
     HostName 192.192.192.22
@@ -96,7 +96,7 @@ Host fanqiang
 
 ### 5、现在可以免密登录多个服务器了
 
-```shell
+```sh
 ssh aliyun
 ssh fanqiang
 ```

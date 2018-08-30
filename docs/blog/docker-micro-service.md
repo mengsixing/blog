@@ -33,13 +33,13 @@ CMD node test.js
 
 ## 生成容器
 
-```shell
+```sh
 docker image build . -t mytest1
 ```
 
 ## 运行容器
 
-```shell
+```sh
 docker container run -p 8000:3456 mytest1
 ```
 
