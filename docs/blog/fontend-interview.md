@@ -66,7 +66,11 @@ id 选择器权重： 0100
 
 服务器端可以接收到请求。
 
-待调试。
+![跨域后端获取到的请求](front-interview-cross-domain.png)
+
+跨域请求，后端拿不到 cookie，x-requested-with，新增 referer 字段。
+
+返回的都是 200 OK。
 
 ## 请解释 XSS 与 CSRF 分别是什么？两者有什么联系，如何防御？
 
@@ -75,16 +79,151 @@ id 选择器权重： 0100
 ## 关乎 Javascript Bridge。
 
 1、解释一下什么是 Javascript Bridge。
+
 2、Javascript Bridge 的实现原理。
+
 3、你所了解的 Javascript Bridge 通讯中的优化方案。
 
-Javascript Bridge 是 js 于其他语言通信的一个中间层。
+JSBridge 是一座用 JavaScript 搭建起来的桥，一端是 web，一端是 native。我们搭建这座桥的目的也很简单，让 native 可以调用 web 的 js 代码，让 web 可以 “调用” 原生的代码。请注意这个我加了 引号的调用，它并不是直接调用，而是可以根据 web 和 native 约定好的规则来通知 native 要做什么，native 可以更具这个来执行相应的代码。
+
+![jsbridge原理](front-interview-jsbridge.png)
 
 ## TCP/UDP 是什么？
 
-TCP 和 UDP 都是传输层上的协议。
-TCP 链接经过 3 次握手，保证连接是可靠的，UDP 类似于广播不可靠。
+### TCP：
 
-## 请用算法实现，从给定的无序、不重复的数组 A 中，去除 N 个数使其相加和为 M。并给出算法的时间，空间复杂度。
+优点：可靠 稳定
 
-待完成。
+TCP 的可靠体现在 TCP 在传输数据之前，会有三次握手来建立连接，而且在数据传递时，有确认. 窗口. 重传. 拥塞控制机制，在数据传完之后，还会断开来连接用来节约系统资源。
+
+缺点：慢，效率低，占用系统资源高。
+
+在传递数据之前要先建立连接，这会消耗时间，而且在数据传递时，确认机制. 重传机制. 拥塞机制等都会消耗大量时间，而且要在每台设备上维护所有的传输连接。然而，每个连接都会占用系统的 CPU，内存等硬件资源。
+
+### UDP：
+
+优点：快。
+
+UDP 没有 TCP 拥有的各种机制，是一种无状态的传输协议，所以传输数据非常快，没有 TCP 的这些机制，被攻击利用的机会就少一些，但是也无法避免被攻击。
+
+缺点：不可靠，不稳定。
+
+因为没有 TCP 的这些机制，UDP 在传输数据时，如果网络质量不好，就会很容易丢包，造成数据的缺失。
+
+## 请用算法实现，从给定的无序、不重复的数组 A 中，取出 N 个数使其相加和为 M。并给出算法的时间，空间复杂度。
+
+```js
+function getCombBySum(array, sum, tolerance, targetCount) {
+  var util = {
+      /*获取所有的可能组合
+    如果是[1,2,3,4,5]取出3个
+    那么可能性就有10种 C(5,3)= C(5,2)
+    不用翻书了 给个公式
+    全排列  P(n,m)=n!/(n-m)!
+    组合排列 C(5,2)=5!/2!*3!=5*4*3*2*1/[(2*1)*(3*2*1)]=10
+    这是使用了循环加递归做出了组合排序
+    */
+      getCombination: function(arr, num) {
+        var r = [];
+        (function f(t, a, n) {
+          if (n == 0) {
+            return r.push(t);
+          }
+          for (var i = 0, l = a.length; i <= l - n; i++) {
+            f(t.concat(a[i]), a.slice(i + 1), n - 1);
+          }
+        })([], arr, num);
+        return r;
+      },
+      // take array index to a array
+      // 获取数组的索引
+      getArrayIndex: function(array) {
+        var i = 0,
+          r = [];
+        for (i = 0; i < array.length; i++) {
+          r.push(i);
+        }
+        return r;
+      }
+    },
+    logic = {
+      // sort the array,then get what's we need
+      //  获取数组中比sum小的数
+      init: function(array, sum) {
+        // clone array
+        var _array = array.concat(),
+          r = [],
+          i = 0;
+        // sort by asc
+        _array.sort(function(a, b) {
+          return a - b;
+        });
+        // get all number when it's less than or equal sum
+        for (i = 0; i < _array.length; i++) {
+          if (_array[i] <= sum) {
+            r.push(_array[i]);
+          } else {
+            break;
+          }
+        }
+
+        return r;
+      },
+      // important function
+      core: function(array, sum, arrayIndex, count, r) {
+        var i = 0,
+          k = 0,
+          combArray = [],
+          _sum = 0,
+          _cca = [],
+          _cache = [];
+
+        if (count == _returnMark) {
+          return;
+        }
+        // get current count combination
+        // 这里排序的不是原来的数组,而是求的索引后的数组
+        combArray = util.getCombination(arrayIndex, count);
+        for (i = 0; i < combArray.length; i++) {
+          _cca = combArray[i];
+          _sum = 0;
+          _cache = [];
+          // calculate the sum from combination
+          for (k = 0; k < _cca.length; k++) {
+            _sum += array[_cca[k]];
+            _cache.push(array[_cca[k]]);
+          }
+          if (Math.abs(_sum - sum) <= _tolerance) {
+            r.push(_cache);
+          }
+        }
+
+        logic.core(array, sum, arrayIndex, count - 1, r);
+      }
+    },
+    r = [],
+    _array = [],
+    _targetCount = 0,
+    _tolerance = 0,
+    _returnMark = 0;
+
+  // check data
+  _targetCount = targetCount || _targetCount;
+  _tolerance = tolerance || _tolerance;
+
+  _array = logic.init(array, sum);
+  if (_targetCount) {
+    _returnMark = _targetCount - 1;
+  }
+
+  logic.core(
+    _array,
+    sum,
+    util.getArrayIndex(_array),
+    _targetCount || _array.length,
+    r
+  );
+
+  return r;
+}
+```
