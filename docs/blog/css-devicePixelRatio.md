@@ -39,6 +39,6 @@ viewport 的意义在于，无论在何种分辨率的屏幕下，那些针对 v
 
 ---
 
-参考资料：
-
+::: tip 参考资料
 [CSS 像素、物理像素、逻辑像素、设备像素比、PPI、Viewport](https://github.com/jawil/blog/issues/21)
+:::

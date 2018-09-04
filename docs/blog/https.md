@@ -45,6 +45,8 @@ https 引入了加密以及身份验证机制。
 - 劫持请求 5：证书私钥在服务器端，只有服务器端才能解密，中间人没有私钥，故无法破解内容。
 - 劫持请求 7：对称加密的密钥存在客户端和服务端，中间人没有密钥，故无法破解内容。
 
-### 参考资料
+---
 
-[一个故事讲完https](https://mp.weixin.qq.com/s/StqqafHePlBkWAPQZg3NrA)
+::: tip 参考资料
+[一个故事讲完 https](https://mp.weixin.qq.com/s/StqqafHePlBkWAPQZg3NrA)
+:::

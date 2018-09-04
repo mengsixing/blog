@@ -9,12 +9,13 @@ CSS Houdini 志在建立一系列的 API，让开发者能够介入浏览器的 
 
 主要 API：
 
-- Box Tree API
+::: tip Box Tree API
+DOM tree 中的每个元素都有一个 Box Modal ，而在浏览器解析过程中，还会将其拆分成 fragments。Box Tree API 让开发者可以获取 fragments 。
+:::
 
-  > DOM tree 中的每个元素都有一个 Box Modal ，而在浏览器解析过程中，还会将其拆分成 fragments。Box Tree API 让开发者可以获取 fragments 。
-
-- CSS Layout API
-  > 让开发者自己定义 layout，在 css 中使用。
+::: tip CSS Layout API
+让开发者自己定义 layout，在 css 中使用。
+:::
 
 ```css
 .xxx {
@@ -22,17 +23,17 @@ CSS Houdini 志在建立一系列的 API，让开发者能够介入浏览器的 
 }
 ```
 
-- CSS Painting API
+::: tip CSS Painting API
+在 css 中使用 paint，类似 canvans 语法，可以画自定义背景等。
+:::
 
-> 在 css 中使用 paint，类似 canvans 语法，可以画自定义背景等。
+::: tip CSS Parser API
+更直接地暴露 CSS 解析器的 API，用于将任意类似 CSS 的语言解析为 css 表示。
+:::
 
-- CSS Parser API
-
-> 更直接地暴露 CSS 解析器的 API，用于将任意类似 CSS 的语言解析为 css 表示。
-
-- CSS Properties and Values API
-
+::: tip CSS Properties and Values API
 定义变量，类似于 css-next 。
+:::
 
 ```css
 :root {
@@ -42,22 +43,22 @@ CSS Houdini 志在建立一系列的 API，让开发者能够介入浏览器的 
 }
 ```
 
-- CSS Typed OM
-
-> CSS Typed OM 就是 CSSOM 的强化版，最主要的功能在于将 CSSOM 所使用的字串值转换成具有意义的 JavaScript 表示形态。
+::: tip CSS Typed OM
+CSS Typed OM 就是 CSSOM 的强化版，最主要的功能在于将 CSSOM 所使用的字串值转换成具有意义的 JavaScript 表示形态。
+:::
 
 ```js
 const map = document.querySelector(".example").styleMap;
 console.log(map.get("font-size"));
 ```
 
-- Font Metrics API
+::: tip Font Metrics API
+为文档内和文档外的内容提供基本的字体指标。
+:::
 
-> 为文档内和文档外的内容提供基本的字体指标。
-
-- Worklets
-
-> 引入单独的 js 文件。
+::: tip Worklets
+引入单独的 js 文件。
+:::
 
 ## CSS Painting API
 

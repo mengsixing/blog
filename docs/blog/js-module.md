@@ -219,8 +219,8 @@ export let bar = "bar";
 
 ---
 
-参考资料：
-
+::: tip 参考资料
 [module 语法](http://ES6.ruanyifeng.com/#docs/module)
 
 [module 加载的实现](http://ES6.ruanyifeng.com/#docs/module-loader)
+:::

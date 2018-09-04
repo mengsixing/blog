@@ -66,6 +66,6 @@ CSRF 攻击之所以能够成功，是因为黑客可以完全伪造用户的请
 
 ---
 
-参考资料：
-
+::: tip 参考资料
 [流量劫持](http://fex.baidu.com/blog/2014/04/traffic-hijack/)
+:::
