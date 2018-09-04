@@ -50,7 +50,6 @@ function insertSort() {
       this.dataSource[inner] = this.dataSource[inner - 1];
       inner--;
     }
-
     this.dataSource[inner] = temp;
   }
 }
@@ -101,7 +100,6 @@ class SortArray {
         this.dataSource[inner] = this.dataSource[inner - 1];
         inner--;
       }
-
       this.dataSource[inner] = temp;
     }
   }
