@@ -16,6 +16,7 @@ module.exports = {
     }],
     sidebar: {
       '/blog/': [
+        'js-jsBridge',
         'https',
         'fontend-security',
         'dns-cdn',
