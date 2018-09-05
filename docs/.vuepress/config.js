@@ -16,6 +16,7 @@ module.exports = {
     }],
     sidebar: {
       '/blog/': [
+        'wx-miniProgram',
         'js-jsBridge',
         'https',
         'fontend-security',
