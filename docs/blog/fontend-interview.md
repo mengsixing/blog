@@ -110,120 +110,26 @@ UDP 没有 TCP 拥有的各种机制，是一种无状态的传输协议，所�
 
 因为没有 TCP 的这些机制，UDP 在传输数据时，如果网络质量不好，就会很容易丢包，造成数据的缺失。
 
-## 请用算法实现，从给定的无序、不重复的数组 A 中，取出 N 个数使其相加和为 M。并给出算法的时间，空间复杂度。
+## 如何处理高流量，高并发？
 
-```js
-function getCombBySum(array, sum, tolerance, targetCount) {
-  var util = {
-      /*获取所有的可能组合
-    如果是[1,2,3,4,5]取出3个
-    那么可能性就有10种 C(5,3)= C(5,2)
-    不用翻书了 给个公式
-    全排列  P(n,m)=n!/(n-m)!
-    组合排列 C(5,2)=5!/2!*3!=5*4*3*2*1/[(2*1)*(3*2*1)]=10
-    这是使用了循环加递归做出了组合排序
-    */
-      getCombination: function(arr, num) {
-        var r = [];
-        (function f(t, a, n) {
-          if (n == 0) {
-            return r.push(t);
-          }
-          for (var i = 0, l = a.length; i <= l - n; i++) {
-            f(t.concat(a[i]), a.slice(i + 1), n - 1);
-          }
-        })([], arr, num);
-        return r;
-      },
-      // take array index to a array
-      // 获取数组的索引
-      getArrayIndex: function(array) {
-        var i = 0,
-          r = [];
-        for (i = 0; i < array.length; i++) {
-          r.push(i);
-        }
-        return r;
-      }
-    },
-    logic = {
-      // sort the array,then get what's we need
-      //  获取数组中比sum小的数
-      init: function(array, sum) {
-        // clone array
-        var _array = array.concat(),
-          r = [],
-          i = 0;
-        // sort by asc
-        _array.sort(function(a, b) {
-          return a - b;
-        });
-        // get all number when it's less than or equal sum
-        for (i = 0; i < _array.length; i++) {
-          if (_array[i] <= sum) {
-            r.push(_array[i]);
-          } else {
-            break;
-          }
-        }
+1、减少请求数（合并 js，css，图片等）。
 
-        return r;
-      },
-      // important function
-      core: function(array, sum, arrayIndex, count, r) {
-        var i = 0,
-          k = 0,
-          combArray = [],
-          _sum = 0,
-          _cca = [],
-          _cache = [];
+2、减少资源大小（压缩，删掉无用代码）。
 
-        if (count == _returnMark) {
-          return;
-        }
-        // get current count combination
-        // 这里排序的不是原来的数组,而是求的索引后的数组
-        combArray = util.getCombination(arrayIndex, count);
-        for (i = 0; i < combArray.length; i++) {
-          _cca = combArray[i];
-          _sum = 0;
-          _cache = [];
-          // calculate the sum from combination
-          for (k = 0; k < _cca.length; k++) {
-            _sum += array[_cca[k]];
-            _cache.push(array[_cca[k]]);
-          }
-          if (Math.abs(_sum - sum) <= _tolerance) {
-            r.push(_cache);
-          }
-        }
+3、静态资源放 CDN。
 
-        logic.core(array, sum, arrayIndex, count - 1, r);
-      }
-    },
-    r = [],
-    _array = [],
-    _targetCount = 0,
-    _tolerance = 0,
-    _returnMark = 0;
+4、过滤请求，使用本地缓存（缓存策略），减少服务器压力。
 
-  // check data
-  _targetCount = targetCount || _targetCount;
-  _tolerance = tolerance || _tolerance;
+5、使用压力测试，测试单个服务器的最大 QPS，从而计算出后端多台服务器集群的抗压能力。
 
-  _array = logic.init(array, sum);
-  if (_targetCount) {
-    _returnMark = _targetCount - 1;
-  }
+6、前端错误日志（监听 window.onerror 等）。
 
-  logic.core(
-    _array,
-    sum,
-    util.getArrayIndex(_array),
-    _targetCount || _array.length,
-    r
-  );
+7、后端错误日志记录（process.on('uncaughtException')等）。
 
-  return r;
-}
-```
+8、nginx 负载均衡。
+
+9、后端守护进程（pm2），心跳检测。
+
+10、Varnish，Stupid 后端缓存。
+
+11、数据库读写分离。
