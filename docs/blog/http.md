@@ -1,4 +1,6 @@
-# HTTP 知识
+# HTTP 协议浅析
+
+HTTP 协议是超文本传输协议，从 www 浏览器传输到本地浏览器的一种传输协议，网站的图片，js，css 都是基于 http 协议的。
 
 ## 输入一个网址后发生了什么？
 
@@ -61,27 +63,39 @@
 
 ## 常用的实体报头
 
-> 请求和响应消息都可以传送一个实体。一个实体由实体报头域和实体正文组成，但并不是说实体报头域和实体正文要在一起 发送，可以只发送实体报头域。实体报头定义了关于实体正文 (eg:有无实体正文)和请求所标识的资源的元信息。
+::: tip 提示
+请求和响应消息都可以传送一个实体。
+
+一个实体由实体报头域和实体正文组成，但并不是说实体报头域和实体正文要在一起发送，可以只发送实体报头域。
+
+实体报头定义了关于实体正文 (eg:有无实体正文)和请求所标识的资源的元信息。
+:::
 
 - Content-Encoding 实体报头域被用作媒体类型的修饰符，它的值指示了已经被应用到实体正文的附加内容的编码，因而要获得 Content-Type 报头域中所引用的媒体类型，必须采用相应的解 码机制。
 - Content-Language 实体报头域描述了资源所用的自然语言。
 - Content-Length 实体报头域用于指明实体正文的长度，以字节方式存储的十进制数字来表示。
 - Content-Type 实体报头域用语指明发送给接收者的实体正文的媒体类型。 Last-Modified 实体报头域用于指示资源的最后修改日期和时间。 Expires 实体报头域给出响应过期的日期和时间。
 
-## cookies 和 session
+## http 缓存策略
+
+### cookies 和 session
 
 - Cookies 是保存在客户端的小段文本，随客户端点每一个请求发送该 url 下的所有 cookies 到服务器端。
 - Session 则保存服务器段，通过唯一的值 sessionID 来区别每一个 用户。SessionID 随每个连接请求发送到服务器，服务器根据 sessionID 来识别客户端，再通过 session 的 key 获取 session 值。
 
-## Etag/if-None-Match 策略
+### Etag/if-None-Match 策略
 
 - Etag:web 服务器响应请求时，告诉浏览器当前资源在服务器的唯一标识(生成规则由服务器决定)。
 - If-None-Match:当资源过期时（使用 Cache-Control 标识的 max- age），发现资源具有 Etage 声明，则再次向 web 服务器请求时带 上头 If-None-Match（Etag 的值）。web 服务器收到请求后发现 有头 If-None-Match 则与被请求资源的相应校验串进行比对，决 定返回 200 或 304。
 
-## Last-Modified/If-Modified-Since 策略
+### Last-Modified/If-Modified-Since 策略
 
 - Last-Modified:标示这个响应资源的最后修改时间。web 服务器在响应请求时，告诉浏览器资源的最后修改时间。
 - If-Modified-Since:当资源过期时(使用 Cache-Control 标识的 max-age)，发现资源具有 Last-Modified 声明，则再次向 web 服务器请求时带上头 If-Modified-Since，表示请求时间。web 服务器收到请求后发现有头 If-Modified- Since 则与被请求资源的最后修改时间进行比对。若最后修改时间较新，说 明资源又被改动过，则响应整片资源内容(写在响应消息包体内)，HTTP 200;若最后修改时间较旧，说明资源无新修改，则响应 HTTP 304（无需包 体，节省浏览），告知浏览器继续使用所保存的 cache。
+
+http 缓存策略图：
+
+![http 缓存策略图](/blog/browser-caching.jpg)
 
 ## http2
 
@@ -90,8 +104,15 @@
 - 多路复用，一个网络连接实现并行请求。
 - 服务器主动推送，减少请求的延迟。
 
-## 反向代理的用途
+## 反向代理
 
+用户不直接请求服务器，而是请求反向代理服务器，再由反向代理服务器转发请求到其他服务器。
+
+![反向代理](/blog/http-reverseProxy.png)
+
+反向代理的作用：
+
+- 复用 DNS 查询。
 - 加密和 SSL 加速。
 - 负载均衡。
 - 缓存静态资源。
@@ -99,3 +120,7 @@
 - 减速上传。
 - 安全。
 - 外网发布。
+
+负载均衡示意图：
+
+![负载均衡](/blog/http-loadBalancing.png)

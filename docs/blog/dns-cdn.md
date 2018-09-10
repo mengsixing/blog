@@ -77,7 +77,7 @@ Strict-Transport-Security: max-age=<expire-time>
 
 - ⽤户的第⼀次访问不受控。
 
-## 走进 https
+## 走进 HTTPS
 
 利用数学方法，让传输中可见的东西不可逆破解，只能通过私钥破解。
 

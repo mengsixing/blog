@@ -1,6 +1,6 @@
-# Https 流程
+# Https 协议浅析
 
-https 流程示意图
+https 是以安全为目标的 http 通道，简单讲是 http 的安全版。
 
 ![https流程图](https.png)
 
