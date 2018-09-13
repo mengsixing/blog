@@ -49,7 +49,7 @@ CSS 工作流可以分成预处理器和后处理器。
 
 用 sass，less，stylus 等语法编写的类 css 代码，转换为真正的 css 代码。
 
-可以使用变量，继承，嵌套规则，运算，函数，scope 等编程的方式，书写 css。增强了 CSS 语法
+可以使用变量，继承，嵌套规则，运算，函数，scope 等编程的方式，书写 css。增强了 css 语法。
 
 ### CSS 后处理器
 
@@ -61,9 +61,9 @@ Box: CSS 布局的基本单位 。
 
 Box 是 CSS 布局的对象和基本单位， 直观点来说，就是一个页面是由很多个 Box 组成的。元素的类型和 display 属性，决定了这个 Box 的类型。 不同类型的 Box， 会参与不同的 Formatting Context（一个决定如何渲染文档的容器），因此 Box 内的元素会以不同的方式渲染。让我们看看有哪些盒子：
 
-block-level box:display 属性为 block, list-item, table 的元素，会生成 block-level box。并且参与 block fomatting context；
+block-level box:display 属性为 block, list-item, table 的元素，会生成 block-level box。并且参与 block fomatting context。
 
-inline-level box:display 属性为 inline, inline-block, inline-table 的元素，会生成 inline-level box。并且参与 inline formatting context；
+inline-level box:display 属性为 inline, inline-block, inline-table 的元素，会生成 inline-level box。并且参与 inline formatting context。
 
 Formatting context 是 W3C CSS2.1 规范中的一个概念。它是页面中的一块渲染区域，并且有一套渲染规则，它决定了其子元素将如何定位，以及和其他元素的关系和相互作用。最常见的 Formatting context 有 Block fomatting context (简称 BFC)和 Inline formatting context (简称 IFC)。
 
@@ -99,7 +99,7 @@ Formatting context 是 W3C CSS2.1 规范中的一个概念。它是页面中的�
 
 ### FFC
 
-FFC(Flex Formatting Contexts)直译为"自适应格式化上下文"，display 值为 flex 或者 inline-flex 的元素将会生成自适应容器（flex container），
+FFC(Flex Formatting Contexts)直译为"自适应格式化上下文"，display 值为 flex 或者 inline-flex 的元素将会生成自适应容器（flex container）。
 
 ### GFC
 
