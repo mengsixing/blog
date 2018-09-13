@@ -1,4 +1,4 @@
-# CSS 浅析
+# 编写高质量 CSS
 
 ## 面向对象的 CSS
 
@@ -41,18 +41,21 @@ CSS 有语义化的命名约定和 CSS 层的分离，团队命名统一规范�
 
 ---
 
-## CSS 技巧
+## CSS 工作流
 
-[css 图标](https://cssicon.space)
+CSS 工作流可以分成预处理器和后处理器。
 
-### CSS 绘制技巧
+### CSS 预处理器
 
-- border && border-radius
-- after && before
-- box-shadow
-- linear-gradient radial-gradient
+用 sass，less，stylus 等语法编写的类 css 代码，转换为真正的 css 代码。
 
-### BFC IFC GFC FFC
+可以使用变量，继承，嵌套规则，运算，函数，scope 等编程的方式，书写 css。增强了 CSS 语法
+
+### CSS 后处理器
+
+用 postcss，将 css 进行美化，压缩，加前缀等操作。对 css 加入一些扩展，增强 css 的兼容性。
+
+## 格式化上下文
 
 Box: CSS 布局的基本单位 。
 
@@ -64,10 +67,61 @@ inline-level box:display 属性为 inline, inline-block, inline-table 的元素�
 
 Formatting context 是 W3C CSS2.1 规范中的一个概念。它是页面中的一块渲染区域，并且有一套渲染规则，它决定了其子元素将如何定位，以及和其他元素的关系和相互作用。最常见的 Formatting context 有 Block fomatting context (简称 BFC)和 Inline formatting context (简称 IFC)。
 
+### BFC 特点
+
+- 在 BFC 中，内部的 Box 会在垂直方向，一个接一个地放置。
+
+- Box 垂直方向的距离由 margin 决定，同一个 BFC 下相邻两个 Box 的 margin 会发生重叠。
+
+- 在 BFC 中，每一个盒子的左外边缘（margin-left）会触碰到容器的左边缘(border-left)（对于从右到左的格式来说，则触碰到右边缘），即使存在浮动也是如此。（即不会发生 margin 穿透）。
+
+- 形成了 BFC 的区域不会与 float box 重叠（可阻止因浮动元素引发的文字环绕现象）。
+
+- 计算 BFC 高度时，浮动元素也参与计算（BFC 会确切包含浮动的子元素，即闭合浮动）。
+
+### IFC 特点
+
+- 水平方向根据 direction 依次布局。
+
+- 不会在元素前后换行。
+
+- 受 white-space 属性的影响。
+
+- margin/padding 在竖直方向无效，水平方向有效的。
+
+- width/height 对非替换行内元素无效，宽度由元素内容决定。
+
+- 非替换行内元素的行框高由 line-height 决定而替换行内元素的行框高则是由 height，padding，border，margin 决定。
+
+- 浮动或者绝对定位会转化为 block。
+
+- vertical-align 属性生效。
+
+### FFC
+
 FFC(Flex Formatting Contexts)直译为"自适应格式化上下文"，display 值为 flex 或者 inline-flex 的元素将会生成自适应容器（flex container），
+
+### GFC
 
 GFC(GridLayout Formatting Contexts)直译为"网格布局格式化上下文"，当为一个元素设置 display 值为 grid 的时候，此元素将会获得一个独立的渲染区域，我们可以通过在网格容器（grid container）上定义网格定义行（grid definition rows）和网格定义列（grid definition columns）属性各在网格项目（grid item）上定义网格行（grid row）和网格列（grid columns）为每一个网格项目（grid item）定义位置和空间。
 
-::: tip tip
+## CSS 技巧
+
+我们可以利用 CSS 技巧创建各种规则和不规则形状的图形。
+
+[css 图标](https://cssicon.space)
+
+### CSS 绘制技巧
+
+- border && border-radius
+- after && before
+- box-shadow
+- linear-gradient radial-gradient
+
+::: tip 参考链接
 [面向对象的 CSS](https://www.w3cplus.com/css/an-introduction-to-object-oriented-css-oocss.html)
+
+[常用布局之 IFC 布局](https://blog.csdn.net/weixin_38080573/article/details/79364754)
+
+[行内布局](https://segmentfault.com/a/1190000003043991)
 :::
