@@ -1,5 +1,9 @@
 # 编写高质量 CSS
 
+我么经常用 CSS 静态地修饰网页，可是有想过怎么写出高质量的 CSS？
+
+下面介绍几个用来写好 CSS 的方法。
+
 ## 面向对象的 CSS
 
 OO CSS 将⻚面可重用元素抽象成一个类，用 Class 加以描述，而与其对应的 HTML 即可看成是此类的一个实例。
@@ -29,9 +33,16 @@ OO CSS 将⻚面可重用元素抽象成一个类，用 Class 加以描述，而
 
 ## CSS 分层
 
-CSS 有语义化的命名约定和 CSS 层的分离，团队命名统一规范，方便维护。
+CSS 有语义化的命名约定和 CSS 层的分离，团队命名统一规范，方便维护，最常用的是 BEM 规范。
 
 [BEM](https://en.bem.info/)
+
+- block 代表了更高级别的抽象或组件。
+- block-name 长名称中使用连字符分隔单词。
+- block\_\_element 代表.block 的后代，用于形成一个完整的.block 的整体。
+- .block--modifier 代表.block 的不同状态或不同版本。
+
+还有以下几总规范，了解即可。
 
 [SMACSS](https://smacss.com/)
 
@@ -39,21 +50,23 @@ CSS 有语义化的命名约定和 CSS 层的分离，团队命名统一规范�
 
 [Atomic](https://acss.io/)
 
----
-
 ## CSS 工作流
 
-CSS 工作流可以分成预处理器和后处理器。
+古老的 CSS 无法定义变量，无法进行运算，需要手写很多浏览器兼容前缀，写出来的代码可能会占很大篇幅。
+
+CSS 预处理器和后处理器可以帮助我们解决此类问题。
 
 ### CSS 预处理器
 
-用 sass，less，stylus 等语法编写的类 css 代码，转换为真正的 css 代码。
+预处理器可以让我们使用变量，继承，嵌套规则，运算，函数，scope 等编程的方式，书写 css。`一句话总结：增强 css 语法。`
 
-可以使用变量，继承，嵌套规则，运算，函数，scope 等编程的方式，书写 css。增强了 css 语法。
+我们使用 sass，less，stylus 等语法编写的类 css 代码，然后经过编译，最后转换为真正的 css 代码。
 
 ### CSS 后处理器
 
-用 postcss，将 css 进行美化，压缩，加前缀等操作。对 css 加入一些扩展，增强 css 的兼容性。
+后处理器可以将我们的 css 进行压缩，美化，以及加上浏览器前缀，减少我们的开发工作量。`一句话总结：增强css的兼容性。`
+
+我们使用 postcss，将 css 进行美化，压缩，加前缀等操作。对 css 加入一些扩展。
 
 ## 格式化上下文
 
@@ -113,10 +126,14 @@ GFC(GridLayout Formatting Contexts)直译为"网格布局格式化上下文"，�
 
 ### CSS 绘制技巧
 
+css 绘制图形的技巧可以通过以下几种方式实现：
+
 - border && border-radius
 - after && before
 - box-shadow
 - linear-gradient radial-gradient
+
+---
 
 ::: tip 参考链接
 [面向对象的 CSS](https://www.w3cplus.com/css/an-introduction-to-object-oriented-css-oocss.html)

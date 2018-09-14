@@ -8,3 +8,7 @@ sidebar: false
 - 前端
 - .NET
 - 软件工程
+
+---
+
+[个人简历](https://yhlben.github.io/resume/)

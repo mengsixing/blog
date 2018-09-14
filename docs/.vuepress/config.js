@@ -20,6 +20,7 @@ module.exports = {
     ],
     sidebar: {
       "/blog/": [
+        "vue",
         "css",
         "wx-miniProgram",
         "js-jsBridge",
@@ -58,7 +59,13 @@ module.exports = {
         "nginx-load-balancing",
         "fontend-interview"
       ],
-      "/work/": ["2018-09-04", "2018-06-20", "2018-06-21", "2018-06-19"]
+      "/work/": [
+        "2018-09-13",
+        "2018-09-04",
+        "2018-06-20",
+        "2018-06-21",
+        "2018-06-19"
+      ]
     },
     lastUpdated: "最后更新",
     docsDir: "docs",
