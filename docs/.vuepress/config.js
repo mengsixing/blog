@@ -1,6 +1,6 @@
 module.exports = {
-  title: "yhlben的博客",
-  description: "欢迎来到我的博客",
+  title: "yhlben的前端日志",
+  description: "欢迎访问我的前端日志",
   ga: "UA-121061441-1",
   themeConfig: {
     repo: "yhlben/blog",
@@ -20,6 +20,7 @@ module.exports = {
     ],
     sidebar: {
       "/blog/": [
+        "react",
         "vue",
         "css",
         "wx-miniProgram",

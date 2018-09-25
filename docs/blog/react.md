@@ -1,5 +1,7 @@
 # React 浅析
 
+总结一下常用的 React 知识。
+
 ## React 生命周期
 
 ### 创建时
@@ -24,7 +26,7 @@ getDerivedStateFromProps 只存在一个目的。它使组件能够根据 props 
 
 在组件被装配后立即调用。初始化使得 DOM 节点应该进行到这里。`若你需要从远端加载数据，这是一个适合实现网络请求的地方。`在该方法里设置状态将会触发重渲。
 
-您可以调用 setState()立即在 componentDidMount()。它将触发额外的渲染，但它将在浏览器更新屏幕之前发生。这保证即使 render()在这种情况下将被调用两次，用户也不会看到中间状态。
+您可以调用 `setState`立即在 `componentDidMount`。它将触发额外的渲染，但它将在浏览器更新屏幕之前发生。这保证即使 `render`在这种情况下将被调用两次，用户也不会看到中间状态。
 
 ### 更新时
 
@@ -49,21 +51,21 @@ getDerivedStateFromProps 只存在一个目的。它使组件能够根据 props 
 
 componentDidUpdate(prevProps, prevState, snapshot)
 
-将此作为在更新组件时对DOM进行操作的机会。只要您将当前道具与之前的道具进行比较（例如，如果道具未更改，则可能不需要网络请求），`这也是进行网络请求的好地方。`
+将此作为在更新组件时对 DOM 进行操作的机会。只要您将当前道具与之前的道具进行比较（例如，如果道具未更改，则可能不需要网络请求），`这也是进行网络请求的好地方。`
 
 ### 卸载时
 
 #### componentWillUnmount
 
-componentWillUnmount()在卸载和销毁组件之前立即调用。在此方法中执行任何必要的清理，例如使计时器无效，取消网络请求或清除在其中创建的任何订阅。
+`componentWillUnmount`在卸载和销毁组件之前立即调用。在此方法中执行任何必要的清理，例如使计时器无效，取消网络请求或清除在其中创建的任何订阅。
 
 ### 弃用生命周期
 
 #### componentWillMount
 
-componentWillMount是在render之前执行，所以在这个方法中setState不会发生重新渲染(re-render)。
+`componentWillMount` 是在 `render` 之前执行，所以在这个方法中 setState 不会发生重新渲染(re-render)。
 
-通常情况下，推荐用constructor()方法代替。
+通常情况下，推荐用 constructor()方法代替。
 
 #### componentWillReceiveProps
 
@@ -71,4 +73,14 @@ UNSAFE_componentWillReceiveProps(nextProps)
 
 使用不当可能体现为组件陷入渲染死循环，他会一直接受新的外部状态导致自身一直在重渲染。
 
+例如：在 componentWillReceiveProps 中 setState 引起父组件渲染。
+
 [生命周期图](http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
+
+## 可控组件和不可控组件
+
+在 HTML 当中，像`<input>`,`<textarea>`, 和 `<select>`这类表单元素会维持自身状态，并根据用户输入进行更新。但在 React 中，可变的状态通常保存在组件的状态属性中，并且只能用 setState() 方法进行更新。
+
+我们通过使 react 变成一种单一数据源的状态来结合二者。React 负责渲染表单的组件仍然控制用户后续输入时所发生的变化。相应的，其值由 React 控制的输入表单元素称为“受控组件”。
+
+使用”受控组件”,每个状态的改变都有一个与之相关的处理函数。这样就可以直接修改或验证用户输入。
