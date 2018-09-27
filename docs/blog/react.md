@@ -84,3 +84,27 @@ UNSAFE_componentWillReceiveProps(nextProps)
 我们通过使 react 变成一种单一数据源的状态来结合二者。React 负责渲染表单的组件仍然控制用户后续输入时所发生的变化。相应的，其值由 React 控制的输入表单元素称为“受控组件”。
 
 使用”受控组件”,每个状态的改变都有一个与之相关的处理函数。这样就可以直接修改或验证用户输入。
+
+## React 异步渲染
+
+将 setState() 认为是一次请求而不是一次立即执行更新组件的命令。为了更为可观的性能，React 可能会推迟它，稍后会一次性更新这些组件。React 不会保证在 setState 之后，能够立刻拿到改变的结果。
+
+1、在 setState 中调用了 enqueueSetState 方法将传入的 state 放到一个队列中
+
+2、enqueueSetState 中先是找到需渲染组件并将新的 state 并入该组件的需更新的 state 队列中，接下来调用了 enqueueUpdate 方法
+
+3、isBatchingUpdates 标识是否在一个更新组件的事务流中。
+
+3.1、如果没有在事务流中，调用 batchedUpdates 方法进入更新流程，进入流程后，会将 isBatchingUpdates 设置为 true。
+
+3.2、否则，将需更新的组件放入 dirtyComponents 中。
+
+### 什么时候会标识 isBatchingUpdates 为 true？
+
+1、当处于生命周期 render 之后的生命周期中。
+
+2、合成事件中（jsx 中的事件都是合成事件）。
+
+::: tip 提示
+所以在 setTimeout，源生事件中的 setState 会同步渲染。
+:::

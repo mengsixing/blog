@@ -87,6 +87,12 @@ Vue 异步执行 DOM 更新。只要观察到数据变化，Vue 将开启一个�
 然后，在下一个的事件循环“tick”中，Vue 刷新队列并执行实际 (已去重的) 工作。
 
 Vue 在内部尝试对异步队列使用原生的 Promise.then 和 MessageChannel（MutationObserver 等），如果执行环境不支持，会采用 setTimeout(fn, 0) 代替。
+
+修改数据 -> 触发 set-> 执行同步代码，如果有数据更新，则开启异步队列。
+
+-> 异步队列中进行去重操作，并注入 nextTick 回调函数。
+
+-> 异步操作执行完毕，即 DOM 成功渲染，触发 nextTick 回调函数。
 :::
 
 ## 生命周期
