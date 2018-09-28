@@ -143,3 +143,95 @@ UDP 没有 TCP 拥有的各种机制，是一种无状态的传输协议，所�
 3、通过 JS 脚本来防止爬虫。（如验证码，滑动解锁等）。
 
 4、通过 robots.txt 来限制爬虫。（君子协议）。
+
+## 随意给定一个无序的、不重复的数组 data，任意抽取 n 个数，相加和为 sum，也可能无解，请写出该函数。
+
+```js
+```
+
+## 节流函数怎么写？
+
+定义：触发函数事件后，短时间间隔内无法连续调用，只有上一次函数执行后，过了规定的时间间隔，才能进行下一次的函数调用。
+
+```js
+function throttle(callback, timeout) {
+  var last = 0;
+  return function(...rest) {
+    var now = new Date();
+    if (now - last > timeout) {
+      callback.apply(this, rest);
+      callback.throttleId = null;
+      last = now;
+    }
+  };
+}
+```
+
+## 防抖函数？
+
+定义：多次触发事件后，事件处理函数只执行一次，并且是在触发操作结束时执行。
+
+```js
+function debounce(callback, timeout) {
+  var id;
+  return function() {
+    clearInterval(id);
+    id = setTimeout(() => {
+      this.callback.apply(this, arguments);
+    }, timeout);
+  };
+}
+```
+
+## arguments 是数组吗？怎么实现用它调用数组方法？类数组和数组的区别是什么？arguments 有 length 属性吗？ 为什么要遍历类数组取值组成数组，还有更简单的方法吗？
+
+1、arguments 不是数组，但有 length 属性。
+
+2、可以转换成数组，因为他有 Symbol(Symbol.iterator) 方法。
+
+```js
+[...arguments];
+Array.prototype.slice.call(arguments);
+Array.from(arguments);
+```
+
+3、类数组是一个对象，typeof 判断出来就不一致。
+类数组无法使用数组方法。
+
+## 手写一个 bind 函数。
+
+```js
+Function.prototype.bind = function(ctx) {
+  var that = this;
+  var NoFunc = function() {};
+  var result = function(...rest) {
+    console.warn("instade of :", this instanceof that);
+    that.apply(this instanceof that ? this : that, rest);
+  };
+  NoFunc.prototype = that.prototype;
+  result.prototype = new NoFunc();
+  return result;
+};
+```
+
+## promise、setTimeout、async/await 的执行顺序。
+
+setTimeout 是宏任务。
+promise 和 async/await 是微任务。
+
+执行顺序：宏任务-》微任务-》宏任务
+
+## 一个 div，高度是宽度的 50%，让该 div 的宽度占据整个屏幕，然后能自适应，垂直居中，怎么实现？
+
+```css
+body {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
+
+.item {
+  padding-bottom: 50%;
+  width: 100%;
+}
+```
