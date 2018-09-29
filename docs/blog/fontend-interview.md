@@ -235,3 +235,58 @@ body {
   width: 100%;
 }
 ```
+
+## 用过 NodeJS 的 EventEmitter 模块吗，它是怎么实现功能的，步骤是什么？
+
+类似于 [观察者模式](https://yhlben.github.io/blog/js-observer.html)
+
+## 什么是 BOM？
+
+BOM（Browser Object Model）即浏览器对象模型。
+BOM 提供了独立于内容 而与浏览器窗口进行交互的对象；
+由于 BOM 主要用于管理窗口与窗口之间的通讯，因此其核心对象是 window；
+BOM 由一系列相关的对象构成，并且每个对象都提供了很多方法与属性；
+BOM 缺乏标准，JavaScript 语法的标准化组织是 ECMA，DOM 的标准化组织是 W3C。
+
+常用对象：location，navigation，history，screen，frames。
+
+![bom模型图](https://images2015.cnblogs.com/blog/997049/201608/997049-20160830235030324-1067760196.jpg)
+
+## 行内标签
+
+- 1.行属性标签它和其它标签处在同一行内
+- 2.行属性标签无法设置宽度，高度 行高 距顶部距离 距底部距离
+- 3.行属性标签的宽度是直接由内部的文字或者图片等内容撑开的
+- 4.行属性标签内部不能嵌套行属性标签（a 链接内不能嵌套其他链接）
+
+```html
+<a>、<span>、<i>、<em>、<strong>、<label>、<q>、<var>、<cite>、<code>
+```
+
+## fetch 和 ajax 的比较
+
+Ajax 的本质是使用 XMLHttpRequest 对象来请求数据。（源生调用相当繁琐，得处理兼容性问题）。
+
+fetch 采用了 Promise 的异步处理机制,更加简单.在默认情况下 fetch 不会接受或者发送 cookies
+
+## data-xxx 属性的作用是什么？
+
+增加自定义属性的可读性，可维护性。
+dom.dataset 可以直接访问 dataset。
+
+## js 中的`__proto__`和 prototype
+
+任何对象都有一个 `__proto__` 属性
+
+任何方法都有一个`prototype`属性，`prototype`也是一个对象 ，所以其中也有一个`__proto__`
+
+prototype 它的作用很像 java 中的静态属性/方法。其中的对象可以给所有实例使用。
+
+`__proto__`指向 new 出来的构造函数。
+
+- 1 函数对象有`__proto__`和 prototype 属性
+- 2 非函数对象只有`__proto__`属性
+- 3 prototype 中有`__proto__`属性。且是 Object 构造函数创建的
+- 4 函数对象`__proto__`指向它的创建者及 Function 构造函数
+- 5 Function 构造函数`__proto__`指向它自己
+- 6 Object 对象的 prototype 中的`__proto__`是 null

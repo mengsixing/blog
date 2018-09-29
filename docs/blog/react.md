@@ -63,17 +63,25 @@ componentDidUpdate(prevProps, prevState, snapshot)
 
 #### componentWillMount
 
-`componentWillMount` 是在 `render` 之前执行，所以在这个方法中 setState 不会发生重新渲染(re-render)。
+`componentWillMount` 是在 `render` 之前执行，所以在这个方法中 setState 不会发生重新渲染(re-render)。通常情况下，推荐用 constructor()方法代替。
 
-通常情况下，推荐用 constructor()方法代替。
+这里发请求是异步的，在render之前还是不会返回数据。
+
+componentWillMount 在ssr中会被调用2次。
 
 #### componentWillReceiveProps
 
 UNSAFE_componentWillReceiveProps(nextProps)
 
-使用不当可能体现为组件陷入渲染死循环，他会一直接受新的外部状态导致自身一直在重渲染。
+使用不当可能体现为组件陷入渲染死循环，他会一直接受新的外部状态导致自身一直在重渲染。导致被多次调用，循环调用。
 
 例如：在 componentWillReceiveProps 中 setState 引起父组件渲染。
+
+#### componentWillUpdate
+
+更新前读取当前某个 DOM 元素的状态，用getSnapshotBeforeUpdate代替。
+
+不能setState，也会导致循环渲染问题。
 
 [生命周期图](http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
 
@@ -108,3 +116,13 @@ UNSAFE_componentWillReceiveProps(nextProps)
 ::: tip 提示
 所以在 setTimeout，源生事件中的 setState 会同步渲染。
 :::
+
+## react怎样提高性能？
+
+1、使用shouldComponentUpdate 和Immutable 组合控制合适的时间渲染。PureComponent
+
+2、render里面尽量减少新建变量和bind函数，传递参数是尽量减少传递参数的数量。
+
+3、多个react组件性能优化，key的优化
+
+4、redux性能优化：reselect（数据获取时优化）。
