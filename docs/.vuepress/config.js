@@ -14,8 +14,8 @@ module.exports = {
         link: "/work/"
       },
       {
-        text: "关于",
-        link: "/about"
+        text: "面试题",
+        link: "/interview/"
       }
     ],
     sidebar: {
@@ -66,6 +66,13 @@ module.exports = {
         "2018-06-20",
         "2018-06-21",
         "2018-06-19"
+      ],
+      "/interview/": [
+        "js",
+        "css",
+        "html",
+        "base",
+        "suanfa"
       ]
     },
     lastUpdated: "最后更新",

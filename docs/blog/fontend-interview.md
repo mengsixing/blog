@@ -290,3 +290,13 @@ prototype 它的作用很像 java 中的静态属性/方法。其中的对象可
 - 4 函数对象`__proto__`指向它的创建者及 Function 构造函数
 - 5 Function 构造函数`__proto__`指向它自己
 - 6 Object 对象的 prototype 中的`__proto__`是 null
+
+## HTTP 请求 OPTION
+
+HTTP 请求方法并不是只有 GET 和 POST，只是最常用的。据 RFC2616 标准（现行的 HTTP/1.1）得知，通常有以下 8 种方法：OPTIONS、GET、HEAD、POST、PUT、DELETE、TRACE 和 CONNECT。
+
+OPTIONS 请求方法的主要用途有两个：
+
+1、获取服务器支持的 HTTP 请求方法。
+
+2、用来检查服务器的性能。例如：AJAX 进行跨域请求时的预检，需要向另外一个域名的资源发送一个 HTTP OPTIONS 请求头，用以判断实际发送的请求是否安全。
