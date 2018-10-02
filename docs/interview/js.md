@@ -1,6 +1,6 @@
-# JS面试题
+# JS 面试题
 
-## 请简述 JavaScript 中的 this
+## 1、请简述 JavaScript 中的 this
 
 - 在调用函数时使用 new 关键字，函数内的 this 是一个全新的对象。
 - 如果 apply、call 或 bind 方法用于调用、创建一个函数，函数内的 this 就是作为参数传入这些方法的对象。
@@ -9,7 +9,7 @@
 - 如果符合上述多个规则，则较高的规则（1 号最高，4 号最低）将决定 this 的值。
 - 如果该函数是 ES2015 中的箭头函数，将忽略上面的所有规则，this 被设置为它被创建时的上下文。
 
-## offsetWidth，clientWidth，scrollWidth 的区别？
+## 2、offsetWidth，clientWidth，scrollWidth 的区别？
 
 clientWidth：元素的 width + padding
 
@@ -22,7 +22,7 @@ scrollWidth：
 
 [测试 offsetWidth，clientWidth，scrollWidth](https://codepen.io/yhlben/pen/WgowLz)
 
-## 节流函数怎么写？
+## 3、节流函数怎么写？
 
 定义：触发函数事件后，短时间间隔内无法连续调用，只有上一次函数执行后，过了规定的时间间隔，才能进行下一次的函数调用。
 
@@ -40,7 +40,7 @@ function throttle(callback, timeout) {
 }
 ```
 
-## 防抖函数？
+## 4、防抖函数？
 
 定义：多次触发事件后，事件处理函数只执行一次，并且是在触发操作结束时执行。
 
@@ -56,7 +56,9 @@ function debounce(callback, timeout) {
 }
 ```
 
-## arguments 是数组吗？怎么实现用它调用数组方法？类数组和数组的区别是什么？arguments 有 length 属性吗？ 为什么要遍历类数组取值组成数组，还有更简单的方法吗？
+## 5、arguments 是数组吗？
+
+arguments 是数组吗？怎么实现用它调用数组方法？类数组和数组的区别是什么？arguments 有 length 属性吗？ 为什么要遍历类数组取值组成数组，还有更简单的方法吗？
 
 1、arguments 不是数组，但有 length 属性。
 
@@ -71,7 +73,7 @@ Array.from(arguments);
 3、类数组是一个对象，typeof 判断出来就不一致。
 类数组无法使用数组方法。
 
-## 手写一个 bind 函数。
+## 6、手写一个 bind 函数。
 
 ```js
 Function.prototype.bind = function(ctx) {
@@ -87,25 +89,24 @@ Function.prototype.bind = function(ctx) {
 };
 ```
 
-## promise、setTimeout、async/await 的执行顺序。
+## 7、promise、setTimeout、async/await 的执行顺序。
 
 setTimeout 是宏任务。
 promise 和 async/await 是微任务。
 
 执行顺序：宏任务-》微任务-》宏任务
 
-## 用过 NodeJS 的 EventEmitter 模块吗，它是怎么实现功能的，步骤是什么？
+## 8、用过 NodeJS 的 EventEmitter 模块吗，它是怎么实现功能的，步骤是什么？
 
 类似于 [观察者模式](https://yhlben.github.io/blog/js-observer.html)
 
-## fetch 和 ajax 的比较
+## 9、fetch 和 ajax 的比较
 
 Ajax 的本质是使用 XMLHttpRequest 对象来请求数据。（源生调用相当繁琐，得处理兼容性问题）。
 
 fetch 采用了 Promise 的异步处理机制,更加简单.在默认情况下 fetch 不会接受或者发送 cookies
 
-
-## js 中的`__proto__`和 prototype
+## 10、js 中的`__proto__`和 prototype
 
 任何对象都有一个 `__proto__` 属性
 
@@ -121,3 +122,63 @@ prototype 它的作用很像 java 中的静态属性/方法。其中的对象可
 - 4 函数对象`__proto__`指向它的创建者及 Function 构造函数
 - 5 Function 构造函数`__proto__`指向它自己
 - 6 Object 对象的 prototype 中的`__proto__`是 null
+
+## 11、为什么 [] == false, !![] == true ?
+
+先来看看[] ==false 的比较顺序。
+
+- 1、[] == false
+- 2、[] == 0
+- 3、"" == 0
+- 4、0 == 0
+
+所以为 true。
+
+在看一下 !![] == true
+
+- 1、!![] == true
+
+- 2、!false == true
+
+- 3、true == true
+
+所以为 true。
+
+答案来源于 ecma 规范：
+
+![ecma 条件判断](/interview/interview-abstractCompare.png)
+
+## 12、Js new 过程中发生了什么？
+
+1，创建一个以这个函数为原型的空对象.
+
+2，将函数的 `prototype` 赋值给对象的 `__proto__` 属性。
+
+3，将对象作为函数的 `this` 传进去。如果有 return 出来东西是对象的话就直接返回 return 的内容，没有的话就返回创建的这个对象。
+
+```js
+function newFunc(faster, ...rest) {
+  var result = {};
+  result.__proto = faster.prototype;
+  var result2 = faster.apply(result, rest);
+  if (
+    (typeof result2 === "object" || typeof result2 === "function") &&
+    result2 !== null
+  ) {
+    return result2;
+  }
+  return result;
+}
+```
+
+## 13、setTimeout 和 setInterval 方法有执行顺序吗？
+
+setTimeout 等待 xx 毫秒后，把方法推入异步队列。
+
+setInterval 每隔 xx 毫秒，把方法推入异步队列。
+
+setInterval 如果间隙比较小，而方法比较耗时时，会导致间隔不连续。
+
+例如： 每隔 100ms 执行 fn，如果 fn 执行时间是 150ms，那么第二次执行，会在 150ms 处执行（异步事件会等待同步事件执行完后才执行）。
+
+> 可以使用 setTimeout 自调用，在确方法执行完后，再推入异步队列。

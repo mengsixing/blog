@@ -9,10 +9,10 @@ module.exports = {
         text: "博客",
         link: "/blog/"
       },
-      {
-        text: "日志",
-        link: "/work/"
-      },
+      // {
+      //   text: "日志",
+      //   link: "/work/"
+      // },
       {
         text: "面试题",
         link: "/interview/"

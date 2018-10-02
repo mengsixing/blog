@@ -65,9 +65,9 @@ componentDidUpdate(prevProps, prevState, snapshot)
 
 `componentWillMount` 是在 `render` 之前执行，所以在这个方法中 setState 不会发生重新渲染(re-render)。通常情况下，推荐用 constructor()方法代替。
 
-这里发请求是异步的，在render之前还是不会返回数据。
+这里发请求是异步的，在 render 之前还是不会返回数据。
 
-componentWillMount 在ssr中会被调用2次。
+componentWillMount 在 ssr 中会被调用 2 次。
 
 #### componentWillReceiveProps
 
@@ -79,9 +79,9 @@ UNSAFE_componentWillReceiveProps(nextProps)
 
 #### componentWillUpdate
 
-更新前读取当前某个 DOM 元素的状态，用getSnapshotBeforeUpdate代替。
+更新前读取当前某个 DOM 元素的状态，用 getSnapshotBeforeUpdate 代替。
 
-不能setState，也会导致循环渲染问题。
+不能 setState，也会导致循环渲染问题。
 
 [生命周期图](http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
 
@@ -117,12 +117,26 @@ UNSAFE_componentWillReceiveProps(nextProps)
 所以在 setTimeout，源生事件中的 setState 会同步渲染。
 :::
 
-## react怎样提高性能？
+## react 怎样提高性能？
 
-1、使用shouldComponentUpdate 和Immutable 组合控制合适的时间渲染。PureComponent
+1、使用 shouldComponentUpdate 和 Immutable 组合控制合适的时间渲染。PureComponent
 
-2、render里面尽量减少新建变量和bind函数，传递参数是尽量减少传递参数的数量。
+2、render 里面尽量减少新建变量和 bind 函数，传递参数是尽量减少传递参数的数量。
 
-3、多个react组件性能优化，key的优化
+3、多个 react 组件性能优化，key 的优化
 
-4、redux性能优化：reselect（数据获取时优化）。
+4、redux 性能优化：reselect（数据获取时优化）。
+
+## props 和 state 分别在什么时候用？
+
+1、如果在 Component 中需要在某个时间点改变，那么应该使用 state，否则应该使用 prop。
+
+2、state 是组件在内部管理自己的状态。
+
+3、prop 只能是父组件传入，或者是初始化时自定义，一旦定义，不能改变。
+
+无状态组件： 只有 prop，没有 state。除了这个 render()功能之外没有多少事情发生，所有的逻辑都围绕着 prop。
+
+- 纯静态展示,可读性更好，并能大大减少代码量
+- 省去了多余的生命周期，提升了整体的渲染性能
+- 可复用性强
