@@ -72,7 +72,8 @@ module.exports = {
         "css",
         "html",
         "base",
-        "suanfa"
+        "suanfa",
+        "framework"
       ]
     },
     lastUpdated: "最后更新",

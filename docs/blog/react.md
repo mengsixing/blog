@@ -38,7 +38,7 @@ getDerivedStateFromProps 只存在一个目的。它使组件能够根据 props 
 
 此方法仅作为性能优化存在。不要依赖它来“防止”渲染，因为这可能导致错误。考虑使用内置 PureComponent 而不是 shouldComponentUpdate()手写。
 
-#### render
+#### render。
 
 将虚拟 DOM 渲染成真实的 DOM。
 

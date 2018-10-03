@@ -2,13 +2,15 @@
 
 ## 1、下列请求算跨域吗？
 
-<xx.com> 向 <mp.xx.com> 发请求跨域吗？<mp.xx.com> 的服务器能接收到请求吗？是怎样的请求？
+1、`xx.com`向`mp.xx.com`发请求跨域吗？
+
+2、`mp.xx.com`的服务器能接收到请求吗？是怎样的请求？
 
 跨域，因为域名不同。
 
 服务器端可以接收到请求。
 
-![跨域后端获取到的请求](front-interview-cross-domain.png)
+![跨域后端获取到的请求](/blog/front-interview-cross-domain.png)
 
 跨域请求，后端拿不到 cookie，x-requested-with，新增 referer 字段。
 
@@ -16,7 +18,7 @@
 
 ## 2、请解释 XSS 与 CSRF 分别是什么？两者有什么联系，如何防御？
 
-[参考链接](fontend-security.html)
+[参考链接](/blog/fontend-security.html)
 
 ## 关乎 Javascript Bridge。
 
@@ -96,7 +98,7 @@ BOM 缺乏标准，JavaScript 语法的标准化组织是 ECMA，DOM 的标准�
 
 常用对象：location，navigation，history，screen，frames。
 
-![bom模型图](https://images2015.cnblogs.com/blog/997049/201608/997049-20160830235030324-1067760196.jpg)
+![bom模型图](interview-bom.jpg)
 
 ## 7、HTTP 常用的请求方式？
 

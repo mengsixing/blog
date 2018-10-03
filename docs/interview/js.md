@@ -146,7 +146,7 @@ prototype 它的作用很像 java 中的静态属性/方法。其中的对象可
 
 答案来源于 ecma 规范：
 
-![ecma 条件判断](/interview/interview-abstractCompare.png)
+![ecma 条件判断](interview-abstractCompare.png)
 
 ## 12、Js new 过程中发生了什么？
 

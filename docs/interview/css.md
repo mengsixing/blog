@@ -48,3 +48,13 @@ BFC 可以清除 margin 重叠，和 float 文字环绕等。
 - 正 z-index
 
 由此引申出：定位元素的`z-index：0`和`z-index：auto`的区别是，前者会创建层叠上下文，影响布局。
+
+## flex:1 是什么单位的缩写？
+
+flex 是 flex-grow、flex-shrink、flex-basis 的缩写。
+
+flex-grow 属性定义项目的放大比例，默认为 0，即如果存在剩余空间，也不放大。
+
+flex-shrink 属性定义了项目的缩小比例，默认为 1，即如果空间不足，该项目将缩小。
+
+flex-basis 属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。
