@@ -1,6 +1,6 @@
 # Webpack 小总结
 
-Webpack 是一个打包工具，通过其内部的工作流，可以将依赖的图片，css，js 等进行处理后，整合成简单的静态的文件。
+webpack 是一个模块打包器。webpack 的主要目标是将 `javaScript` 文件打包在一起，打包后的文件用于在浏览器中使用，但它也能够胜任转换(transform)、打包(bundle)或包裹(package)任何资源(resource or asset)。
 
 ## Webpack 核心概念
 
@@ -64,7 +64,7 @@ const loaderUtils = require("loader-utils");
 module.exports = function(source) {
   // 获取loader中传递的配置信息
   const options = loaderUtils.getOptions(this);
-  // 但会处理后的内容
+  // 返回处理后的内容
   this.callback(null, "/ *增加一个注释 */" + source);
   // 也可以直接return
   // return "/ *增加一个注释 */" + source;
@@ -127,7 +127,7 @@ module.exports = {
 
 - FlagDependencyUsagePlugin（标记没有用到的依赖）
 - FlagIncludedChunksPlugin（标记用到的依赖）
-- ModuleConcatenationPlugin（scope hosting）
+- ModuleConcatenationPlugin（scope hoisting）
 - NoEmitOnErrorsPlugin（遇到错误代码不跳出）
 - OccurrenceOrderPlugin（给生成的 chunkid 排序）
 - SideEffectsFlagPlugin
@@ -215,15 +215,15 @@ module.exports = {
 
 1、在处理 `loader` 时，配置 `include`，缩小 `loader` 检查范围。
 
-2、使用 `alias` 可以更快地赵铎对应文件。
+2、使用 `alias` 可以更快地找到对应文件。
 
-3、默认 webpack 会尝试`.js`,`.json` 等后缀名匹配，`extensions` 配置，让 webpack 少做一点后缀匹配。
+3、如果在 `require` 模块时不写后缀名，默认 webpack 会尝试`.js`,`.json` 等后缀名匹配，`extensions` 配置，让 webpack 少做一点后缀匹配。
 
 4、静态资源上 cdn。
 
-5、使用 `tree ahsking`，只打包用到的模块，删除没有用到的模块。
+5、使用 `tree shaking`，只打包用到的模块，删除没有用到的模块。
 
-6、配置 `scope hosting` 作用域提升，将多个 IIFE 放在一个 IIFE 中。
+6、配置 `scope hoisting` 作用域提升，将多个 IIFE 放在一个 IIFE 中。
 
 7、在开发阶段，可以直接引用 `cdn` 上的库文件，使用 `externals` 配置全局对象，避免打包。
 
@@ -244,7 +244,7 @@ module.exports = {
     ]
   },
   plugins: [
-    // 开启scope hosting
+    // 开启scope hoisting
     new ModuleConcatenationPlugin()
   ],
   resolve: {
