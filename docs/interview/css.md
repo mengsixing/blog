@@ -49,7 +49,7 @@ BFC 可以清除 margin 重叠，和 float 文字环绕等。
 
 由此引申出：定位元素的`z-index：0`和`z-index：auto`的区别是，前者会创建层叠上下文，影响布局。
 
-## flex:1 是什么单位的缩写？
+## 4、flex:1 是什么单位的缩写？
 
 flex 是 flex-grow、flex-shrink、flex-basis 的缩写。
 

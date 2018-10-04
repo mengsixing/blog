@@ -1,4 +1,7 @@
 module.exports = {
+  markdown: {
+    lineNumbers: true
+  },
   title: "yhlben的前端日志",
   description: "欢迎访问我的前端日志",
   ga: "UA-121061441-1",
@@ -20,6 +23,7 @@ module.exports = {
     ],
     sidebar: {
       "/blog/": [
+        "webpack",
         "react",
         "vue",
         "css",
@@ -79,6 +83,6 @@ module.exports = {
     lastUpdated: "最后更新",
     docsDir: "docs",
     editLinks: true,
-    editLinkText: "帮助我改善此页面！"
+    editLinkText: "帮助我改善此页面！",
   }
 };
