@@ -1,6 +1,10 @@
-# Webpack 小总结
+# Webpack 常用知识点总结
 
 webpack 是一个模块打包器。webpack 的主要目标是将 `javaScript` 文件打包在一起，打包后的文件用于在浏览器中使用，但它也能够胜任转换(transform)、打包(bundle)或包裹(package)任何资源(resource or asset)。
+
+随着 webpack 不断地发展，webpack 配置变得越来越简单，构建速度也越来越快，官方文档上说 webpack4 比 webpack3 构建速度快了 98%，这还不仅如此，官方标识在 webpack5 中，会使用多进程构建，进一步优化构建速度。
+
+本文已同步到个人博客，欢迎 start，谢谢。[Webpack 常用知识点总结](https://yhlben.github.io/blog/webpack.html)
 
 ## Webpack 核心概念
 
@@ -109,7 +113,7 @@ class APlugin {
 
 ## Webpack 调优
 
-在 webpack4 之后，使用了 node.js 原生的 cluster 模块去开辟多进程执行构建，webpack 打包的性能变得越来越快，一些常规优化 webpack 都已经帮我们做了，使得 webpack 变得越来越简单，甚至可以达到零配置，但是对于零配置而言，不能满足全部需求，所以还是建议进行手动配置。
+在 webpack4 之后，webpack 对打包进行了高效地优化，速度提高了 98%，一些常规优化 webpack 都已经帮我们做了，使得 webpack 变得越来越简单，甚至可以达到零配置，但是对于零配置而言，不能满足全部需求，所以还是建议进行手动配置。
 
 ### 使用 mode 配置项
 
@@ -117,7 +121,7 @@ class APlugin {
 
 ```js {2}
 module.exports = {
-  mode: "development"
+  mode: "production"
 };
 ```
 
@@ -165,6 +169,43 @@ module.exports = {
     }
   }
 };
+```
+
+### 使用 Happypack
+
+```js
+// @file: webpack.config.js
+var HappyPack = require("happypack");
+var happyThreadPool = HappyPack.ThreadPool({ size: 5 });
+
+module.exports = {
+  // ...
+  plugins: [
+    new HappyPack({
+      id: "jsx",
+      threadPool: happyThreadPool,
+      loaders: ["babel-loader"]
+    }),
+
+    new HappyPack({
+      id: "styles",
+      threadPool: happyThreadPool,
+      loaders: ["style-loader", "css-loader", "less-loader"]
+    })
+  ]
+};
+
+exports.module.rules = [
+  {
+    test: /\.js$/,
+    use: 'happypack/loader?id=jsx'
+  },
+
+  {
+    test: /\.less$/,
+    use: 'happypack/loader?id=styles'
+  },
+]
 ```
 
 ### 使用 DllPlugin
