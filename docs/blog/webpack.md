@@ -45,7 +45,7 @@ webpack 自身只支持 JavaScript。而 loader 能够让 webpack 处理那些�
 
 #### loader 的使用
 
-```js {8}
+```js
 const path = require("path");
 
 module.exports = {
@@ -53,7 +53,14 @@ module.exports = {
     filename: "my-first-webpack.bundle.js"
   },
   module: {
-    rules: [{ test: /\.txt$/, use: "raw-loader" }]
+    rules: [
+      {
+        // 根据后缀名匹配需要处理的文件
+        test: /\.txt$/,
+        // 使用对应的loader处理文件
+        use: "raw-loader"
+      }
+    ]
   }
 };
 ```
@@ -100,7 +107,7 @@ module.exports = {
 class APlugin {
   // apply方法，会在new plugin后被webpack自动执行。
   apply(compiler) {
-    // 可以在任意的钩子函数中去触发自定义事件
+    // 可以在任意的钩子函数中去触发自定义事件，也可以监听其他事件：compiler.hooks.xxxx
     compiler.hooks.compilation.tap("APlugin", compilation => {
       compilation.hooks.afterOptimizeChunkAssets.tap("APlugin", chunks => {
         //   这里只是简单的打印了chunks，你如果有更多的想法，都可以在这里实现。
@@ -113,11 +120,11 @@ class APlugin {
 
 ## Webpack 调优
 
-在 webpack4 之后，webpack 对打包进行了高效地优化，速度提高了 98%，一些常规优化 webpack 都已经帮我们做了，使得 webpack 变得越来越简单，甚至可以达到零配置，但是对于零配置而言，不能满足全部需求，所以还是建议进行手动配置。
+在 webpack4 发布后，相比 webpack3 的构建进行了高效地优化，速度提高了 98%，一些常规优化 webpack 都已经帮我们做了，使得 webpack 变得越来越简单，甚至可以达到零配置，但是对于零配置而言，不能满足全部需求，所以还是建议进行手动配置。
 
 ### 使用 mode 配置项
 
-最懒人的写法，在 webpack 配置项中 mode = production ，webpack 就帮我们把常用的配置都配好了，而且还很不错。
+最懒人的写法，在 webpack 配置项中 mode = production ，webpack 就帮我们把常用的配置都配好了，而且完全可以胜任大部分需求。
 
 ```js {2}
 module.exports = {
@@ -173,6 +180,8 @@ module.exports = {
 
 ### 使用 Happypack
 
+纵观 webpack 构建流程，我们可以发现整个构建过程主要花费时间的部分也就是递归遍历各个 entry 然后寻找依赖逐个编译的过程，每次递归都需要经历 String->AST->String 的流程，经过 loader 还需要处理一些字符串或者执行一些 JS 脚本，介于 node.js 单线程的壁垒，webpack 构建慢一直成为它饱受诟病的原因。
+
 ```js
 // @file: webpack.config.js
 var HappyPack = require("happypack");
@@ -198,15 +207,17 @@ module.exports = {
 exports.module.rules = [
   {
     test: /\.js$/,
-    use: 'happypack/loader?id=jsx'
+    use: "happypack/loader?id=jsx"
   },
 
   {
     test: /\.less$/,
-    use: 'happypack/loader?id=styles'
-  },
-]
+    use: "happypack/loader?id=styles"
+  }
+];
 ```
+
+Happypack 实际上是使用了 node processes 执行多线程构建，可以让多个 loader 并行执行，从而加快构建。
 
 ### 使用 DllPlugin
 
@@ -254,25 +265,45 @@ module.exports = {
 
 ### 其他优化方法
 
+#### 常规优化
+
 1、在处理 `loader` 时，配置 `include`，缩小 `loader` 检查范围。
 
 2、使用 `alias` 可以更快地找到对应文件。
 
 3、如果在 `require` 模块时不写后缀名，默认 webpack 会尝试`.js`,`.json` 等后缀名匹配，`extensions` 配置，让 webpack 少做一点后缀匹配。
 
-4、静态资源上 cdn。
+4、`thread-loader` 可以将非常消耗资源的 loaders 转存到 worker pool 中。
 
-5、使用 `tree shaking`，只打包用到的模块，删除没有用到的模块。
+5、使用 `cache-loader` 启用持久化缓存。使用 package.json 中的 "postinstall" 清除缓存目录。
 
-6、配置 `scope hoisting` 作用域提升，将多个 IIFE 放在一个 IIFE 中。
+#### 开发环境
 
-7、在开发阶段，可以直接引用 `cdn` 上的库文件，使用 `externals` 配置全局对象，避免打包。
+1、选择合理额 Devtool 在大多数情况下，`cheap-module-eval-source-map` 是最好的选择。
 
-```js {4,12,18,23,26,29,30,31,32}
+2、开发阶段一般不需要进行压缩合并，提权单独文件等操作。
+
+3、webpack 会在输出文件中生成路径信息。然而在打包数千个模块的项目中，会导致造成垃圾回收性能压力。在 `options.output.pathinfo` 设置中关闭.
+
+4、在开发阶段，可以直接引用 `cdn` 上的库文件，使用 `externals` 配置全局对象，避免打包。
+
+#### 生产环境
+
+1、静态资源上 cdn。
+
+2、使用 `tree shaking`，只打包用到的模块，删除没有用到的模块。
+
+3、配置 `scope hoisting` 作用域提升，将多个 IIFE 放在一个 IIFE 中。
+
+相关的代码如下：
+
+```js
 module.exports = {
   output: {
     // 静态资源上cdn
-    publicPath: "//xxx/cdn.com"
+    publicPath: "//xxx/cdn.com",
+    // 不生成「所包含模块信息」的相关注释
+    pathinfo: false
   },
   module: {
     rules: [
@@ -319,6 +350,14 @@ webpack 在运行时大致分为这几个阶段：
 5、将所有模块中的 require 语法替换成`__webpack_require__`来模拟模块化操作。
 
 6、最后把所有的模块打包进一个自执行函数（IIFE）中。
+
+### 流程图
+
+这张图画的很好，把webpack的流程画的很细致。
+
+图片是参考文章[Webpack揭秘——走向高阶前端的必经之路](https://juejin.im/post/5badd0c5e51d450e4437f07a)里的，如有侵权，请联系我，马上删除。
+
+![webpack 运行流程图](webpack-steps.jpg)
 
 ---
 
