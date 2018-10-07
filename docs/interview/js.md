@@ -108,20 +108,46 @@ fetch 采用了 Promise 的异步处理机制,更加简单.在默认情况下 fe
 
 ## 10、js 中的`__proto__`和 prototype
 
-任何对象都有一个 `__proto__` 属性
+- 任何对象都有一个 `__proto__` 属性。
 
-任何方法都有一个`prototype`属性，`prototype`也是一个对象 ，所以其中也有一个`__proto__`
+- 任何方法都有一个 `prototype` 属性。
 
-prototype 它的作用很像 java 中的静态属性/方法。其中的对象可以给所有实例使用。
+`__proto__`指向 new 出来的构造函数的原型`prototype`。
 
-`__proto__`指向 new 出来的构造函数。
+`prototype` 是一个对象，当函数被定义的时候默认被创建的，它的作用很像 java 中的静态属性/方法。其中的对象可以给所有实例使用。
 
-- 1 函数对象有`__proto__`和 prototype 属性
-- 2 非函数对象只有`__proto__`属性
-- 3 prototype 中有`__proto__`属性。且是 Object 构造函数创建的
-- 4 函数对象`__proto__`指向它的创建者及 Function 构造函数
-- 5 Function 构造函数`__proto__`指向它自己
-- 6 Object 对象的 prototype 中的`__proto__`是 null
+需要注意的是：
+
+`prototype` 也是一个对象 ，所以其中也有一个`__proto__`属性，指向对象的原型 `Object.protytype`。
+
+`Object` 本身是构造函数，继承了 Function.prototype。`Object.__proto__ === Function.prototype`
+
+`Function` 本身就是函数，继承了 Object.prototype。`Function.__proto__ === Function.prototype`
+
+举一个例子：
+
+```js
+function A() {}
+
+var a = new A();
+
+console.log(a.__proto__ === A.prototype);
+
+console.log(A.prototype.__proto__ === Object.prototype);
+
+console.log(Object.prototype.__proto__ === null);
+
+console.log(a.__proto__.__proto__.__proto__ === null);
+```
+
+任何一个对象都有一个**proto**属性，指向构造函数的原型 prototype，而 prototype 也是一个对象，所以就形成了一个链，到最后 Object.protytype 截止。
+
+- 1 函数对象有 `__proto__` 和 prototype 属性
+- 2 非函数对象只有 `__proto__` 属性
+- 3 prototype 中有 `__proto__` 属性。且是 Object 构造函数创建的
+- 4 函数对象 `__proto__` 指向它的创建者及 Function 构造函数
+- 5 Function 构造函数 `__proto__` 指向它自己
+- 6 Object 对象的 prototype 中的 `__proto__` 是 null
 
 ## 11、为什么 [] == false, !![] == true ?
 
