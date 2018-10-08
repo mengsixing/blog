@@ -132,3 +132,15 @@ HTTP 请求方法并不是只有 GET 和 POST，只是最常用的。据 RFC2616
 - Cache-Control：相比 Expires，有更多的控制，可以控制多久后过期。
 - ETag/If-None-Match：通过资源标识符，判断资源是否改变。
 - Last-Modified/If-Modified-Since：通过发送上一次请求的时间，判断在这期间内资源是否改变。
+
+## 11、MVC 和 MVVM 的区别？
+
+我们可以这样理解：将 `HTML` 看成 `View` 层，js 看成 `controller` 层，将 `ajax` 当做 `Model` 层。
+
+MVC：`View` -> 触发事件 -> `controller` 处理事件 -> 操作 `Model` -> 重新渲染 `View`。
+
+MVVM：
+
+`View` -> 触发事件 -> `ViewModel` 双向绑定 -> 改变 `Model`。
+
+`Model` -> 改变数据 -> `ViewModel` 双向绑定 -> 改变 `View`。
