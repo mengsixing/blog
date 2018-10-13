@@ -97,3 +97,11 @@ w
 ```js
 netstat -an | grep ':80'
 ```
+
+查看域名对应的 ip 地址
+
+- nslookup
+
+```js
+nslookup yhlben.com
+```
