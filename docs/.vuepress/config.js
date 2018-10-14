@@ -27,6 +27,7 @@ module.exports = {
     ],
     sidebar: {
       "/blog/": [
+        // "webpack-code1",
         "webpack",
         "react",
         "vue",
@@ -84,12 +85,13 @@ module.exports = {
         "framework"
       ],
       "/tool/": [
-        "common"
+        "common",
+        "vscode"
       ],
     },
-    lastUpdated: "最后更新",
+    lastUpdated: "更新时间",
     docsDir: "docs",
     editLinks: true,
-    editLinkText: "帮助我改善此页面！",
+    editLinkText: "帮助我完善这篇内容🙏",
   }
 };
