@@ -19,11 +19,15 @@
 
 2、引入 webpack-cli 包，解析参数后，调用 new webpack()。
 
-3、创建编译对象 new Compiler()。
+3、创建编译对象 new Compiler()，并生成插件实例。
 
 4、WebpackOptionsApply 方法用来解析参数，根据参数，初始化默认的插件 Plugins。
 
-5、...
+5、解析入口文件 SingleEntryPlugin ，并调用doBuild 方法执行loader。
+
+6、执行完loader之后，调用acorn.parse 生成 AST 依赖树。
+
+7、最后调用 compilation.seal 进入 render 阶段，根据之前收集的依赖，决定生成多少文件，每个文件的内容是什么。
 
 ## EntryOptionPlugin 插件
 
