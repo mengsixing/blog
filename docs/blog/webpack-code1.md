@@ -23,9 +23,9 @@
 
 4、WebpackOptionsApply 方法用来解析参数，根据参数，初始化默认的插件 Plugins。
 
-5、解析入口文件 SingleEntryPlugin ，并调用doBuild 方法执行loader。
+5、解析入口文件 SingleEntryPlugin ，并调用 doBuild 方法执行loader。
 
-6、执行完loader之后，调用acorn.parse 生成 AST 依赖树。
+6、执行完 loader 之后，调用 acorn.parse 生成 AST 依赖树。
 
 7、最后调用 compilation.seal 进入 render 阶段，根据之前收集的依赖，决定生成多少文件，每个文件的内容是什么。
 
@@ -63,8 +63,6 @@ module.exports = class EntryOptionPlugin {
 ```
 
 ### SingleEntryPlugin
-
-Adds an entry chunk on compilation. The chunk is named chunkName and contains only one module (plus dependencies). The module is resolved from request in context (absolute path).
 
 ```js
 const SingleEntryDependency = require("./dependencies/SingleEntryDependency");

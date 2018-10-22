@@ -27,7 +27,7 @@ module.exports = {
     ],
     sidebar: {
       "/blog/": [
-        "webpack-code1",
+        // "webpack-code1",
         "webpack",
         "react",
         "vue",
