@@ -30,7 +30,7 @@
 
 JSBridge 是一座用 JavaScript 搭建起来的桥，一端是 web，一端是 native。我们搭建这座桥的目的也很简单，让 native 可以调用 web 的 js 代码，让 web 可以 “调用” 原生的代码。请注意这个我加了 引号的调用，它并不是直接调用，而是可以根据 web 和 native 约定好的规则来通知 native 要做什么，native 可以更具这个来执行相应的代码。
 
-![jsbridge原理](front-interview-jsbridge.png)
+![jsbridge原理](interview-jsbridge.png)
 
 ## 3、TCP/UDP 是什么？
 

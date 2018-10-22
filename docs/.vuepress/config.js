@@ -27,7 +27,7 @@ module.exports = {
     ],
     sidebar: {
       "/blog/": [
-        // "webpack-code1",
+        "webpack-code1",
         "webpack",
         "react",
         "vue",
@@ -66,8 +66,7 @@ module.exports = {
         "docker-micro-service",
         "linux",
         "linux-login",
-        "nginx-load-balancing",
-        "fontend-interview"
+        "nginx-load-balancing"
       ],
       "/work/": [
         "2018-09-13",

@@ -26,15 +26,25 @@ scrollWidth：
 
 定义：触发函数事件后，短时间间隔内无法连续调用，只有上一次函数执行后，过了规定的时间间隔，才能进行下一次的函数调用。
 
+注意事项：
+
+- 第一次立即执行
+- 停止触发的时候还能再执行一次
+
 ```js
 function throttle(callback, timeout) {
-  var last = 0;
+  var first = true;
+  var throttleId;
   return function(...rest) {
-    var now = new Date();
-    if (now - last > timeout) {
+    if (first) {
       callback.apply(this, rest);
-      callback.throttleId = null;
-      last = now;
+      throttleId = null;
+      first = false;
+    } else if (!throttleId) {
+      throttleId = setTimeout(() => {
+        callback.apply(this, rest);
+        throttleId = null;
+      }, timeout);
     }
   };
 }
@@ -44,14 +54,26 @@ function throttle(callback, timeout) {
 
 定义：多次触发事件后，事件处理函数只执行一次，并且是在触发操作结束时执行。
 
+注意点：
+
+- this 指向
+- event 对象
+- 立刻执行
+
 ```js
-function debounce(callback, timeout) {
+function debounce(callback, timeout, immediate) {
   var id;
   return function() {
     clearInterval(id);
-    id = setTimeout(() => {
-      this.callback.apply(this, arguments);
-    }, timeout);
+    if (immediate) {
+      callback.apply(this, arguments);
+      // 立即执行后，还原成间隔时间执行
+      immediate = false;
+    } else {
+      id = setTimeout(() => {
+        callback.apply(this, arguments);
+      }, timeout);
+    }
   };
 }
 ```
