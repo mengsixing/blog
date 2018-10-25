@@ -23,7 +23,7 @@
 
 4、WebpackOptionsApply 方法用来解析参数，根据参数，初始化默认的插件 Plugins。
 
-5、解析入口文件 SingleEntryPlugin ，并调用 doBuild 方法执行loader。
+5、解析入口文件 SingleEntryPlugin ，并调用 doBuild 方法执行 loader。
 
 6、执行完 loader 之后，调用 acorn.parse 生成 AST 依赖树。
 
@@ -111,7 +111,6 @@ module.exports = SingleEntryPlugin;
 ### SingleEntryDependency
 
 ```js
-
 const ModuleDependency = require("./ModuleDependency");
 
 class SingleEntryDependency extends ModuleDependency {
@@ -210,3 +209,23 @@ Dependency.compare = util.deprecate(
 
 module.exports = Dependency;
 ```
+
+## webpack 整体流程分析
+
+1、compiler webpack 的运行入口，compiler 对象代表了完整的 webpack 环境配置。这个对象在启动 webpack 时被一次性简历，并配置好所有可操作的设置，
+包括 options，loader 和 plugin。当在 webpack 环境中应用一个插件时，插件将受到此 compiler 对象的引用，可以使用它来访问 webpakc 的主环境。
+
+2、compilation 对象代表了一次资源的构建，当运行 webpack 开发环境中间件时，每当检测到一个文件的变化，就会创建一个新的 compilation，从而生成一组
+新的编译资源。一个 compilation 对象表现了当前的模块资源、编译生成资源、变换的文件、以及被跟踪依赖的状态信息。compilation 也提供了很多关键步骤的
+回调，以供插件在自定义处理时选择使用。
+
+3、chunk，即用于表示 chunk 的类，对于构建时需要的 chunk 对象由 compilation 创建后保存管理。（webpack 中最核心的负责编译的 compiler 和负责创建 bundles 的 compilation 都是 tapable 的实例）
+
+4、module 用于表示代码模块的基础类，衍生出很多子类用于处理不同的情况，关于代码模块的所有信息都会存在 module 实例中，例如 dependencies 记录代码模块的依赖等。
+当一个 module 实例被创建后，比较重要的一步是执行 compilation.buildModule 这个方法，它会调用 module 实例的 build 方法来创建 module 实例所需要的一些东西，然后调用自身的 runloaders 方法。runloaders：loader-runner，执行对应的 loaders，将代码源码内容一一交由配置中指定的 loader 处理后，再把处理 的结果保存起来。
+
+5、Parser，基于 acorn 来分析 ast 语法树，解析出代码模块的依赖。
+
+6、dependency，解析时用于保存代码模块对应的依赖使用的对象。module 实例的 build 方法，在执行完对应的 loader 时，处理完模块自身的转换后，继续调用 parser 实例来解析自身依赖的模块，解析后的结果存放在 module.denpendencies 中，首先保存的是依赖的路径，后续会经由 compilation.processModuleDependencies 方法，再来处理各个依赖模块，递归的去简历整个依赖。
+
+7、Template，生成最终代码要使用到的代码模块，像上述提到的胶水代码就是用对应的 template 来生成。
