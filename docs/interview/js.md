@@ -102,7 +102,7 @@ Function.prototype.bind = function(ctx) {
   var that = this;
   var NoFunc = function() {};
   var result = function(...rest) {
-    console.warn("instade of :", this instanceof that);
+    console.warn('instade of :', this instanceof that);
     that.apply(this instanceof that ? this : that, rest);
   };
   NoFunc.prototype = that.prototype;
@@ -171,7 +171,7 @@ console.log(a.__proto__.__proto__.__proto__ === null);
 - 5 Function 构造函数 `__proto__` 指向它自己
 - 6 Object 对象的 prototype 中的 `__proto__` 是 null
 
-## 11、为什么 [] == false, !![] == true ?
+## 11、为什么 [] == false, !![] == true ？
 
 先来看看[] ==false 的比较顺序。
 
@@ -210,7 +210,7 @@ function newFunc(faster, ...rest) {
   result.__proto = faster.prototype;
   var result2 = faster.apply(result, rest);
   if (
-    (typeof result2 === "object" || typeof result2 === "function") &&
+    (typeof result2 === 'object' || typeof result2 === 'function') &&
     result2 !== null
   ) {
     return result2;
@@ -242,4 +242,36 @@ Function.prototype.myCall = function(context, ...rest) {
   delete context.fn;
   return result;
 };
+```
+
+## 15、写一个对象深拷贝
+
+- 深拷贝
+- 处理循环依赖
+
+```js
+function isObject(obj) {
+  return Object.prototype.toString.call(obj) === '[object Object]';
+}
+
+function deepClone(obj, cacheObj = new WeakMap()) {
+  var result = {};
+  // obj不是对象，就直接返回
+  if (!isObject(obj)) {
+    return obj;
+  }
+  // 判断是否缓存过该对象
+  if (cacheObj.has(obj)) {
+    return cacheObj.get(obj[key]);
+  }
+  cacheObj.set(obj, result);
+  for (var key in obj) {
+    if (isObject(obj[key])) {
+      result[key] = deepClone(obj[key], cacheObj);
+    } else {
+      result[key] = obj[key];
+    }
+  }
+  return result;
+}
 ```
