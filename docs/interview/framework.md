@@ -106,27 +106,27 @@ webpack 启动后，会读取配置中的 plugins，并创建对应实例，在 
 class HelloAsyncPlugin {
   apply(compiler) {
     // tapAsync() 基于回调(callback-based)
-    compiler.hooks.emit.tapAsync("HelloAsyncPlugin", function(
+    compiler.hooks.emit.tapAsync('HelloAsyncPlugin', function(
       compilation,
       callback
     ) {
       setTimeout(function() {
-        console.log("Done with async work...");
+        console.log('Done with async work...');
         callback();
       }, 1000);
     });
 
     // tapPromise() 基于 promise(promise-based)
-    compiler.hooks.emit.tapPromise("HelloAsyncPlugin", compilation => {
+    compiler.hooks.emit.tapPromise('HelloAsyncPlugin', compilation => {
       return doSomethingAsync().then(() => {
-        console.log("Done with async work...");
+        console.log('Done with async work...');
       });
     });
 
     // 原先基本的 tap() 也在这里列出：
-    compiler.hooks.emit.tap("HelloAsyncPlugin", () => {
+    compiler.hooks.emit.tap('HelloAsyncPlugin', () => {
       // 这里没有异步任务
-      console.log("Done with sync work...");
+      console.log('Done with sync work...');
     });
   }
 }
@@ -139,14 +139,14 @@ module.exports = HelloAsyncPlugin;
 webpack loader 实质就是一个`function`，function 中会被注入需要被处理的资源，然后加以处理。
 
 ```js
-import { getOptions } from "loader-utils";
-import validateOptions from "schema-utils";
+import { getOptions } from 'loader-utils';
+import validateOptions from 'schema-utils';
 
 const schema = {
-  type: "object",
+  type: 'object',
   properties: {
     test: {
-      type: "string"
+      type: 'string'
     }
   }
 };
@@ -154,7 +154,7 @@ const schema = {
 export default function(source) {
   const options = getOptions(this);
 
-  validateOptions(schema, options, "Example Loader");
+  validateOptions(schema, options, 'Example Loader');
 
   // 对资源应用一些转换……
 
@@ -170,20 +170,20 @@ export default function(source) {
 
 ```js
 // A 插件
-const SyncHook = require("tapable").SyncHook;
+const SyncHook = require('tapable').SyncHook;
 class APlugin {
   apply(compiler) {
-    if (compiler.hooks.myCustomHook) throw new Error("Already in use");
+    if (compiler.hooks.myCustomHook) throw new Error('Already in use');
     // 声明一个自定义事件，并初始化需要传递的参数。
-    compiler.hooks.myCustomHook = new SyncHook(["参数1", "参数2"]);
+    compiler.hooks.myCustomHook = new SyncHook(['参数1', '参数2']);
     // 在当前插件中监听自定义事件
-    compiler.hooks.myCustomHook.tap("APlugin", (a, b) =>
-      console.log("获取到参数：", a, b)
+    compiler.hooks.myCustomHook.tap('APlugin', (a, b) =>
+      console.log('获取到参数：', a, b)
     );
     // 可以在任意的钩子函数中去触发自定义事件
-    compiler.hooks.compilation.tap("APlugin", compilation => {
-      compilation.hooks.afterOptimizeChunkAssets.tap("APlugin", chunks => {
-        compiler.hooks.myCustomHook.call("a", "b");
+    compiler.hooks.compilation.tap('APlugin', compilation => {
+      compilation.hooks.afterOptimizeChunkAssets.tap('APlugin', chunks => {
+        compiler.hooks.myCustomHook.call('a', 'b');
       });
     });
   }
@@ -193,9 +193,32 @@ class APlugin {
 class BPlugin {
   apply(compiler) {
     // 监听A组件定义的事件
-    compiler.hooks.myCustomHook.tap("BPlugin", (a, b) =>
-      console.log("获取到参数：", a, b)
+    compiler.hooks.myCustomHook.tap('BPlugin', (a, b) =>
+      console.log('获取到参数：', a, b)
     );
   }
 }
 ```
+
+## 8、React 中是否必须将所有状态都放入 Redux？有什么优缺点？
+
+我们都知道，如果把状态都存在 redux 中，就可以编写出更多无状态的组件。
+
+无状态组件优点：
+
+- 代码整洁、可读性高
+- 无状态组件的性能好
+
+个人理解，并不是所有的 state 都存放在 redux 里比较好，应该考虑一下几点：
+
+该应用程序的其他部分是否关心此数据？
+
+您是否需要能够根据此原始数据创建更多派生数据？
+
+是否使用相同的数据来驱动多个组件？
+
+能够将此状态恢复到给定时间点？
+
+你想缓存数据？
+
+如果你没有以上的需要，就不要把 state 放入 redux 中。

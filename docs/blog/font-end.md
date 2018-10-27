@@ -16,9 +16,11 @@
 
 - css2 语法
 - css3 新语法
+- 编码规范 bem
 - houdini
 - 预处理器 less，sass，stylus，css-next
 - 后处理器，postcss 插件，autofixer 等
+- css modules
 
 ## javascript 方向
 
@@ -54,24 +56,44 @@
 - 服务器端渲染(nuxt)
 - vue-cli
 
-### ajax 库
+### 小程序技术栈
+
+- 微信小程序
+- 支付宝小程序
+- 百度小程序
+- 头条小程序
+- 抖音小程序
+- 多端统一框架：taro
+
+### ajax 请求
+
+#### Rest 风格
 
 - axios
+- fetch 源生
+
+#### GraphQL 风格
+
+- graphQL
+- apollo
+- relay
 
 ## 前端工程
 
+- npm/yarn
 - webpack/rollup/parcel
 - prepack
 - gulp
 - editorconfig
 - stylelint
 - eslint
+- typescript
 - babel
 
 ## 测试工具
 
 - jest
-- mocha+nyc
+- mocha + nyc
 - karma
 - nightwatch
 
