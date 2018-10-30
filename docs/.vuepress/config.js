@@ -27,6 +27,7 @@ module.exports = {
     ],
     sidebar: {
       "/blog/": [
+        'react-hooks',
         'js-operator-priority',
         // "webpack-code1",
         "webpack",
