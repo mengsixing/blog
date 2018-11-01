@@ -1,7 +1,5 @@
 # 使用 React Hooks 节省 90% 的代码
 
-最近观看了[React Conf 2018](https://www.youtube.com/watch?v=dpw9EHDh2bM)的视频，
-
 Hook 是一项新功能提案，可让您在不编写类的情况下使用 state 和其他 React 功能，目前存在于React v16.7.0-alpha版本中。`据说使用 hook 重构后可以优化 90%的代码。`
 
 ## React 编写组件的 3 种方法
