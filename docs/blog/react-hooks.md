@@ -1,31 +1,34 @@
 # 使用 React Hooks 节省 90% 的代码
 
-Hook 是一项新功能提案，可让您在不编写类的情况下使用 state 和其他 React 功能，目前存在于React v16.7.0-alpha版本中。`据说使用 hook 重构后可以优化 90%的代码。`
+Hook 是一项新功能提案，可让您在不编写类的情况下使用 state 和其他 React 功能，目前存在于 React v16.7.0-alpha 版本中。`据说使用 hook 重构后可以优化 90%的代码。`
 
 ## React 编写组件的 3 种方法
 
 1、React.createClass()
 
-适用于 es5 写法，不推荐使用。
+使用 es5 方法创建组件，不推荐使用。
 
-2、 extends React.Component
+2、extends React.Component
 
-class 定义的组件能够使用 React 给我们提供的所有生命周期，也提供了 PureComponent 优化渲染性能。
+class 定义的组件能够使用 React 给我们提供的所有生命周期，也提供了 PureComponent 优化渲染性能，是现在推荐的写法。
 
 3、函数式定义的 function 组件（16.7 以前）
 
-- 组件不会被实例化，整体渲染性能得到提升
-- 组件不能访问 this 对象
-- 组件无法访问生命周期的方法
-- 无状态组件只能访问输入的 props，同样的 props 会得到同样的渲染结果，不会有副作用
+- 没有 State 概念
+- 不能访问 this 对象
+- 不能访问 React 生命周期
 
 在 React16.7 以后，React 为 function 组件增加了很多功能：
 
 - 引入 state 概念
-- 引入生命周期概念
-- 引入 pureComponent 概念
+- 引入 React 生命周期概念
+- 引入 shouldComponentUpdate 概念
 
-可以这么理解，在 React16.7 之后，function 会逐渐替换掉 class 定义的组件，成为官方推荐的组件编写方法。
+使用 function 组件可以充分使用函数式编程给来的好处：
+
+- 纯函数概念，同样的 props 会得到同样的渲染结果
+- 可以使用函数组合，嵌套，实现功能更加强大的组件
+- 组件不会被实例化，整体渲染性能得到提升
 
 ## 使用 State
 
@@ -149,7 +152,7 @@ function Example() {
 
 ## 总结
 
-随着 16.7 版本的发布，React function 组件得到了很多的发展，不仅节约了代码量，也优化了渲染速度，以后必会成为官方推荐的创建组件方法。
+随着 16.7 版本的发布，React function 组件得到了很多的发展，不仅节约了代码量，也提升了渲染效率，肯定会成为未来 React 组件的定义方法。
 
 ---
 
