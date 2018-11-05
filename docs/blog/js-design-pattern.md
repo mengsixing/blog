@@ -22,6 +22,24 @@
 
 只允许实例化一次的对象类，有时我们也用一个对象来规划一个命名空间，仅仅有条的管理对象上的属性和方法。
 
+例如，获取页面元素 dom：
+
+```js
+// 操作页面dom，第一次以后，就直接使用缓存中的dom
+function singlePattern(id) {
+  var cacheDom;
+  return function() {
+    if (cacheDom) {
+      return cacheDom;
+    } else {
+      var dom = document.getElementById(id);
+      cacheDom = dom;
+      return dom;
+    }
+  };
+}
+```
+
 ## 外观模式
 
 为一组复杂的子系统接口提供一个更高级的统一接口，通过这个接口使得对子系统接口的访问更加容易。

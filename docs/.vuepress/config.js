@@ -27,6 +27,7 @@ module.exports = {
     ],
     sidebar: {
       "/blog/": [
+        'web-login',
         'react-hooks',
         'js-operator-priority',
         // "webpack-code1",

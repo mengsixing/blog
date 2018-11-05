@@ -80,7 +80,7 @@ HTTP 协议是超文本传输协议，从 www 浏览器传输到本地浏览器�
 
 ### cookies 和 session
 
-- Cookies 是保存在客户端的小段文本，随客户端点每一个请求发送该 url 下的所有 cookies 到服务器端。
+- Cookies 是保存在客户端的小段文本，每当客户端发起一个请求发送会将该请求 url 下的所有 cookies 发送到服务器端。
 - Session 则保存服务器段，通过唯一的值 sessionID 来区别每一个 用户。SessionID 随每个连接请求发送到服务器，服务器根据 sessionID 来识别客户端，再通过 session 的 key 获取 session 值。
 
 ### Etag/if-None-Match 策略
