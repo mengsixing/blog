@@ -212,8 +212,8 @@ module.exports = Dependency;
 
 ## webpack 整体流程分析
 
-1、compiler webpack 的运行入口，compiler 对象代表了完整的 webpack 环境配置。这个对象在启动 webpack 时被一次性简历，并配置好所有可操作的设置，
-包括 options，loader 和 plugin。当在 webpack 环境中应用一个插件时，插件将受到此 compiler 对象的引用，可以使用它来访问 webpakc 的主环境。
+1、compiler webpack 的运行入口，compiler 对象代表了完整的 webpack 环境配置。这个对象在启动 webpack 时被一次性建立，并配置好所有可操作的设置，
+包括 options，loader 和 plugin。当在 webpack 环境中应用一个插件时，插件将收到此 compiler 对象的引用，可以使用它来访问 webpack 的主环境。
 
 2、compilation 对象代表了一次资源的构建，当运行 webpack 开发环境中间件时，每当检测到一个文件的变化，就会创建一个新的 compilation，从而生成一组
 新的编译资源。一个 compilation 对象表现了当前的模块资源、编译生成资源、变换的文件、以及被跟踪依赖的状态信息。compilation 也提供了很多关键步骤的

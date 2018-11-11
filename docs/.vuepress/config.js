@@ -27,6 +27,7 @@ module.exports = {
     ],
     sidebar: {
       "/blog/": [
+        'webpack-flow',
         'web-login',
         'react-hooks',
         'js-operator-priority',
