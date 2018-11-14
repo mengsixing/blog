@@ -1,4 +1,4 @@
-# HTML5 脚本编程
+# JS 跨文档消息传递 PostMessage 和拖放 API
 
 ## 跨文档消息传递
 
@@ -9,19 +9,19 @@ postMessage 方法,向当前页面的 iframe，或由当前页面弹出的窗口
 发送数据：
 
 ```js
-var iframe = document.getElementById("iframe");
-iframe.postMessage("text message", "http://www.xxx.com");
+var iframe = document.getElementById('iframe');
+iframe.postMessage('text message', 'http://www.xxx.com');
 ```
 
 接收数据：
 
 ```js
 window.onmessage = function(event) {
-  if (event.origin == "http://www.xxx.com") {
+  if (event.origin == 'http://www.xxx.com') {
     //获取数据
     console.log(event.data);
     //向来源窗口发送回执
-    event.source.postMessage("收到请求", "http://www.xxx.com");
+    event.source.postMessage('收到请求', 'http://www.xxx.com');
   }
 };
 ```
@@ -44,8 +44,8 @@ window.onmessage = function(event) {
 ```js
 div.ondrag = function(event) {
   //setData第一个参数表示数据类型 url/text/..
-  event.dataTransfer.setData("text", "some text");
-  var text = event.dataTransfer.getData("text");
+  event.dataTransfer.setData('text', 'some text');
+  var text = event.dataTransfer.getData('text');
 };
 ```
 
@@ -93,7 +93,7 @@ poster 属性可以指定加载视频时，显示一幅图像。
 
 ```js
 // 参数分别为L状态对象，新状态标题，可选的相对URL
-history.pushState({ name: "yhl" }, "new title", "yhl.html");
+history.pushState({ name: 'yhl' }, 'new title', 'yhl.html');
 ```
 
 执行 pushState()方法后，新的状态信息就会被加入历史状态栈，而浏览器状态栏也会变成新的相对 url。按下后退按钮，会触发 window 对象的 popState 事件。

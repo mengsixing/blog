@@ -1,4 +1,4 @@
-# commitlint 使用总结
+# Commitlint 使用总结
 
 11 月 10 日，参加了 2018 前端大会，收货颇多，见到了以前没用到的工具 commitlint。
 

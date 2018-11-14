@@ -92,6 +92,42 @@ function singlePattern(id) {
 
 又被称为发布——订阅者模式，定义了一种依赖关系，解决了主题对象与观察者之间功能的耦合。
 
+```js
+var Observer = (function() {
+  var _message = {};
+  return {
+    subscribe(type, fn) {
+      if (_message[type]) {
+        _message[type].push(fn);
+      } else {
+        _message[type] = [fn];
+      }
+    },
+    publish(type, ...args) {
+      if (!_message[type]) {
+        return;
+      }
+      _message[type].forEach(item => {
+        item.apply(this, args);
+      });
+    },
+    unsubscribe(type, fn) {
+      // fn不传，清楚type上所有的订阅，否则只清除传递的订阅
+      if (!_message[type]) {
+        return;
+      }
+      if (fn) {
+        _message[type].forEach(function(item, index) {
+          item === fn && _message[type].splice(index, 1);
+        });
+      } else {
+        _message[type] = null;
+      }
+    }
+  };
+})();
+```
+
 > 解决类和对象之间的耦合，解耦 2 个相互依赖的对象，使其依赖于观察者的消息机制。
 
 ## 状态模式

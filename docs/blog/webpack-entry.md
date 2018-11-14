@@ -1,4 +1,4 @@
-# webpack 整体流程分析
+# Webpack 整体流程分析
 
 让我们从 entry 开始，阅读 webpack 源码吧。
 

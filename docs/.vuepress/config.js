@@ -56,7 +56,6 @@ module.exports = {
         "js-object-ergodic",
         "js-performance",
         "js-design-pattern",
-        "js-observer",
         "js-functional",
         "library-redux",
         "library-rxjs",
