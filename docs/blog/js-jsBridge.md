@@ -1,4 +1,4 @@
-# JsBridge 浅析
+# JsBridge 总结
 
 构建 Native 和非 Native 间消息通信的通道，而且是 `双向通信的通道`。
 

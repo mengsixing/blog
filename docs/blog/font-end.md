@@ -87,6 +87,7 @@
 - editorconfig
 - stylelint
 - eslint
+- commitlint
 - typescript
 - babel
 

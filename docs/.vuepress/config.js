@@ -27,6 +27,8 @@ module.exports = {
     ],
     sidebar: {
       "/blog/": [
+        'project-commitlint',
+        'webpack-entry',
         'webpack-flow',
         'web-login',
         'react-hooks',

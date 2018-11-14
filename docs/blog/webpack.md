@@ -1,4 +1,4 @@
-# Webpack 常用知识点总结
+# Webpack 使用总结
 
 webpack 是一个模块打包器。webpack 的主要目标是将 `javaScript` 文件打包在一起，打包后的文件用于在浏览器中使用，但它也能够胜任转换(transform)、打包(bundle)或包裹(package)任何资源(resource or asset)。
 

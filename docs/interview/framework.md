@@ -138,6 +138,10 @@ module.exports = HelloAsyncPlugin;
 
 webpack loader 实质就是一个`function`，function 中会被注入需要被处理的资源，然后加以处理。
 
+loader 的执行时会先执行最后的 loader，然后再执行前一个 loader，如果想按顺序执行，可以定义 pitch 方法。
+
+loader 一般会使用 acorn 将代码转换过成 ast 语法树，然后再进行对应的操作，最后再转换会字符串。
+
 ```js
 import { getOptions } from 'loader-utils';
 import validateOptions from 'schema-utils';
@@ -151,7 +155,7 @@ const schema = {
   }
 };
 
-export default function(source) {
+module.exports = function(source) {
   const options = getOptions(this);
 
   validateOptions(schema, options, 'Example Loader');
@@ -159,7 +163,12 @@ export default function(source) {
   // 对资源应用一些转换……
 
   return `export default ${JSON.stringify(source)}`;
-}
+};
+
+// pitch方法，在捕获阶段执行的函数
+module.exports.pitch = function(remainingRequest, precedingRequest, data) {
+  data.value = 42;
+};
 ```
 
 ## 7、webpack 插件之间怎么互相通信？
