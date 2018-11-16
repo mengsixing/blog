@@ -9,3 +9,9 @@
 [微软官网地址](https://techcommunity.microsoft.com/t5/Enterprise-Mobility-Security/Introducing-the-new-Microsoft-Remote-Desktop-Preview-app-for-Mac/ba-p/249315)
 
 [下载地址](https://rink.hockeyapp.net/apps/5e0c144289a51fca2d3bfa39ce7f2b06/)
+
+## 图片格式化裁剪，压缩
+
+google 出品的图片压缩，格式转换等图片操作，在浏览器中上传图片即可。
+
+[squoosh](https://squoosh.app/)
