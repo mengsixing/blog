@@ -19,7 +19,7 @@ var foo = {
 //示例1
 console.log(foo.bar());
 //示例2
-console.log((foo.bar()));
+console.log((foo.bar)());
 //示例3
 console.log((foo.bar = foo.bar)());
 //示例4
