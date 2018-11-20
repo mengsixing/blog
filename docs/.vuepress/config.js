@@ -23,6 +23,7 @@ module.exports = {
     ],
     sidebar: {
       "/blog/": [
+        'js-this',
         'project-commitlint',
         'project-webpack-entry',
         'project-webpack-flow',
