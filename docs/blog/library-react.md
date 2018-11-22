@@ -155,4 +155,4 @@ ReactJS 关注设备的 CPU 能力。在渲染时，ReactJS 确保它不会阻�
 
 We have built a generic way for components to suspend rendering while they load asynchronous data.
 
-悬念功能的简单定义是 ReactJS 可以暂停任何状态更新，直到提取的数据准备好呈现。本质上，ReactJS 在等待完全获取数据的同时挂起组件树。在暂停期间，它继续处理其他高优先级更新。
+Suspense 的简单定义是 ReactJS 可以暂停任何状态更新，直到提取的数据准备好呈现。本质上，ReactJS 在等待完全获取数据的同时挂起组件树。在暂停期间，它继续处理其他高优先级更新。

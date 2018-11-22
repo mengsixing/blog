@@ -97,6 +97,10 @@ console.log((foo.bar, foo.bar)());
       - `步骤5`如果 base value 值是 Environment Record, 那么 this 的值为 ImplicitThisValue(ref)
     - `步骤6`如果 ref 不是 Reference 类型，那么 this 的值为 undefined
 
+::: warning 提示
+非严格模式下，this 的值为 undefined 的时候，其值会被隐式转换为全局对象。
+:::
+
 ### 示例 1 解答
 
 1、使用`属性读取`规范：获取 `foo.bar` 的返回类型。
@@ -138,10 +142,6 @@ console.log((foo.bar, foo.bar)());
   - Return rval. 返回的是 GetValue 后的值，不是一个 Refernce。
 - 函数调用规范
   - `步骤1` -> `步骤2` -> `步骤6`
-
-::: warning 提示
-非严格模式下，this 的值为 undefined 的时候，其值会被隐式转换为全局对象。
-:::
 
 ### 示例 4 解答
 
