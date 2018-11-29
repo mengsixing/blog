@@ -88,7 +88,7 @@ getDerivedStateFromProps 只存在一个目的。它`使组件能够根据 props
 componentDidUpdate(prevProps, prevState, snapshot)
 `这也是进行网络请求的好地方。`
 将现有的 componentWillUpdate 中的回调函数迁移至 componentDidUpdate.
-如果触发某些回调函数时需要用到 DOM 元素的状态，则将对比或计算的过程迁移至 getSnapshotBeforeUpdate，然后在 componentDidUpdate 中统一触发回调或更新状态.
+如果触发某些回调函数时需要用到 DOM 元素的状态，则将对比或计算的过程迁移至 getSnapshotBeforeUpdate，然后在 componentDidUpdate 中统一触发回调或更新状态。
 
 ### 卸载时
 
@@ -127,21 +127,23 @@ UNSAFE_componentWillReceiveProps(nextProps)
 
 [生命周期图](http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
 
-## 可控组件和不可控组件
+## 常见问题
 
-在 HTML 当中，像`<input>`,`<textarea>`, 和 `<select>`这类表单元素会维持自身的值 value，并根据用户输入进行更新。但在 React 中，可变的状态通常保存在组件的状态属性中，并且只能用 setState() 方法进行更新。
+### 什么是可控组件和不可控组件？
 
-我们通过使 react 变成一种单一数据源的状态来结合二者。React 负责渲染表单的组件仍然控制用户后续输入时所发生的变化。相应的，其值由 React 控制的输入表单元素称为“受控组件”。
+在 HTML 当中，像`<input>`,`<textarea>`, 和 `<select>`这类表单元素会维持自身的值 value，并根据用户输入进行更新。但在 React 中，可变的状态是保存在组件的状态属性中，并且只能用 setState() 方法进行更新。
 
-使用”受控组件”,每个状态的改变都有一个与之相关的处理函数。这样就可以直接修改或验证用户输入。
+我们通过使 React 变成一种单一数据源的状态来结合二者。React 负责渲染表单的组件，仍然控制用户后续输入时所发生的变化。相应的，其值由 React 控制的输入表单元素称为“受控组件”。
 
-## React 异步渲染
+使用”受控组件”，每个状态的改变都有一个与之相关的处理函数。这样就可以直接修改或验证用户输入。
+
+### React 异步渲染？
 
 将 setState() 认为是一次请求而不是一次立即执行更新组件的命令。为了更为可观的性能，React 可能会推迟它，稍后会一次性更新这些组件。React 不会保证在 setState 之后，能够立刻拿到改变的结果。
 
-1、在 setState 中调用了 enqueueSetState 方法将传入的 state 放到一个队列中
+1、在 setState 中调用了 enqueueSetState 方法将传入的 state 放到一个队列中。
 
-2、enqueueSetState 中先是找到需渲染组件并将新的 state 并入该组件的需更新的 state 队列中，接下来调用了 enqueueUpdate 方法
+2、enqueueSetState 中先是找到需渲染组件并将新的 state 并入该组件的需更新的 state 队列中，接下来调用了 enqueueUpdate 方法。
 
 3、isBatchingUpdates 标识是否在一个更新组件的事务流中。
 
@@ -159,17 +161,17 @@ UNSAFE_componentWillReceiveProps(nextProps)
 所以在 setTimeout，源生事件中的 setState 会同步渲染。
 :::
 
-## react 怎样提高性能？
+### react 怎样提高性能？
 
-1、使用 shouldComponentUpdate 和 Immutable 组合控制合适的时间渲染。PureComponent
+1、使用 shouldComponentUpdate 和 Immutable 组合控制合适的时间渲染。PureComponent。
 
 2、render 里面尽量减少新建变量和 bind 函数，传递参数是尽量减少传递参数的数量。
 
-3、多个 react 组件性能优化，key 的优化
+3、多个 react 组件性能优化，key 的优化。
 
 4、redux 性能优化：reselect（数据获取时优化）。
 
-## props 和 state 分别在什么时候用？
+### props 和 state 分别在什么时候用？
 
 1、如果在 Component 中需要在某个时间点改变，那么应该使用 state，否则应该使用 prop。
 
@@ -182,19 +184,3 @@ UNSAFE_componentWillReceiveProps(nextProps)
 - 纯静态展示,可读性更好，并能大大减少代码量
 - 省去了多余的生命周期，提升了整体的渲染性能
 - 可复用性强
-
-## Time slicing
-
-We've built a generic way to ensure that high-priority updates like user input don't get blocked by rendering low-priority updates.
-
-CPU 层面优化
-
-ReactJS 关注设备的 CPU 能力。在渲染时，ReactJS 确保它不会阻塞线程，从而导致应用程序冻结。
-
-时间分片允许现在在 React Fiber 上运行的 ReactJS 在空闲回调期间将子组件的更新计算分成块，并且渲染工作分布在多个帧上。现在，在异步呈现过程中，它确保如果用户的设备非常快，应用程序内的更新会感觉同步，如果用户的设备很慢，则应用程序会感觉响应。没有冻结，没有 janky UI 体验！
-
-## Suspense
-
-We have built a generic way for components to suspend rendering while they load asynchronous data.
-
-Suspense 的简单定义是 ReactJS 可以暂停任何状态更新，直到提取的数据准备好呈现。本质上，ReactJS 在等待完全获取数据的同时挂起组件树。在暂停期间，它继续处理其他高优先级更新。
