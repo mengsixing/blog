@@ -1,30 +1,133 @@
 # Redux 使用总结
 
-由于使用场景都是结合 react，主要讨论在 react 中使用情景。
+这一节我们来讨论一下 Redux。
 
-## 基本概念
+## 历史说起
+
+我们先从历史的角度，分析一下 Redux 的产生。
+
+### MVC 架构
+
+在 MVC 架构时代，对数据、视图、逻辑有了清晰的分工。
+
+- Model：负责保存应用数据，和后端交互同步应用数据。
+- View：标识当前状态的视图。
+- Controller：负责连接 Model 和 View。Model 的任何改变会应用到 View 中，View 的操作会通过 Controller 应用到 Model。
+
+但是一旦项目变得复杂起来，可能会变成这个样子。
+
+![mvc](https://user-gold-cdn.xitu.io/2018/2/11/16183c3fae895d43)
+
+问题：
+
+- 由于可以在不止一个 View 里修改同个 Model 的数据，一个 Model 的数据同时对应多个 View 的呈现，如图所示。当业务逻辑过多时，`多个 Model 和多个 View 就会耦合到一块`，可以想到排查 bug 的时候会比较痛苦。
+- 更糟糕的是，一个 Model 还能改变另一个 Model，使整个`数据流动的方式变得更加混乱`。
+
+### Flux 架构
+
+为了解决 MVC 架构的问题，Flux 采用单向数据流的方式。
+
+- View： 视图层。
+- Action（动作）：视图层发出的消息（比如 mouseClick）。
+- Dispatcher（派发器）：用来接收 Actions、执行回调函数。
+- Store（数据层）：用来存放应用的状态，一旦发生变动，就提醒 Views 要更新页面。
+
+![flux架构](http://www.ruanyifeng.com/blogimg/asset/2016/bg2016011503.png)
+
+Flux 存在多种实现，Redux 就是其中一种。
+
+## Redux 基本概念
 
 Redux 是 JavaScript 状态容器，提供可预测化的状态管理。
 
 - Web 应用是一个状态机，视图与状态是一一对应的。
 - 所有的状态，保存在一个对象里面。
 
-## 工作流
+### Redux 工作流
 
-redux 把所有的状态都存在了一个对象里，这个对象是只读的，必须通过指定工作流才能修改。
+Redux 把所有的状态都存在了一个对象里，这个对象是只读的，必须通过指定工作流才能修改。
 
-view -> dispatch(action) -> reducer -> store(subscribe) -> view。
+view -> dispatch(action) -> store(reducer) -> store(subscribe) -> view。
 
-视图层 -> 触发 action 事件，传递 type 参数 -> 根据 type 参数，匹配 reducer 规则 -> 返回新 store,触发监听事件 -> 重绘视图。
+视图层 -> 触发 action 事件，传递 type 参数 -> 根据 type 参数，匹配 reducer 规则 -> 返回新 store，触发监听事件 -> 重绘视图。
+
+![redux工作流](http://www.ruanyifeng.com/blogimg/asset/2016/bg2016091802.jpg)
+
+## React 中使用 Redux
+
+在 React 中， 我们使用 Redux 抽离页面中的 state，将状态抽离到 store 中进行统一管理，可以`解决各种状态依赖的问题`。抽离状态后，页面中的组件变为`无状态组件`，还能优化渲染性能。
+
+- react-redux 绑定 Redux 中数据到 React 中。
+- connected-react-router（原 react-router-redux） 将路由的状态抽离到 Redux 中。
+- redux-saga 编写 redux 中的异步操作。
 
 ## 优化
 
-reducer 是一个纯函数，故不能有副作用。
+### Reselect
 
-- 搭配 immutable，优化 reducer 。
-- reselect 优化 mapStateToProps 。
+对于 Redux 来说，每当 store 发生变化时，所有的 connect 都会重新计算，在一个大型应用中，会造成大量的重复计算。Redux 拥抱了函数式编程，在函数式编程中，`纯函数的好处之一就是方便做缓存`。
 
-## API
+Reselect 库就是利用纯函数，同样的输入必定会有同样的输出特性，完成对 connect 计算时优化的。
+
+### Immutable
+
+由于 React 拥抱函数式编程，在 setState 时，会返回一个新的 state 实例，可能出现这样的代码，`Object.assign({},this.state,{changedata})`，这种方式。使用 Immutable，可以方便地生成一个新的对象，并且帮我们做了内存优化，只生成改动部分的对象。
+
+- redux-immutable 将 store 中的所有对象，转换为 immutable 对象。
+- react-immutable-proptypes 对 immutable 对象的类型检查。
+
+:::warning 注意
+1、使用 immutable 后，所有的 state，store，router 中的对象都得改成 immutable 对象，`改造成本较大`。
+
+2、在不支持 immutable 的地方，得进行 toJS()处理，`消耗多余性能`。
+:::
+
+### 其他方法
+
+1、在 Redux 中，每个 action 被分发，所有的 reducer 都会被执行一次，我们可以指定环境，让 Redux 在特殊环境之外，只执行 action 对应的 reducer。
+
+```js
+const splitActions = (reducer,reg,actions)=>{
+  return (state,action)=>{
+    if(actions.indexOf(action.type) === -1) {
+      return reducer(state);
+    }
+    if(actions.type.match(reg)) {
+      return reducer(state);
+    }
+    return state;
+}
+
+combineReducers({
+  counter: splitActions(counter,/COUNTER$/,[SELECT_RADIO]),
+  radio: splitActions(counter,/RADIO$/,[INCREMENT_COUNTER])
+});
+```
+
+2、当我们有连续多个独立的 action 触发时，我们只需要关心最终的状态，即可以把 action 进行合并。
+
+```js
+dispatch(action1);
+dispatch(action2);
+dispatch(action3);
+
+// 转换为
+dispatch(batchActions([action1, action2, action3]));
+
+const BATCH = 'BATCHED_ACTIONS';
+const batchActions = actions => ({ type: BATCH, payload: actions });
+
+const canBatchedReducer = reducer => {
+  const batchedReducer = (state, action) => {
+    if (action.type === BATCH) {
+      return action.payload.reduce(batchedReducer, state);
+    }
+    return reducer(state, action);
+  };
+};
+```
+
+## Redux API
 
 - createStore 创建 store。
 - combineReducers 合并 reducer。
@@ -40,16 +143,51 @@ store 对象：
 - 通过 subscribe(listener) 注册监听器，可通过但会的对象取消监听。
 - 通过 replaceReducer(nextReducer) 替换 store 当前用来计算 state 的 reducer。
 
-### react-redux
+## react-redux API
 
 - Provider 提供子组件可访问 store 能力。
 - connect 连接 React 组件与 Redux store。
 
-connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options])
+### connect 方法
 
-- mapStateToProps 将 store 中的 state 映射到组件的 props 里
-- mapDispatchToProps 将 store 中的 dispatch 映射到组件的 props 里(一般配合 redux 的 bindActionCreators 直接把绑定了 dispath 的 action 映射到组件中)
-- mergeProps(stateProps, dispatchProps, ownProps) 如果指定了这个参数，mapStateToProps() 与 mapDispatchToProps() 的执行结果和组件自身的 props 将传入到这个回调函数中。该回调函数返回的对象将作为 props 传递到被包装的组件中。你也许可以用这个回调函数，根据组件的 props 来筛选部分的 state 数据，或者把 props 中的某个特定变量与 action creator 绑定在一起。如果你省略这个参数，默认情况下返回 Object.assign({}, ownProps, stateProps, dispatchProps) 的结果。
-- [options](Object) 如果指定这个参数，可以定制 connector 的行为。
-  - [pure = true](Boolean): 如果为 true，connector 将执行 shouldComponentUpdate 并且浅对比 mergeProps 的结果，避免不必要的更新，前提是当前组件是一个“纯”组件，它不依赖于任何的输入或 state 而只依赖于 props 和 Redux store 的 state。默认值为 true。
-  - [withRef = false](Boolean): 如果为 true，connector 会保存一个对被包装组件实例的引用，该引用通过 getWrappedInstance() 方法获得。默认值为 false。
+connect 是连接 redux 和 react 和核心，包含 4 个参数。
+
+```js
+connect(
+  [mapStateToProps],
+  [mapDispatchToProps],
+  [mergeProps],
+  [options]
+);
+```
+
+#### mapStateToProps
+
+将 store 中的 state 映射到组件的 props 里。
+
+#### mapDispatchToProps
+
+将 store 中的 dispatch 映射到组件的 props 里(一般配合 redux 的 bindActionCreators 直接把绑定了 dispath 的 action 映射到组件中)
+
+#### mergeProps(stateProps, dispatchProps, ownProps)
+
+- stateProps ：mapStateToProps()的返回值。
+- dispatchProps：mapDispatchToProps()的返回值。
+- ownProps: 组件自己的 props。
+
+这个方法方便对三种来源的 props 进行更好的分类、命名和重组，如果省略这个参数，默认情况下返回 `Object.assign({}, ownProps, stateProps, dispatchProps)` 的结果。
+
+#### options
+
+如果指定这个参数，可以定制 connector 的行为。
+
+- pure: 默认值为 true。如果为 true，Connect 中会定义 shouldComponentUpdate 方法并使用浅比较对比判断前后两次 props 是否发生了变化，从此来减少不必要的刷新。
+- withRef: 默认值为 false。如果为 true，Connect 会保存一个对被包装组件实例的引用 refs，该引用通过 getWrappedInstance() 方法获得，并最终获得原始的 dom 节点。
+
+## 参考资料
+
+::: tip 参考资料
+
+- 《深入 React 技术栈》
+
+:::
