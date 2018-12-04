@@ -1,4 +1,6 @@
-# 关于h5唤起 app
+# 关于 h5 唤起 app
+
+这里讨论的是使用 schema 方式唤起，建议使用 universal link 的方式，可以避免一下坑。
 
 - 微博中唤起 app
 - 微信中唤起 app
@@ -12,6 +14,8 @@
 2、使用 iframe 唤起，如果你的后端有配置 scp，可能会被拦截，需要配好。
 
 3、在 ios 里面，使用 iframe 不能唤起，只能 location.href
+
+4、ios 里，模拟 a 标签点击，如果没有安装 app，会弹出不能打开链接的 alert 错误。
 
 ## 机型采集
 

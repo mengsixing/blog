@@ -32,7 +32,7 @@ module.exports = {
         'library-react-hooks',
         'js-operator-priority',
         "project-webpack",
-        "library-react",
+        // "library-react",
         "library-vue",
         "css",
         "library-miniProgram",
