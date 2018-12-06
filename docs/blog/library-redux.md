@@ -59,15 +59,21 @@ view -> dispatch(action) -> store(reducer) -> store(subscribe) -> view。
 
 - react-redux 绑定 Redux 中数据到 React 中。
 - connected-react-router（原 react-router-redux） 将路由的状态抽离到 Redux 中。
-- redux-saga 编写 redux 中的异步操作。
+- redux-saga 编写 redux 中复杂的异步操作，简单操作可以使用 redux-thunk 代替。
 
-## 优化
+## Redux 优化
+
+首先 Redux 的优化和 store 密切相关，store 里的对象应尽可能地`保持扁平化的设计结构`，避免多层嵌套。
+
+下面介绍几个关于优化 Redux 的库：
 
 ### Reselect
 
 对于 Redux 来说，每当 store 发生变化时，所有的 connect 都会重新计算，在一个大型应用中，会造成大量的重复计算。Redux 拥抱了函数式编程，在函数式编程中，`纯函数的好处之一就是方便做缓存`。
 
-Reselect 库就是利用纯函数，同样的输入必定会有同样的输出特性，完成对 connect 计算时优化的。
+Reselect 库就是利用纯函数，`同样的输入必定会有同样的输出`特性，完成对 connect 计算时优化的。
+
+如果我们需要根据 Redux store 的某几部分进行组合计算，才能得到渲染所需的数据，那么这就是使用 Reselect 的最佳场景。
 
 ### Immutable
 
@@ -126,6 +132,8 @@ const canBatchedReducer = reducer => {
   };
 };
 ```
+
+3、如果 reducer 会进行大量的计算操作，可以使用 redux-worker 让子进程去帮忙计算。
 
 ## Redux API
 
@@ -189,5 +197,6 @@ connect(
 ::: tip 参考资料
 
 - 《深入 React 技术栈》
+- 《React 状态管理与同构实战》
 
 :::
