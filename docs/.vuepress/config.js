@@ -23,6 +23,7 @@ module.exports = {
     ],
     sidebar: {
       "/blog/": [
+        "library-react-ssr",
         "css-useful",
         'js-this',
         'project-commitlint',
