@@ -65,6 +65,7 @@
 
 - [react 使用总结](https://yhlben.github.io/blog/library-react.html)
   - [使用 react hooks 节省 90% 的代码](https://yhlben.github.io/blog/library-react-hooks.html)
+  - [react 服务器端渲染Demo](https://yhlben.github.io/blog/library-react-ssr.html)
 - [vue 使用总结](https://yhlben.github.io/blog/library-vue.html)
 - [小程序使用总结](https://yhlben.github.io/blog/library-miniProgram.html)
 - [redux 使用总结](https://yhlben.github.io/blog/library-redux.html)
