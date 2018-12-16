@@ -7,6 +7,22 @@
 
 访问地址：[yhlben.github.io](https://yhlben.github.io/)
 
+## 使用
+
+博客采用 vuepress 作为主框架，mardownlint 作为语法检查工具。
+
+1、开始写博客
+
+```js
+npm run dev
+```
+
+2、检查语法格式，并自动修复语法错误
+
+```js
+npm run lint:fix
+```
+
 ## 目录整理
 
 ### | 文章分类
@@ -47,6 +63,7 @@
 #### | osi 协议 相关
 
 - [http 协议常用知识点总结](https://yhlben.github.io/blog/osi-http.html)
+- [http2 基础知识点总结](https://yhlben.github.io/blog/osi-http2.html)
 - [https 协议常用知识点总结](https://yhlben.github.io/blog/osi-https.html)
 - [域名劫持 / 数据劫持](https://yhlben.github.io/blog/osi-dns.html)
 - [web 安全](https://yhlben.github.io/blog/osi-web-security.html)
@@ -65,7 +82,7 @@
 
 - [react 使用总结](https://yhlben.github.io/blog/library-react.html)
   - [使用 react hooks 节省 90% 的代码](https://yhlben.github.io/blog/library-react-hooks.html)
-  - [react 服务器端渲染Demo](https://yhlben.github.io/blog/library-react-ssr.html)
+  - [react 服务器端渲染 Demo](https://yhlben.github.io/blog/library-react-ssr.html)
 - [vue 使用总结](https://yhlben.github.io/blog/library-vue.html)
 - [小程序使用总结](https://yhlben.github.io/blog/library-miniProgram.html)
 - [redux 使用总结](https://yhlben.github.io/blog/library-redux.html)

@@ -45,15 +45,15 @@ const itemToPlugin = (context, item, name) => {
 
 module.exports = class EntryOptionPlugin {
   apply(compiler) {
-    compiler.hooks.entryOption.tap('EntryOptionPlugin', (context, entry) => {
-      if (typeof entry === 'string' || Array.isArray(entry)) {
+    compiler.hooks.entryOption.tap("EntryOptionPlugin", (context, entry) => {
+      if (typeof entry === "string" || Array.isArray(entry)) {
         // 如果没有取名字，就默认为main
-        itemToPlugin(context, entry, 'main').apply(compiler);
-      } else if (typeof entry === 'object') {
+        itemToPlugin(context, entry, "main").apply(compiler);
+      } else if (typeof entry === "object") {
         for (const name of Object.keys(entry)) {
           itemToPlugin(context, entry[name], name).apply(compiler);
         }
-      } else if (typeof entry === 'function') {
+      } else if (typeof entry === "function") {
         new DynamicEntryPlugin(context, entry).apply(compiler);
       }
       return true;
@@ -65,7 +65,7 @@ module.exports = class EntryOptionPlugin {
 ### SingleEntryPlugin
 
 ```js
-const SingleEntryDependency = require('./dependencies/SingleEntryDependency');
+const SingleEntryDependency = require("./dependencies/SingleEntryDependency");
 
 class SingleEntryPlugin {
   constructor(context, entry, name) {
@@ -76,7 +76,7 @@ class SingleEntryPlugin {
 
   apply(compiler) {
     compiler.hooks.compilation.tap(
-      'SingleEntryPlugin',
+      "SingleEntryPlugin",
       (compilation, { normalModuleFactory }) => {
         // compilation.dependencyFactories 是一个map类型，这里是挂载SingleEntryDependency
         compilation.dependencyFactories.set(
@@ -88,7 +88,7 @@ class SingleEntryPlugin {
 
     // 在编译阶段（make）钩子函数中，把entry挂载到 compilation 中
     compiler.hooks.make.tapAsync(
-      'SingleEntryPlugin',
+      "SingleEntryPlugin",
       (compilation, callback) => {
         const { entry, name, context } = this;
 

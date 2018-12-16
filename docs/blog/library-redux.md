@@ -120,7 +120,7 @@ dispatch(action3);
 // 转换为
 dispatch(batchActions([action1, action2, action3]));
 
-const BATCH = 'BATCHED_ACTIONS';
+const BATCH = "BATCHED_ACTIONS";
 const batchActions = actions => ({ type: BATCH, payload: actions });
 
 const canBatchedReducer = reducer => {

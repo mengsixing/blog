@@ -6,8 +6,8 @@
 
 ```js
 var id = 123;
-var name = 'xiaoming';
-var path = 'http://www.xxx.com/?id=' + id + '&name=' + name;
+var name = "xiaoming";
+var path = "http://www.xxx.com/?id=" + id + "&name=" + name;
 console.log(path);
 // http://www.xxx.com/?id=123&name=xiaoming
 ```
@@ -17,9 +17,9 @@ console.log(path);
 
 ```js
 var id = 123;
-var name = 'xiaoming';
+var name = "xiaoming";
 var path =
-  'http://www.xxx.com/?id=' + id ? id : '' + '&name=' + name ? name : '';
+  "http://www.xxx.com/?id=" + id ? id : "" + "&name=" + name ? name : "";
 console.log(path);
 // 123
 ```
@@ -43,14 +43,14 @@ console.log(path);
 
 | 运算符                             | 说明                                                   |
 | ---------------------------------- | ------------------------------------------------------ |
-| . [] ()                            | 字段访问、数组索引、函数调用和表达式分组               |
+| . []()                             | 字段访问、数组索引、函数调用和表达式分组               |
 | ++ -- - ~ ! delete new typeof void | 一元运算符、返回数据类型、对象创建、未定义的值         |
-| * / %                              | 相乘、相除、求余数                                     |
+| \* / %                             | 相乘、相除、求余数                                     |
 | + - +                              | 相加、相减、字符串串联                                 |
 | < <= > >= instanceof               | 小于、小于或等于、大于、大于或等于、是否为特定类的实例 |
 | == != === !==                      | 相等、不相等、全等，不全等                             |
-| &&                                 | 逻辑“与”                                             |
-| \|\|                               | 逻辑“或”                                             |
+| &&                                 | 逻辑“与”                                               |
+| \|\|                               | 逻辑“或”                                               |
 | ?:                                 | 条件运算                                               |
 | = OP=                              | 赋值、赋值运算（如 += 和 &=）                          |
 | ,                                  | 多个计算                                               |
@@ -59,6 +59,6 @@ console.log(path);
 
 ::: tip 参考资料
 
-[MDN](https://msdn.microsoft.com/zh-cn/library/z3ks45k7(v=vs.94).aspx)
+[MDN](<https://msdn.microsoft.com/zh-cn/library/z3ks45k7(v=vs.94).aspx>)
 [JavaScript 运算符优先级（从高到低）](https://github.com/xhlwill/blog/issues/16)
 :::

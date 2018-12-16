@@ -16,9 +16,6 @@ We have built a generic way for components to suspend rendering while they load 
 
 Suspense 的简单定义是 ReactJS 可以暂停任何状态更新，直到提取的数据准备好呈现。本质上，ReactJS 在等待完全获取数据的同时挂起组件树。在暂停期间，它继续处理其他高优先级更新。
 
-
-
-
 ## React 生命周期
 
 ### 创建时
@@ -171,4 +168,3 @@ UNSAFE_componentWillReceiveProps(nextProps)
 - 纯静态展示,可读性更好，并能大大减少代码量
 - 省去了多余的生命周期，提升了整体的渲染性能
 - 可复用性强
-

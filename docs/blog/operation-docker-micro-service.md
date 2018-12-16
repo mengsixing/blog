@@ -12,10 +12,10 @@
 1、test.js。
 
 ```js
-const Koa = require('koa');
+const Koa = require("koa");
 const app = new Koa();
 app.use(function(ctx) {
-  ctx.body = 'hello docker';
+  ctx.body = "hello docker";
 });
 app.listen(3456);
 ```

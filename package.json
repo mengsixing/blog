@@ -6,6 +6,7 @@
   "scripts": {
     "lint": "mdl -r '~MD013,~MD033' ./docs/blog",
     "lint:fix": "prettier --write ./docs/**/*.md",
+    "dev": "vuepress dev docs",
     "docs:build": "vuepress build docs"
   },
   "husky": {

@@ -23,6 +23,7 @@ module.exports = {
     ],
     sidebar: {
       "/blog/": [
+        "osi-http2",
         "library-react-ssr",
         "css-useful",
         'js-this',

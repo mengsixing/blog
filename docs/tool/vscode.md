@@ -1,9 +1,9 @@
 # VSCode 常用快捷键
 
-在Mac中：
+在 Mac 中：
 
-* Option  于所在单词相关
-* Command 于所在行相关
+- Option 于所在单词相关
+- Command 于所在行相关
 
 ## 光标移动
 

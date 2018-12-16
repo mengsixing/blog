@@ -1,4 +1,4 @@
-# webpack 打包modules流程分析
+# webpack 打包 modules 流程分析
 
 最近在研究 webpack，对 webpack 的运行流程有了一个新的认识。
 
@@ -20,9 +20,9 @@ webpack 打包后的代码并不复杂，下面是对打包后的结果的一个
     );
     return module.exports;
   }
-  return __webpack_require__('./example/entry.js');
+  return __webpack_require__("./example/entry.js");
 })({
-  './example/entry.js': function(
+  "./example/entry.js": function(
     module,
     __webpack_exports__,
     __webpack_require__
@@ -65,10 +65,10 @@ webpack 打包后的代码并不复杂，下面是对打包后的结果的一个
 
 ```js
 function craeteAsset(filename) {
-  var code = fs.readFileSync(filename, 'utf-8');
+  var code = fs.readFileSync(filename, "utf-8");
   var dependencies = [];
   var ast = babely.parse(code, {
-    sourceType: 'module'
+    sourceType: "module"
   });
   // 把依赖的文件写入进来
   traverse(ast, {
@@ -80,7 +80,7 @@ function craeteAsset(filename) {
   });
 
   const result = babel.transformFromAstSync(ast, null, {
-    presets: ['@babel/preset-env']
+    presets: ["@babel/preset-env"]
   });
 
   var module = {
@@ -157,7 +157,7 @@ function bundle(graph) {
     `;
   });
 
-  modules += '}';
+  modules += "}";
 
   var result = `
   (function(graph){
@@ -195,7 +195,7 @@ function bundle(graph) {
 ### 执行构建
 
 ```js
-var graph = createGraph('./example/entry.js');
+var graph = createGraph("./example/entry.js");
 var result = bundle(graph);
 // 这里就是打包后的结果了
 console.log(result);

@@ -102,7 +102,7 @@ Function.prototype.bind = function(ctx) {
   var that = this;
   var NoFunc = function() {};
   var result = function(...rest) {
-    console.warn('instade of :', this instanceof that);
+    console.warn("instade of :", this instanceof that);
     that.apply(this instanceof that ? this : that, rest);
   };
   NoFunc.prototype = that.prototype;
@@ -210,7 +210,7 @@ function newFunc(faster, ...rest) {
   result.__proto = faster.prototype;
   var result2 = faster.apply(result, rest);
   if (
-    (typeof result2 === 'object' || typeof result2 === 'function') &&
+    (typeof result2 === "object" || typeof result2 === "function") &&
     result2 !== null
   ) {
     return result2;
@@ -251,7 +251,7 @@ Function.prototype.myCall = function(context, ...rest) {
 
 ```js
 function isObject(obj) {
-  return Object.prototype.toString.call(obj) === '[object Object]';
+  return Object.prototype.toString.call(obj) === "[object Object]";
 }
 
 function deepClone(obj, cacheObj = new WeakMap()) {

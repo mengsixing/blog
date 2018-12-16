@@ -353,9 +353,9 @@ webpack 在运行时大致分为这几个阶段：
 
 ### 流程图
 
-这张图画的很好，把webpack的流程画的很细致。
+这张图画的很好，把 webpack 的流程画的很细致。
 
-图片是参考文章[Webpack揭秘——走向高阶前端的必经之路](https://juejin.im/post/5badd0c5e51d450e4437f07a)里的，如有侵权，请联系我，马上删除。
+图片是参考文章[Webpack 揭秘——走向高阶前端的必经之路](https://juejin.im/post/5badd0c5e51d450e4437f07a)里的，如有侵权，请联系我，马上删除。
 
 ![webpack 运行流程图](webpack-steps.jpg)
 

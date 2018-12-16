@@ -19,7 +19,7 @@ var foo = {
 //示例1
 console.log(foo.bar());
 //示例2
-console.log((foo.bar)());
+console.log(foo.bar());
 //示例3
 console.log((foo.bar = foo.bar)());
 //示例4
@@ -60,14 +60,14 @@ console.log((foo.bar, foo.bar)());
   };
   var fooReference = {
     base: EnvironmentRecord,
-    name: 'foo',
+    name: "foo",
     strict: false
   };
   GetBase(fooReference); // EnvironmentRecord;
 
   var barReference = {
-    base: 'foo',
-    name: 'bar',
+    base: "foo",
+    name: "bar",
     strict: false
   };
   GetBase(barReference); // foo;
