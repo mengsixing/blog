@@ -28,7 +28,7 @@ module.exports = {
         "css-useful",
         'js-this',
         'project-commitlint',
-        'project-webpack-entry',
+        // 'project-webpack-entry',
         'project-webpack-flow',
         'operation-web-login',
         'library-react-hooks',
