@@ -1,23 +1,34 @@
 # 数据结构总结
 
+数据结构表示计算机存储数据的方式，常常结合算法来操作数据。
+
 ## 按逻辑结构分类
 
-- 集合（无逻辑关系）。
-- 线性结构（线性表）。
-- 一维数组。
-- 队列。
-- 栈。
+反映数据元素之间的逻辑关系。
+
+- 集合（无逻辑关系）
+- 线性结构（线性表）
+  - 一维数组。
+  - 队列。
+  - 栈。
 - 非线性结构。
-- 树。
-- 图。
-- 多维数组。
+  - 树。
+  - 图。
+  - 多维数组。
 
 ## 按存储结构分类
 
-- 顺序存储结构。
+数据结构在计算机中的表示，是按照真实的物理地址分类。
+
+- 顺序存储结构
+  - 数组。
 - 链式存储结构。
-- 索引存储结构。
-- 散列存储结构。
+  - 链表。
+- 索引存储结构。（增加了附加的索引表，来确定结点存储地址）
+  - 数据库索引
+- 散列存储结构。（将索引存储结构中的索引存到了数据内，即直接根据数据就能找到存储地址）
+
+[存储结构分类](https://www.cnblogs.com/fengty90/p/3768826.html)
 
 ## 前端中的数据结构和算法
 
@@ -206,7 +217,7 @@ nums.insert(13);
 nums.insert(2993);
 nums.inOrder(nums.root);
 nums.remove(123);
-console.warn("删除123以后");
+console.warn('删除123以后');
 nums.inOrder(nums.root);
 //nums.getSmalllest(nums.root);
 //nums.getMax(nums.root);
@@ -279,17 +290,17 @@ function showDistro() {
   var n = 0;
   for (var i = 0; i < this.table.length; i++) {
     if (this.table[i][0] != undefined) {
-      console.log("健是：" + i + "，值是：" + this.table[i]);
+      console.log('健是：' + i + '，值是：' + this.table[i]);
     }
   }
 }
 
 var hTable = new HashTable();
 hTable.buildChains();
-hTable.put("china");
-hTable.put("cainh");
-hTable.put("aosdn");
-hTable.put("vnvnin");
+hTable.put('china');
+hTable.put('cainh');
+hTable.put('aosdn');
+hTable.put('vnvnin');
 
 hTable.showDistro();
 ```
