@@ -7,7 +7,8 @@
     "lint": "mdl -r '~MD013,~MD033' ./docs/blog",
     "lint:fix": "prettier --write ./docs/**/*.md",
     "dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "docs:build": "vuepress build docs",
+    "commit": "npx git-cz"
   },
   "husky": {
     "hooks": {
@@ -19,5 +20,8 @@
   "devDependencies": {
     "prettier": "1.13.5",
     "husky": "^0.14.3"
+  },
+  "dependencies": {
+    "commitizen": "^3.0.5"
   }
 }
