@@ -96,3 +96,4 @@ npm run lint:fix
 - [webpack 使用总结](https://yhlben.github.io/blog/project-webpack.html)
 - [commitlint 使用总结](https://yhlben.github.io/blog/project-commitlint.html)
 - [前端测试](https://yhlben.github.io/blog/project-test.html)
+- [怎样选择图片格式？](https://yhlben.github.io/blog/project-image.html)
