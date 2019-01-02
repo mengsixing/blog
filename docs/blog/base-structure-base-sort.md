@@ -4,6 +4,8 @@
 
 它是最慢的排序算法之一，数据值会像气泡一样从数组的一端漂浮到另一端。
 
+![冒泡排序](冒泡排序.gif)
+
 ```javascript
 function bubbleSort() {
   const arrayLength = this.dataSource.length;
@@ -20,6 +22,8 @@ function bubbleSort() {
 ## 选择排序
 
 从数组的开头开始，将第一个元素和其他元素比，较最小的元素会被放到数组的第一个位置，再从第二个位置继续。
+
+![选择排序](选择排序.gif)
 
 ```javascript
 function selectSort() {
@@ -39,6 +43,8 @@ function selectSort() {
 ## 插入排序
 
 类似于人们按数组或字母顺序对数据进行排序，后面的要为前面腾位置（叠卷子）。
+
+![插入排序](插入排序.gif)
 
 ```javascript
 function insertSort() {
