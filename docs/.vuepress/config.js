@@ -23,6 +23,7 @@ module.exports = {
     ],
     sidebar: {
       "/blog/": [
+        "2018",
         "project-dependencies",
         "project-image",
         "osi-http2",

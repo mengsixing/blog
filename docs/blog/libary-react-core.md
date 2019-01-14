@@ -56,7 +56,7 @@ getDerivedStateFromProps 只存在一个目的。它`使组件能够根据 props
 
 此方法仅作为性能优化存在。不要依赖它来“防止”渲染，因为这可能导致错误。考虑使用内置 PureComponent 而不是 shouldComponentUpdate()手写。
 
-#### render。
+#### render
 
 将虚拟 DOM 渲染成真实的 DOM。
 
@@ -113,7 +113,7 @@ UNSAFE_componentWillReceiveProps(nextProps)
 
 ## 常见问题
 
-### 什么是可控组件和不可控组件？
+### 什么是可控组件和不可控组件
 
 在 HTML 当中，像`<input>`,`<textarea>`, 和 `<select>`这类表单元素会维持自身的值 value，并根据用户输入进行更新。但在 React 中，可变的状态是保存在组件的状态属性中，并且只能用 setState() 方法进行更新。
 
@@ -121,7 +121,7 @@ UNSAFE_componentWillReceiveProps(nextProps)
 
 使用”受控组件”，每个状态的改变都有一个与之相关的处理函数。这样就可以直接修改或验证用户输入。
 
-### React 异步渲染？
+### React 异步渲染
 
 将 setState() 认为是一次请求而不是一次立即执行更新组件的命令。为了更为可观的性能，React 可能会推迟它，稍后会一次性更新这些组件。React 不会保证在 setState 之后，能够立刻拿到改变的结果。
 
@@ -135,7 +135,7 @@ UNSAFE_componentWillReceiveProps(nextProps)
 
 3.2、否则，将需更新的组件放入 dirtyComponents 中。
 
-### 什么时候会标识 isBatchingUpdates 为 true？
+### 什么时候会标识 isBatchingUpdates 为 true
 
 1、当处于生命周期 render 之后的生命周期中。
 
@@ -145,7 +145,7 @@ UNSAFE_componentWillReceiveProps(nextProps)
 所以在 setTimeout，源生事件中的 setState 会同步渲染。
 :::
 
-### react 怎样提高性能？
+### react 怎样提高性能
 
 1、使用 shouldComponentUpdate 和 Immutable 组合控制合适的时间渲染。PureComponent。
 
@@ -155,7 +155,7 @@ UNSAFE_componentWillReceiveProps(nextProps)
 
 4、redux 性能优化：reselect（数据获取时优化）。
 
-### props 和 state 分别在什么时候用？
+### props 和 state 分别在什么时候用
 
 1、如果在 Component 中需要在某个时间点改变，那么应该使用 state，否则应该使用 prop。
 

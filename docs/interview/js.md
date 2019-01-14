@@ -102,7 +102,7 @@ Function.prototype.bind = function(ctx) {
   var that = this;
   var NoFunc = function() {};
   var result = function(...rest) {
-    console.warn("instade of :", this instanceof that);
+    console.warn('instade of :', this instanceof that);
     that.apply(this instanceof that ? this : that, rest);
   };
   NoFunc.prototype = that.prototype;
@@ -210,7 +210,7 @@ function newFunc(faster, ...rest) {
   result.__proto = faster.prototype;
   var result2 = faster.apply(result, rest);
   if (
-    (typeof result2 === "object" || typeof result2 === "function") &&
+    (typeof result2 === 'object' || typeof result2 === 'function') &&
     result2 !== null
   ) {
     return result2;
@@ -246,20 +246,39 @@ Function.prototype.myCall = function(context, ...rest) {
 
 ## 15、写一个对象深拷贝
 
+1、使用 JSON.parse(JSON.stringify(obj))。`不能拷贝值为 null，undefined，函数数据`。
+
+2、使用 MessageChannel + postMessage，通过消息队列传递数据，实现深拷贝。`不能拷贝函数`。
+
+3、手写函数判断
+
 - 深拷贝
+- 函数拷贝
 - 处理循环依赖
 
 ```js
-function isObject(obj) {
-  return Object.prototype.toString.call(obj) === "[object Object]";
-}
-
 function deepClone(obj, cacheObj = new WeakMap()) {
-  var result = {};
-  // obj不是对象，就直接返回
-  if (!isObject(obj)) {
+  function isObject(obj) {
+    return Object.prototype.toString.call(obj) === '[object Object]';
+  }
+  function isArray(obj) {
+    return Array.isArray(obj);
+  }
+
+  let result;
+  // 拷贝简单类型
+  if (!isObject(obj) && !isArray(obj)) {
     return obj;
   }
+
+  if(isObject(obj)){
+    result = {...obj};
+  }
+
+  if(isArray(obj)) {
+    result = [...obj];
+  }
+  
   // 判断是否缓存过该对象
   if (cacheObj.has(obj)) {
     return cacheObj.get(obj[key]);

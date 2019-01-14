@@ -65,7 +65,7 @@ Schedulers (调度器): 用来控制并发并且是中央集权的调度员，�
 | Rx.Scheduler.asap  | 微任务的队列调度，它使用可用的最快速的传输机制，比如 Node.js 的 process.nextTick() 或 Web Worker 的 MessageChannel 或 setTimeout 或其他。用于异步转换。 |
 | Rx.Scheduler.async | 使用 setInterval 的调度。用于基于时间的操作符。                                                                                                         |
 
-## 小示例：
+## 小示例
 
 ```javascript
 //第一步，创建一个可观察对象（也可以通过fromEvent...）
