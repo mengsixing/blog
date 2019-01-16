@@ -15,8 +15,6 @@ deploy:
   skip-cleanup: true
   local-dir: docs/.vuepress/dist
   repo: yhlben/yhlben.github.io
-  email: yinhengliben@gmail.com
-  name: yhlben
   github-token: $REPO_TOKEN
   keep-history: true
   on:

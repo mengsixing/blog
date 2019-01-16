@@ -9,7 +9,7 @@
 - 如果符合上述多个规则，则较高的规则（1 号最高，4 号最低）将决定 this 的值。
 - 如果该函数是 ES2015 中的箭头函数，将忽略上面的所有规则，this 被设置为它被创建时的上下文。
 
-## 2、offsetWidth，clientWidth，scrollWidth 的区别？
+## 2、offsetWidth，clientWidth，scrollWidth 的区别
 
 clientWidth：元素的 width + padding
 
@@ -22,7 +22,7 @@ scrollWidth：
 
 [测试 offsetWidth，clientWidth，scrollWidth](https://codepen.io/yhlben/pen/WgowLz)
 
-## 3、节流函数怎么写？
+## 3、节流函数怎么写
 
 定义：触发函数事件后，短时间间隔内无法连续调用，只有上一次函数执行后，过了规定的时间间隔，才能进行下一次的函数调用。
 
@@ -50,7 +50,7 @@ function throttle(callback, timeout) {
 }
 ```
 
-## 4、防抖函数？
+## 4、防抖函数
 
 定义：多次触发事件后，事件处理函数只执行一次，并且是在触发操作结束时执行。
 
@@ -78,7 +78,7 @@ function debounce(callback, timeout, immediate) {
 }
 ```
 
-## 5、arguments 是数组吗？
+## 5、arguments 是数组吗
 
 arguments 是数组吗？怎么实现用它调用数组方法？类数组和数组的区别是什么？arguments 有 length 属性吗？ 为什么要遍历类数组取值组成数组，还有更简单的方法吗？
 
@@ -95,18 +95,28 @@ Array.from(arguments);
 3、类数组是一个对象，typeof 判断出来就不一致。
 类数组无法使用数组方法。
 
-## 6、手写一个 bind 函数。
+## 6、手写一个 bind 函数
+
+- 绑定 this
+- bing 后可以被 new 函数调用
+- 容错处理
 
 ```js
-Function.prototype.bind = function(ctx) {
-  var that = this;
-  var NoFunc = function() {};
-  var result = function(...rest) {
-    console.warn('instade of :', this instanceof that);
-    that.apply(this instanceof that ? this : that, rest);
+Function.prototype.bind2 = function(ctx, ...rest) {
+  if (typeof this !== 'function') {
+    throw new Error('只能由 function 调用');
+  }
+  const func = this;
+  var result = function(...params) {
+    return func.apply(
+      // 如果是 new 对象出的，this绑定的应该绑定为构造函数
+      this instanceof result ? this : ctx,
+      rest.concat(params)
+    );
   };
-  NoFunc.prototype = that.prototype;
-  result.prototype = new NoFunc();
+  var fNOP = function() {};
+  fNOP.prototype = func.prototype;
+  result.prototype = new fNOP();
   return result;
 };
 ```

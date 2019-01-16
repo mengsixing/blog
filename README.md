@@ -9,7 +9,7 @@
 
 ## 使用
 
-博客采用 vuepress 作为主框架，mardownlint 作为语法检查工具。
+博客采用 vuepress 作为主框架，lint-md 作为语法检查工具。
 
 1、开始写博客
 

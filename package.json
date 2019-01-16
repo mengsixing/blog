@@ -4,7 +4,8 @@
   "description": "my personal blog",
   "main": "index.js",
   "scripts": {
-    "lint": "lint-md ./docs/blog --fix",
+    "lint": "lint-md ./docs/blog",
+    "lint:fix": "lint-md ./docs/blog --fix",
     "dev": "vuepress dev docs",
     "docs:build": "vuepress build docs",
     "commit": "npx git-cz"
