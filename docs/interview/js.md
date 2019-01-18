@@ -304,3 +304,22 @@ function deepClone(obj, cacheObj = new WeakMap()) {
   return result;
 }
 ```
+
+## 16、这道题的返回结果
+
+```js
+var a = 0
+var b = async () => {
+  a = a + await 10
+  console.log('b中的a：', a);
+}
+b()
+a++
+console.log('外部a：', a)
+```
+
+- 首先函数 b 先执行，在执行到 await 10 之前变量 a 还是 0，因为 await 内部实现了 generator ，generator 会保留堆栈中东西，所以这时候 a = 0 被保存了下来
+- 因为 await 是异步操作，后来的表达式不返回 Promise 的话，就会包装成 Promise.reslove(返回值)，然后会去执行函数外的同步代码
+- 同步代码执行完毕后开始执行异步代码，将保存下来的值拿出来使用，这时候 a = 0 + 10
+
+上述解释中提到了 await 内部实现了 generator，其实 await 就是 generator 加上 Promise 的语法糖，且内部实现了自动执行 generator。如果你熟悉 co 的话，其实自己就可以实现这样的语法糖。
