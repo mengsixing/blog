@@ -206,7 +206,7 @@ console.log(a.__proto__.__proto__.__proto__ === null);
 
 ![ecma 条件判断](interview-abstractCompare.png)
 
-## 12、Js new 过程中发生了什么？
+## 12、Js new 过程中发生了什么
 
 1，创建一个以这个函数为原型的空对象.
 
@@ -229,7 +229,7 @@ function newFunc(faster, ...rest) {
 }
 ```
 
-## 13、setTimeout 和 setInterval 方法有执行顺序吗？
+## 13、setTimeout 和 setInterval 方法有执行顺序吗
 
 setTimeout 等待 xx 毫秒后，把方法推入异步队列。
 
@@ -241,7 +241,7 @@ setInterval 如果间隙比较小，而方法比较耗时时，会导致间隔�
 
 > 可以使用 setTimeout 自调用，在确方法执行完后，再推入异步队列。
 
-## 14、手写一个 call 函数。
+## 14、手写一个 call 函数
 
 ```js
 Function.prototype.myCall = function(context, ...rest) {
@@ -305,7 +305,7 @@ function deepClone(obj, cacheObj = new WeakMap()) {
 }
 ```
 
-## 16、这道题的返回结果
+## 16、分析这一段代码的返回结果
 
 ```js
 var a = 0

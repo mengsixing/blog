@@ -23,6 +23,7 @@ module.exports = {
     ],
     sidebar: {
       "/blog/": [
+        "book-code",
         "2018",
         "project-dependencies",
         "project-image",
