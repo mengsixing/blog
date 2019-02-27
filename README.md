@@ -28,6 +28,7 @@ npm run lint:fix
 ### | 文章分类
 
 - [我的前端知识清单](https://yhlben.github.io/blog/frontend.html)
+- [我的 2018 总结](https://yhlben.github.io/blog/2018.html)
 
 #### | 计算机基础
 
@@ -97,3 +98,8 @@ npm run lint:fix
 - [commitlint 使用总结](https://yhlben.github.io/blog/project-commitlint.html)
 - [前端测试](https://yhlben.github.io/blog/project-test.html)
 - [怎样选择图片格式？](https://yhlben.github.io/blog/project-image.html)
+
+#### | 工具 相关
+
+- [常用工具整理](https://yhlben.github.io/blog/other-tools.html)
+- [VSCode 常用快捷键](https://yhlben.github.io/blog/other-vscode.html)

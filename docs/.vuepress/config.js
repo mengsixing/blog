@@ -17,13 +17,12 @@ module.exports = {
         link: "/interview/"
       },
       {
-        text: "工具",
-        link: "/tool/"
+        text: "读书",
+        link: "/book/"
       },
     ],
     sidebar: {
       "/blog/": [
-        "book-code",
         "2018",
         "project-dependencies",
         "project-image",
@@ -37,6 +36,8 @@ module.exports = {
         'operation-web-login',
         'library-react-hooks',
         'js-operator-priority',
+        "other-tools",
+        "other-vscode",
         "project-webpack",
         "library-react",
         "library-vue",
@@ -68,7 +69,6 @@ module.exports = {
         "base-structure-high-algorithm",
         "base-structure-senior-sort",
         "osi-http",
-        "osi-http-graph",
         "project-node",
         "operation-performance",
         "operation-docker-micro-service",
@@ -84,9 +84,10 @@ module.exports = {
         "suanfa",
         "framework"
       ],
-      "/tool/": [
-        "common",
-        "vscode"
+      "/book/": [
+        "book-regular",
+        "book-code",
+        "book-http-graph"
       ],
     },
     lastUpdated: "更新时间",

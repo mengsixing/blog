@@ -112,6 +112,16 @@ Strict-Transport-Security: max-age=<expire-time>
 
 - ⽤户的第⼀次访问不受控。
 
+#### X-FRAME-OPTIONS
+
+X-FRAME-OPTIONS 是一个 HTTP 响应头，在现代浏览器有一个很好的支持。这个 HTTP 响应头 就是为了防御用 iframe 嵌套的点击劫持攻击。
+
+该响应头有三个值可选，分别是
+
+- DENY，表示页面不允许通过 iframe 的方式展示。
+- SAMEORIGIN，表示页面可以在相同域名下通过 iframe 的方式展示。
+- ALLOW-FROM，表示页面可以在指定来源的 iframe 中展示。
+
 ### 数据劫持总结
 
 - 使用 https 加密传输数据，确保内容保密
