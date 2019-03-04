@@ -23,10 +23,11 @@ module.exports = {
     ],
     sidebar: {
       "/blog/": [
+        "js-promise",
+        // "libary-react-core",
         "2018",
         "project-dependencies",
         "project-image",
-        "osi-http2",
         "library-react-ssr",
         "css-useful",
         'js-this',
@@ -55,7 +56,6 @@ module.exports = {
         "js-inherit",
         "js-form",
         "js-html5-program",
-        "js-regular-assert",
         "js-recursion",
         "js-object-ergodic",
         "js-design-pattern",
@@ -87,6 +87,7 @@ module.exports = {
       "/book/": [
         "book-regular",
         "book-code",
+        "book-http2",
         "book-http-graph"
       ],
     },

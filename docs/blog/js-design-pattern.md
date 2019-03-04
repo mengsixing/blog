@@ -4,7 +4,26 @@
 
 由一个对象决定创建某一种产品对象类的实例，主要用来创建同一类对象。
 
-> 只关心创建结果。
+```js
+class Man {
+  constructor(name) {
+    this.name = name
+  }
+  alertName() {
+    alert(this.name)
+  }
+}
+
+class Factory {
+  static create(name) {
+    return new Man(name)
+  }
+}
+
+Factory.create('Jack').alertName()
+```
+
+如例子所示，创建 Man 对象的过程可能很复杂，但我们**只需要关心创建结果**。
 
 ## 建造者模式
 
@@ -44,25 +63,91 @@ function singlePattern(id) {
 
 为一组复杂的子系统接口提供一个更高级的统一接口，通过这个接口使得对子系统接口的访问更加容易。
 
+```js
+function addEvent(elm, evType, fn, useCapture) {
+  if (elm.addEventListener) {
+    elm.addEventListener(evType, fn, useCapture)
+    return true
+  } else if (elm.attachEvent) {
+    var r = elm.attachEvent("on" + evType, fn)
+    return r
+  } else {
+    elm["on" + evType] = fn
+  }
+}
+```
+
 > 在 js 中有时候会用于对底层结构兼容性做统一的封装来简化用户的使用。例如：兼容 addEventListener attachEvent。
 
 ## 适配器模式
 
 将一个类的接口转化为另外一个接口，以满足用户需求，使类之间接口不兼容问题通过适配器得以解决。
 
-> 适配对象，适配代码库，适配数据等。
+```js
+class Plug {
+  getName() {
+    return '港版插头'
+  }
+}
+
+class Target {
+  constructor() {
+    this.plug = new Plug()
+  }
+  getName() {
+    return this.plug.getName() + ' 适配器转二脚插头'
+  }
+}
+
+let target = new Target()
+target.getName() // 港版插头 适配器转二脚插头
+```
+
+可以用来适配对象，适配代码库，适配数据等。
 
 ## 代理模式
 
 由于一个对象不能直接引用另一个对象，所以需要通过代理对象在这两个对象之间起到中介的作用。
 
-> 例如：ajax 跨域，通过 jsonp 做代理，即可解决。
+```html
+<ul id="ul">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+</ul>
+<script>
+    let ul = document.querySelector('#ul')
+    ul.addEventListener('click', (event) => {
+        console.log(event.target);
+    })
+</script>
+```
+
+因为存在太多的 li，不可能每个都去绑定事件。这时候可以通过给父节点绑定一个事件，让父节点作为代理去拿到真实点击的节点。
 
 ## 装饰器模式
 
 在不改变原对象的基础上，通过对其进行包装扩展（添加属性或方法）使原有对象可以满足用户的更复杂需求。
 
-> 例如：增加属性，扩展原方法等。
+```js
+function readonly(target, key, descriptor) {
+  descriptor.writable = false;
+  return descriptor;
+}
+
+class Test {
+  @readonly
+  name = 'Jack'
+}
+
+let t = new Test()
+
+t.Jack = '111' // 不可修改
+```
+
+例如：增加属性，扩展原方法，高阶组件等。
 
 ## 桥接模式
 
