@@ -1,6 +1,6 @@
 # 从 ES 规范 中理解 this
 
-本以为对 JS 中的 this 已经很熟练了，再看完冴羽的博客后，才发现自己对 ES 规范知之甚少，原来我都是根据经验在判断 this，这篇文章会从最底层的 ES 规范上去介绍 this 的判断。
+本以为对 js 中的 this 已经很熟练了，再看完冴羽的博客后，才发现自己对 es 规范知之甚少，原来我都是根据经验在判断 this，这篇文章会从最底层的 es 规范上去介绍 this 的判断。
 
 ## 一道测试题引发的思考
 
@@ -19,7 +19,7 @@ var foo = {
 //示例1
 console.log(foo.bar());
 //示例2
-console.log(foo.bar());
+console.log((foo.bar)());
 //示例3
 console.log((foo.bar = foo.bar)());
 //示例4

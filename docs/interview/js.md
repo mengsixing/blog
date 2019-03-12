@@ -121,14 +121,14 @@ Function.prototype.bind2 = function(ctx, ...rest) {
 };
 ```
 
-## 7、promise、setTimeout、async/await 的执行顺序。
+## 7、promise、setTimeout、async/await 的执行顺序
 
 setTimeout 是宏任务。
 promise 和 async/await 是微任务。
 
 执行顺序：宏任务-》微任务-》宏任务
 
-## 8、用过 NodeJS 的 EventEmitter 模块吗，它是怎么实现功能的，步骤是什么？
+## 8、用过 NodeJS 的 EventEmitter 模块吗，它是怎么实现功能的，步骤是什么
 
 类似于 [观察者模式](https://yhlben.github.io/blog/js-observer.html)
 
@@ -181,7 +181,7 @@ console.log(a.__proto__.__proto__.__proto__ === null);
 - 5 Function 构造函数 `__proto__` 指向它自己
 - 6 Object 对象的 prototype 中的 `__proto__` 是 null
 
-## 11、为什么 [] == false, !![] == true ？
+## 11、为什么 [] == false, !![] == true 
 
 先来看看[] ==false 的比较顺序。
 
@@ -329,10 +329,10 @@ console.log('外部a：', a)
 js 代码如果要运行起来，必须要一个编译器来编译（V8），以下是 V8 中编译代码的过程：
 
 - 将 js 代码编译成抽象语法树（AST）。
-- Ignition 将AST转化为 ByteCode。
-- TuboFan 将ByteCode转化为 MachineCode（可选）。
+- Ignition 将 AST 转化为 ByteCode。
+- TuboFan 将 ByteCode 转化为 MachineCode（可选）。
 
 我们都知道，机器码运行时的效率是最快的，所以如果能让更多的 js 代码转换成机器码，就能大幅度提高 js 运行效率。但受 js 动态类型的影响，V8 并不敢直接编译成机器语言，而是编译成 ByteCode，如果是一静态不变的内容，则可以直接编译成机器代码。
 
 - 为了减少编译时间，可以压缩合并 js 代码，减少嵌套函数。
-- 为了让 V8 优化代码，可以在定义函数时，保持入参一致，使用typescript。
+- 为了让 V8 优化代码，可以在定义函数时，保持入参一致，使用 typescript。

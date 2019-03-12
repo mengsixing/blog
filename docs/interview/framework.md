@@ -1,6 +1,6 @@
 # 框架面试题
 
-## 1、React Vue 使用感受？
+## 1、React Vue 使用感受
 
 遇到这个问题，我也是楞了一下，要是之前能稍微总结一下就能回答得更好。
 
@@ -39,7 +39,7 @@ Vue 的路由库和状态管理库都是由官方维护支持且与核心库同�
 
 React 的路由库和状态管理库是由社区维护，因此创建了一个更分散的生态系统。React 的生态系统相比 Vue 更加繁荣。
 
-## 2、单向数据流和双向数据流有什么区别？
+## 2、单向数据流和双向数据流有什么区别
 
 ### 单向数据流
 
@@ -66,7 +66,7 @@ React 的路由库和状态管理库是由社区维护，因此创建了一个�
 2.  “暗箱操作”，增加了出错时 debug 的难度。
 3.  由于组件数据变化来源入口变得不止一个，数据流转方向易混乱，如果不加以控制，容易出错。
 
-## 3、React 优点？
+## 3、React 优点
 
 1.  函数式编程思想，无状态组件，同样的 prop 对应同样的输出。
 2.  虚拟 dom，firber，底层优化，提高渲染效率。
@@ -81,7 +81,7 @@ React 的路由库和状态管理库是由社区维护，因此创建了一个�
 1.  只是视图层，构建大型项目的话，需要引入 Redux 和 React-Router 等相关的东西。
 2.  不好控制 DOM
 
-## 4、Vue 优点？
+## 4、Vue 优点
 
 1.  类 HTML 模板语法，更容易上手。
 2.  模块化思想，复用性强。
@@ -94,7 +94,7 @@ React 的路由库和状态管理库是由社区维护，因此创建了一个�
 1.  社区不如 react，大多是中国开发者。
 2.  生态圈不够，vue 全家桶都是 vue 官方自己出的东西。
 
-## 5、webpack 插件怎么编写？
+## 5、webpack 插件怎么编写
 
 webpack 就像是一条生产线，要经过一系列流程处理之后才能将源文件转换成输出结果。
 
@@ -134,7 +134,7 @@ class HelloAsyncPlugin {
 module.exports = HelloAsyncPlugin;
 ```
 
-## 6、webpack loader 编写？
+## 6、webpack loader 编写
 
 webpack loader 实质就是一个`function`，function 中会被注入需要被处理的资源，然后加以处理。
 
@@ -171,7 +171,7 @@ module.exports.pitch = function(remainingRequest, precedingRequest, data) {
 };
 ```
 
-## 7、webpack 插件之间怎么互相通信？
+## 7、webpack 插件之间怎么互相通信
 
 在 webpack 中，通过 tapable 管理运行时的各种事件流，不同的 webpack plugins 可以通过自定义事件相互通信。
 
@@ -209,7 +209,7 @@ class BPlugin {
 }
 ```
 
-## 8、React 中是否必须将所有状态都放入 Redux？有什么优缺点？
+## 8、React 中是否必须将所有状态都放入 Redux？有什么优缺点
 
 我们都知道，如果把状态都存在 redux 中，就可以编写出更多无状态的组件。
 
@@ -231,3 +231,79 @@ class BPlugin {
 你想缓存数据？
 
 如果你没有以上的需要，就不要把 state 放入 redux 中。
+
+## 9. 请描述一下 Vuex 中的几大模块之间的作用
+
+vuex 的原理很简单，简单来说：
+
+- view dispatch 一个 action。
+- action commit 一个 mutation。
+- mutation 修改 store 后，重新更新视图。
+
+![vuex 流程图](https://vuex.vuejs.org/vuex.png)
+
+```js
+// 创建一个store，如果需要拆分，可以将不同的模块挂载到 modules 上。
+const store = new Vuex.Store({
+  // store中的对象
+  state: {
+    count: 0
+  },
+  // 唯一改变store的方法，只能是同步更新
+  mutations: {
+    increment (state) {
+      state.count++
+    }
+  },
+  // action派发一个mutation，可以使用异步方法
+  actions: {
+    increment (context) {
+      setTimeout(()=>{
+        context.commit('increment');
+      },1500);
+    }
+  },
+  // 派生store中的状态
+  getters: {
+    showCount: state => {
+      return '当前的count是：' + state.count;
+    }
+  }
+})
+```
+
+获取声明的 store，为了方便调用 store 上的 state，getter，action，vuex 提供了 mapState，mapGetters，mapActions 方法。
+
+```js
+import { mapState, mapGetters, mapActions } from 'vuex'；
+
+export default {
+  computed: {
+    otherCount(){
+      return 123;
+    },
+    ...mapState({
+      count: state => state.count// 把 `this.count` 映射为 `this.$store.state.count`
+    }),
+    ...mapGetters([
+      'showCount'// 把 `this.showCount` 映射为 `this.$store.getters.showCount`
+    ])
+  },
+  methods:{
+    ...mapActions([
+      'increment'// 将 `this.increment()` 映射为 `this.$store.dispatch('increment')`
+    ]),
+  }
+}
+```
+
+## 10、说说你理解的 Flutter
+
+在 Flutter 诞生之前，已经有许多跨平台 UI 框架的方案，比如基于 WebView 的 Cordova、AppCan 等，还有使用 HTML+JavaScript 渲染成原生控件的 React Native、Weex 等。
+
+基于 WebView 的框架优点很明显，它们几乎可以完全继承现代 Web 开发的所有成果（丰富得多的控件库、满足各种需求的页面框架、完全的动态化、自动化测试工具等等），当然也包括 Web 开发人员，不需要太多的学习和迁移成本就可以开发一个 App。同时 WebView 框架也有一个致命（在对体验&性能有较高要求的情况下）的缺点，那就是 **WebView 的渲染效率和 JavaScript 执行性能太差。再加上 Android 各个系统版本和设备厂商的定制，很难保证所在所有设备上都能提供一致的体验**。
+
+为了解决 WebView 性能差的问题，以 React Native 为代表的一类框架将最终渲染工作交还给了系统，虽然同样使用类 HTML+JS 的 UI 构建逻辑，但是最终会生成对应的自定义原生控件，以充分利用原生控件相对于 WebView 的较高的绘制效率。与此同时这种策略也将框架本身和 App 开发者绑在了系统的控件系统上，不仅框架本身需要处理大量平台相关的逻辑，随着系统版本变化和 API 的变化，开发者可能也需要处理不同平台的差异，甚至有些特性只能在部分平台上实现，这样框架的跨平台特性就会大打折扣。
+
+Flutter 则开辟了一种全新的思路，从头到尾重写一套跨平台的 UI 框架，包括 UI 控件、渲染逻辑甚至开发语言。渲染引擎依靠跨平台的 Skia 图形库来实现，依赖系统的只有图形绘制相关的接口，可以在最大程度上保证不同平台、不同设备的体验一致性，逻辑处理使用支持 AOT 的 Dart 语言，执行效率也比 JavaScript 高得多。
+

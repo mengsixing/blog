@@ -23,6 +23,7 @@ module.exports = {
     ],
     sidebar: {
       "/blog/": [
+        "libary-koa",
         "js-promise",
         // "libary-react-core",
         "2018",

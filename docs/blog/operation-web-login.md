@@ -24,21 +24,21 @@ web 登录鉴权，是 web 中很重要的一个环节，下面介绍一下常�
 
 3、可以使用 redis 等服务器共享 sessionId，需要一定的成本。
 
-4、因为 sessionId 存放在 Cookie 中，所以会发生 CSRF 跨站伪造请求。
+4、因为 sessionId 存放在 cookie 中，所以无法避免 csrf 攻击。
 
 ## Token 机制
 
-为了解决 Session 机制暴露出的诸多问题，我们可以使用 Token 机制来解决。
+为了解决 session 机制暴露出的诸多问题，我们可以使用 token 机制来解决。
 
 ### Token 机制实现流程
 
-1、用户登录
+1、用户登录。
 
-2、服务器端验证登录成功，创建 token
+2、服务器端验证登录成功，创建 token。
 
-3、服务器端将 token 返回给客户端，由客户端自由保存
+3、服务器端将 token 返回给客户端，由**客户端自由保存**。
 
-4、客户端请求时带上 token，则登录验证成功
+4、客户端请求时带上 token，则登录验证成功。
 
 ### Token 机制的优点
 
@@ -66,9 +66,9 @@ web 登录鉴权，是 web 中很重要的一个环节，下面介绍一下常�
 
 ### 单点登录机制实现流程
 
-1、登录网站 a.company.com
+1、登录网站 a.company.com。
 
-2、重定向到认证中心登录，带上回调地址。 www.sso.com?return_uri=A.com/callback
+2、重定向到认证中心登录，带上回调地址。 www.sso.com?return_uri=A.com/callback。
 
 3、输入认证中心账号密码，提交登录。
 
@@ -100,17 +100,17 @@ web 登录鉴权，是 web 中很重要的一个环节，下面介绍一下常�
 
 ### OAuth 机制实现流程
 
-1、登录网站 A.com。
+1、登录网站 a.com。
 
-2、重定向到网易授权登录，带上回调地址。 www.163.com?appid=xxx&return_uri=A.com/callback
+2、重定向到网易授权登录，带上回调地址。 www.163.com?appid=xxx&return_uri=a.com/callback。
 
 3、在网易中会带上具体授权的类型，可自定义选择权限，然后输入网易账号和密码，提交登录。
 
-4、登陆后被重定向会 A.com?code=123 带上一个授权码 code。
+4、登陆后被重定向会 a.com?code=123 带上一个授权码 code。
 
-5、A.com 会根据 code，去请求网易服务器，获取网易颁发的 token。
+5、a.com 会根据 code，去请求网易服务器，获取网易颁发的 token。
 
-6、接下来 A.com 直接使用 token 去网易服务器获取数据。
+6、接下来 a.com 直接使用 token 去网易服务器获取数据。
 
 7、登录成功。
 
