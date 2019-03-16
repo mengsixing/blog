@@ -14,14 +14,14 @@ id 选择器权重： 0100
 
 ## 2、说说 BFC，什么情况下会生成 BFC
 
-BFC 生成了一套封闭的布局空间，内部子元素无论怎么布局，都不会影响到外部的元素。
+BFC 生成了一套封闭的布局空间，内部子元素无论怎么布局，都不会影响到外部的元素。BFC 可以用来**清除浮动**，**防止 margin 重叠**，**去除 float 文字环绕**等。
 
-BFC 可以清除 margin 重叠，和 float 文字环绕等。
+以下几种元素会生成BFC：
 
 - html 元素
 - float 不是 none 的元素
-- overflow：auto/hidden/scroll 的元素
-- display:table-cell/inline-block 的元素
+- overflow: auto/hidden/scroll 的元素
+- display: table-cell/inline-block 的元素
 - position 不是 static 和 relative 的元素
 
 ## 3、CSS 的层叠上下文是什么
@@ -39,7 +39,7 @@ BFC 可以清除 margin 重叠，和 float 文字环绕等。
 
 层叠上下文中的排列规则：
 
-- 层叠上下文 background/border
+- background/border
 - 负 z-index
 - block 块状水平盒子
 - float 浮动盒子
@@ -57,4 +57,4 @@ flex-grow 属性定义项目的放大比例，默认为 0，即如果存在剩�
 
 flex-shrink 属性定义了项目的缩小比例，默认为 1，即如果空间不足，该项目将缩小。
 
-flex-basis 属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。
+flex-basis 属性定义了在分配多余空间之前，项目占据的主轴空间，默认为 auto。
