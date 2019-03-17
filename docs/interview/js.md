@@ -215,10 +215,10 @@ console.log(a.__proto__.__proto__.__proto__ === null);
 3，将对象作为函数的 `this` 传进去。如果有 return 出来东西是对象的话就直接返回 return 的内容，没有的话就返回创建的这个对象。
 
 ```js
-function newFunc(faster, ...rest) {
+function newFunc(father, ...rest) {
   var result = {};
-  result.__proto = faster.prototype;
-  var result2 = faster.apply(result, rest);
+  result.__proto = father.prototype;
+  var result2 = father.apply(result, rest);
   if (
     (typeof result2 === 'object' || typeof result2 === 'function') &&
     result2 !== null
@@ -324,7 +324,7 @@ console.log('外部a：', a)
 
 上述解释中提到了 await 内部实现了 generator，其实 await 就是 generator 加上 Promise 的语法糖，且内部实现了自动执行 generator。如果你熟悉 co 的话，其实自己就可以实现这样的语法糖。
 
-## 17、js 代码在 V8 中的优化
+## 17、JS 代码在 V8 中的优化
 
 js 代码如果要运行起来，必须要一个编译器来编译（V8），以下是 V8 中编译代码的过程：
 
