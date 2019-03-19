@@ -86,6 +86,7 @@ module.exports = {
         "framework"
       ],
       "/book/": [
+        "book-how-network-connect",
         "book-regular",
         "book-code",
         "book-http2",
