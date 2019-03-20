@@ -48,8 +48,7 @@ npm run lint:fix
 - [js 事件](https://yhlben.github.io/blog/js-event.html)
 - [js 表单](https://yhlben.github.io/blog/js-form.html)
 - [js 跨文档消息传递和拖放 api](https://yhlben.github.io/blog/js-html5-program.html)
-- [es5 继承](https://yhlben.github.io/blog/js-inherit.html)
-- [es6 继承](https://yhlben.github.io/blog/js-inherit-es6.html)
+- [js 实现继承](https://yhlben.github.io/blog/js-inherit.html)
 - [es6 module](https://yhlben.github.io/blog/js-module.html)
 - [jsBridge 总结](https://yhlben.github.io/blog/js-jsBridge.html)
 - [函数尾递归优化](https://yhlben.github.io/blog/js-recursion.html)
@@ -92,9 +91,9 @@ npm run lint:fix
 #### | 前端工程化 相关
 
 - [nodejs 使用总结](https://yhlben.github.io/blog/project-node.html)
-- [webpack 整体流程分析](https://yhlben.github.io/blog/project-webpack-entry.html)
-- [webpack 打包 modules 流程分析](https://yhlben.github.io/blog/project-webpack-flow.html)
-- [webpack 使用总结](https://yhlben.github.io/blog/project-webpack.html)
+- [Webpack 系列（一）使用总结](https://yhlben.github.io/blog/project-webpack.html)
+- [Webpack 系列（二）手写模块打包代码](https://yhlben.github.io/blog/project-webpack-flow.html)
+- [Webpack 系列（三）打包 modules 流程分析](https://yhlben.github.io/blog/project-webpack-entry.html)
 - [commitlint 使用总结](https://yhlben.github.io/blog/project-commitlint.html)
 - [前端测试](https://yhlben.github.io/blog/project-test.html)
 - [怎样选择图片格式？](https://yhlben.github.io/blog/project-image.html)

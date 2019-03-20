@@ -21,6 +21,7 @@
 - 预处理器 less，sass，stylus，css-next
 - 后处理器，postcss 插件，autofixer 等
 - css modules
+- css in js
 
 ## javascript 方向
 
@@ -61,9 +62,8 @@
 - 微信小程序
 - 支付宝小程序
 - 百度小程序
-- 头条小程序
-- 抖音小程序
-- 多端统一框架：taro
+- 字节跳动小程序
+- 多端统一框架：taro，chameleon
 
 ### ajax 请求
 

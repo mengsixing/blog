@@ -80,13 +80,13 @@ vue 内置了这么多的指令， 这些指令都会抛出两个接口 bind 和
 
 ::: tip vue 异步更新
 
-Vue 异步执行 DOM 更新。只要观察到数据变化，Vue 将开启一个队列，并缓冲在同一事件循环中发生的所有数据改变。
+Vue 异步执行 DOM 更新。只要观察到数据变化，Vue 将开启一个异步队列，并缓存在同一事件循环中发生的所有数据改变。
+
+Vue 在内部尝试对异步队列使用原生的 Promise.then 和 MessageChannel（基于 postMessage），如果执行环境不支持，会采用 setTimeout(fn, 0) 代替。
 
 如果同一个 watcher 被多次触发，只会被推入到队列中一次（这在缓冲时去除重复数据对于避免不必要的计算和 DOM 操作上非常重要）。
 
 然后，在下一个的事件循环“tick”中，Vue 刷新队列并执行实际 (已去重的) 工作。
-
-Vue 在内部尝试对异步队列使用原生的 Promise.then 和 MessageChannel（MutationObserver 等），如果执行环境不支持，会采用 setTimeout(fn, 0) 代替。
 
 修改数据 -> 触发 set-> 执行同步代码，如果有数据更新，则开启异步队列。
 

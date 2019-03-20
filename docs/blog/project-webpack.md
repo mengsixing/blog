@@ -1,10 +1,8 @@
-# Webpack 使用总结
+# Webpack 系列（一）使用总结
 
-webpack 是一个模块打包器。webpack 的主要目标是将 `javaScript` 文件打包在一起，打包后的文件用于在浏览器中使用，但它也能够胜任转换(transform)、打包(bundle)或包裹(package)任何资源(resource or asset)。
+webpack 是一个模块打包器。webpack 的主要目标是将 **js** 文件打包在一起，打包后的文件用于在浏览器中使用，但它也能够胜任转换(transform)、打包(bundle)或包裹(package)任何资源(resource or asset)。
 
-随着 webpack 不断地发展，webpack 配置变得越来越简单，构建速度也越来越快，官方文档上说 webpack4 比 webpack3 构建速度快了 98%，这还不仅如此，官方标识在 webpack5 中，会使用多进程构建，进一步优化构建速度。
-
-本文已同步到个人博客，欢迎 start，谢谢。[Webpack 常用知识点总结](https://yhlben.github.io/blog/webpack.html)
+随着 webpack 不断地发展，webpack 配置变得越来越简单，构建速度也越来越快，官方文档上说 webpack4 比 webpack3 构建速度快了 98%，这还不仅如此，官方表示在 webpack5 中，会使用多进程构建，进一步优化构建速度。
 
 ## Webpack 核心概念
 
@@ -25,7 +23,7 @@ module.exports = {
 
 ### 输出
 
-output 属性告诉 webpack 在哪里输出它所创建的 bundles，以及如何命名这些文件。
+output 属性告诉 webpack 在哪里输出它所创建的 bundle，以及如何命名这些文件。
 
 ```js
 const path = require("path");
@@ -39,11 +37,11 @@ module.exports = {
 };
 ```
 
-### loader
+### webpack loader
 
 webpack 自身只支持 JavaScript。而 loader 能够让 webpack 处理那些非 JavaScript 文件，并且先将它们转换为有效的模块，然后添加到依赖图中，这样就可以提供给应用程序使用。
 
-#### loader 的使用
+#### 使用 loader
 
 ```js
 const path = require("path");
@@ -65,7 +63,7 @@ module.exports = {
 };
 ```
 
-### loader 的编写
+#### 编写 loader
 
 loader 其实就是一个 function，接收一个参数 source，就是当前的文件内容，然后稍加处理，就可以 return 出一个新的文件内容。
 
@@ -82,11 +80,11 @@ module.exports = function(source) {
 };
 ```
 
-### 插件
+### webpack 插件
 
-插件其实就是一个类，通过监听 webpack 执行流程上的钩子函数，可以更精密地控制 webpack 的输出，包括：打包优化、资源管理和注入环境变量。
+插件其实就是一个类，通过监听 webpack 执行流程上的钩子函数，可以更精密地控制 webpack 的输出，包括：打包优化、资源管理和注入环境变量等。
 
-#### 插件的使用
+#### 使用插件
 
 ```js {1,7}
 const HtmlWebpackPlugin = require("html-webpack-plugin");
@@ -99,9 +97,9 @@ module.exports = {
 };
 ```
 
-#### 编写自定义插件
+#### 编写插件
 
-我们可以利用 webpack 提供的钩子函数，编写自定义插件，相当于监听 webpack 的事件，做出对应的响应，webpack 是通过[Tapable](https://github.com/webpack/tapable)进行事件流管理的。
+我们可以利用 webpack 提供的钩子函数，编写自定义插件，相当于监听 webpack 的事件，做出对应的响应，webpack 是通过[Tapable](https://github.com/webpack/tapable)进行事件流管理。
 
 ```js
 class APlugin {
@@ -141,14 +139,13 @@ module.exports = {
 - ModuleConcatenationPlugin（scope hoisting）
 - NoEmitOnErrorsPlugin（遇到错误代码不跳出）
 - OccurrenceOrderPlugin（给生成的 chunkid 排序）
-- SideEffectsFlagPlugin
 - uglifyjs-webpack-plugin（压缩 js）
 
 ### 拆分文件
 
-如果不使用 plugin，webpack 会把所有文件都打包在一个 js 文件中，这往往会使得文件很大，加载时间会变得很长，我们可以配置 optimization.splitChunks 来设置拆分文件规则。
+如果不拆分文件，webpack 会把所有文件都打包在一个 js 文件中，这个文件会使变得非常大，加载时间也会很长，我们可以配置 optimization.splitChunks 来设置拆分文件规则。
 
-这是 webpack 默认的配置，也可以根据自己需求做对应修改。
+这是 webpack 默认的配置，也可以根据自己需求做对应修改：
 
 ```js
 module.exports = {
@@ -180,7 +177,7 @@ module.exports = {
 
 ### 使用 Happypack
 
-纵观 webpack 构建流程，我们可以发现整个构建过程主要花费时间的部分也就是递归遍历各个 entry 然后寻找依赖逐个编译的过程，每次递归都需要经历 String->AST->String 的流程，经过 loader 还需要处理一些字符串或者执行一些 JS 脚本，介于 node.js 单线程的壁垒，webpack 构建慢一直成为它饱受诟病的原因。
+纵观 webpack 构建流程，我们可以发现整个构建过程主要花费时间的部分也就是递归遍历各个 entry 然后寻找依赖逐个编译的过程，每次递归都需要经历 string -> ast-> string 的流程，经过 loader 还需要处理一些字符串或者执行一些 js 脚本，介于 node.js 单线程的壁垒，webpack 构建慢一直成为它饱受诟病的原因。
 
 ```js
 // @file: webpack.config.js
@@ -281,9 +278,9 @@ module.exports = {
 
 1、选择合理额 Devtool 在大多数情况下，`cheap-module-eval-source-map` 是最好的选择。
 
-2、开发阶段一般不需要进行压缩合并，提权单独文件等操作。
+2、开发阶段一般不需要进行压缩合并，提取单独文件等操作。
 
-3、webpack 会在输出文件中生成路径信息。然而在打包数千个模块的项目中，会导致造成垃圾回收性能压力。在 `options.output.pathinfo` 设置中关闭.
+3、webpack 会在输出文件中生成路径信息。然而在打包数千个模块的项目中，会造成性能问题。在 `options.output.pathinfo` 设置中关闭.
 
 4、在开发阶段，可以直接引用 `cdn` 上的库文件，使用 `externals` 配置全局对象，避免打包。
 
@@ -359,10 +356,9 @@ webpack 在运行时大致分为这几个阶段：
 
 ![webpack 运行流程图](webpack-steps.jpg)
 
----
+## 相关链接
 
-::: tip 参考资料
-[webpack 官网](https://webpack.js.org/)
-
-[Webpack 揭秘——走向高阶前端的必经之路](https://juejin.im/post/5badd0c5e51d450e4437f07a)
-:::
+- [webpack 官网](https://webpack.js.org/)
+- [Webpack 揭秘——走向高阶前端的必经之路](https://juejin.im/post/5badd0c5e51d450e4437f07a)
+- [Webpack 系列（二）手写模块打包代码](project-webpack-flow.html)
+- [Webpack 系列（三）打包 modules 流程分析](project-webpack-entry.html)

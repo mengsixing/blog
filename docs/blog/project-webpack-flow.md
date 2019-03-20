@@ -1,8 +1,8 @@
-# webpack 打包 modules 流程分析
+# Webpack 系列（二）手写模块打包代码
 
-最近在研究 webpack，对 webpack 的运行流程有了一个新的认识。
+最近在学习 webpack，参考官网的 demo，编写了一个简版的模块加载器，对 webpack 的运行流程有了一个新的认识。为了更好的理解 webpack 模块打包机制，我们先来看一下 webpack 打包后的文件。
 
-## webpack 打包后文件分析
+## Webpack 打包后文件分析
 
 webpack 打包后的代码并不复杂，下面是对打包后的结果的一个简化版：
 
@@ -32,39 +32,34 @@ webpack 打包后的代码并不复杂，下面是对打包后的结果的一个
 });
 ```
 
-1、最外层由一个自执行函数所包裹。
+上述代码主要由以下几个部分组成：
 
-2、自执行函数会传递一个 modules 参数，这个参数是由文件路径为 key，值是一个函数，函数内部封装了 js 的内容。
+- 最外层由一个自执行函数所包裹。
+- 自执行函数会传递一个 modules 参数，这个参数是由文件路径为 key，值是一个函数，函数内部封装了 js 的内容。
+- 内部自定义一个 require 执行器，用来执行导入的文件，并导出 exports。
+- 执行入口 entry 文件，在内部会递归执行所有依赖的文件，并将结果挂载到 exports 对象上。
 
-3、内部自定义一个 require 执行器，用来执行导入的文件，并导出 exports。
+## 手写一个模块打包代码
 
-4、执行入口 entry 文件，在内部会递归执行所依赖的文件，并将结果挂载到 exports 对象上。
-
-## 手动实现一个模块打包流程
-
-为了更好的理解 webpack 打包运行机制，参考官网的教程，写了一个简单的模块打包 demo，我们一起来看一下。
+参考官网的教程，写了一个简单的模块打包 demo，我们一起来看一下。
 
 ### 整体流程分析
 
-1、读取入口文件。
+- 读取入口文件。
+- 将内容转换成 ast 语法树。
+- 深度遍历语法树，找到所有的依赖，并加入到一个数组中。
+- 将 ast 代码转换为可执行的 js 代码。
+- 编写 require 函数，根据入口文件，自动执行完所有的依赖。
 
-2、将内容转换成 ast 语法树。
-
-3、深度遍历语法树，找到所有的依赖，并加入到一个数组中。
-
-4、将 ast 代码转换回可执行的 js 代码。
-
-5、编写 require 函数，根据入口文件，自动执行完所有的依赖。
-
-### craeteAsset
+### createAsset
 
 创建资源：将一个单独的文件模块，处理成我们需要的对象。
 
-- 经过 ast 语法树处理对应的依赖关系
-- 使用 babel 将 ast 代码转换成可执行的代码
+- 使用 ast 语法树处理对应的依赖关系。
+- 使用 babel 将 ast 代码转换成可执行的代码。
 
 ```js
-function craeteAsset(filename) {
+function createAsset(filename) {
   var code = fs.readFileSync(filename, "utf-8");
   var dependencies = [];
   var ast = babely.parse(code, {
@@ -95,15 +90,11 @@ function craeteAsset(filename) {
 
 主要流程如下：
 
-1、使用 nodejs 中的 file 模块获取文件内容。
-
-2、使用 @babel/parser 将文件内容转换成 ast 抽象语法树。
-
-3、使用 @babel/traverse 对 ast 进行遍历，将入口文件的依赖保存起来。
-
-4、使用 babel.transformFromAstSync 将 ast 转换成可执行的 js 代码。
-
-5、返回一个模块，包含：模块 id，filename，dependencies，code 字段。
+- 使用 nodejs 中的 file 模块获取文件内容。
+- 使用 @babel/parser 将文件内容转换成 ast 抽象语法树。
+- 使用 @babel/traverse 对 ast 进行遍历，将入口文件的依赖保存起来。
+- 使用 babel.transformFromAstSync 将 ast 转换成可执行的 js 代码。
+- 返回一个模块，包含：模块 id，filename，dependencies，code 字段。
 
 ### createGraph
 
@@ -112,7 +103,7 @@ function craeteAsset(filename) {
 ```js
 // 深度遍历
 function createGraph(entry) {
-  var mainAsset = craeteAsset(entry);
+  var mainAsset = createAsset(entry);
   var queue = [mainAsset];
 
   for (let asset of queue) {
@@ -120,7 +111,7 @@ function createGraph(entry) {
     asset.mapping = {};
     asset.dependencies.forEach(filename => {
       var realPath = path.join(baseDirPath, filename);
-      var childAsset = craeteAsset(realPath);
+      var childAsset = createAsset(realPath);
       // 给子依赖项赋值
       asset.mapping[filename] = childAsset.id;
       queue.push(childAsset);
@@ -132,11 +123,9 @@ function createGraph(entry) {
 
 主要流程如下：
 
-1、接收入口文件路径，处理入口模块，调用 craeteAsset 生成处理好的模块。
-
-2、新建一个数组，深度遍历入口文件以及入口文件的依赖文件，并将 craeteAsset 生成后的文件加入数组中。
-
-3、返回数组。
+- 接收入口文件路径，处理入口模块，调用 createAsset 生成处理好的模块。
+- 新建一个数组，深度遍历入口文件以及入口文件的依赖文件，并将 createAsset 生成后的文件加入数组中。
+- 返回数组。
 
 ### bundle
 
@@ -182,15 +171,11 @@ function bundle(graph) {
 
 主要流程如下：
 
-1、传入 createGraph 生成的数组。
-
-2、遍历数组，把执行的 code 加入到一个函数级作用域中，并增加一个子依赖的属性 mapping。
-
-3、编写一个 require 方法（因为打包出来的代码是 commonjs 语法，这里为了解析 require 方法）。
-
-4、require 中循环加载所有依赖项，并执行。
-
-5、返回处理结果。
+- 传入 createGraph 生成的数组。
+- 遍历数组，把执行的 code 加入到一个函数级作用域中，并增加一个子依赖的属性 mapping。
+- 编写一个 require 方法（因为打包出来的代码是 commonjs 语法，这里为了解析 require 方法）。
+- require 中循环加载所有依赖项，并执行。
+- 返回处理结果。
 
 ### 执行构建
 
@@ -201,8 +186,8 @@ var result = bundle(graph);
 console.log(result);
 ```
 
----
+## 相关链接
 
-参考资料：
-
-[手写 webpack 模块解析器](https://github.com/yhlben/diy-webpack)
+- [手写 webpack 模块解析器](https://github.com/yhlben/diy-webpack)
+- [Webpack 系列（一）使用总结](project-webpack.html)
+- [Webpack 系列（三）打包 modules 流程分析](project-webpack-entry.html)
