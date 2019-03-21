@@ -1,4 +1,4 @@
-# 手写一个 Promise
+# JS 理解 Promise
 
 前段时间刷到了一个面试题，手写一个 Promise，发现要实现一个符合规范的 Promise 还真不简单，所以单独抽离出来总结一下。
 
@@ -172,6 +172,6 @@ return this.then(null, onRejected);
 };
 ```
 
-## 参考资料
+## 相关链接
 
 [Promise/A+规范（中文）](https://segmentfault.com/a/1190000002452115)

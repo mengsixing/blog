@@ -21,4 +21,6 @@ mix-blend-mode: lighten; //变亮
 
 这个要更好理解一点，背景的混合模式。可以是背景图片间的混合，也可以是背景图片和背景色的混合。
 
-参考链接：[CSS3 混合模式 mix-blend-mode/background-blend-mode 简介](https://www.zhangxinxu.com/wordpress/2015/05/css3-mix-blend-mode-background-blend-mode/)
+## 相关链接
+
+- [CSS3 混合模式 mix-blend-mode/background-blend-mode 简介](https://www.zhangxinxu.com/wordpress/2015/05/css3-mix-blend-mode-background-blend-mode/)

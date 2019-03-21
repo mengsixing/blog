@@ -1,6 +1,6 @@
-# ES6 模块化
+# JS 模块化
 
-介绍一下 ES6 中的模块化。
+介绍一下 JS 中的模块化。
 
 ## ES6 之前的模块化
 
@@ -219,10 +219,8 @@ export let bar = "bar";
 - 输出 b.js。
 - 执行 console.log(foo); 报错，因为 foo 没有定义。
 
----
+## 相关链接
 
-::: tip 参考资料
-[module 语法](http://ES6.ruanyifeng.com/#docs/module)
+- [module 语法](http://ES6.ruanyifeng.com/#docs/module)
+- [module 加载的实现](http://ES6.ruanyifeng.com/#docs/module-loader)
 
-[module 加载的实现](http://ES6.ruanyifeng.com/#docs/module-loader)
-:::

@@ -55,10 +55,7 @@ console.log(path);
 | = OP=                              | 赋值、赋值运算（如 += 和 &=）                          |
 | ,                                  | 多个计算                                               |
 
----
+## 相关链接
 
-::: tip 参考资料
-
-[MDN](<https://msdn.microsoft.com/zh-cn/library/z3ks45k7(v=vs.94).aspx>)
-[JavaScript 运算符优先级（从高到低）](https://github.com/xhlwill/blog/issues/16)
-:::
+- [MDN](<https://msdn.microsoft.com/zh-cn/library/z3ks45k7(v=vs.94).aspx>)
+- [JavaScript 运算符优先级（从高到低）](https://github.com/xhlwill/blog/issues/16)

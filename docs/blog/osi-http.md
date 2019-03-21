@@ -229,8 +229,6 @@ QUIC
 
 ![负载均衡](/blog/http-loadBalancing.png)
 
----
+## 相关链接
 
-::: tip 参考链接
-[http2 简介](https://developers.google.com/web/fundamentals/performance/http2/?hl=zh-cn#_2)
-:::
+- [http2 简介](https://developers.google.com/web/fundamentals/performance/http2/?hl=zh-cn#_2)

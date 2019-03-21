@@ -163,8 +163,6 @@ app 里的 webview 不直接请求一个链接，而是先下载一个 download.
   - 上报被 csp 屏蔽的外部链接。
   - 附带上传客户端 ua 等。
 
----
+## 相关链接
 
-参考资料：
-
-[干货！防运营商劫持](https://juejin.im/post/5bea7eb4f265da612859a9e4)
+- [干货！防运营商劫持](https://juejin.im/post/5bea7eb4f265da612859a9e4)

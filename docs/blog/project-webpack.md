@@ -274,6 +274,8 @@ module.exports = {
 
 5、使用 `cache-loader` 启用持久化缓存。使用 package.json 中的 "postinstall" 清除缓存目录。
 
+6、导出打包的统计文件，使用分析工具进行分析 `webpack --profile --json > stat.json`。
+
 #### 开发环境
 
 1、选择合理额 Devtool 在大多数情况下，`cheap-module-eval-source-map` 是最好的选择。

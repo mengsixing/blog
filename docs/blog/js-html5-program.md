@@ -1,10 +1,12 @@
-# JS 跨文档消息传递 PostMessage 和拖放 API
+# JS PostMessage & 拖放 API
 
 ## 跨文档消息传递
 
 postMessage 方法,向当前页面的 iframe，或由当前页面弹出的窗口中，传递数据。
 
-> 只能发送字符串
+缺点：
+
+- 只能发送字符串
 
 发送数据：
 
@@ -53,15 +55,18 @@ div.ondrag = function(event) {
 
 dataTransfer 对象两个属性 dropEffect 和 effectAllowed。
 
-> dropEffect 可以知道被拖动元素能够执行那种放置行为，必须在 ondrogenter 事件中设置。
+dropEffect 可以知道被拖动元素能够执行那种放置行为，必须在 ondropenter 事件中设置。
 
 - none 不能把拖动的元素放在这里。这是除文本框之外所有元素的默认值。
 - move 应该把拖动的元素移动到放置目标。
 - copy 应该把拖动的元素复制到放置目标。
 - link 表示放置目标会打开拖动的元素(但拖动的元素必须是一个链接，有 URL)。
 
-> dropEffect 属性只有搭配 effectAllowed 属性才有用。effectAllow 属性表示允许拖动元素的那种 dropEffect。
-> dropEffect 属性值。
+::: tip 提示
+dropEffect 属性只有搭配 effectAllowed 属性才有用。effectAllow 属性表示允许拖动元素的那种 dropEffect。
+:::
+
+dropEffect 属性值：
 
 - uninitialized 没有给被拖动的元素设置任何放置行为。
 - none 被拖动的元素不能有任何行为。
@@ -73,7 +78,7 @@ dataTransfer 对象两个属性 dropEffect 和 effectAllowed。
 - linkMove 只允许值为 link 和 move 的 dropEffect。
 - all 允许任意 dropEffect。
 
-### 可拖动
+### 让元素可拖动
 
 默认情况下，图像、链接和文本是可以拖动的，文本是选中的情况下才可以，让其他元素可拖动，使用 draggable 属性。
 
@@ -81,12 +86,7 @@ dataTransfer 对象两个属性 dropEffect 和 effectAllowed。
 <div draggable="true">可拖动div</div>
 ```
 
-## 媒体元素
-
-audio 和 video 可以不依赖任何插件，嵌入浏览器音频和视频内容。
-poster 属性可以指定加载视频时，显示一幅图像。
-
-## 历史状态管理
+## 历史状态管理 pushState
 
 在现代 web 应用中，用户的每次操作不一定会打开一个全新的页面，因此“后退”和”前进“按钮也就失去了作用。使用 hashchange 事件可以解决这个问题。
 通过 hashchange 事件，可以知道 url 的参数什么时候发生了变化，然后使用`history.pushState();`去设置状态。

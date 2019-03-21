@@ -137,7 +137,7 @@ APNG 是基于 PNG 格式扩展的一种动画格式，增加了对动画图像�
 
 :::
 
-## 参考资料
+## 相关链接
 
 - [图片格式 jpg、png、gif 各有什么优缺点？](https://www.zhihu.com/question/20028452/answer/142593276)
 - [盘点项目中的图片](https://juejin.im/post/5bfac3bd51882566936071e1)

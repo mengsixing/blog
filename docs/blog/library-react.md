@@ -61,10 +61,6 @@ React Fiber 把更新过程碎片化，每执行完一段更新过程，就把�
 
 5、使用 React Hooks 编写高度可复用的函数式组件，编写更少的代码，更精炼的生命周期实现更高的性能。
 
-## 参考资料
-
-::: tip 参考资料
+## 相关链接
 
 - [React hooks](library-React-hooks.html)
-
-:::

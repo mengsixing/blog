@@ -44,8 +44,6 @@ git commit -m 'fix(scope): fix ie6 margin bug'
 
 使用 commitlint 可以规范我们每一次的 commit，我们可以用来自动生成 ChangeLog 等文件，方便代码管理。
 
----
+## 相关链接
 
-参考资料：
-
-[Commitlint](https://github.com/conventional-changelog/commitlint)
+- [Commitlint](https://github.com/conventional-changelog/commitlint)

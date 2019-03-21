@@ -134,10 +134,7 @@ const message = 123;
 
 - 生成原子 css，让 css 更高效复用。
 
----
+## 相关链接
 
-::: tip 参考链接
-[深入响应式原理](https://cn.vuejs.org/v2/guide/reactivity.html)
-
-[mini-vue](https://github.com/yhlben/mini-vue)
-:::
+- [深入响应式原理](https://cn.vuejs.org/v2/guide/reactivity.html)
+- [mini-vue](https://github.com/yhlben/mini-vue)

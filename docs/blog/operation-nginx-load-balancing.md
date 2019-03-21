@@ -1,4 +1,4 @@
-# 最简单的 Nginx 负载均衡
+# Nginx 负载均衡 Demo
 
 ```nginx
 worker_processes 4;

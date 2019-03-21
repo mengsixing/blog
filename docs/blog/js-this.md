@@ -1,4 +1,4 @@
-# 从 ES 规范 中理解 this
+# JS 理解 This
 
 本以为对 js 中的 this 已经很熟练了，再看完冴羽的博客后，才发现自己对 es 规范知之甚少，原来我都是根据经验在判断 this，这篇文章会从最底层的 es 规范上去介绍 this 的判断。
 
@@ -195,12 +195,7 @@ GetBase(fooReference); // EnvironmentRecord;
 
 遇到问题时，尽量从原理的角度看待问题，不要凭经验办事情，不妨多研究研究底层规范。
 
----
+## 相关链接
 
-::: tip 参考资料
-
-[JavaScript 深入之从 ECMAScript 规范解读 this](https://github.com/mqyqingfeng/Blog/issues/7)
-
-[ES5 规范文档](http://es5.github.io)
-
-:::
+- [JavaScript 深入之从 ECMAScript 规范解读 this](https://github.com/mqyqingfeng/Blog/issues/7)
+- [ES5 规范文档](http://es5.github.io)

@@ -163,10 +163,7 @@ React 如何知道哪个状态对应哪个 useState 调用？
 
 随着 16.7 版本的发布，React function 组件得到了很多的发展，不仅节约了代码量，也提升了渲染效率，肯定会成为未来 React 组件的定义方法。
 
----
+## 相关链接
 
-参考资料
-
-[Introducing Hooks](https://reactjs.org/docs/hooks-intro.html)
-
-[React Today and Tomorrow and 90% Cleaner React](https://www.youtube.com/watch?v=dpw9EHDh2bM)
+- [Introducing Hooks](https://reactjs.org/docs/hooks-intro.html)
+- [React Today and Tomorrow and 90% Cleaner React](https://www.youtube.com/watch?v=dpw9EHDh2bM)

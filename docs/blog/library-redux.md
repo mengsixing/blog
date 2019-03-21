@@ -194,11 +194,7 @@ connect(
 - pure: 默认值为 true。如果为 true，Connect 中会定义 shouldComponentUpdate 方法并使用浅比较对比判断前后两次 props 是否发生了变化，从此来减少不必要的刷新。
 - withRef: 默认值为 false。如果为 true，Connect 会保存一个对被包装组件实例的引用 refs，该引用通过 getWrappedInstance() 方法获得，并最终获得原始的 dom 节点。
 
-## 参考资料
-
-::: tip 参考资料
+## 相关链接
 
 - 《深入 React 技术栈》
 - 《React 状态管理与同构实战》
-
-:::
