@@ -34,9 +34,10 @@ class 定义的组件能够使用 React 给我们提供的所有生命周期，�
 
 在 function 组件中使用 State。
 
+当一个组件中存在多个 useState 时，hook 里面的 useState 是根据顺序来存储的。重新渲染时，如果多个 useState 顺序不一致，就会出错。
+
 ```js
 import { useState } from "react";
-
 function Example() {
   const [count, setCount] = useState(0);
   return (
@@ -57,7 +58,6 @@ import { useState, useEffect } from "react";
 
 function Example() {
   const [count, setCount] = useState(0);
-
   // componentDidMount and componentDidUpdate生命周期
   useEffect(
     () => {
@@ -70,7 +70,6 @@ function Example() {
     },
     [count]
   );
-
   return (
     <div>
       <p>You clicked {count} times</p>
@@ -158,6 +157,39 @@ function Example() {
 React 如何知道哪个状态对应哪个 useState 调用？
 
 - React 依赖于调用 Hooks 的顺序去对应每次运行的
+
+## 模拟 class 组件生命周期
+
+```js
+// 模拟shouldComponentUpdate
+const areEqual = (prevProps, nextProps) => {
+   // 返回结果和shouldComponentUpdate正好相反
+   // 访问不了state
+};
+React.memo(Foo, areEqual);
+
+// 模拟componentDidMount
+useEffect(() => {
+    // 这里在mount时执行一次
+}, []);
+
+// 模拟componentDidUnmount
+useEffect(() => {
+    return () => {
+       // 这里在unmount时执行一次
+    }
+}, []);
+
+// 模拟componentDidUpdate
+const mounted = useRef();
+useEffect(() => {
+  if (!mounted.current) {
+    mounted.current = true;
+  } else {
+    // 这里只在update是执行
+  }
+});
+```
 
 ## 总结
 

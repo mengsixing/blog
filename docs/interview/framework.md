@@ -306,3 +306,10 @@ export default {
 
 Flutter 则开辟了一种全新的思路，从头到尾重写一套跨平台的 UI 框架，包括 UI 控件、渲染逻辑甚至开发语言。渲染引擎依靠跨平台的 Skia 图形库来实现，依赖系统的只有图形绘制相关的接口，**可以在最大程度上保证不同平台、不同设备的体验一致性**，逻辑处理使用支持 AOT 的 Dart 语言，**执行效率也比 JavaScript 高得多**。
 
+## 11、在 React 中，为什么最好在 ComponentDidMount 中发起请求
+
+1、react filber 中可能多次调用 render 之前的生命周期函数，可能会请求多次。
+
+2、在服务器端渲染时，服务器端会执行一次，客户端也会执行一次。
+
+3、如果请求在 componentWillMount，react 并没有挂载到 dom 上，这时候 setState 可能会有问题。

@@ -1,20 +1,54 @@
 # React 核心知识
 
-## Time slicing
+## React Fiber
 
-We've built a generic way to ensure that high-priority updates like user input don't get blocked by rendering low-priority updates.
+React Fiber 是 Facebook 折腾两年多做出来的东西，是对核心算法的一次重新实现。虽然对开发层面是无感的，但是对于 React 整个架构的优化是非常到位了，目前还没看出有其他框架能超越的地方，当前阶段出的很多新特性（Concurrent Rendering）等都是在 Fiber 基础上实现的。
 
-CPU 层面优化
+React Fiber 把更新过程碎片化，每执行完一段更新过程，就把控制权交还给 React 负责任务协调的模块，看看有没有其他紧急任务要做，如果没有就继续去更新，如果有紧急任务，那就去做紧急任务。
 
-ReactJS 关注设备的 CPU 能力。在渲染时，ReactJS 确保它不会阻塞线程，从而导致应用程序冻结。
+React Fiber 分为 2 个阶段：render phase 和 commit phase。
 
-时间分片允许现在在 React Fiber 上运行的 ReactJS 在空闲回调期间将子组件的更新计算分成块，并且渲染工作分布在多个帧上。现在，在异步呈现过程中，它确保如果用户的设备非常快，应用程序内的更新会感觉同步，如果用户的设备很慢，则应用程序会感觉响应。没有冻结，没有 janky UI 体验！
+### render phase 阶段
+
+render 和 render 以前的生命周期，都属于 render phase。在这个阶段执行过程中会根据任务的优先级，选择执行或者暂停。故可能发生某个生命周期被执行多次的情况。
+
+getDerivedStateFromError 专门用来捕获 render phase 阶段错误，服务器端渲染时会被调用到。
+
+### commit phase 阶段
+
+render 之后的生命周期，都属于 commit phase。在这个阶段执行过程中不会被打断，会一直执行到底。
+
+componentDidCatch 专门用来捕获 commit phase 阶段错误，服务器端渲染不会被调用到。
 
 ## Suspense
 
-We have built a generic way for components to suspend rendering while they load asynchronous data.
+Suspense 要解决的两个问题：1. 代码分片； 2. 异步获取数据。
 
-Suspense 的简单定义是 ReactJS 可以暂停任何状态更新，直到提取的数据准备好呈现。本质上，ReactJS 在等待完全获取数据的同时挂起组件树。在暂停期间，它继续处理其他高优先级更新。
+如果有一个页面的代码引入了 1 个非常大的包，打包的时候会让最终的体积变得非常大，这个时候就需要进行懒加载。
+
+```jsx
+// Usage of Clock
+const Clock = React.lazy(() => {
+  console.log("start importing Clock");
+  return import("./Clock");
+});
+
+<Suspense>
+  { show ? <Clock/> : null}
+</Suspense>
+```
+
+Suspense 的原理：
+
+suspense 组件内部实现了 getDerivedStateFromError 方法，可以用来捕获子元素的报错信息，如果是一个异步组件，会抛出一个 proimise，来让 suspense 捕获到，然后等到异步组件加载完成，尝试重新渲染这个异步组件。
+
+```js
+getDerivedStateFromError(error) {
+   if (isPromise(error)) {
+      error.then(reRender);
+   }
+}
+```
 
 ## React 生命周期
 
@@ -22,15 +56,13 @@ Suspense 的简单定义是 ReactJS 可以暂停任何状态更新，直到提�
 
 #### constructor
 
-React 组件的构造函数将会在装配之前被调用。
-
-构造函数是初始化状态的合适位置，可以基于属性来初始化状态。
+React 组件的构造函数将会在装配之前被调用。构造函数是初始化状态的合适位置。
 
 #### static getDerivedStateFromProps
 
-组件实例化后和接受新属性时将会调用 getDerivedStateFromProps。它应该返回一个对象来更新状态，或者返回 null 来表明新属性不需要更新任何状态。
+组件实例化后和接受新属性时将会调用 getDerivedStateFromProps。它应该返回一个对象来更新状态，或者返回 null 来表明新属性不需要更新任何状态。getDerivedStateFromProps 只存在一个目的。它**使组件能够根据 props 的更改来更新其内部状态**。
 
-getDerivedStateFromProps 只存在一个目的。它`使组件能够根据 props 的更改来更新其内部状态`。
+getDerivedStateFromProps 之所以是**静态**的，是因为 static 方法中不能获取到实例对象上的 state 和方法，所以这个方法内不能调用 setState，这就可以避免不守规矩的程序员误用。可以看出 react 对新的生命周期考虑还是挺周全的。
 
 #### render
 
@@ -38,13 +70,7 @@ getDerivedStateFromProps 只存在一个目的。它`使组件能够根据 props
 
 #### componentDidMount
 
-组件初次渲染后被触发。可以获取到真实的 DOM 元素。`若你需要从远端加载数据，这是一个适合实现网络请求的地方。`
-
-::: tip
-
-由于这个方法发生初始化挂载 render 方法之后, 因此在这个方法中调用 setState()会导致一次额外的渲染, 只不过这次渲染会发生在浏览器更新屏幕之前. 因此即使渲染了两次, 用户也不会看到中间状态, 即不会有那种状态突然跳一下的情况发生. 只不过, 虽然在用户视觉体验上可能没有影响, 但是这种操作可能会导致性能方面的问题, 因此还需慎用.
-
-:::
+组件初次渲染后被触发。可以获取到真实的 DOM 元素。若你需要从远端加载数据，**这是一个适合实现网络请求的地方**。
 
 ### 更新时
 
@@ -69,10 +95,7 @@ getDerivedStateFromProps 只存在一个目的。它`使组件能够根据 props
 
 #### componentDidUpdate
 
-componentDidUpdate(prevProps, prevState, snapshot)
-`这也是进行网络请求的好地方。`
-将现有的 componentWillUpdate 中的回调函数迁移至 componentDidUpdate.
-如果触发某些回调函数时需要用到 DOM 元素的状态，则将对比或计算的过程迁移至 getSnapshotBeforeUpdate，然后在 componentDidUpdate 中统一触发回调或更新状态。
+componentDidUpdate(prevProps, prevState, snapshot) **这也是进行网络请求的好地方**。如果触发某些回调函数时需要用到 DOM 元素的状态，则将对比或计算的过程迁移至 getSnapshotBeforeUpdate，然后在 componentDidUpdate 中统一触发回调或更新状态。
 
 ### 卸载时
 
@@ -88,8 +111,9 @@ componentDidUpdate(prevProps, prevState, snapshot)
 
 不建议在这个生命中期中获取异步数据：
 
-- 会阻碍组件的实例化,阻碍组件的渲染
-- 如果用 setState,在 componentWillMount 里面触发 setState 不会重新渲染
+- react filber 中可能多次调用 render 之前的生命周期函数，可能会请求多次。
+- 在服务器端渲染时，服务器端会执行一次，客户端也会执行一次。
+- 如果请求在 componentWillMount，react 并没有挂载到 dom 上，这时候 setState 可能会有问题。
 
 #### componentWillReceiveProps
 
@@ -131,7 +155,7 @@ const Test = ({ list, handleClick }) => ({
 
 那么实现合成事件的目的是什么呢？总的来说在我看来好处有两点，分别是：
 
-- 合成事件首先抹平了浏览器之间的兼容问题，另外这是一个跨浏览器原生事件包装器，赋予了跨浏览器开发的能力
+- 合成事件首先抹平了浏览器之间的兼容问题，另外这是一个跨浏览器原生事件包装器，赋予了跨浏览器开发的能力。
 - 对于原生浏览器事件来说，浏览器会给监听器创建一个事件对象。如果你有很多的事件监听，那么就需要分配很多的事件对象，造成高额的内存分配问题。但是对于合成事件来说，有一个事件池专门来管理它们的创建和销毁，当事件需要被使用时，就会从池子中复用对象，事件回调结束后，就会销毁事件对象上的属性，从而便于下次复用事件对象。
 
 ### 什么是可控组件和不可控组件
@@ -146,15 +170,11 @@ const Test = ({ list, handleClick }) => ({
 
 将 setState() 认为是一次请求而不是一次立即执行更新组件的命令。为了更为可观的性能，React 可能会推迟它，稍后会一次性更新这些组件。React 不会保证在 setState 之后，能够立刻拿到改变的结果。
 
-1、在 setState 中调用了 enqueueSetState 方法将传入的 state 放到一个队列中。
-
-2、enqueueSetState 中先是找到需渲染组件并将新的 state 并入该组件的需更新的 state 队列中，接下来调用了 enqueueUpdate 方法。
-
-3、isBatchingUpdates 标识是否在一个更新组件的事务流中。
-
-3.1、如果没有在事务流中，调用 batchedUpdates 方法进入更新流程，进入流程后，会将 isBatchingUpdates 设置为 true。
-
-3.2、否则，将需更新的组件放入 dirtyComponents 中。
+- 在 setState 中调用了 enqueueSetState 方法将传入的 state 放到一个队列中。
+- enqueueSetState 中先是找到需渲染组件并将新的 state 并入该组件的需更新的 state 队列中，接下来调用了 enqueueUpdate 方法。
+- isBatchingUpdates 标识是否在一个更新组件的事务流中。
+  - 如果没有在事务流中，调用 batchedUpdates 方法进入更新流程，进入流程后，会将 isBatchingUpdates 设置为 true。
+  - 否则，将需更新的组件放入 dirtyComponents 中。
 
 ### 什么时候会标识 isBatchingUpdates 为 true
 
@@ -184,8 +204,8 @@ const Test = ({ list, handleClick }) => ({
 
 3、prop 只能是父组件传入，或者是初始化时自定义，一旦定义，不能改变。
 
-无状态组件： 只有 prop，没有 state。除了这个 render()功能之外没有多少事情发生，所有的逻辑都围绕着 prop。
+无状态组件： 只有 prop，没有 state。除了这个 render 功能之外没有多少事情发生，所有的逻辑都围绕着 prop。
 
-- 纯静态展示,可读性更好，并能大大减少代码量
-- 省去了多余的生命周期，提升了整体的渲染性能
-- 可复用性强
+- 纯静态展示,可读性更好，并能大大减少代码量。
+- 省去了多余的生命周期，提升了整体的渲染性能。
+- 可复用性强。

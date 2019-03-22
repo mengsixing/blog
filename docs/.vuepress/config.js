@@ -23,13 +23,13 @@ module.exports = {
     ],
     sidebar: {
       "/blog/": [
-        // "libary-react-core",
         "project-dependencies",
         "project-image",
         'project-commitlint',
         "project-test",
         "project-node",
         "library-react",
+        "libary-react-core",
         "library-react-ssr",
         'library-react-hooks',
         "2018",
