@@ -87,7 +87,7 @@ BFC 的特点：
 
 - 在 BFC 中，内部的 Box 会在垂直方向，一个接一个地放置。
 - Box 垂直方向的距离由 margin 决定，同一个 BFC 下相邻两个 Box 的 margin 会发生重叠。
-- 在 BFC 中，每个元素的margin box的左边， 与包含块border box的左边相接触。即使存在浮动也是如此。
+- 在 BFC 中，每个元素的 margin box 的左边， 与包含块 border box 的左边相接触。即使存在浮动也是如此。
 - BFC 区域不会与 float Box 重叠（可阻止因浮动元素引发的文字环绕现象）。
 - 计算 BFC 高度时，浮动元素也参与计算（BFC 会确切包含浮动的子元素，即清除浮动）。
 
@@ -95,7 +95,7 @@ BFC 的特点：
 
 IFC(Inline Formatting Contexts)：内联格式化上下文，以下几种元素会生成 BFC：
 
-- display 的值是inline，inline-block，inline-table的元素。
+- display 的值是 inline，inline-block，inline-table 的元素。
 - 行内元素。
 
 IFC 的特点：
