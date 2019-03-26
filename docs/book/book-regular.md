@@ -1,4 +1,4 @@
-# 《正则表达式必知必会》总结
+# 《正则表达式必知必会》读书笔记
 
 正则的知识点其实是很多的，本书言简意赅，总结了正则表达式的常见用法，无论是想快速学习实战，还是日常复习巩固都是非常值得一读的小册子。
 
@@ -67,7 +67,7 @@
 
 ```js
 // 贪婪型匹配，google匹配到的是最后一个google。
-/.*google/.exec('Hello my name is google and I work on google.'); 
+/.*google/.exec('Hello my name is google and I work on google.');
 // 匹配结果：Hello my name is google and I work on google
 ```
 
@@ -79,7 +79,7 @@
 
 ```js
 // 懒惰型匹配，google匹配到的是第一个google。
-/.*?google/.exec('Hello my name is google and I work on google.'); 
+/.*?google/.exec('Hello my name is google and I work on google.');
 // 匹配结果：Hello my name is google
 ```
 

@@ -87,6 +87,7 @@ module.exports = {
         "framework"
       ],
       "/book/": [
+        "book-maintainable-js",
         "book-how-network-connect",
         "book-regular",
         "book-code",
