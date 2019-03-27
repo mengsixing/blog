@@ -48,7 +48,7 @@ module.exports = {
         "osi-http",
         "osi-https",
         "osi-web-security",
-        "osi-dns",
+        "osi-hijack",
         "frontend",
         "library-redux",
         "library-rxjs",

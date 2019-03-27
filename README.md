@@ -66,7 +66,7 @@ npm run lint:fix
 - [http 协议常用知识点总结](https://yhlben.github.io/blog/osi-http.html)
 - [http2 基础知识点总结](https://yhlben.github.io/blog/osi-http2.html)
 - [https 协议常用知识点总结](https://yhlben.github.io/blog/osi-https.html)
-- [域名劫持 / 数据劫持](https://yhlben.github.io/blog/osi-dns.html)
+- [流量劫持](https://yhlben.github.io/blog/osi-hijack.html)
 - [web 安全](https://yhlben.github.io/blog/osi-web-security.html)
 - [图解 http 总结](https://yhlben.github.io/blog/osi-http-graph.html)
 
