@@ -22,7 +22,7 @@ scrollWidth：
 
 [测试 offsetWidth，clientWidth，scrollWidth](https://codepen.io/yhlben/pen/WgowLz)
 
-## 3、节流函数怎么写
+## 3、写一个节流函数
 
 定义：触发函数事件后，短时间间隔内无法连续调用，只有上一次函数执行后，过了规定的时间间隔，才能进行下一次的函数调用。
 
@@ -80,11 +80,11 @@ function debounce(callback, timeout, immediate) {
 
 ## 5、arguments 是数组吗
 
-arguments 是数组吗？怎么实现用它调用数组方法？类数组和数组的区别是什么？arguments 有 length 属性吗？ 为什么要遍历类数组取值组成数组，还有更简单的方法吗？
+arguments 是数组吗？怎么实现用它调用数组方法？类数组和数组的区别是什么？arguments 有 length 属性吗？
 
-1、arguments 不是数组，但有 length 属性。
+1、arguments 不是数组，但有 length 属性。无法使用数组方法。
 
-2、可以转换成数组，因为他有 Symbol(Symbol.iterator) 方法。
+2、可以转换成数组，因为它有 Symbol(Symbol.iterator) 方法。
 
 ```js
 [...arguments];
@@ -93,7 +93,6 @@ Array.from(arguments);
 ```
 
 3、类数组是一个对象，typeof 判断出来就不一致。
-类数组无法使用数组方法。
 
 ## 6、手写一个 bind 函数
 
@@ -123,22 +122,23 @@ Function.prototype.bind2 = function(ctx, ...rest) {
 
 ## 7、promise、setTimeout、async/await 的执行顺序
 
-setTimeout 是宏任务。
-promise 和 async/await 是微任务。
+微任务包括 process.nextTick ，promise ，MutationObserver，其中 process.nextTick 为 Node 独有。
 
-执行顺序：宏任务-》微任务-》宏任务
+宏任务包括 script ， setTimeout ，setInterval ，setImmediate ，I/O ，UI rendering。
+
+执行顺序：宏任务 -> 微任务 -> 宏任务。
 
 ## 8、用过 NodeJS 的 EventEmitter 模块吗，它是怎么实现功能的，步骤是什么
 
 类似于 [观察者模式](https://yhlben.github.io/blog/js-observer.html)
 
-## 9、fetch 和 ajax 的比较
+## 9、Fetch 和 Ajax 的比较
 
 Ajax 的本质是使用 XMLHttpRequest 对象来请求数据。（源生调用相当繁琐，得处理兼容性问题）。
 
-fetch 采用了 Promise 的异步处理机制,更加简单.在默认情况下 fetch 不会接受或者发送 cookies
+Fetch 采用了 Promise 的异步处理机制，更加简单。在默认情况下 Fetch 不会接受或者发送 Cookies。
 
-## 10、js 中的`__proto__`和 prototype
+## 10、解释一下 JS 中的 `__proto__` 和 prototype
 
 - 任何对象都有一个 `__proto__` 属性。
 
@@ -154,7 +154,7 @@ fetch 采用了 Promise 的异步处理机制,更加简单.在默认情况下 fe
 
 `Object` 本身是构造函数，继承了 Function.prototype。`Object.__proto__ === Function.prototype`
 
-`Function` 本身就是函数，继承了 Object.prototype。`Function.__proto__ === Function.prototype`
+`Function` 本身就是函数，继承了 Function.prototype。`Function.__proto__ === Function.prototype`
 
 举一个例子：
 
@@ -172,18 +172,18 @@ console.log(Object.prototype.__proto__ === null);
 console.log(a.__proto__.__proto__.__proto__ === null);
 ```
 
-任何一个对象都有一个**proto**属性，指向构造函数的原型 prototype，而 prototype 也是一个对象，所以就形成了一个链，到最后 Object.protytype 截止。
+任何一个对象都有一个`__proto__`属性，指向构造函数的原型 prototype，而 prototype 也是一个对象，也有一个`__proto__`属性，这样一环接一环，就形成了一个链，到最后 Object.protytype 截止。
 
-- 1 函数对象有 `__proto__` 和 prototype 属性
-- 2 非函数对象只有 `__proto__` 属性
-- 3 prototype 中有 `__proto__` 属性。且是 Object 构造函数创建的
-- 4 函数对象 `__proto__` 指向它的创建者及 Function 构造函数
-- 5 Function 构造函数 `__proto__` 指向它自己
-- 6 Object 对象的 prototype 中的 `__proto__` 是 null
+- 函数对象有 `__proto__` 和 prototype 属性。
+- 非函数对象只有 `__proto__` 属性。
+- prototype 中有 `__proto__` 属性。且是 Object 构造函数创建的。
+- 函数对象 `__proto__` 指向它的创建者及 Function 构造函数。
+- Function 构造函数 `__proto__` 指向它自己。
+- Object 对象的 prototype 中的 `__proto__` 是 null。
 
-## 11、为什么 [] == false, !![] == true 
+## 11、为什么 [] == false, !![] == true
 
-先来看看[] ==false 的比较顺序。
+先来看看[] == false 的比较顺序。
 
 - 1、[] == false
 - 2、[] == 0
@@ -206,13 +206,13 @@ console.log(a.__proto__.__proto__.__proto__ === null);
 
 ![ecma 条件判断](interview-abstractCompare.png)
 
-## 12、Js new 过程中发生了什么
+## 12、JS new 过程中发生了什么
 
 1，创建一个以这个函数为原型的空对象.
 
 2，将函数的 `prototype` 赋值给对象的 `__proto__` 属性。
 
-3，将对象作为函数的 `this` 传进去。如果有 return 出来东西是对象的话就直接返回 return 的内容，没有的话就返回创建的这个对象。
+3，将对象作为函数的 `this` 传进去。如果有 return 出来东西是对象的话就直接返回该对象，如果不是就返回创建的这个对象。
 
 ```js
 function newFunc(father, ...rest) {
@@ -235,11 +235,11 @@ setTimeout 等待 xx 毫秒后，把方法推入异步队列。
 
 setInterval 每隔 xx 毫秒，把方法推入异步队列。
 
-setInterval 如果间隙比较小，而方法比较耗时时，会导致间隔不连续。
+setInterval 有个了例外：当间隙时间较小、方法内部执行非常耗时的时候，会导致间隔不连续。
 
 例如： 每隔 100ms 执行 fn，如果 fn 执行时间是 150ms，那么第二次执行，会在 150ms 处执行（异步事件会等待同步事件执行完后才执行）。
 
-> 可以使用 setTimeout 自调用，在确方法执行完后，再推入异步队列。
+> 可以使用 setTimeout 自调用，在确定方法执行完后，再推入异步队列。
 
 ## 14、手写一个 call 函数
 
@@ -256,11 +256,11 @@ Function.prototype.myCall = function(context, ...rest) {
 
 ## 15、写一个对象深拷贝
 
-1、使用 JSON.parse(JSON.stringify(obj))。`不能拷贝值为 null，undefined，函数数据`。
+1、使用 JSON.parse(JSON.stringify(obj))。`不能拷贝值为 null，undefined，函数字段`。
 
 2、使用 MessageChannel + postMessage，通过消息队列传递数据，实现深拷贝。`不能拷贝函数`。
 
-3、手写函数判断
+3、手写函数判断，考虑以下几个注意点：
 
 - 深拷贝
 - 函数拷贝
@@ -288,7 +288,7 @@ function deepClone(obj, cacheObj = new WeakMap()) {
   if(isArray(obj)) {
     result = [...obj];
   }
-  
+
   // 判断是否缓存过该对象
   if (cacheObj.has(obj)) {
     return cacheObj.get(obj[key]);
@@ -322,17 +322,18 @@ console.log('外部a：', a)
 - 因为 await 是异步操作，后来的表达式不返回 Promise 的话，就会包装成 Promise.reslove(返回值)，然后会去执行函数外的同步代码
 - 同步代码执行完毕后开始执行异步代码，将保存下来的值拿出来使用，这时候 a = 0 + 10
 
-上述解释中提到了 await 内部实现了 generator，其实 await 就是 generator 加上 Promise 的语法糖，且内部实现了自动执行 generator。如果你熟悉 co 的话，其实自己就可以实现这样的语法糖。
+上述解释中提到了 await 内部实现了 generator，其实 await 就是 generator 加上 promise 的语法糖，且内部实现了自动执行 generator。如果你熟悉 co 的话，其实自己就可以实现这样的语法糖。
 
 ## 17、JS 代码在 V8 中的优化
 
 js 代码如果要运行起来，必须要一个编译器来编译（V8），以下是 V8 中编译代码的过程：
 
-- 将 js 代码编译成抽象语法树（AST）。
+- 将 JS 代码编译成抽象语法树（AST）。
 - Ignition 将 AST 转化为 ByteCode。
 - TuboFan 将 ByteCode 转化为 MachineCode（可选）。
 
-我们都知道，机器码运行时的效率是最快的，所以如果能让更多的 js 代码转换成机器码，就能大幅度提高 js 运行效率。但受 js 动态类型的影响，V8 并不敢直接编译成机器语言，而是编译成 ByteCode，如果是一静态不变的内容，则可以直接编译成机器代码。
+我们都知道，机器码运行时的效率是最快的，所以如果能让更多的 js 代码转换成机器码，就能大幅度提高 js 运行效率。但受 js 动态类型的影响，V8 并不敢直接编译成机器语言，而是编译成 ByteCode。只有是纯静态的变量，才可以直接编译成机器代码，所以应该多编写静态类型的变量。
 
-- 为了减少编译时间，可以压缩合并 js 代码，减少嵌套函数。
-- 为了让 V8 优化代码，可以在定义函数时，保持入参一致，使用 typescript。
+- 可以压缩合并 js 代码，减少嵌套函数，减少编译时间。
+- 变量定义时是什么类型，就永远当做这个类型来使用，不要将对象修改为另一个类型（使用 typescript）。
+- 函数在定义时，需要传递的参数类型也不要改变（使用 typescript）。
