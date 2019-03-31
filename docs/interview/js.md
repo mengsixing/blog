@@ -17,8 +17,8 @@ offsetWidth：元素的 width + padding + border
 
 scrollWidth：
 
-- 内部元素小于外部元素，scrollWidth = clientWidth
-- 内部元素大于外部元素，scrollWidth = 内部元素 offsetWidth + 外部 padding
+- 内部元素小于外部元素，scrollWidth = width + padding
+- 内部元素大于外部元素，scrollWidth = width + padding + 溢出部分尺寸
 
 [测试 offsetWidth，clientWidth，scrollWidth](https://codepen.io/yhlben/pen/WgowLz)
 

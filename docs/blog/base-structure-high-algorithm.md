@@ -2,7 +2,7 @@
 
 ## 动态规划
 
-动态规划被认为是一种与递归相反的技术。递归从顶部开始分解出多个小问题，合并成一个解决方案。动态规划从底部分解很多小问题解决掉，组成解决方案。
+动态规划与分治法相似，都是通过组合子问题的解来求解原问题。被认为是一种与递归相反的技术。递归从顶部开始分解出多个小问题，合并成一个解决方案。
 
 ```javascript
 //斐波那契数列
@@ -35,7 +35,7 @@ function dynFib(n) {
     return val[n];
   }
 }
-//console.log('动态规划',dynFib(10));
+console.log('动态规划',dynFib(10));
 
 //动态规划，不用数组
 function iterFib(n) {
@@ -84,5 +84,13 @@ function makeChange(orginRmb, coins) {
 var originRmb = 63;
 var coins = [];
 makeChange(originRmb, coins);
-console.log(coins);
+for(var i=3;i>=0;i--){
+  if(coins[i]>=0){
+    var text = i ==3?'使用 50 元找零后，':i===2?'使用 10元 找零后，':i===1?'使用 5 元找零后，':i===0?'使用 1 元找零后，':'';
+    console.log(text + '剩余：', coins[i]);
+  } else {
+    var text = i ==3?'没有使用 50 元找零，':i===2?'没有使用 10 元找零，':i===1?'没有使用 5 元找零，':i===0?'没有使用 1 元找零，':'';
+    console.log(text + '剩余：', coins[i+1]);
+  }
+}
 ```
