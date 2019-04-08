@@ -337,3 +337,21 @@ js 代码如果要运行起来，必须要一个编译器来编译（V8），以
 - 可以压缩合并 js 代码，减少嵌套函数，减少编译时间。
 - 变量定义时是什么类型，就永远当做这个类型来使用，不要将对象修改为另一个类型（使用 typescript）。
 - 函数在定义时，需要传递的参数类型也不要改变（使用 typescript）。
+
+## 18、写出以下函数打印结果
+
+```js
+function Person(){}
+
+var p1 = new Person();
+
+Person.prototype.sex = 'man';
+Person.prototype = {sex: 'woman'};
+
+var p2 = new Person();
+
+console.log(p1.sex);
+console.log(p2.sex);
+```
+
+这里的难点在于 p1.sex 没有被修改成 woman，因为在 new 创建一个对象时，原型对象会被挂载到新对象上。修改 Person 的原型，并不能修改到 p1 的原型。

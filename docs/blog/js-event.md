@@ -1,16 +1,30 @@
 # JS 事件
 
+JavaScript 使我们有能力创建动态页面。事件是可以被 JavaScript 侦测到的行为。
+
 ## 事件流
 
-- 事件冒泡
-- 事件捕获
+JS 中的数据流主要包括以下 3 个阶段：
+
+- 捕获阶段
 - 目标阶段
+- 冒泡阶段
+
+事件触发时，会先从根 DOM 元素向下遍历（捕获），找到事件触发元素（目标阶段），然后再依次向上传递事件（冒泡阶段），直到传递到根节点。
+
+### 事件委托
+
+为了避免不断地新增 JS 事件，可以将事件绑定到父节点，利用事件冒泡，管理多个子节点的事件。
 
 ## 事件处理程序
 
-DOM0 级事件:使用 dom0 级的时间处理程序被认为是元素的方法，this 是当前元素。
+DOM0 级事件：DOM0 级的事件处理程序被认为是元素的方法（直接在 DOM 元素上增加 onXXX 方法），this 是当前元素。
 
-DOM2 级事件：主要定义 addEventListener removeEventListener 两个方法，this 是当前元素。
+DOM2 级事件：主要定义 addEventListener removeEventListener 两个方法来绑定事件，this 是当前元素。
+
+:::tip 移除事件处理程序
+移除 DOM 时，为了避免与 DOM 绑定的事件没有被及时回收，应该一并清空事件处理程序。
+:::
 
 ## 事件对象
 
@@ -28,13 +42,13 @@ e.eventPhase; // 1 捕获阶段 2处理阶段 3冒泡阶段
 
 ### 事件对象中与位置相关的属性
 
-- clientX CLientY：相对于浏览器可视区域，滑动后，点击同一位置，值不变。
-- pageX pageY：相对于浏览器页面，滑动后，点击同一位置，值会变。
-- screenX screenY：相对于设备屏幕，如果浏览器窗口移动，则会改变。
+- clientX，CLientY：相对于浏览器可视区域，滑动后，点击同一位置，值不变。
+- pageX，pageY：相对于浏览器页面，滑动后，点击同一位置，值会变。
+- screenX，screenY：相对于设备屏幕，如果浏览器窗口移动，则会改变。
 
 ## 事件类型
 
-### ui 事件:不一定和用户操作相关的事件
+### ui 事件：不一定和用户操作相关的事件
 
 - load
 - unload
@@ -72,21 +86,29 @@ e.eventPhase; // 1 捕获阶段 2处理阶段 3冒泡阶段
 
 ### 复合事件：输入组合件触发
 
-### 变动事件：dom 变化时触发事件
+复合事件是 DOM3 级事件中心添加的一类事件，用于处理 IME 的输入序列（输入法输入时的事件）。
+
+复合事件有以下三中：
+
+- compositionstart：要开始输入。
+- compositionupdate：插入新字符。
+- compositionend：复合系统关闭，返回正常键盘输入状态。
+
+### 变动事件：DOM 变化时触发事件
 
 - DOMSubtreeModified 在 DOM 结构中发生任何变化时触发。这个事件在其他任何事件触发后都会触发。
-- DOMNodeInserted 在一个节点作为子节点被插入到另一个节点中时触发
-- DOMNodeRemoved 在节点从其父节点中移除时触发
-- DOMNodeInsertedIntoDocument 在一个节点被直接插入文档或通过子树间接插入文档之后触发。在 DOMNodeInserted 之后
-- DOMNodeRemovedFromDocument 在一个节点被直接从文档中移除或通过子树间接从文档中移除之前触发。在 DOMNodeRemoved 之后
-- DOMAttrModified 在属性被修改之后触发
-- DOMCharacterDataModified 在文本节点的值发生改变时触发
+- DOMNodeInserted 在一个节点作为子节点被插入到另一个节点中时触发。
+- DOMNodeRemoved 在节点从其父节点中移除时触发。
+- DOMNodeInsertedIntoDocument 在一个节点被直接插入文档或通过子树间接插入文档之后触发（在 DOMNodeInserted 之后）。
+- DOMNodeRemovedFromDocument 在一个节点被直接从文档中移除或通过子树间接从文档中移除之前触发（在 DOMNodeRemoved 之后）。
+- DOMAttrModified 在属性被修改之后触发。
+- DOMCharacterDataModified 在文本节点的值发生改变时触发。
 
-### Html5 事件
+### HTML5 事件
 
 - contextmenu 右键打开菜单栏
 - beforeunload 页面卸载前
-- DOMContentLOaded 形成完整 DOM 树时触发
+- DOMContentLoaded 形成完整 DOM 树时触发
 - readystatechange 页面加载相关
 - pageshow pagehide 前进后退事件
 - hashcahnge 事件
@@ -112,17 +134,20 @@ e.eventPhase; // 1 捕获阶段 2处理阶段 3冒泡阶段
 
 当触摸屏幕上的元素时，会依次执行如下事件：
 
-touchstart mouseover mousemove mousedown mouseup click touchend
-
-## 事件委托
-
-将事件绑定到父节点，利用事件冒泡，管理多个子节点的事件。
-
-## 移除事件处理程序
-
-移除 dom 时，为了避免与 dom 绑定的事件也一并被回收，应该一并清空事件处理程序。
+- touchstart
+- mouseover
+- mousemove
+- mousedown
+- mouseup
+- click
+- touchend
 
 ## 模拟事件
 
-createEvent() 参数：UIEvent MouseEvents MutationEvents 一般化的 dom 变动 HTMLEvents。
-dispatchEvent() 触发事件。
+```js
+var event = document.createEvent(type);
+```
+
+- event 就是被创建的 Event 对象.
+- type 是一个字符串，表示要创建的事件类型。事件类型可能包括`UIEvents`, `MouseEvents`, `MutationEvents`, 或者 `HTMLEvents`(一般为 DOM 变动事件)。
+- dom.dispatchEvent() 触发事件。

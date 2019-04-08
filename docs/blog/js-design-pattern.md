@@ -1,8 +1,95 @@
 # 设计模式
 
+设计模式是一套被反复使用、多数人知晓的、经过分类的、代码设计经验的总结。
+
+使用设计模式的目的：为了代码的可重用性、让代码更容易被他人理解、保证代码的可靠性。设计模式使代码编写真正的工程化。设计模式是软件工程的基石脉络，如同大厦的结构一样。
+
+## 设计模式分类
+
+- 创建型，研究高效的创建对象
+  - 单例模式
+  - 抽象工厂模式
+  - 建造者模式
+  - 工厂模式
+  - 原型模式
+- 结构型，设计对象和结构之间的关系
+  - 适配器模式
+  - 桥接模式
+  - 装饰模式
+  - 组合模式
+  - 外观模式
+  - 享元模式
+  - 代理模式
+- 行为型，设计对象的行为
+  - 模板方法模式
+  - 命令模式
+  - 迭代器模式
+  - 观察者模式
+  - 中介者模式
+  - 备忘录模式
+  - 解释器模式
+  - 状态模式
+  - 策略模式
+  - 职责链模式
+  - 访问者模式
+
+## 单例模式
+
+保证一个类只有一个实例，并提供一个访问它的全局访问点。
+
+```js
+// 示例1，单例 Person 类
+var Person = (function(){
+  var instance;
+  return function (name){
+    if (instance) {
+      return instance;
+    } else {
+      this.name = name;
+      instance = this;
+    }
+  }
+})();
+
+var p1 = new Person('张三');
+
+Person.prototype.say = function(){
+  console.log('hello');
+}
+
+var p2 = new Person();
+
+console.log(p1.name, p2.name);
+
+// 示例2：操作页面dom
+function singlePattern(id) {
+  var cacheDom;
+  return function() {
+    if (cacheDom) {
+      return cacheDom;
+    } else {
+      var dom = document.getElementById(id);
+      cacheDom = dom;
+      return dom;
+    }
+  };
+}
+
+// 公用的单例函数，缓存函数执行结果。
+function getSingle(fn){
+  var result = null;
+  return function(){
+    if(!result){
+      result = fn.apply(this,arguments);
+    }
+    return result;
+  }
+}
+```
+
 ## 简单工厂模式
 
-由一个对象决定创建某一种产品对象类的实例，主要用来创建同一类对象。
+工厂模式定义创建对象的接口，但是让子类去真正的实例化。也就是说工厂方法将类的实例化延迟到了子类。
 
 ```js
 class Man {
@@ -36,28 +123,6 @@ Factory.create('Jack').alertName()
 用原型实例指向创建对象的类，使用于创建新的对象的类共享原型对象的属性以及方法。
 
 > 类似原型继承 prototype
-
-## 单例模式
-
-只允许实例化一次的对象类，有时我们也用一个对象来规划一个命名空间，仅仅有条的管理对象上的属性和方法。
-
-例如，获取页面元素 dom：
-
-```js
-// 操作页面dom，第一次以后，就直接使用缓存中的dom
-function singlePattern(id) {
-  var cacheDom;
-  return function() {
-    if (cacheDom) {
-      return cacheDom;
-    } else {
-      var dom = document.getElementById(id);
-      cacheDom = dom;
-      return dom;
-    }
-  };
-}
-```
 
 ## 外观模式
 
@@ -107,7 +172,12 @@ target.getName() // 港版插头 适配器转二脚插头
 
 ## 代理模式
 
-由于一个对象不能直接引用另一个对象，所以需要通过代理对象在这两个对象之间起到中介的作用。
+为一个对象提供一种代理以控制对这个对象的访问。
+
+- 虚拟代理，把一些开销很大的对象，延迟到真正需要它的时候才去创建执行。
+- 安全代理，控制真实对象的访问权限。
+- 远程代理，一个对象将不同孔家的对象进行局部代理。
+- 智能代理，调用对象代理处理另外一些事情如垃圾回收机制增加额外的服务。
 
 ```html
 <ul id="ul">
