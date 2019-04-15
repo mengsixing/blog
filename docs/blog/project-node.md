@@ -106,12 +106,15 @@ Node.js 端一般不会直接当成项目后端来使用，而是当成一个 BF
 
 我们从用户的角度来做一个 Node.js 项目架构。
 
+![node后端](node-backend.png)
+
 - 用户请求 Node.js 服务器。
+- 经过 LVS 传输层负载均衡。
 - 经过 Nginx 服务器，反向代理，负载均衡到多个 PM2 运行的机器上。
   - PM2 守护进程，保证 Node.js 进程永远都活着, Node.js 挂掉后自动 0 秒的重载。
-- Node.js 作为中间层，会将请求转发给 Java 服务器。
 - 配置 Varnish、Squid，实现服务器 HTTP 缓存。
-- 配置心跳检测 Heartbeats，检测 Java 端是否挂掉。
+- Node.js 作为 Web 服务器层，会将请求转发给 Java 服务器。
+  - 配置心跳检测 Heartbeats，检测 Java 端是否挂掉。
 - Java 服务器根据请求，进行相应的处理，可能会对数据库进行读写操作。
 - 读取或写入 Database。
   - 只读数据库
@@ -119,7 +122,7 @@ Node.js 端一般不会直接当成项目后端来使用，而是当成一个 BF
 - Java 服务器将数据库访问结果返回给 Node.js 层。
 - Node.js 层将结果返回给用户。
 
-Node.js Web 端应用程序部署流程：
+#### Node.js Web 端应用程序部署流程
 
 - 单元测试。
 - 压力测试，性能分析工具找 Bug。

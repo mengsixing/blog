@@ -5,6 +5,9 @@ module.exports = {
   title: "yhlben的前端日志",
   description: "欢迎访问我的前端日志",
   ga: "UA-121061441-1",
+  head: [
+    ['link', { rel: 'icon', href: '/hero.jpeg' }]
+  ],
   themeConfig: {
     repo: "yhlben/blog",
     nav: [
