@@ -26,6 +26,7 @@ module.exports = {
     ],
     sidebar: {
       "/blog/": [
+        "project-git",
         "project-dependencies",
         "project-image",
         'project-commitlint',
