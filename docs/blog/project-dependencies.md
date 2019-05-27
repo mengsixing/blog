@@ -32,11 +32,20 @@ package.json 中包版本号规则：
 - \* 匹配任何版本
 - latest 匹配最新版本
 
-2、使用 [greenkeeper](https://greenkeeper.io/)。这个工具使用 github 账号登录后，选定指定项目，它会解析你的 package.json 文件，当有更新的依赖包被加载进来的时候，就会提交一个 Pull requests，这会触发 ci 构建，如果 ci 没什么问题，直接合并就好了。
+2、使用 npm-check-updates，自动将所有 package.json 中的包更新为最新版。
+
+```sh
+# 全局安装
+npm i npm-check-updates -g
+# 在项目根目录执行命令
+ncu -u
+```
+
+3、使用 [greenkeeper](https://greenkeeper.io/)。这个工具使用 github 账号登录后，选定指定项目，它会解析你的 package.json 文件，当有更新的依赖包被加载进来的时候，就会提交一个 Pull requests，这会触发 ci 构建，如果 ci 没什么问题，直接合并就好了。
 
 如果 ci 有问题，证明新的依赖包可能更改了语法，或者不向下兼容了，**我们可以第一时间发现问题并处理**，而不必等到依赖包更新太多导致语法差异越来越大，到时候再想兼容新版本可就要费一番心思了。
 
-3、如果你的依赖都是最新的，还可以在 [David](https://david-dm.org/)上添加小图标哦！
+4、如果你的依赖都是最新的，还可以在 [David](https://david-dm.org/)上添加小图标哦！
 
 ## 参考地址
 

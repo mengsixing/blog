@@ -97,7 +97,12 @@ Vue 在内部尝试对异步队列使用原生的 Promise.then 和 MessageChanne
 
 ## 生命周期
 
-Vue 生命周期图
+简单来说，分为
+
+- 创建（create）前后
+- 挂载（mounted）前后
+- 更新（update）前后
+- 销毁（destory）前后
 
 ![vue 生命周期](https://cn.vuejs.org/images/lifecycle.png)
 
@@ -112,7 +117,7 @@ Vue 生命周期图
 ```vue
 const message = 123;
 <template>
-    <div>{{message}}</div>
+  <div>{{ message }}</div>
 </template>
 ```
 
@@ -122,7 +127,7 @@ const message = 123;
 
 ```vue
 <template>
-    <div v-for="i in 10">{{i}}</div>
+  <div v-for="i in 10">{{ i }}</div>
 </template>
 ```
 

@@ -43,7 +43,37 @@ Redux 是 JavaScript 状态容器，提供可预测化的状态管理。
 - Web 应用是一个状态机，视图与状态是一一对应的。
 - 所有的状态，保存在一个对象里面。
 
-Redux 的源码采用函数式编程的写法，实现了单向数据流，同时封装了一个订阅者模式，在数据改动时，会给订阅者发布消息。
+Redux 采用函数式编程的写法，实现了单向数据流，同时封装了一个订阅者模式，在数据改动时，会给订阅者发布消息。
+
+```js
+import { createStore } from 'redux';
+
+// 定义一个改变 store 数据的方法
+function reducer(state,action){
+  switch(action.type){
+    case 'xxx':
+      return {...state,other}
+    default 'xxx':
+      return {...state,other}
+  }
+}
+
+const store = createStore(reducer);
+
+// 获取 store 中的数据
+store.getState();
+
+// 改变 store 中的数据
+store.dispatch({
+  type:'xxx',
+  data:'123'
+});
+
+// 订阅 store 改变后的事件
+store.subscribe(()=>{
+  console.log('store changed');
+});
+```
 
 ### Redux 工作流
 
@@ -59,9 +89,52 @@ view -> dispatch(action) -> store(reducer) -> store(subscribe) -> view。
 
 在 React 中， 我们使用 Redux 抽离页面中的 state，将状态抽离到 store 中进行统一管理，可以`解决各种状态依赖的问题`。抽离状态后，页面中的组件变为`无状态组件`，还能优化渲染性能。
 
-- react-redux 绑定 Redux 中数据到 React 中。
+使用 React-Redux 方便在 React 中使用 Redux。
+
+```jsx
+const store = createStore(reducer);
+<Provider store={store}>
+  <Home />
+</Provider>;
+
+// home.jsx
+class Home extends React.Component {
+  render() {
+    // 可以获取到store 中的数据
+    console.log(this.props);
+    return <div />;
+  }
+}
+
+function mapStateToProps(){}
+function mapDispatchToProps(){}
+
+export connect(mapStateToProps,mapDispatchToProps)(Home);
+```
+
+react-redux 实现原理：
+
+- react-redux 其实是利用 context API 去做的。
+- provider 先调用 createContext 创建一个 context。然后将接收到的 store 数据绑定到 context 上。
+- connect 实现了一个高阶组件，返回一个被 Consumer 包裹的组件，同时执行 mapStateToProps 和 mapDispatchToProps 方法，将 store 中的数据和 dispatch 挂载到组件的属性上，最后，在组件 componentDidMounted 生命周期上去订阅 store 的更新，在 component­Will­Unmount 上去取消订阅。
+
+其他可选库。
+
 - connected-react-router（原 react-router-redux） 将路由的状态抽离到 Redux 中。
-- redux-saga 编写 redux 中复杂的异步操作，简单操作可以使用 redux-thunk 代替。
+
+### 注意事项
+
+- 不能在 reducer 中调用 dispatch，会造成数据流死循环。
+- createStore 有 3 个参数，第一个是 reducer，第二个是 store 初始值，第三个是 enhace，扩展 reducer 用。
+- combineReducer 用于合并 reducer，实现原理：就是一个纯函数，来组合多个 reducer。
+- reducer 函数必须返回返回 state，否则会抛出错误。
+- bindActionCreators 自动将参数 actions，绑定 dispatch。
+
+## Redux 异步处理
+
+- redux-thunk 可以返回一个函数类型的 action，接收 dispatch 参数，可以在异步回调中使用。
+- redux-promise 可以返回一个 Promise 类型的 action，直接 resolve 异步数据就行了。
+- redux-saga 可以无侵入的处理异步，只需要拦截 action，然后在单独的 sagas 文件中进行异步处理，最后返回一个新的 action。通过 generate 实现。
 
 ## Redux 优化
 
@@ -122,7 +195,7 @@ dispatch(action3);
 // 转换为
 dispatch(batchActions([action1, action2, action3]));
 
-const BATCH = "BATCHED_ACTIONS";
+const BATCH = 'BATCHED_ACTIONS';
 const batchActions = actions => ({ type: BATCH, payload: actions });
 
 const canBatchedReducer = reducer => {

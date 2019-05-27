@@ -52,13 +52,21 @@ web 登录鉴权，是 web 中很重要的一个环节，下面介绍一下常�
 
 ### 创建 Token
 
-创建 Token 最常用的方式是 JWT(json web token)。JWT 主要分为 3 个部分：header，playload，signature，其中 signature 是通过 header 和 playload 数据以及 header 中的加密算法得到的，服务器端通过这样的验证，可验证 token 是否被篡改。
+创建 Token 最常用的方式是 JWT(json web token)。JWT 主要分为 3 个部分：header，playload，signature，其中 signature 是通过 header 和 playload 数据以及 header 中的加密算法得到的，服务器端通过这样的验证，可验证 token 是否被篡改。signature算法如下：
+
+``` js
+HMACSHA256(
+  base64UrlEncode(header) + "." +
+  base64UrlEncode(payload),
+  secret) // 服务器私钥，防止被破解
+```
 
 使用 JWT 的优点：
 
-- 因为 JSON 的通用性，所以 JWT 是可以进行跨语言支持的
-- JWT 可以在自身存储一些其他业务逻辑所必要的非敏感信息(payload 部分)
-- JWT 的构成非常简单，字节占用很小，所以它是非常便于传输的
+- 因为 JSON 的通用性，所以 JWT 是可以进行跨语言支持的。
+- 降低服务器端维护成本（上文中提到：使用 session 机制登录验证的维护成本很大）。
+- JWT 可以在自身存储一些其他业务逻辑所必要的非敏感信息(payload 部分)。
+- JWT 的构成非常简单，字节占用很小，所以它是非常便于传输的。
 
 ## 单点登录机制
 
@@ -115,3 +123,7 @@ web 登录鉴权，是 web 中很重要的一个环节，下面介绍一下常�
 7、登录成功。
 
 ![第三方登录](web-login-oauth.jpg)
+
+## 参考链接
+
+[JSON Web Token 入门教程](http://www.ruanyifeng.com/blog/2018/07/json_web_token-tutorial.html)
