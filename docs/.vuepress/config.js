@@ -92,6 +92,7 @@ module.exports = {
         "framework"
       ],
       "/book/": [
+        "book-webgl",
         "book-maintainable-js",
         "book-how-network-connect",
         "book-regular",
