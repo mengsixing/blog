@@ -26,6 +26,7 @@ module.exports = {
     ],
     sidebar: {
       "/blog/": [
+        "project-docker",
         "cdfang-spider",
         "project-git",
         "project-dependencies",
