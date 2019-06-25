@@ -17,7 +17,7 @@ webpack 是一个模块打包器。webpack 的主要目标是将 **js** 文件�
 
 ```js
 module.exports = {
-  entry: "./path/to/my/entry/file.js"
+  entry: './path/to/my/entry/file.js'
 };
 ```
 
@@ -26,13 +26,13 @@ module.exports = {
 output 属性告诉 webpack 在哪里输出它所创建的 bundle，以及如何命名这些文件。
 
 ```js
-const path = require("path");
+const path = require('path');
 
 module.exports = {
-  entry: "./path/to/my/entry/file.js",
+  entry: './path/to/my/entry/file.js',
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "my-first-webpack.bundle.js"
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'my-first-webpack.bundle.js'
   }
 };
 ```
@@ -44,11 +44,11 @@ webpack 自身只支持 JavaScript。而 loader 能够让 webpack 处理那些�
 #### 使用 loader
 
 ```js
-const path = require("path");
+const path = require('path');
 
 module.exports = {
   output: {
-    filename: "my-first-webpack.bundle.js"
+    filename: 'my-first-webpack.bundle.js'
   },
   module: {
     rules: [
@@ -56,7 +56,7 @@ module.exports = {
         // 根据后缀名匹配需要处理的文件
         test: /\.txt$/,
         // 使用对应的loader处理文件
-        use: "raw-loader"
+        use: 'raw-loader'
       }
     ]
   }
@@ -68,13 +68,13 @@ module.exports = {
 loader 其实就是一个 function，接收一个参数 source，就是当前的文件内容，然后稍加处理，就可以 return 出一个新的文件内容。
 
 ```js
-const loaderUtils = require("loader-utils");
+const loaderUtils = require('loader-utils');
 
 module.exports = function(source) {
   // 获取loader中传递的配置信息
   const options = loaderUtils.getOptions(this);
   // 返回处理后的内容
-  this.callback(null, "/ *增加一个注释 */" + source);
+  this.callback(null, '/ *增加一个注释 */' + source);
   // 也可以直接return
   // return "/ *增加一个注释 */" + source;
 };
@@ -87,13 +87,13 @@ module.exports = function(source) {
 #### 使用插件
 
 ```js {1,7}
-const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   module: {
-    rules: [{ test: /\.txt$/, use: "raw-loader" }]
+    rules: [{ test: /\.txt$/, use: 'raw-loader' }]
   },
-  plugins: [new HtmlWebpackPlugin({ template: "./src/index.html" })]
+  plugins: [new HtmlWebpackPlugin({ template: './src/index.html' })]
 };
 ```
 
@@ -106,10 +106,10 @@ class APlugin {
   // apply方法，会在new plugin后被webpack自动执行。
   apply(compiler) {
     // 可以在任意的钩子函数中去触发自定义事件，也可以监听其他事件：compiler.hooks.xxxx
-    compiler.hooks.compilation.tap("APlugin", compilation => {
-      compilation.hooks.afterOptimizeChunkAssets.tap("APlugin", chunks => {
+    compiler.hooks.compilation.tap('APlugin', compilation => {
+      compilation.hooks.afterOptimizeChunkAssets.tap('APlugin', chunks => {
         //   这里只是简单的打印了chunks，你如果有更多的想法，都可以在这里实现。
-        console.log("打印chunks：", chunks);
+        console.log('打印chunks：', chunks);
       });
     });
   }
@@ -126,7 +126,7 @@ class APlugin {
 
 ```js {2}
 module.exports = {
-  mode: "production"
+  mode: 'production'
 };
 ```
 
@@ -151,12 +151,12 @@ module.exports = {
 module.exports = {
   optimization: {
     splitChunks: {
-      chunks: "async", // 参数可能是：all，async和initial，这里表示拆分异步模块。
+      chunks: 'async', // 参数可能是：all，async和initial，这里表示拆分异步模块。
       minSize: 30000, // 如果模块的大小大于30kb，才会被拆分
       minChunks: 1,
       maxAsyncRequests: 5, // 按需加载时最大的请求数，意思就是说，如果拆得很小，就会超过这个值，限制拆分的数量。
       maxInitialRequests: 3, // 入口处的最大请求数
-      automaticNameDelimiter: "~", // webpack将使用块的名称和名称生成名称（例如vendors~main.js）
+      automaticNameDelimiter: '~', // webpack将使用块的名称和名称生成名称（例如vendors~main.js）
       name: true, // 拆分块的名称
       cacheGroups: {
         // 缓存splitchunks
@@ -177,26 +177,26 @@ module.exports = {
 
 ### 使用 Happypack
 
-纵观 webpack 构建流程，我们可以发现整个构建过程主要花费时间的部分也就是递归遍历各个 entry 然后寻找依赖逐个编译的过程，每次递归都需要经历 string -> ast-> string 的流程，经过 loader 还需要处理一些字符串或者执行一些 js 脚本，介于 node.js 单线程的壁垒，webpack 构建慢一直成为它饱受诟病的原因。
+纵观 webpack 构建流程，我们可以发现整个构建过程主要花费时间的部分也就是递归遍历各个 entry 然后寻找依赖逐个编译的过程，每次递归都需要经历 string -> ast-> string 的流程，经过 loader 还需要处理一些字符串或者执行一些 js 脚本，介于 node.js 单线程的壁垒，webpack 构建慢一直成为它饱受诟病的原因。**HappyPack 可以将 Loader 的同步执行转换为并行的**，这样就能充分利用系统资源来加快打包效率了。
 
 ```js
 // @file: webpack.config.js
-var HappyPack = require("happypack");
+var HappyPack = require('happypack');
 var happyThreadPool = HappyPack.ThreadPool({ size: 5 });
 
 module.exports = {
   // ...
   plugins: [
     new HappyPack({
-      id: "jsx",
+      id: 'jsx',
       threadPool: happyThreadPool,
-      loaders: ["babel-loader"]
+      loaders: ['babel-loader']
     }),
 
     new HappyPack({
-      id: "styles",
+      id: 'styles',
       threadPool: happyThreadPool,
-      loaders: ["style-loader", "css-loader", "less-loader"]
+      loaders: ['style-loader', 'css-loader', 'less-loader']
     })
   ]
 };
@@ -204,12 +204,12 @@ module.exports = {
 exports.module.rules = [
   {
     test: /\.js$/,
-    use: "happypack/loader?id=jsx"
+    use: 'happypack/loader?id=jsx'
   },
 
   {
     test: /\.less$/,
-    use: "happypack/loader?id=styles"
+    use: 'happypack/loader?id=styles'
   }
 ];
 ```
@@ -218,11 +218,12 @@ Happypack 实际上是使用了 node processes 执行多线程构建，可以让
 
 ### 使用 DllPlugin
 
-DllPlugin：用于打包单独的动态链接库文件。
+**DllPlugin 可以将特定的类库提前打包然后引入**。这种方式可以极大的减少打包类库的次数，只有当类库更新版本才有需要重新打包，并且也实现了将公共代码抽离成单独文件的优化方案。
 
-DllReferencePlugin：用于在主要的配置文件中引入 DllPlugin 插件打包好的动态链接库文件。
+- DllPlugin：用于打包单独的动态链接库文件。
+- DllReferencePlugin：用于在主要的配置文件中引入 DllPlugin 插件打包好的动态链接库文件。
 
-这里需要建 2 个配置文件，先执行 webpack.dll.config.js，生成 mainfest，然后再执行 webpack.config.js 打包文件，可以看到，构建速度有了非常大的提升。
+这里需要建 2 个配置文件，先执行 webpack.dll.config.js，生成 mainfest，然后再执行 webpack.config.js 打包文件。
 
 动态链接库配置：
 
@@ -300,7 +301,7 @@ module.exports = {
 module.exports = {
   output: {
     // 静态资源上cdn
-    publicPath: "//xxx/cdn.com",
+    publicPath: '//xxx/cdn.com',
     // 不生成「所包含模块信息」的相关注释
     pathinfo: false
   },
@@ -308,9 +309,9 @@ module.exports = {
     rules: [
       {
         test: /\.txt$/,
-        use: "raw-loader",
+        use: 'raw-loader',
         // 缩小loader检查范围
-        include: path.join(__dirname, "src")
+        include: path.join(__dirname, 'src')
       }
     ]
   },
@@ -321,15 +322,15 @@ module.exports = {
   resolve: {
     // 使用别名，加快搜索
     alias: {
-      "~": path.resolve(__dirname, "../src")
+      '~': path.resolve(__dirname, '../src')
     },
     // 配置用到的后缀名，方便webpack查找
-    extensions: ["js", "css"]
+    extensions: ['js', 'css']
   },
   // 开发阶段引用cdn上文件，可以避免打包库文件
   externals: {
-    vue: "Vue",
-    "element-ui": "ELEMENT"
+    vue: 'Vue',
+    'element-ui': 'ELEMENT'
   }
 };
 ```

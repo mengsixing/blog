@@ -4,12 +4,16 @@
 
 恶意攻击者往 Web 页面里插入恶意 script 代码，当用户浏览该页时，嵌入其中 Web 里面的 script 代码会被执行，从而达到恶意攻击用户的目的。
 
-- 反射型：被动的非持久性 XSS，诱导用户点击短型 URL，服务器解析后响应，在返回的响应内容中隐藏和嵌入攻击者的 XSS 代码，从而攻击用户。
+- 非持久型：一般通过修改 URL 参数的方式加入攻击代码，诱导用户访问链接从而进行攻击。
 - 持久型：也叫存储型 XSS，主动提交恶意数据到服务器，当其他用户请求后，服务器从数据库中查询数据并发给用户受到攻击。
-- DOM 型：DOM 通过 html 结构执行事件脚本。
 
 ```html
 <img src="xx" onerror="console.log(document.cookie);" />
+```
+
+```html
+<!-- 非持久型 http://www.domain.com?name=<script>alert(1)</script> -->
+<div>{{name}}</div>
 ```
 
 ## CSRF 攻击
@@ -30,6 +34,32 @@ CSRF（Cross-site request forgery），中文名称：跨站请求伪造，也�
 CSRF 攻击之所以能够成功，是因为黑客可以完全伪造用户的请求，该请求中所有的用户验证信息都是存在于 Cookie 中，因此黑客可以在不知道这些验证信息的情况下直接利用用户自己的 Cookie 来通过安全验证。要抵御 CSRF，关键在于在请求中放入黑客所不能伪造的信息，并且该信息不存在于 Cookie 之中。可以在 HTTP 请求中以参数的形式加入一个随机产生的 token，并在服务器端建立一个拦截器来验证这个 token，如果请求中没有 token 或者 token 内容不正确，则认为可能是 CSRF 攻击而拒绝该请求。
 
 动态 token：每当服务器端验证过 token 之后，便会生成一个新的 token 返给客户端，这样保证客户端手里的 token 只能使用一次，即使 token 被劫持，被劫持到的 token 也已过期，不能使用了。
+
+## 点击劫持
+
+点击劫持是一种视觉欺骗的攻击手段。攻击者将需要攻击的网站通过 iframe 嵌套的方式嵌入自己的网页中，并将 iframe 设置为透明，在页面中透出一个按钮诱导用户点击。
+
+就像一张图片上面铺了一层透明的纸一样，你看到的是黑客的页面，但是其实这个页面只是在底部，而你真正点击的是被黑客透明化的另一个网页。一个简单的点击劫持例子，就是当你点击了一个不明链接之后，自动关注了某一个人的博客或者订阅了视频。[演示](https://blog.csdn.net/qq_32523587/article/details/79613768)
+
+### 点击劫持防御
+
+X-FRAME-OPTIONS 是一个 HTTP 响应头，在现代浏览器有一个很好的支持。这个 HTTP 响应头 就是为了防御用 iframe 嵌套的点击劫持攻击。
+
+该响应头有三个值可选，分别是
+
+- DENY，表示页面不允许通过 iframe 的方式展示。
+- SAMEORIGIN，表示页面可以在相同域名下通过 iframe 的方式展示。
+- ALLOW-FROM，表示页面可以在指定来源的 iframe 中展示。
+
+```js
+// 通过js 判断是否内嵌在iframe，如果是，则隐藏页面
+if (self == top) {
+  var style = document.getElementById('click-jack');
+  document.body.removeChild(style);
+} else {
+  top.location = self.location;
+}
+```
 
 ## Web Shell 网站提权渗透
 

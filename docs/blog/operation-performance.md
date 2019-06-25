@@ -1,6 +1,6 @@
 # 前端性能优化
 
-页面渲染流程图：
+我们先来看一下页面渲染流程图，每个阶段的用时在 `performance.timing` 里都有记录。
 ![页面渲染流程图](/blog/huizong.png)
 
 ## 网络层面优化
@@ -16,6 +16,17 @@
 - 数据同步策略：热门资源立即同步，不热门数据谁用谁同步。
 
 ## 代码层面优化
+
+代码层面可以使用一些优化手段。
+
+```html
+<!-- DNS 预解析 -->
+<link rel="dns-prefetch" href="//cdfangyuan.cn" />
+<!-- 预加载，指明哪些资源是在页面加载完成后即刻需要的，并提前获取-->
+<link rel="preload" href="http://example.com" />
+<!-- 预渲染，提前加载下一页的数据 -->
+<link rel="prerender" href="http://example.com" />
+```
 
 ### PC 端
 
@@ -40,7 +51,7 @@
 
 - 传统页面，先加载页面骨架，然后 ajax 请求数据，容易白屏。
 - 传统单页，利用 ajax 拉去数据，通过 hash 或者 history，管理路由，速度快，seo 不友好。
-- 最佳实践，pushstate+ajax，首页直出，其他页面内跳转用 ajax 单页，刷新就直出页面，需要后端配合，pjax。
+- 最佳实践，pushstate + ajax，首页直出，其他页面内跳转用 ajax 单页，刷新就直出页面，需要后端配合，pjax。
 
 ## 浏览器缓存图
 

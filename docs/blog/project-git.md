@@ -4,7 +4,7 @@
 
 ## 基本使用
 
-一个 github 仓库，多人开发的案例。
+先来看一个 github 仓库，多人开发的案例。
 
 - git clone github/xxx 克隆仓库。
 - git checkout -b feature/xxx 新建自己的分支。
@@ -15,7 +15,11 @@
 - 在 github 上提交 pull request 。
 - 合并后删除 feature/xxx 分支。
 
+如果你是个新手，上面的 git 命令已经可以满足日常开发的需要了，但为了深入了解 git，我们接着往下看。
+
 ### 基本操作 API
+
+这些命令在代码回滚，合并产生冲突时，使用率很高。
 
 - git status 查看状态。
 - git diff 查看工作区和版本库里面最新版本的区别。

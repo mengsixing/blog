@@ -47,6 +47,16 @@ ncu -u
 
 4、如果你的依赖都是最新的，还可以在 [David](https://david-dm.org/)上添加小图标哦！
 
+## 总结
+
+关于是不是应该保持项目依赖的问题，我个人建议是：
+
+- 使用自动化工具自动更新，
+  - 单元测试通过，合并到项目中。
+  - 单元测试不通过，及时查看报错信息，判断修改难度。
+    - 难度小，例如：官方弃用了旧的 api，同时提供了新的 api 来代替，则需要及时进行更新。
+    - 难度大，例如：官方重构了项目，api 结构、使用方式都发生了改变，则可以不进行更新。
+
 ## 参考地址
 
 [HOW TO KEEP HIS NPM DEPENDENCIES UP-TO-DATE ?](http://blog.js-republic.com/keep-npm-dependencies-up-to-date/)

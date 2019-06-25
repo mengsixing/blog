@@ -39,23 +39,23 @@
 
 ```js
 // 示例1，单例 Person 类
-var Person = (function(){
+var Person = (function() {
   var instance;
-  return function (name){
+  return function(name) {
     if (instance) {
       return instance;
     } else {
       this.name = name;
       instance = this;
     }
-  }
+  };
 })();
 
 var p1 = new Person('张三');
 
-Person.prototype.say = function(){
+Person.prototype.say = function() {
   console.log('hello');
-}
+};
 
 var p2 = new Person();
 
@@ -76,14 +76,14 @@ function singlePattern(id) {
 }
 
 // 公用的单例函数，缓存函数执行结果。
-function getSingle(fn){
+function getSingle(fn) {
   var result = null;
-  return function(){
-    if(!result){
-      result = fn.apply(this,arguments);
+  return function() {
+    if (!result) {
+      result = fn.apply(this, arguments);
     }
     return result;
-  }
+  };
 }
 ```
 
@@ -94,20 +94,20 @@ function getSingle(fn){
 ```js
 class Man {
   constructor(name) {
-    this.name = name
+    this.name = name;
   }
   alertName() {
-    alert(this.name)
+    alert(this.name);
   }
 }
 
 class Factory {
   static create(name) {
-    return new Man(name)
+    return new Man(name);
   }
 }
 
-Factory.create('Jack').alertName()
+Factory.create('Jack').alertName();
 ```
 
 如例子所示，创建 Man 对象的过程可能很复杂，但我们**只需要关心创建结果**。
@@ -131,13 +131,13 @@ Factory.create('Jack').alertName()
 ```js
 function addEvent(elm, evType, fn, useCapture) {
   if (elm.addEventListener) {
-    elm.addEventListener(evType, fn, useCapture)
-    return true
+    elm.addEventListener(evType, fn, useCapture);
+    return true;
   } else if (elm.attachEvent) {
-    var r = elm.attachEvent("on" + evType, fn)
-    return r
+    var r = elm.attachEvent('on' + evType, fn);
+    return r;
   } else {
-    elm["on" + evType] = fn
+    elm['on' + evType] = fn;
   }
 }
 ```
@@ -151,21 +151,21 @@ function addEvent(elm, evType, fn, useCapture) {
 ```js
 class Plug {
   getName() {
-    return '港版插头'
+    return '港版插头';
   }
 }
 
 class Target {
   constructor() {
-    this.plug = new Plug()
+    this.plug = new Plug();
   }
   getName() {
-    return this.plug.getName() + ' 适配器转二脚插头'
+    return this.plug.getName() + ' 适配器转二脚插头';
   }
 }
 
-let target = new Target()
-target.getName() // 港版插头 适配器转二脚插头
+let target = new Target();
+target.getName(); // 港版插头 适配器转二脚插头
 ```
 
 可以用来适配对象，适配代码库，适配数据等。
@@ -181,17 +181,17 @@ target.getName() // 港版插头 适配器转二脚插头
 
 ```html
 <ul id="ul">
-    <li>1</li>
-    <li>2</li>
-    <li>3</li>
-    <li>4</li>
-    <li>5</li>
+  <li>1</li>
+  <li>2</li>
+  <li>3</li>
+  <li>4</li>
+  <li>5</li>
 </ul>
 <script>
-    let ul = document.querySelector('#ul')
-    ul.addEventListener('click', (event) => {
-        console.log(event.target);
-    })
+  let ul = document.querySelector('#ul');
+  ul.addEventListener('click', event => {
+    console.log(event.target);
+  });
 </script>
 ```
 
@@ -209,12 +209,12 @@ function readonly(target, key, descriptor) {
 
 class Test {
   @readonly
-  name = 'Jack'
+  name = 'Jack';
 }
 
-let t = new Test()
+let t = new Test();
 
-t.Jack = '111' // 不可修改
+t.Jack = '111'; // 不可修改
 ```
 
 例如：增加属性，扩展原方法，高阶组件等。
@@ -339,6 +339,26 @@ var Observer = (function() {
 
 > 解析 dom 树 html>head|body>button。
 
+## 装饰模式
+
+装饰模式不需要改变已有的接口，作用是给对象添加功能。就像我们经常需要给手机戴个保护套防摔一样，不改变手机自身，给手机添加了保护套提供防摔功能。
+
+```js
+function readonly(target, key, descriptor) {
+  descriptor.writable = false;
+  return descriptor;
+}
+
+class Test {
+  @readonly
+  name = 'yhl';
+}
+
+let t = new Test();
+
+t.yhl = '111'; // 不可修改
+```
+
 ## 数据访问对象模式
 
 抽象和封装对数据源的访问和存储，DAO 通过对象数据源链接的管理，方便对数据的访问和存储。
@@ -347,9 +367,9 @@ var Observer = (function() {
 
 ## MVC 模式
 
-view->controller->model->view
+传统的 MVC 架构通常是使用控制器更新模型，视图从模型中获取数据去渲染。当用户有输入时，会通过控制器去更新模型，并且通知视图进行更新。但是 MVC 有一个巨大的缺陷就是控制器承担的责任太大了，随着项目愈加复杂，控制器中的代码会越来越臃肿，导致出现不利于维护的情况。
 
-> 在 MVC，当你有变化的时候你需要同时维护三个对象和三个交互，这显然让事情复杂化了。
+view->controller->model->view
 
 ![MVC模式](/blog/mvc.png)
 
@@ -362,6 +382,10 @@ view->presenter->model->presenter->view
 ![MVP模式](/blog/mvp.png)
 
 ## MVVM 模式
+
+在 MVVM 架构中，引入了 ViewModel 的概念。ViewModel 只关心数据和业务的处理，不关心 View 如何处理数据，在这种情况下，View 和 Model 都可以独立出来，任何一方改变了也不一定需要改变另一方，并且可以将一些可复用的逻辑放在一个 ViewModel 中，让多个 View 复用这个 ViewModel。
+
+以 Vue 框架来举例，ViewModel 就是组件的实例。View 就是模板，Model 的话在引入 Vuex 的情况下是完全可以和组件分离的。对于 MVVM 来说，其实最重要的并不是通过双向绑定或者其他的方式将 View 与 ViewModel 绑定起来，而是通过 ViewModel 将视图中的状态和用户的行为分离出一个抽象，这才是 MVVM 的精髓。
 
 view<->viewModel->model->viewModel<->view
 

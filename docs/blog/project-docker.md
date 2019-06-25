@@ -93,6 +93,10 @@ Image 主要有以下几点特征：
 
 Image 可以通过 Dockerfile 去构建，也可以通过 DockerHub 上去拉取。
 
+:::tip
+Dockerfile 是一个文本文件，其中包含构建 Image 的所有命令。Docker 可以通过 `docker build` 从 Dockerfile 中读取命令来自动构建 Image。常用配置信息可以参考下文 Dockerfile 文件中的注释，也建议大家阅读官方文档 [Dockerfile reference](https://docs.docker.com/engine/reference/builder/)
+:::
+
 ### Container
 
 Container 是运行 Image 的实例，通过 `docker run image`即可启动并运行一个 Container。
@@ -195,7 +199,7 @@ Docker Compose 的配置文件一般定义在 `docker-compose.yml` 文件中，�
 
 ```docker
 # 加载基础镜像
-FROM node
+FROM mhart/alpine-node
 
 # 注释
 LABEL maintainer = "yhlben <yinhengliben@gmail.com>"
@@ -251,7 +255,7 @@ docker run -p 8082:8082 --network webapp-network -d yhlben/cdfang-spider
 
 ```docker
 # 加载基础镜像
-FROM node
+FROM mhart/alpine-node
 
 # 注释
 LABEL maintainer = "yhlben <yinhengliben@gmail.com>"

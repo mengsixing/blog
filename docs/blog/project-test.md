@@ -4,7 +4,7 @@
 
 - 正确性：可以验证代码的正确性，在**上线前心里有底**。
 - 自动化：通过编写测试用例，可以做到**一次编写，多次运行**。
-- 解释性：测试用例中会设计如何使用这些 API，**良好的测试用例可以比开发文档更直观**。
+- 解释性：测试用例中会设计如何使用这些 API，**良好的测试用例比开发文档更直观**。
 - 驱动开发：要保证代码的可测试性，就需要在开发中注意 API 的设计。**TDD 测试驱动开发**的思想就是在开发阶段编写可测试性代码，以保证代码的可测试性。
 - 保证重构：互联网行业产品迭代速度很快，迭代后必然存在代码重构的过程，那怎么才能保证重构后代码的质量呢？有测试用例做后盾，就可以**大胆的进行重构**。
 
@@ -18,7 +18,7 @@
 
 ### 测试框架
 
-测试框架用于为测试服务，让本身并不参与测试，主要用于管理测试用例和生成测试报告，提升测试用例的开发速度，提高测试用例的可维护性和可读性。常见的测试框架有：mocha，jest，jasmine 等。
+测试框架用于为测试服务，它本身并不参与测试，主要用于管理测试用例和生成测试报告，提升测试用例的开发速度、可读性和可维护性。常见的测试框架有：mocha，jest，jasmine 等。
 
 #### 测试风格
 
@@ -38,21 +38,19 @@ TDD（Test Drived Develop）。TDD 的原理是**在开发功能代码之前，�
 - suiteTeardown（每一个测试用例开始之后）
 
 ```js
-mocha --> *.test.js --> suite --> test --> 断言
-
-suite('Array', function(){
-    setup(function(){
-        // 测试用例开始之前
+suite('Array', function() {
+  setup(function() {
+    // 测试用例开始之前
+  });
+  suite('#indexOf', function() {
+    test('should return -1 when not present', function() {
+      assert.equal(-1, [1, 2, 3].indexOf(4));
     });
-    suite('#indexOf',function(){
-        test('should return -1 when not present',function(){
-            assert.equal(-1,[1,2,3].indexOf(4));
-        })
-    })
-    teardown(function(){
-        // 测试用例之后
-    });
-})
+  });
+  teardown(function() {
+    // 测试用例之后
+  });
+});
 ```
 
 ##### BDD 运行流程
@@ -66,38 +64,36 @@ BDD（Behavior Driven Development）。行为驱动的开发，**描述了软件
 - afterEach（每一个测试用例开始之后）
 
 ```js
-mocha  --> *.test.js --> describe --> it --> 断言
-
-describe('Array', function(){
-    before(function(){
-        // 测试用例开始之前
+describe('Array', function() {
+  before(function() {
+    // 测试用例开始之前
+  });
+  describe('#indexOf', function() {
+    it('should return -1 when not present', function() {
+      [1, 2, 3].indexOf(4).should.equal(-1);
     });
-    describe('#indexOf',function(){
-        it('should return -1 when not present',function(){
-            [1,2,3].indexOf(4).should.equal(-1);
-        })
-    })
-})
+  });
+});
 ```
 
 ### 测试用例
 
-测试用例是通过输入，执行条件，预期结果等条件，判断一个代码功能是否满足特定需求。测试用例最小需要通过正向测试和反向测试来保证测试对功能的覆盖。
+测试用例（Test Case）是为某个特殊目标而编制的一组测试输入、执行条件以及预期结果，用来判断一个代码功能是否满足特定需求。测试用例最小需要通过正向测试和反向测试来保证对功能的覆盖。
 
 使用 it 来定义一个测试用例：
 
 ```js
-it("should return -1 when not present", function(done) {
+it('should return -1 when not present', function(done) {
   // xxx
 });
 ```
 
 #### 异步测试
 
-在执行测试用例时，会将 done()注入实参，主要用于异步测试。
+在执行异步测试用例时，会将 done 函数注入实参。
 
 ```js
-it("should return -1 when not present", function(done) {
+it('should return -1 when not present', function(done) {
   setTimeout(() => {
     done();
   }, 1000);
@@ -106,7 +102,7 @@ it("should return -1 when not present", function(done) {
 
 ### 测试覆盖率
 
-判断单元测试对代码的覆盖情况。原理是**通过向源代码中注入统计代码，用于监听每一行代码的执行情况**。可以统计到该行代码是否执行和执行次数。测试覆盖率包括以下几个方面：
+测试覆盖率用来判断单元测试对代码的覆盖情况。原理是**通过向源代码中注入统计代码，用于监听每一行代码的执行情况**。可以统计到该行代码是否执行和执行次数。测试覆盖率包括以下几个方面：
 
 - 行覆盖率（line coverage）：是否每一行都执行了？
 - 函数覆盖率（function coverage）：是否每个函数都调用了？
@@ -132,25 +128,25 @@ E2E（End To End）测试是模拟用户进行页面操作，通过来判断页�
 基准测试统计的是在多少时间内执行了多少次某个方法。常用 Benchmark 库来编写。
 
 - 面向切面编程（AOP）无侵入式统计。
-- Benchmark 基准测试方法，他并不是简单地统计执行多少次测试代码后对比时间，它对测试有着严密的抽样过程，执行多少次取决于采样到的额数据能否完成统计。根据统计次数计算方差。
+- Benchmark 基准测试方法，他并不是简单地统计执行多少次测试代码后对比时间，它对测试有着严密的抽样过程，执行多少次取决于采样到的数据能否完成统计。根据统计次数计算方差。
 
 ```js
 var suite = new Benchmark.Suite();
 
 // add tests
 suite
-  .add("RegExp#test", function() {
-    /o/.test("Hello World!");
+  .add('RegExp#test', function() {
+    /o/.test('Hello World!');
   })
-  .add("String#indexOf", function() {
-    "Hello World!".indexOf("o") > -1;
+  .add('String#indexOf', function() {
+    'Hello World!'.indexOf('o') > -1;
   })
   // add listeners
-  .on("cycle", function(event) {
+  .on('cycle', function(event) {
     console.log(String(event.target));
   })
-  .on("complete", function() {
-    console.log("Fastest is " + this.filter("fastest").map("name"));
+  .on('complete', function() {
+    console.log('Fastest is ' + this.filter('fastest').map('name'));
   })
   // run async
   .run({ async: true });
@@ -167,14 +163,15 @@ suite
 
 对网络接口做压力测试需要检查的几个常用指标有吞吐率，响应时间和并发数，这些指标反映了服务器并发处理能力。
 
-- pv 网站当日访问人数，uv 独立访问人数。 qps=pv/t。
-- qps: Request per second 标识服务器每秒处理请求数。
+- pv 网站当日访问人数。
+- uv 独立访问人数。
+- qps 服务器每秒处理请求数。qps=pv/t。
 
 常用的压力测试工具：ab、JMeter。
 
 ## 安全测试
 
-安全测试是比较专业的测试了，测试人员需要了解常见的 web 攻击方式，然后模拟攻击测试的程序，以防上线后其他不法人员使用同样的方式对程序进行攻击。前端常见的攻击方式有：
+安全测试是比较专业的测试，测试人员需要了解常见的 web 攻击方式，然后模拟攻击测试的程序，以防上线后其他不法人员使用同样的方式对程序进行攻击。前端常见的攻击方式有：
 
 - XSS
 - SQL 注入

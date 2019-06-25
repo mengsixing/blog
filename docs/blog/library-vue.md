@@ -41,7 +41,7 @@ ES5 中的对象方法，可以定义对象属性，这里主要用于自定义 
 
 ### Observer
 
-观察者模式是软件设计模式的一种。在此种模式中，一个目标对象管理所有相依于它的观察者对象，并且在它本身的状态改变时主动发出通知。
+观察者模式是软件设计模式的一种。在这种模式中，一个目标对象管理所有相依于它的观察者对象，并且在它本身的状态改变时主动发出通知。
 
 Observer 会观察两种类型的数据，Object 与 Array。
 
@@ -72,17 +72,17 @@ vue 内置了这么多的指令， 这些指令都会抛出两个接口 bind 和
 
 1、先创建 Vue 实例，创建双向数据绑定，监听 data 中数据的 get，set 方法，建立与 Dep 的对应关系。
 
-2、编译模板，在有使用 v-text 等双向数据的地方，new Watcher，建立 dom 和数据的对应关系。
+2、编译模板，在有使用 v-text 等双向数据的地方，new Watcher，建立 DOM 和数据的对应关系。
 
 3、在 new Watcher 中，进行依赖收集，把使用到的 data 记录到 Dep 中。
 
-4、每当数据变更，便会触发 set 方法，然后调用 Dep.notify 通知使用到 data 的 watcher，去更新 dom。
+4、每当数据变更，便会触发 set 方法，然后调用 Dep.notify 通知使用到 data 的 watcher，去更新 DOM。
 
 ::: tip vue 异步更新
 
 Vue 异步执行 DOM 更新。只要观察到数据变化，Vue 将开启一个异步队列，并缓存在同一事件循环中发生的所有数据改变。
 
-Vue 在内部尝试对异步队列使用原生的 Promise.then 和 MessageChannel（基于 postMessage），如果执行环境不支持，会采用 setTimeout(fn, 0) 代替。
+Vue 在内部尝试对异步队列使用原生的 setImmediate 和 MessageChannel（基于 postMessage），如果执行环境不支持，会采用 setTimeout(fn, 0) 代替。
 
 如果同一个 watcher 被多次触发，只会被推入到队列中一次（这在缓冲时去除重复数据对于避免不必要的计算和 DOM 操作上非常重要）。
 
@@ -94,6 +94,24 @@ Vue 在内部尝试对异步队列使用原生的 Promise.then 和 MessageChanne
 
 -> 异步操作执行完毕，即 DOM 成功渲染，触发 nextTick 回调函数。
 :::
+
+### Vue 运行时
+
+Vue 在运行时会检查项目中的模板文件，如果模板文件没有进行编译的话，会调用编译器进行编译，将模板转化成 render 函数。如果项目中使用 vue-loader 进行资源处理，则自动做了编译处理。Vue 官方 提供了包含编译器版和不包含编译器版的 CDN，可以根据情况进行选择。
+
+```js
+// 需要编译器
+new Vue({
+  template: '<div>{{ hi }}</div>'
+});
+
+// 不需要编译器
+new Vue({
+  render(h) {
+    return h('div', this.hi);
+  }
+});
+```
 
 ## 生命周期
 
