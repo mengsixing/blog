@@ -1,4 +1,4 @@
-# HTTPS 协议常用知识点总结
+# HTTPS 协议总结
 
 HTTPS 是以安全为目标的 HTTP 通道，简单讲是 HTTP 的安全版。
 
