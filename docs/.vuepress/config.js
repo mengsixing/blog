@@ -1,10 +1,10 @@
 module.exports = {
-  markdown: {
-    lineNumbers: true
-  },
   title: "yhlben的前端日志",
   description: "欢迎访问我的前端日志",
   ga: "UA-121061441-1",
+  markdown: {
+    lineNumbers: true
+  },
   head: [
     ['link', { rel: 'icon', href: '/hero.jpeg' }]
   ],
@@ -37,7 +37,6 @@ module.exports = {
             "project-performance",
             "project-commitlint",
             "project-test",
-            "project-node",
             "project-webpack-entry",
             "project-webpack-flow",
             "project-webpack",
@@ -47,6 +46,7 @@ module.exports = {
           title: '框架学习',
           collapsable: false,
           children: [
+            "library-node",
             "library-react",
             "libary-react-core",
             "library-react-ssr",
@@ -105,7 +105,6 @@ module.exports = {
             "js-html5-program",
             "js-recursion",
             "js-object-ergodic",
-            "js-design-pattern",
           ]
         },
         {
@@ -118,6 +117,7 @@ module.exports = {
             "base-structure-base-sort",
             "base-structure-high-algorithm",
             "base-structure-senior-sort",
+            "base-design-pattern",
           ]
         },
         {
@@ -179,7 +179,13 @@ module.exports = {
     editLinks: true,
     editLinkText: "本文源码地址"
   },
-  plugins: [
-    ['@vuepress/back-to-top', true]
-  ]
+  plugins: {
+    '@vuepress/medium-zoom': {
+      selector: 'img',
+      options: {
+          margin: 16
+      }
+    },
+    '@vuepress/back-to-top':true
+  }
 };

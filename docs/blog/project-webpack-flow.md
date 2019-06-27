@@ -1,10 +1,13 @@
 # Webpack 系列（二）手写模块打包代码
 
-最近在学习 webpack，参考官网的 demo，编写了一个简版的模块加载器，对 webpack 的运行流程有了一个新的认识。为了更好的理解 webpack 模块打包机制，我们先来看一下 webpack 打包后的文件。
+最近在学习 webpack，参考官网的 demo，编写了一个简版的模块加载器，对 webpack 的运行流程有了一个新的认识。
+
+- Webpack 打包后文件分析
+- 手写一个模块打包器
 
 ## Webpack 打包后文件分析
 
-webpack 打包后的代码并不复杂，下面是对打包后的结果的一个简化版：
+为了更好的理解 webpack 模块打包机制，我们先来看一下 webpack 打包后的文件。
 
 ```js
 (function(modules) {
@@ -20,9 +23,9 @@ webpack 打包后的代码并不复杂，下面是对打包后的结果的一个
     );
     return module.exports;
   }
-  return __webpack_require__("./example/entry.js");
+  return __webpack_require__('./example/entry.js');
 })({
-  "./example/entry.js": function(
+  './example/entry.js': function(
     module,
     __webpack_exports__,
     __webpack_require__
@@ -35,11 +38,11 @@ webpack 打包后的代码并不复杂，下面是对打包后的结果的一个
 上述代码主要由以下几个部分组成：
 
 - 最外层由一个自执行函数所包裹。
-- 自执行函数会传递一个 modules 参数，这个参数是由文件路径为 key，值是一个函数，函数内部封装了 js 的内容。
+- 自执行函数会传递一个 modules 参数，这个参数是一个对象，`{key: 文件路径,value: 函数}`，value 中的函数内部是打包前模块的 js 代码。
 - 内部自定义一个 require 执行器，用来执行导入的文件，并导出 exports。
 - 执行入口 entry 文件，在内部会递归执行所有依赖的文件，并将结果挂载到 exports 对象上。
 
-## 手写一个模块打包代码
+## 手写一个模块打包器
 
 参考官网的教程，写了一个简单的模块打包 demo，我们一起来看一下。
 
@@ -51,7 +54,15 @@ webpack 打包后的代码并不复杂，下面是对打包后的结果的一个
 - 将 ast 代码转换为可执行的 js 代码。
 - 编写 require 函数，根据入口文件，自动执行完所有的依赖。
 
-### createAsset
+### 代码分层
+
+代码主要分为以下 3 个部分：
+
+- createAsset，处理单个资源，生成资源对象。
+- createGraph，循环遍历，生成所有资源对象数组。
+- bundle，封装 require 函数，实现依赖注入。
+
+#### createAsset
 
 创建资源：将一个单独的文件模块，处理成我们需要的对象。
 
@@ -60,10 +71,10 @@ webpack 打包后的代码并不复杂，下面是对打包后的结果的一个
 
 ```js
 function createAsset(filename) {
-  var code = fs.readFileSync(filename, "utf-8");
+  var code = fs.readFileSync(filename, 'utf-8');
   var dependencies = [];
   var ast = babely.parse(code, {
-    sourceType: "module"
+    sourceType: 'module'
   });
   // 把依赖的文件写入进来
   traverse(ast, {
@@ -75,7 +86,7 @@ function createAsset(filename) {
   });
 
   const result = babel.transformFromAstSync(ast, null, {
-    presets: ["@babel/preset-env"]
+    presets: ['@babel/preset-env']
   });
 
   var module = {
@@ -96,7 +107,7 @@ function createAsset(filename) {
 - 使用 babel.transformFromAstSync 将 ast 转换成可执行的 js 代码。
 - 返回一个模块，包含：模块 id，filename，dependencies，code 字段。
 
-### createGraph
+#### createGraph
 
 根据入口文件，遍历所有依赖的资源对象，输出一个包含所有资源对象的数组。
 
@@ -127,7 +138,7 @@ function createGraph(entry) {
 - 新建一个数组，深度遍历入口文件以及入口文件的依赖文件，并将 createAsset 生成后的文件加入数组中。
 - 返回数组。
 
-### bundle
+#### bundle
 
 封装自执行函数，创建 require 方法，处理文件相互依赖。
 
@@ -146,7 +157,7 @@ function bundle(graph) {
     `;
   });
 
-  modules += "}";
+  modules += '}';
 
   var result = `
   (function(graph){
@@ -179,12 +190,18 @@ function bundle(graph) {
 
 ### 执行构建
 
+接下来使用自己编写的打包代码，进行项目打包。
+
 ```js
-var graph = createGraph("./example/entry.js");
+var graph = createGraph('./example/entry.js');
 var result = bundle(graph);
-// 这里就是打包后的结果了
+// 这里就是打包后的结果了，和webpaack 打包后的结果是一致的。
 console.log(result);
 ```
+
+## 总结
+
+本文实现了一个非常精简的打包工具。打包后的文件和源生 webpack 保持了一致，但剔除了 loader ， plugin 机制，以保持项目简洁。通过这次实践，也让我更加了解 webpack 的打包机制。
 
 ## 相关链接
 

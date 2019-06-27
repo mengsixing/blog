@@ -52,13 +52,10 @@ web 登录鉴权，是 web 中很重要的一个环节，下面介绍一下常�
 
 ### 创建 Token
 
-创建 Token 最常用的方式是 JWT(json web token)。JWT 主要分为 3 个部分：header，playload，signature，其中 signature 是通过 header 和 playload 数据以及 header 中的加密算法得到的，服务器端通过这样的验证，可验证 token 是否被篡改。signature算法如下：
+创建 Token 最常用的方式是 JWT(json web token)。JWT 主要分为 3 个部分：header，playload，signature，其中 signature 是通过 header 和 playload 数据以及 header 中的加密算法得到的，服务器端通过这样的验证，可验证 token 是否被篡改。signature 算法如下：
 
-``` js
-HMACSHA256(
-  base64UrlEncode(header) + "." +
-  base64UrlEncode(payload),
-  secret) // 服务器私钥，防止被破解
+```js
+HMACSHA256(base64UrlEncode(header) + '.' + base64UrlEncode(payload), secret); // 服务器私钥，防止被破解
 ```
 
 使用 JWT 的优点：

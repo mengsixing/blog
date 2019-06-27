@@ -2,7 +2,7 @@
 
 构建 Native 和非 Native 间消息通信的通道，而且是 `双向通信的通道`。
 
-![jsBridge示意图](https://user-gold-cdn.xitu.io/2018/3/29/16270f45ca45db54?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![jsBridge示意图](/blog/js-jsBridge-core.png)
 
 ## Js -> Native
 
@@ -22,7 +22,7 @@ window.postBridgeMessage(message);
 
 拦截 URL SCHEME 的主要流程是：Web 端通过某种方式（例如 iframe.src）发送 URL Scheme 请求，之后 Native 拦截到请求并根据 URL SCHEME（包括所带的参数）进行相关操作。
 
-![jsBridge示意图](/blog/js-jsBridge.png)
+![jsBridge示意图](/blog/js-jsBridge-detail.png)
 
 优缺点：
 

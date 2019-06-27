@@ -4,6 +4,10 @@ webpack 是一个模块打包器。webpack 的主要目标是将 **js** 文件�
 
 随着 webpack 不断地发展，webpack 配置变得越来越简单，构建速度也越来越快，官方文档上说 webpack4 比 webpack3 构建速度快了 98%，这还不仅如此，官方表示在 webpack5 中，会使用多进程构建，进一步优化构建速度。
 
+- Webpack 核心概念
+- Webpack 调优
+- Webpack 运行原理
+
 ## Webpack 核心概念
 
 - 入口(entry)
@@ -11,7 +15,7 @@ webpack 是一个模块打包器。webpack 的主要目标是将 **js** 文件�
 - loader
 - 插件(plugins)
 
-### 入口
+### 入口(entry)
 
 入口是 webpack 构建开始的地方，通过入口文件，webpack 可以找到入口文件所依赖的文件，并逐步递归，找出所有依赖的文件。
 
@@ -21,7 +25,7 @@ module.exports = {
 };
 ```
 
-### 输出
+### 输出(output)
 
 output 属性告诉 webpack 在哪里输出它所创建的 bundle，以及如何命名这些文件。
 
@@ -37,7 +41,7 @@ module.exports = {
 };
 ```
 
-### webpack loader
+### Loader
 
 webpack 自身只支持 JavaScript。而 loader 能够让 webpack 处理那些非 JavaScript 文件，并且先将它们转换为有效的模块，然后添加到依赖图中，这样就可以提供给应用程序使用。
 
@@ -63,7 +67,7 @@ module.exports = {
 };
 ```
 
-#### 编写 loader
+#### 编写 Loader
 
 loader 其实就是一个 function，接收一个参数 source，就是当前的文件内容，然后稍加处理，就可以 return 出一个新的文件内容。
 
@@ -80,7 +84,7 @@ module.exports = function(source) {
 };
 ```
 
-### webpack 插件
+### 插件(plugins)
 
 插件其实就是一个类，通过监听 webpack 执行流程上的钩子函数，可以更精密地控制 webpack 的输出，包括：打包优化、资源管理和注入环境变量等。
 
@@ -143,7 +147,7 @@ module.exports = {
 
 ### 拆分文件
 
-如果不拆分文件，webpack 会把所有文件都打包在一个 js 文件中，这个文件会使变得非常大，加载时间也会很长，我们可以配置 optimization.splitChunks 来设置拆分文件规则。
+如果不拆分文件，webpack 会把所有文件都打包在一个 js 文件中，这个文件会使变得非常大，我们可以配置 optimization.splitChunks 来拆分文件。
 
 这是 webpack 默认的配置，也可以根据自己需求做对应修改：
 
@@ -269,25 +273,25 @@ module.exports = {
 
 2、使用 `alias` 可以更快地找到对应文件。
 
-3、如果在 `require` 模块时不写后缀名，默认 webpack 会尝试`.js`,`.json` 等后缀名匹配，`extensions` 配置，让 webpack 少做一点后缀匹配。
+3、如果在 `require` 模块时不写后缀名，默认 webpack 会尝试`.js`,`.json` 等后缀名匹配，配置 `extensions`，可以让 webpack 少做一点后缀匹配。
 
 4、`thread-loader` 可以将非常消耗资源的 loaders 转存到 worker pool 中。
 
-5、使用 `cache-loader` 启用持久化缓存。使用 package.json 中的 "postinstall" 清除缓存目录。
+5、使用 `cache-loader` 启用持久化缓存。使用 package.json 中的 `postinstall` 清除缓存目录。
 
 6、导出打包的统计文件，使用分析工具进行分析 `webpack --profile --json > stat.json`。
 
-#### 开发环境
+#### 开发环境优化
 
-1、选择合理额 Devtool 在大多数情况下，`cheap-module-eval-source-map` 是最好的选择。
+1、选择合理 devtool，在大多数情况下，`cheap-module-eval-source-map` 是最好的选择。
 
-2、开发阶段一般不需要进行压缩合并，提取单独文件等操作。
+2、注意设置 mode，开发阶段一般不需要进行压缩合并，提取单独文件等操作。
 
-3、webpack 会在输出文件中生成路径信息。然而在打包数千个模块的项目中，会造成性能问题。在 `options.output.pathinfo` 设置中关闭.
+3、webpack 会在输出文件中生成路径信息注释。可以在 `options.output.pathinfo` 设置中关闭注释.
 
 4、在开发阶段，可以直接引用 `cdn` 上的库文件，使用 `externals` 配置全局对象，避免打包。
 
-#### 生产环境
+#### 生产环境优化
 
 1、静态资源上 cdn。
 
@@ -354,8 +358,6 @@ webpack 在运行时大致分为这几个阶段：
 ### 流程图
 
 这张图画的很好，把 webpack 的流程画的很细致。
-
-图片是参考文章[Webpack 揭秘——走向高阶前端的必经之路](https://juejin.im/post/5badd0c5e51d450e4437f07a)里的，如有侵权，请联系我。
 
 ![webpack 运行流程图](webpack-steps.jpg)
 
