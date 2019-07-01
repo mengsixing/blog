@@ -1,6 +1,6 @@
 # Node.js 使用总结
 
-Node.js 使用了很久，在此做一个总结。根据 Node.js 官网的定义：**Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。 Node.js 使用了一个事件驱动、非阻塞式 I/O 的模型，使其轻量又高效**。
+根据 Node.js 官网的定义：**Node.js 是一个基于 Chrome V8 引擎的 JavaScript 运行环境。 Node.js 使用了一个事件驱动、非阻塞式 I/O 的模型，使其轻量又高效**。
 
 官网的定义言简意赅，但不容易理解，用白话解释一下：Node.js 不是一门语言也不是框架，它只是基于 Google V8 引擎的 JavaScript 运行时环境，同时结合 Libuv 扩展了 JavaScript 功能，使之支持 io、fs 等只有语言才有的特性，使得 JavaScript 能够同时具有 DOM 操作(浏览器)和 I/O、文件读写、操作数据库(服务器端)等能力，是目前最简单的全栈式语言。
 
@@ -58,7 +58,7 @@ Event Loop 事件循环，Thread Pool 线程池都是由 Libuv 提供，Libuv �
 - Libuv 将返回结果通过 Node.js Bindings 返回给 V8。
 - V8 再将结果返回给应用程序。
 
-Libuv 实现了 nodejs 中的 Eventloop ，主要有以下几个阶段：
+Libuv 实现了 Node.js 中的 Eventloop ，主要有以下几个阶段：
 
 ```js
    ┌───────────────────────────┐
@@ -118,7 +118,7 @@ Node.js 是单线程的，所以必须保证这个线程持续稳定，最容易
 
 Node.js 采用 V8 的 分代式垃圾回收策略，将内存分为**新生代内存**和**老生代内存**。
 
-- **新生代内存**通过 Scavenge 算法，将内存分为 From 空间 和 To 空间，在一次垃圾回收时，清除 From 空间中没有使用的对象，然后将 TO 空间和 From 交换。
+- **新生代内存**通过 Scavenge 算法，将内存分为 From 空间 和 To 空间，初始时 From 空间存放所有对象，To 空间空闲。在一次垃圾回收时，清除 From 空间中没有使用的对象，然后将 To 空间和 From 交换。
 - **老生代内存**通过 Mark-Sweep 和 Mark-compact，标记清除和移动清除。标记没有使用的内存空间，标记完毕后进行统一清除，清除后为了避免内存空间不连续，会将已使用的内存连在一起，放在队列的一端，然后清除另一端的所有内存空间。
 
 ## Node.js 调试与部署
@@ -148,8 +148,8 @@ Node.js 端一般不会直接当成项目后端来使用，而是当成一个 BF
   - 配置心跳检测 Heartbeats，检测 Java 端是否挂掉。
 - Java 服务器根据请求，进行相应的处理，可能会对数据库进行读写操作。
 - 读取或写入 Database。
-  - 只读数据库
-  - 只写数据库
+  - 只读数据库。
+  - 只写数据库。
 - Java 服务器将数据库访问结果返回给 Node.js 层。
 - Node.js 层将结果返回给用户。
 
