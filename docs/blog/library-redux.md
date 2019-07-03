@@ -1,47 +1,51 @@
 # Redux 使用总结
 
-这一节我们来讨论一下 Redux。
+聊聊我对 redux 的理解。
 
-## 历史说起
+- redux 发展历史
+- redux 基础概念
+- react 中使用 redux
 
-我们先从历史的角度，分析一下 Redux 的产生。
+## Redux 发展历史
+
+我们先从历史的角度，分析一下 redux 的产生。
 
 ### MVC 架构
 
-在 MVC 架构时代，对数据、视图、逻辑有了清晰的分工。
+在 mvc 架构时代，对数据、视图、逻辑有了清晰的分工。
 
 - Model：负责保存应用数据，和后端交互同步应用数据。
-- View：标识当前状态的视图。
-- Controller：负责连接 Model 和 View。Model 的任何改变会应用到 View 中，View 的操作会通过 Controller 应用到 Model。
+- View：表示当前状态的视图。
+- Controller：负责连接 model 和 view。model 的任何改变会应用到 view 中，view 的操作会通过 controller 应用到 model。
 
-但是一旦项目变得复杂起来，可能会变成这个样子。
+一旦项目变得复杂起来，可能会变成这个样子。
 
-![mvc](https://user-gold-cdn.xitu.io/2018/2/11/16183c3fae895d43)
+![mvc](library-redux-mvc.png)
 
-问题：
-
-- 由于可以在不止一个 View 里修改同个 Model 的数据，一个 Model 的数据同时对应多个 View 的呈现，如图所示。当业务逻辑过多时，`多个 Model 和多个 View 就会耦合到一块`，可以想到排查 bug 的时候会比较痛苦。
-- 更糟糕的是，一个 Model 还能改变另一个 Model，使整个`数据流动的方式变得更加混乱`。
+- 由于可以在多个 view 里修改同一个 model 的数据，一个 model 的数据同时又对应多个 view 的呈现。当业务逻辑过多时，`多个 model 和多个 view 就会耦合到一块`，排查 bug 的时候真痛苦。
+- 由于一个 model 还能改变另一个 model，使整个`数据流动的方式变得更加混乱`。
 
 ### Flux 架构
 
-为了解决 MVC 架构的问题，Flux 采用单向数据流的方式。
+为了解决 mvc 架构的问题，flux 采用单向数据流的方式。
 
-- View： 视图层。
+- View：视图层。
 - Action（动作）：视图层发出的消息（比如 mouseClick）。
-- Dispatcher（派发器）：用来接收 Actions、执行回调函数。
-- Store（数据层）：用来存放应用的状态，一旦发生变动，就提醒 Views 要更新页面。
+- Dispatcher（派发器）：用来接收 action、执行回调函数。
+- Store（数据层）：用来存放应用的状态，一旦发生变动，就提醒 view 要更新页面。
 
-![flux架构](http://www.ruanyifeng.com/blogimg/asset/2016/bg2016011503.png)
+![flux架构](library-redux-flux.png)
 
-Flux 存在多种实现，Redux 就是其中一种。
+如图所示，flux 引入了单向数据流，理清了混乱的业务逻辑，越来越被开发者所接受。flux 存在多种实现，redux 就是其中一种。
 
 ## Redux 基本概念
 
-Redux 是 JavaScript 状态容器，提供可预测化的状态管理。
+Redux 是 js 状态管理容器，为 js 提供提供可预测化的状态管理。
 
-- Web 应用是一个状态机，视图与状态是一一对应的。
-- 所有的状态，保存在一个对象里面。
+redux 核心概念：
+
+- web 应用是一个状态机，视图与状态是一一对应的。
+- 所有的状态，保存在一个对象里面，使用单向数据流操作这个对象。
 
 Redux 采用函数式编程的写法，实现了单向数据流，同时封装了一个订阅者模式，在数据改动时，会给订阅者发布消息。
 

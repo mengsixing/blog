@@ -30,6 +30,7 @@ module.exports = {
           title: '项目相关',
           collapsable: false,
           children: [
+            "project-kubernetes",
             "project-docker",
             "project-git",
             "project-dependencies",

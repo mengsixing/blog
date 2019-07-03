@@ -1,46 +1,145 @@
 # React 核心知识
 
-## React Fiber
+总结一下 react 核心知识点，开发必备。
 
-React Fiber 是 Facebook 折腾两年多做出来的东西，是对核心算法的一次重新实现。虽然对开发层面是无感的，但是对于 React 整个架构的优化是非常到位了，目前还没看出有其他框架能超越的地方，当前阶段出的很多新特性（Concurrent Rendering）等都是在 Fiber 基础上实现的。
+- Fiber
+- 错误处理
+- Suspense
+- Context
+- Ref
+- Portals
+- 生命周期
 
-React Fiber 把更新过程碎片化，每执行完一段更新过程，就把控制权交还给 React 负责任务协调的模块，看看有没有其他紧急任务要做，如果没有就继续去更新，如果有紧急任务，那就去做紧急任务。
+## Fiber
 
-React Fiber 分为 2 个阶段：render phase 和 commit phase。
+Fiber 是 facebook 折腾两年多做出来的东西，是对核心算法的一次重新实现。虽然对开发层面是无感的，但是对于 react 整个架构的优化是非常到位了，目前还没看出有其他框架能超越的地方，当前阶段出的很多新特性 Concurrent Rendering，Suspense 等都是在 fiber 基础上实现的。
 
-### render phase 阶段
+Fiber 把更新过程碎片化，每执行完一段更新过程，就把控制权交还给 react 负责任务协调的模块，看看有没有其他紧急任务要做，如果没有就继续去更新，如果有紧急任务，那就去做紧急任务。
 
-render 和 render 以前的生命周期，都属于 render phase。在这个阶段执行过程中会根据任务的优先级，选择执行或者暂停。故可能发生某个生命周期被执行多次的情况。
+Fiber 分为 2 个阶段：render 阶段 和 commit 阶段。
 
-getDerivedStateFromError 专门用来捕获 render phase 阶段错误，服务器端渲染时会被调用到。
+### Render 阶段
 
-### commit phase 阶段
+Render 阶段包括 render 以前的生命周期。在这个阶段执行过程中会根据任务的优先级，选择执行或者暂停。故可能发生某个生命周期被执行多次的情况。
 
-render 之后的生命周期，都属于 commit phase。在这个阶段执行过程中不会被打断，会一直执行到底。
+### Commit 阶段
 
-componentDidCatch 专门用来捕获 commit phase 阶段错误，服务器端渲染不会被调用到。
+Render 之后的生命周期，都属于 commit phase。在这个阶段执行过程中不会被打断，会一直执行到底。
+
+## 错误处理
+
+React 新增了两种方式来捕获组件报错，componentDidCatch，static getDerivedStateFromError。
+
+- componentDidCatch
+  - 在 commit 阶段触发。
+  - 只支持客户端渲染。
+  - 常用于上传错误报告。
+- getDerivedStateFromError
+  - 在 render 阶段触发。
+  - 支持服务器端渲染。
+  - 常用于更新 state，显示友好的错误提示。
+
+使用案例如下：
+
+```jsx
+class ErrorBoundary extends React.Component {
+  state = { hasError: false };
+
+  // 用来显示错误提示
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  // 上报异常
+  componentDidCatch(error, info) {
+    logComponentStackToMyService(info.componentStack);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <h1>Something went wrong.</h1>;
+    }
+
+    return this.props.children;
+  }
+}
+```
 
 ## Suspense
 
-Suspense 要解决的两个问题：1. 代码分片； 2. 异步获取数据。
+Suspense 使得组件可以“等待”某些操作结束后，再进行渲染。目前主要支持的场景有：
 
-如果有一个页面的代码引入了 1 个非常大的包，打包的时候会让最终的体积变得非常大，这个时候就需要进行懒加载。
+- 动态加载组件
+- 异步数据获取（未上线）
+
+为了减少首屏加载时间，可以使用动态加载组件，将首页用不到的组件写成动态组件，单独进行打包，在真正使用到的时候进行加载。
 
 ```jsx
-// Usage of Clock
 const Clock = React.lazy(() => {
-  console.log("start importing Clock");
-  return import("./Clock");
+  return import('./Clock');
 });
 
-<Suspense>
-  { show ? <Clock/> : null}
-</Suspense>
+<Suspense callback={<div>loading...</div>}>
+  <Clock />
+</Suspense>;
 ```
 
-Suspense 的原理：
+为了方便在异步获取数据的时候显示 loading 状态，也可以使用 suspense。
 
-suspense 组件内部实现了 getDerivedStateFromError 方法，可以用来捕获子元素的报错信息，如果是一个异步组件，会抛出一个 proimise，来让 suspense 捕获到，然后等到异步组件加载完成，尝试重新渲染这个异步组件。
+```jsx
+// 这里使用官方的演示库react-cache
+import { unstable_createResource } from 'react-cache';
+
+const TodoResource = unstable_createResource(fetchTodo);
+
+function Todo(props) {
+  const todo = TodoResource.read(props.id);
+  return <li>{todo.title}</li>;
+}
+
+function App() {
+  return (
+    // Same Suspense component you already use for code splitting
+    // would be able to handle data fetching too.
+    <React.Suspense fallback={<div>loading...</div>}>
+      <ul>
+        {/* Siblings fetch in parallel */}
+        <Todo id="1" />
+        <Todo id="2" />
+      </ul>
+    </React.Suspense>
+  );
+}
+```
+
+### Suspense 原理
+
+上文中写道，Suspense 使得组件可以“等待”某些操作结束后，再进行渲染，这个等待并不是真正的等待，而是使用**错误捕获的方式，循环进行调用**。
+
+我们先来看一下异步数据获取的案例。
+
+```js
+//创建Fetcher
+var cached = {};
+const createFetcher = promiseTask => {
+  let ref = cached;
+  return () => {
+    const task = promiseTask();
+    task.then(res => {
+      ref = res;
+    });
+    // 核心是抛出错误，给外层包裹的 suspense 组件捕获
+    if (ref === cached) {
+      throw task;
+    }
+    //得到结果输出
+    console.log('result:', ref);
+    return ref;
+  };
+};
+```
+
+suspense 内部
 
 ```js
 getDerivedStateFromError(error) {
@@ -50,7 +149,109 @@ getDerivedStateFromError(error) {
 }
 ```
 
-## React 生命周期
+- 异步数据获取
+- 创建 promise，调用 then 方法，看是否已获取到数据。
+  - 数据获取成功，返回数据，渲染成功。
+  - 数据获取失败，抛出错误。
+- 外层 suspense 组件使用 getDerivedStateFromError 捕获到错误
+  - 回到第二步，继续创建 promise，查看是否已获取到数据。
+    - 数据获取成功，返回数据，渲染成功。
+    - 数据获取失败，循环第二步，并渲染 callback 中的 loading 状态。
+
+:::tip
+可以看到，suspense 异步加载的原理是捕获错误，循环加载的方式。这也暴露出了一个问题：在报错前的代码，可能会被多次执行。
+:::
+
+## Ref
+
+React 支持一个特殊的、可以附加到任何组件上的 ref 属性，用来对附加组件进行引用。创建在源生 dom 元素上，得到的引用是 dom 元素，创建在 react 组件上，得到的引用则是这个组件。
+
+创建 ref 的两种方式：
+
+- React.createRef
+- 在组件上编写 ref 函数
+
+使用 React.createRef 创建 ref：
+
+```jsx
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.myRef = React.createRef();
+  }
+  render() {
+    return <div ref={this.myRef} />;
+  }
+}
+```
+
+在组件上编写 ref 函数，创建 ref：
+
+```jsx
+class MyComponent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.myRef = null;
+  }
+  render() {
+    return <div ref={element => {
+      // 自己绑定 ref，当然函数中可以做其他的事情
+      this.myRef = element;
+    };} />;
+  }
+}
+```
+
+ref 编写完成之后，就可以通过 `this.myRef.current`获取 ref 数据。
+
+:::tip
+ref 可以添加在 class 组件上，通过 ref.current 可以访问到组件的实例，但你不能在函数组件上使用 ref 属性，因为它们没有实例。
+
+ref 不仅可以在当前组件中使用，而且可以传递给子组件，获取子组件中元素的引用。
+:::
+
+通过 React.forwardRef 将 ref 传递给子组件进行绑定。
+
+```jsx
+const FancyButton = React.forwardRef((props, ref) => (
+  <button ref={ref} className="FancyButton">
+    {props.children}
+  </button>
+));
+
+// 你可以直接获取子组件 DOM button 的 ref：
+const ref = React.createRef();
+<FancyButton ref={ref}>Click me!</FancyButton>;
+```
+
+## Portals
+
+Portals 提供了一个顶级的方法，使得我们有能力把一个子组件渲染到父组件 DOM 层级以外的 DOM 节点上。
+
+常用于做全局性的弹窗。
+
+```js
+// 创建全局弹窗div
+const globalDiv = document.createElement('div');
+document.body.appendChild(globalDiv);
+
+// 组件插槽
+// 将 <span>Portal组件</span> 这段 jsx 代码渲染到 globalDiv 上。
+class App extends React.Component {
+  render() {
+    return (
+      <div>
+        <div>{ReactDOM.createPortal(<span>Portal组件</span>, globalDiv)}</div>
+      </div>
+    );
+  }
+}
+export default App;
+```
+
+## 生命周期
+
+首先，我们看一下这个[生命周期演示图](http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)。
 
 ### 创建时
 
@@ -80,15 +281,15 @@ getDerivedStateFromProps 之所以是**静态**的，是因为 static 方法中�
 
 #### shouldComponentUpdate
 
-此方法仅作为性能优化存在。不要依赖它来“防止”渲染，因为这可能导致错误。考虑使用内置 PureComponent 而不是 shouldComponentUpdate()手写。
+此方法常用于性能优化，可以根据自身需要，合理控制组件是否应该渲染，如果没有特殊需要，建议使用 PureComponent。
 
 #### render
 
-将虚拟 DOM 渲染成真实的 DOM。
+同上。
 
 #### getSnapshotBeforeUpdate
 
-在 getSnapshotBeforeUpdate 中读取到的 DOM 元素状态是可以保证与 componentDidUpdate 中一致的。
+按字面意思理解，在更新前获取屏幕快照，主要用来记忆更新前的状态，以便在更新后进行使用。在 getSnapshotBeforeUpdate 中读取到的 DOM 元素状态是可以保证是更新前的最终状态。
 
 - 触发时间: update 发生的时候，在 render 之后，在组件 dom 渲染之前。
 - 返回一个值，作为 componentDidUpdate 的第三个参数。
@@ -101,13 +302,13 @@ componentDidUpdate(prevProps, prevState, snapshot) **这也是进行网络请求
 
 #### componentWillUnmount
 
-`componentWillUnmount`在卸载和销毁组件之前立即调用。在此方法中执行任何必要的清理，例如使计时器无效，取消网络请求或清除在其中创建的任何订阅。
+当组件在卸载和销毁时会触发。常用于清理内存，例如：清除无用的定时器，清除订阅事件等。
 
 ### 弃用生命周期
 
 #### componentWillMount
 
-`componentWillMount` 是在 `render` 之前执行。通常用来情况下，推荐用 constructor()方法代替。
+ComponentWillMount 是在 render 生命周期之前执行。通常用来情况下，推荐用 constructor 方法代替。
 
 不建议在这个生命中期中获取异步数据：
 
@@ -117,95 +318,16 @@ componentDidUpdate(prevProps, prevState, snapshot) **这也是进行网络请求
 
 #### componentWillReceiveProps
 
-UNSAFE_componentWillReceiveProps(nextProps)
+componentWillReceiveProps 是在组件属性改变时触发，由于此方法是组件内部方法，可以使用 setState 重新渲染，使用不当可能会让组件渲染陷入渲染死循环，例如：修改父组件的 state。
 
-使用不当可能体现为组件陷入渲染死循环，他会一直接受新的外部状态导致自身一直在重渲染。导致被多次调用，循环调用。
-
-例如：在 componentWillReceiveProps 中 setState 引起父组件渲染。
+如果只希望在属性改变时，渲染当前组件，可以使用 static getDerivedStateFromProps 代替。
 
 #### componentWillUpdate
 
-本意：在 render 方法之前. 使用该方法做一些更新之前的准备工作, 例如读取当前某个 DOM。
+本意是提供一个在 render 方法执行之前，做一些更新之前的准备工作, 例如读取当前某个 DOM。但在 fiber 架构更新后，可能会被执行多次，已不适合使用。
 
-不合理处：该生命周期有可能在一次更新中被调用多次, 也就是说写在这里的回调函数也有可能会被调用多次, 这显然是不可取的。
+如果需要在渲染前读取当前某个 DOM 元素的状态，可以用 getSnapshotBeforeUpdate 代替。
 
-更新前读取当前某个 DOM 元素的状态，用 getSnapshotBeforeUpdate 代替。
+## 总结
 
-不能 setState，也会导致循环渲染问题。
-
-[生命周期图](http://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/)
-
-## 常见问题
-
-### 简述一下 React 中的事件机制
-
-React 其实自己实现了一套事件机制，首先我们考虑一下以下代码：
-
-```js
-const Test = ({ list, handleClick }) => ({
-    list.map((item, index) => (
-        <span onClick={handleClick} key={index}>{index}</span>
-    ))
-})
-```
-
-以上类似代码想必大家经常会写到，但是你是否考虑过点击事件是否绑定在了每一个标签上？事实当然不是，JSX 上写的事件并没有绑定在对应的真实 DOM 上，而是通过事件代理的方式，将所有的事件都统一绑定在了 document 上。这样的方式不仅减少了内存消耗，还能在组件挂载销毁时统一订阅和移除事件。
-
-另外冒泡到 document 上的事件也不是原生浏览器事件，而是 React 自己实现的合成事件（SyntheticEvent）。因此我们如果不想要事件冒泡的话，调用 event.stopPropagation 是无效的，而应该调用 event.preventDefault。
-
-那么实现合成事件的目的是什么呢？总的来说在我看来好处有两点，分别是：
-
-- 合成事件首先抹平了浏览器之间的兼容问题，另外这是一个跨浏览器原生事件包装器，赋予了跨浏览器开发的能力。
-- 对于原生浏览器事件来说，浏览器会给监听器创建一个事件对象。如果你有很多的事件监听，那么就需要分配很多的事件对象，造成高额的内存分配问题。但是对于合成事件来说，有一个事件池专门来管理它们的创建和销毁，当事件需要被使用时，就会从池子中复用对象，事件回调结束后，就会销毁事件对象上的属性，从而便于下次复用事件对象。
-
-### 什么是可控组件和不可控组件
-
-在 HTML 当中，像`<input>`,`<textarea>`, 和 `<select>`这类表单元素会维持自身的值 value，并根据用户输入进行更新。但在 React 中，可变的状态是保存在组件的状态属性中，并且只能用 setState() 方法进行更新。
-
-我们通过使 React 变成一种单一数据源的状态来结合二者。React 负责渲染表单的组件，仍然控制用户后续输入时所发生的变化。相应的，其值由 React 控制的输入表单元素称为“受控组件”。
-
-使用”受控组件”，每个状态的改变都有一个与之相关的处理函数。这样就可以直接修改或验证用户输入。
-
-### React 异步渲染
-
-将 setState() 认为是一次请求而不是一次立即执行更新组件的命令。为了更为可观的性能，React 可能会推迟它，稍后会一次性更新这些组件。React 不会保证在 setState 之后，能够立刻拿到改变的结果。
-
-- 在 setState 中调用了 enqueueSetState 方法将传入的 state 放到一个队列中。
-- enqueueSetState 中先是找到需渲染组件并将新的 state 并入该组件的需更新的 state 队列中，接下来调用了 enqueueUpdate 方法。
-- isBatchingUpdates 标识是否在一个更新组件的事务流中。
-  - 如果没有在事务流中，调用 batchedUpdates 方法进入更新流程，进入流程后，会将 isBatchingUpdates 设置为 true。
-  - 否则，将需更新的组件放入 dirtyComponents 中。
-
-### 什么时候会标识 isBatchingUpdates 为 true
-
-1、当处于生命周期 render 之后的生命周期中。
-
-2、合成事件中（jsx 中的事件都是合成事件）。
-
-::: tip 提示
-所以在 setTimeout，源生事件中的 setState 会同步渲染。
-:::
-
-### react 怎样提高性能
-
-1、使用 shouldComponentUpdate 和 Immutable 组合控制合适的时间渲染。PureComponent。
-
-2、render 里面尽量减少新建变量和 bind 函数，传递参数是尽量减少传递参数的数量。
-
-3、多个 react 组件性能优化，key 的优化。
-
-4、redux 性能优化：reselect（数据获取时优化）。
-
-### props 和 state 分别在什么时候用
-
-1、如果在 Component 中需要在某个时间点改变，那么应该使用 state，否则应该使用 prop。
-
-2、state 是组件在内部管理自己的状态。
-
-3、prop 只能是父组件传入，或者是初始化时自定义，一旦定义，不能改变。
-
-无状态组件： 只有 prop，没有 state。除了这个 render 功能之外没有多少事情发生，所有的逻辑都围绕着 prop。
-
-- 纯静态展示,可读性更好，并能大大减少代码量。
-- 省去了多余的生命周期，提升了整体的渲染性能。
-- 可复用性强。
+React 中常用的核心知识其实不多，掌握好以上内容就可以很熟练的编写项目了，但要知道怎么去实现的这些功能，却是要好好研究一下源码才行。

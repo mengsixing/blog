@@ -313,3 +313,68 @@ Flutter 则开辟了一种全新的思路，从头到尾重写一套跨平台的
 2、在服务器端渲染时，服务器端会执行一次，客户端也会执行一次。
 
 3、如果请求在 componentWillMount，react 并没有挂载到 dom 上，这时候 setState 可能会有问题。
+
+## 12、简述一下 React 中的事件机制
+
+React 其实自己实现了一套事件机制，首先我们考虑一下以下代码：
+
+```js
+const Test = ({ list, handleClick }) => ({
+    list.map((item, index) => (
+        <span onClick={handleClick} key={index}>{index}</span>
+    ))
+})
+```
+
+以上类似代码想必大家经常会写到，但是你是否考虑过点击事件是否绑定在了每一个标签上？实际上并不是，JSX 上写的事件并没有绑定在对应的真实 DOM 上，而是通过事件代理的方式，将所有的事件都统一绑定在了 document 上。这样的方式不仅减少了内存消耗，还能在组件挂载销毁时统一订阅和移除事件。
+
+另外冒泡到 document 上的事件也不是原生浏览器事件，而是 React 自己实现的合成事件。因此不能使用 event.stopPropagation 阻止事件冒泡，而应该使用 event.preventDefault。
+
+:::tip
+
+- 合成事件首先抹平了浏览器之间的兼容问题，另外这是一个跨浏览器原生事件包装器，赋予了跨浏览器开发的能力。
+- 合成事件在运行时，有一个事件池专门来管理它们的创建和销毁，当事件需要被使用时，就会从池子中复用对象，事件回调结束后，就会销毁事件对象上的属性，从而便于下次复用事件对象。
+
+:::
+
+## 13、什么是可控组件和不可控组件
+
+在 html 中，像`<input>`,`<textarea>`, 和 `<select>`这类表单元素会维持自身的值 value，并根据用户输入进行更新。但在 react 中，可变的状态是保存在组件的 state 中的，并且只能用 setState 方法进行更新。
+
+我们可以编写双向绑定，统一管理状态：
+
+```js
+changeValue(e){
+  this.setState(
+    value : e.target.value
+  );
+}
+render(){
+  return (
+  <>
+    <span>{this.state.value}</span>
+    <input oninput={this.changeValue}>
+  </>);
+}
+```
+
+通过 react 统一管理状态后的组件，又叫做可控组件。
+
+## 14、React 异步渲染原理
+
+React 不会保证在 setState 之后，能够立刻拿到改变的结果。
+
+setState 渲染流程如下：
+
+- 在 setState 中调用了 enqueueSetState 方法将传入的 state 放到一个队列中。
+- enqueueSetState 中先是找到需渲染组件并将新的 state 并入该组件的需更新的 state 队列中，接下来调用了 enqueueUpdate 方法。
+- isBatchingUpdates 表示是否在一个更新组件的事务流中。
+  - 已在事务流中，调用 batchedUpdates 方法进入更新流程，进入流程后，会将 isBatchingUpdates 设置为 true。
+  - 未在事务流中，将需更新的组件放入 dirtyComponents 中，在下一次渲染时才会更新 state。
+
+这里衍生出了一个问题，什么时候会标识 isBatchingUpdates 为 true？
+
+- 当处于生命周期 render 之后的生命周期中。
+- 合成事件中（jsx 中的事件都是合成事件）。
+
+案例：在 setTimeout 中执行 setstate 时，没有在 react 事务流中，所以会直接进入更新路程，同步渲染。
