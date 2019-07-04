@@ -359,11 +359,11 @@ webpack 在运行时大致分为这几个阶段：
 
 这张图画的很好，把 webpack 的流程画的很细致。
 
-![webpack 运行流程图](webpack-steps.jpg)
+![webpack 运行流程图](devops-webpack-steps.jpg)
 
 ## 相关链接
 
 - [webpack 官网](https://webpack.js.org/)
 - [Webpack 揭秘——走向高阶前端的必经之路](https://juejin.im/post/5badd0c5e51d450e4437f07a)
-- [Webpack 系列（二）手写模块打包代码](project-webpack-flow.html)
-- [Webpack 系列（三）打包 modules 流程分析](project-webpack-entry.html)
+- [Webpack 系列（二）手写模块打包代码](devops-webpack-flow.html)
+- [Webpack 系列（三）打包 modules 流程分析](devops-webpack-entry.html)

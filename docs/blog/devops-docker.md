@@ -78,7 +78,7 @@ Docker 的核心是在 Docker Engine 层实现应用层的隔离。
 
 Docker 分为 Client 和 Server 两个部分，我们在 Client 中执行 Docker 命令，最后创建的 Container 和 Image 则会在 Server 中运行。Dcoker 架构如下图所示：
 
-![Docker 架构](project-docker.png)
+![Docker 架构](devops-docker.png)
 
 ### Image
 

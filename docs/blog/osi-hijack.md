@@ -72,11 +72,8 @@
 两种方式开启 CSP：
 
 ```html
-// 通过 http 头信息
-Content-Security-Policy: default-src https:
-
-// 通过 meta 标签
-<meta http-equiv="Content-Security-Policy" content="default-src https:">
+// 通过 http 头信息 Content-Security-Policy: default-src https: // 通过 meta
+标签 <meta http-equiv="Content-Security-Policy" content="default-src https:" />
 ```
 
 缺点:
@@ -144,7 +141,7 @@ X-FRAME-OPTIONS 是一个 HTTP 响应头，在现代浏览器有一个很好的�
 
 上述方案可以看出，无论哪种方案，都有它的不足，于是搭建了下图的方案：
 
-![基于代码校验的防治⽅案](/blog/dns-hijacking.png)
+![基于代码校验的防治⽅案](osi-hijack-meituan.png)
 
 优势如下：
 

@@ -49,7 +49,7 @@ Event Loop 事件循环，Thread Pool 线程池都是由 Libuv 提供，Libuv �
 
 我们来看一下 Node.js 异步 IO 实现图：
 
-![异步IO](/blog/node-async.png)
+![异步IO](library-node-async.png)
 
 - 应用程序先将 JS 代码经 V8 转换为机器码。
 - 通过 Node.js Bindings 层，向操作系统 Libuv 的事件队列中添加一个任务。
@@ -137,7 +137,7 @@ Node.js 端一般不会直接当成项目后端来使用，而是当成一个 BF
 
 这是一个 Node.js 项目架构。
 
-![node后端](node-backend.png)
+![node后端](library-node-backend.png)
 
 - 用户请求 Node.js 服务器。
 - 经过 LVS 传输层负载均衡。

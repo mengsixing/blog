@@ -89,15 +89,15 @@ HMACSHA256(base64UrlEncode(header) + '.' + base64UrlEncode(payload), secret); //
 
 首次登录：
 
-![首次登录](web-login-sso1.jpeg)
+![首次登录](osi-web-login-sso1.jpeg)
 
 登录同域下的网站：
 
-![登录同域下的网站](web-login-sso2.jpeg)
+![登录同域下的网站](osi-web-login-sso2.jpeg)
 
 登录不同域下的网站：
 
-![登录不同域下的网站](web-login-sso3.jpeg)
+![登录不同域下的网站](osi-web-login-sso3.jpeg)
 
 ## OAuth 机制
 
@@ -119,7 +119,7 @@ HMACSHA256(base64UrlEncode(header) + '.' + base64UrlEncode(payload), secret); //
 
 7、登录成功。
 
-![第三方登录](web-login-oauth.jpg)
+![第三方登录](osi-web-login-oauth.jpg)
 
 ## 参考链接
 

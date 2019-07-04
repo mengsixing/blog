@@ -27,24 +27,25 @@ module.exports = {
     sidebar: {
       "/blog/": [
         {
-          title: '项目相关',
+          title: 'DevOps',
           collapsable: false,
           children: [
-            "project-kubernetes",
-            "project-docker",
-            "project-git",
-            "project-dependencies",
-            "project-image",
-            "project-performance",
-            "project-commitlint",
-            "project-test",
-            "project-webpack-entry",
-            "project-webpack-flow",
-            "project-webpack",
+            "devops-kubernetes",
+            "devops-docker",
+            "devops-git",
+            "devops-dependencies",
+            "devops-image",
+            "devops-performance",
+            "devops-commitlint",
+            "devops-test",
+            "devops-webpack-entry",
+            "devops-webpack-flow",
+            "devops-webpack",
+            "devops-cdfang-spider",
           ]
         },
         {
-          title: '框架学习',
+          title: 'Framework',
           collapsable: false,
           children: [
             "library-node",
@@ -60,7 +61,7 @@ module.exports = {
           ]
         },
         {
-          title: 'CSS 相关',
+          title: 'CSS',
           collapsable: false,
           children: [
             "css",
@@ -77,6 +78,7 @@ module.exports = {
             "osi-http",
             "osi-https",
             "osi-web-security",
+            'osi-web-login',
             "osi-hijack",
           ]
         },
@@ -84,7 +86,6 @@ module.exports = {
           title: '运维相关',
           collapsable: false,
           children: [
-            'operation-web-login',
             "operation-docker-micro-service",
             "operation-linux",
             "operation-linux-login",
@@ -122,16 +123,16 @@ module.exports = {
           ]
         },
         {
-          title: '实战 & 思考',
+          title: '总结思考',
           collapsable: false,
           children: [
-            "cdfang-spider",
+            "2019-6",
             "2018",
             "frontend",
           ]
         },
         {
-          title: '工具',
+          title: '其它',
           collapsable: false,
           children: [
             "other-tools",

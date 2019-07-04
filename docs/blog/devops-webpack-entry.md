@@ -279,6 +279,6 @@ renderBootstrap(hash, chunk, moduleTemplate, dependencyTemplates) {
 
 ## 相关链接
 
-- [Webpack 系列（一）使用总结](project-webpack.html)
-- [Webpack 系列（二）手写模块打包代码](project-webpack-flow.html)
+- [Webpack 系列（一）使用总结](devops-webpack.html)
+- [Webpack 系列（二）手写模块打包代码](devops-webpack-flow.html)
 - [Webpack 处理流程分析](https://github.com/lihongxun945/diving-into-webpack/blob/master/6-process-pipe-line.md)

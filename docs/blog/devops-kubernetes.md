@@ -1,4 +1,4 @@
-# Kubernetes 入门总结
+# Kubernetes 使用总结
 
 Kubernetes 简称 k8s，是 google 在 2014 年发布的一个开源项目。
 
@@ -264,7 +264,7 @@ kubeadm init --apiserver-advertise-address $(hostname -i)
 
 执行完成后会生成 token，这样其他节点就可以凭借这个 token 加入该集群。
 
-![Kubernetes 实战步骤1](project-kubernetes-step1.png)
+![Kubernetes 实战步骤1](devops-kubernetes-step1.png)
 
 ### 加入 node 节点
 
@@ -277,7 +277,7 @@ kubeadm join 192.168.0.8:6443 --token nfs9d0.z7ibv3xokif1mnmv \
 
 命令执行完毕后，即可看到 node2 已经加入成功。
 
-![Kubernetes 实战步骤2](project-kubernetes-step2.png)
+![Kubernetes 实战步骤2](devops-kubernetes-step2.png)
 
 ### 查看集群状态
 
@@ -287,7 +287,7 @@ kubeadm join 192.168.0.8:6443 --token nfs9d0.z7ibv3xokif1mnmv \
 kubectl get node
 ```
 
-![Kubernetes 实战步骤3](project-kubernetes-step3.png)
+![Kubernetes 实战步骤3](devops-kubernetes-step3.png)
 
 可以看到，集群中存在两个节点，node1 和 node2，但这两个节点的都是 NotReady 状态，为什么？
 
@@ -304,7 +304,7 @@ kubectl apply -n kube-system -f \
 
 执行命令后，稍等一下，然后查看 node 状态，可以看到，集群中的两个节点都是 Ready 状态了。
 
-![Kubernetes 实战步骤4](project-kubernetes-step4.png)
+![Kubernetes 实战步骤4](devops-kubernetes-step4.png)
 
 ### 创建 Deployment
 
@@ -381,7 +381,7 @@ kubectl apply -f ./service.yaml
 
 使用 kubectl get deployment 和 kubectl get service 查看创建结果。
 
-![Kubernetes 实战步骤5](project-kubernetes-step5.png)
+![Kubernetes 实战步骤5](devops-kubernetes-step5.png)
 
 可以看到，deployment 和 service 均创建成功，并且已知 service 暴露的 ip 地址为：10.107.22.212，端口号为 8083。
 
@@ -397,7 +397,7 @@ kubectl apply -f ./service.yaml
 curl 10.107.22.212:8083
 ```
 
-![Kubernetes 实战步骤6](project-kubernetes-step6.png)
+![Kubernetes 实战步骤6](devops-kubernetes-step6.png)
 
 到这里，已经算部署成功了，大家肯定有疑问，部署一个如此简单的 web 应用就这么麻烦，到底 k8s 好在哪里？
 

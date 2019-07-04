@@ -371,7 +371,7 @@ t.yhl = '111'; // 不可修改
 
 view->controller->model->view
 
-![MVC模式](/blog/mvc.png)
+![MVC模式](base-design-pattren-mvc.png)
 
 ## MVP 模式
 
@@ -379,7 +379,7 @@ view->presenter->model->presenter->view
 
 > MVP 与 MVC 有着一个重大的区别：在 MVP 中 View 并不直接使用 Model，它们之间的通信是通过 Presenter (MVC 中的 Controller)来进行的，所有的交互都发生在 Presenter 内部，而在 MVC 中 View 会直接从 Model 中读取数据而不是通过 Controller。
 
-![MVP模式](/blog/mvp.png)
+![MVP模式](base-design-pattren-mvp.png)
 
 ## MVVM 模式
 
@@ -391,4 +391,4 @@ view<->viewModel->model->viewModel<->view
 
 > MVVM 模式将 Presenter 改名为 ViewModel，基本上与 MVP 模式完全一致。唯一的区别是，它采用双向绑定（data-binding）：View 的变动，自动反映在 ViewModel，反之亦然。
 
-![MVVM模式](/blog/mvvm.png)
+![MVVM模式](base-design-pattren-mvvm.png)

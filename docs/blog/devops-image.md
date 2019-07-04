@@ -129,7 +129,7 @@ APNG 是基于 PNG 格式扩展的一种动画格式，增加了对动画图像�
 
 2、选择适合的位图，流程图如下：
 
-![位图选择](project-image.png)
+![位图选择](devops-image.png)
 
 :::tip 提示
 

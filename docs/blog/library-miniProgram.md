@@ -26,11 +26,11 @@ Native 预先加载一个 WebView 当打开指定页面时，无需加载额外�
 
 视图层和逻辑层采用 [JsBridge](/blog/js-jsBridge.html) 进行通信。
 
-![小程序架构图](/blog/wx-jiagou.png)
+![小程序架构图](library-miniProgram-jiagou.png)
 
 小程序运行时：先从 cdn 上获取小程序需要的包。
 
-![小程序架构图2](/blog/wx-jiagou2.png)
+![小程序架构图2](library-miniProgram-jiagou2.png)
 
 ## 视图层
 
@@ -45,7 +45,7 @@ WXML(WeiXin Markup Language)
 支持数据绑定 支持逻辑算术、运算 支持模板、引用 支持添加事件(bindtap)。
 
 WXML 运行流程：
-![WXML运行流程](/blog/wx-wxml.png)
+![WXML运行流程](library-miniProgram-wxml.png)
 
 ### WXSS
 
@@ -56,7 +56,7 @@ WXSS(WeiXin Style Sheets)
 - 不支持多层选择器-避免被组件内结构破坏。（因为生成到 WebView 中的 dom 树和实际的 WXML 会有差异。）
 
 WXSS 运行流程：
-![WXSS运行流程](/blog/wx-wxss.png)
+![WXSS运行流程](library-miniProgram-wxss.png)
 
 ### 小程序组件
 
@@ -78,7 +78,7 @@ WXSS 运行流程：
 
 6、创建新的 WebView，加快下次渲染。
 
-![逻辑层](/blog/wx-appService.png)
+![逻辑层](library-miniProgram-appService.png)
 
 如图所示：
 

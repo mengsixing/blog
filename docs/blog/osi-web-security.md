@@ -20,7 +20,7 @@
 
 CSRF（Cross-site request forgery），中文名称：跨站请求伪造，也被称为：one click attack/session riding，缩写为：CSRF/XSRF。
 
-![csrf](fontend-security-csrf.jpg)
+![csrf](osi-web-security-csrf.jpg)
 
 ### CSRF 防范
 
@@ -72,11 +72,11 @@ if (self == top) {
 
 上传文件扩展名
 
-![上传文件扩展名](fontend-security1.png)
+![上传文件扩展名](osi-web-security-1.png)
 
 上传文件 HTTP 请求伪造
 
-![上传文件 HTTP 请求伪造](fontend-security2.png)
+![上传文件 HTTP 请求伪造](osi-web-security-2.png)
 
 防范：
 

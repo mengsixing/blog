@@ -2,7 +2,7 @@
 
 工作 4 年了，整理了一份平时常用的技术列表，欢迎大家补充。
 
-## html 方向
+## HTML 方向
 
 - html4 标签
 - html5 标签，语义化，媒体标签等
@@ -12,7 +12,7 @@
 - manifest
 - pwa：service worker（workbox）
 
-## css 方向
+## CSS 方向
 
 - css2 语法
 - css3 新语法
@@ -23,7 +23,7 @@
 - css modules
 - css in js
 
-## javascript 方向
+## JS 方向
 
 - es5 常规语法
 - es2015，2016，2017，2018 新语法
@@ -32,7 +32,7 @@
 
 ## 框架方向
 
-### react 技术栈
+### React 技术栈
 
 - react
 - react-router(search-router)
@@ -47,7 +47,7 @@
 - create-react-app
 - dva-cli
 
-### vue 技术栈
+### Vue 技术栈
 
 - vue
 - vue-router
@@ -65,9 +65,9 @@
 - 字节跳动小程序
 - 多端统一框架：taro，chameleon
 
-### ajax 请求
+### Ajax 请求
 
-#### Rest 风格
+#### Restful 风格
 
 - axios
 - fetch 源生
@@ -78,7 +78,7 @@
 - apollo
 - relay
 
-## 前端工程
+## 前端工程化
 
 - npm/yarn
 - webpack/rollup/parcel

@@ -122,7 +122,7 @@ HTTP/2 所有性能增强的核心在于新的二进制分帧层，它定义了�
 
 4、为了解决上述阻塞问题，http2 中提出了多路复用(Multiplexing)技术，Multiplexing 是通信和计算机网络领域的专业名词。http2 中将多个请求复用同一个 tcp 链接中，将一个 TCP 连接分为若干个流（Stream），每个流中可以传输若干消息（Message），每个消息由若干最小的二进制帧（Frame）组成。也就是将每个 request-response 拆分为了细小的二进制帧 Frame，这样即使一个请求被阻塞了，也不会影响其他请求，如图中第四种情况所示。
 
-![HTTP2 二进制](http-binary_framing_layer.svg)
+![HTTP2 二进制](osi-http-binary_framing_layer.svg)
 
 HTTP/1.x 协议以换行符作为纯文本的分隔符，而 HTTP/2 将所有传输的信息分割为更小的消息和帧，并采用二进制格式对它们编码。
 
@@ -142,11 +142,11 @@ HTTP/1.x 协议以换行符作为纯文本的分隔符，而 HTTP/2 将所有传
 
 理解了这张图，HTTP2 就基本上懂了。
 
-![http2 数据流，消息，帧](http-streams_messages_frames.svg)
+![http2 数据流，消息，帧](osi-http-streams_messages_frames.svg)
 
 服务器端推送：
 
-![服务器端推送](http-push.svg)
+![服务器端推送](osi-http-push.svg)
 
 在 HTTP2 中，服务端可以在客户端某个请求后，主动推送其他资源。
 
@@ -154,7 +154,7 @@ HTTP/1.x 协议以换行符作为纯文本的分隔符，而 HTTP/2 将所有传
 
 Header 压缩:
 
-![Header 压缩](http-header_compression.svg)
+![Header 压缩](osi-http-header_compression.svg)
 
 在 HTTP/1 中，我们使用文本的形式传输 header，在 header 携带 cookie 的情况下，可能每次都需要重复传输几百到几千的字节。
 
@@ -212,7 +212,7 @@ QUIC
 
 用户不直接请求服务器，而是请求反向代理服务器，再由反向代理服务器转发请求到其他服务器。
 
-![反向代理](/blog/http-reverseProxy.png)
+![反向代理](osi-http-reverseProxy.png)
 
 反向代理的作用：
 
@@ -227,7 +227,7 @@ QUIC
 
 负载均衡示意图：
 
-![负载均衡](/blog/http-loadBalancing.png)
+![负载均衡](osi-http-loadBalancing.png)
 
 ## 相关链接
 

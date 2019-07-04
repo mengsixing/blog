@@ -2,7 +2,7 @@
 
 我们先来看一下页面渲染流程图，每个阶段的用时可以在 `performance.timing` 里查询。
 
-![页面渲染流程图](/blog/huizong.png)
+![页面渲染流程图](devops-performance-page_render.png)
 
 从图中我们可以看出，浏览器在得到用户请求之后，经历了下面这些阶段：重定向 → 拉取缓存 → dns 查询 → 建立 tcp 连接 → 发起请求 → 接收响应 → 处理 html 元素 → 元素加载完成。
 
@@ -37,7 +37,7 @@
 
 浏览器在向服务器发起请求前，会先查询本地是否有相同的文件，如果有，就会直接拉取本地缓存，我们先看看浏览器处理缓存的策略。
 
-![浏览器缓存图](project-performance-cache.png)
+![浏览器缓存图](devops-performance-cache.png)
 
 浏览器默认的缓存是放在内存中的，但内存里的缓存会因为进程的结束或者说浏览器的关闭而被清除，如果存在硬盘里就能够被长期保留下去。很多时候，我们在 network 面板中各请求的 size 项里，会看到两种不同的状态：_from memory cache_ 和 _from disk cache_，前者指缓存来自内存，后者指缓存来自硬盘。而控制缓存存放位置的是我们在服务器上设置的 etag 字段。在浏览器接收到服务器响应后，会检测响应头部，如果有 etag 字段，那么浏览器就会将本次缓存写入硬盘中。
 
@@ -173,7 +173,7 @@ tracert baidu.com
 
 ### 浏览器渲染过程（Webkit）
 
-![浏览器渲染过程](project-performance-render.png)
+![浏览器渲染过程](devops-performance-render.png)
 
 ### DOM 渲染层与 gpu 硬件加速
 

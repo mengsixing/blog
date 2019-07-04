@@ -7,7 +7,7 @@
     "lint": "lint-md ./docs/blog",
     "lint:fix": "lint-md ./docs --fix",
     "dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs",
+    "build": "vuepress build docs",
     "commit": "npx git-cz"
   },
   "husky": {
