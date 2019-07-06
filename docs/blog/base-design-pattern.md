@@ -375,9 +375,13 @@ view->controller->model->view
 
 ## MVP 模式
 
+在 MVP 中，View 自己实现如何进行视图更新的实现细节，并抽象出一层视图接口，而 Presenter 在 Model 更新后，通过调用这些接口来实现 View 的更新。同时 Presenter 也向 View 注册相关的需要 Presenter 来决定的视图事件。
+
 view->presenter->model->presenter->view
 
 > MVP 与 MVC 有着一个重大的区别：在 MVP 中 View 并不直接使用 Model，它们之间的通信是通过 Presenter (MVC 中的 Controller)来进行的，所有的交互都发生在 Presenter 内部，而在 MVC 中 View 会直接从 Model 中读取数据而不是通过 Controller。
+
+mvp 和 mvvm 很像，**数据流是一致的**，只是 mvvm 实现了双向绑定，而 **mvp 需要手动绑定**。
 
 ![MVP模式](base-design-pattren-mvp.png)
 

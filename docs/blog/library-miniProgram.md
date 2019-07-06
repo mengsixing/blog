@@ -14,7 +14,7 @@
 
 Native 预先加载一个 WebView 当打开指定页面时，无需加载额外资源直接渲染。
 
-返回显示历史 View 退出小程序，View 状态不销毁。
+返回历史 View 或退出小程序，View 状态不销毁。
 :::
 
 ## 小程序架构
@@ -42,7 +42,10 @@ Native 预先加载一个 WebView 当打开指定页面时，无需加载额外�
 
 WXML(WeiXin Markup Language)
 
-支持数据绑定 支持逻辑算术、运算 支持模板、引用 支持添加事件(bindtap)。
+- 支持数据绑定。
+- 支持逻辑算术运算。
+- 支持模板引用。
+- 支持添加事件(bindtap)。
 
 WXML 运行流程：
 ![WXML运行流程](library-miniProgram-wxml.png)
@@ -60,7 +63,7 @@ WXSS 运行流程：
 
 ### 小程序组件
 
-小程序的组件基于 Web Component 标准 使用 Polymer 框架实现 Web Component。
+小程序的组件基于 Web Component 标准，使用 Polymer 框架实现 Web Component。
 
 ## 逻辑层
 
@@ -100,11 +103,11 @@ WXSS 运行流程：
 
 3、使用 Virtual DOM，进行局部更新。
 
-4、全部使用 https，确保传输中安全。
+4、全部使用 HTTPS，确保传输中安全。
 
 5、前端组件化开发。
 
-6、加入 rpx 单位，隔离设备尺寸，方便开发。
+6、使用 rpx 单位，隔离设备尺寸，方便开发。
 :::
 
 ## 小程序存在的问题
