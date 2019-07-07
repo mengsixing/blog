@@ -10,7 +10,7 @@ Kubernetes 解决了哪些问题？
 - kubernetes 优化
 - kubernetes 实战
 
-Kubernetes 基础概念很多，第一次接触容易看晕，如果是新手，建议直接跳过看实战部分。
+Kubernetes 基础概念很多，第一次接触容易看晕，如果是新手，建议直接看实战部分，先跑起来再说。
 
 ## kubernetes 基础
 
@@ -29,11 +29,11 @@ k8s 中有几个重要概念。
 
 ### Cluster
 
-Cluster 是计算、存储和网络资源的集合，k8s 利用这些资源运行各种基于容器的应用。
+Cluster 代表一个 k8s 集群，是计算、存储和网络资源的集合，k8s 利用这些资源运行各种基于容器的应用。
 
 ### Master 节点
 
-Master 是 cluster 的大脑，运行着的 Daemon（一直运行的服务端程序，又称为守护进程）服务包括 kube-apiserver、kube-scheduler、kube-controller-manager、etcd 和 pod 网络。
+Master 是 cluster 的大脑，运行着的服务包括 kube-apiserver、kube-scheduler、kube-controller-manager、etcd 和 pod 网络。
 
 - **kube-apiserver**
   - apiserver 是 k8s cluster 的前端接口，提供 restful api。各种客户端工具以及 k8s 其他组件可以通过它管理 cluster 中的各种资源。
@@ -120,7 +120,7 @@ Controller 中 deployment、replicaSet 和 daemonSet 类型都用于管理服务
 
 ### Service
 
-Service 是可以访问一组 pod 的策略 —— 通常称为微服务。具体访问哪一组 pod 是通过 label 进行选择的。service 为 pod 提供了负载均衡，原理是使用 iptables。
+Service 是可以访问一组 pod 的策略，通常称为微服务。具体访问哪一组 pod 是通过 label 匹配出来的。service 为 pod 提供了负载均衡，原理是使用 iptables。
 
 **为什么要用 service ？**
 
@@ -261,7 +261,7 @@ spec:
 
 ## Kubernetes 实战
 
-我们来实战部署一个 k8s 记事本项目，项目使用 [yhlben/notepad](https://cloud.docker.com/u/yhlben/repository/docker/yhlben/notepad) 镜像进行构建，该镜像在部署后会在 8083 端口上提供一个 web 服务，访问该服务，即可打开一个[记事本网站](http://yinhengli.com:8083/)。
+我们来实战部署一个 k8s 记事本项目，项目使用 [yhlben/notepad](https://cloud.docker.com/u/yhlben/repository/docker/yhlben/notepad) 镜像进行构建，该镜像在部署后会在 8083 端口上提供一个 web 版记事本服务，[查看演示](http://yinhengli.com:8083/)。
 
 为了避免安装 k8s 出现的各种坑，这里使用 [Play with Kubernetes](https://labs.play-with-k8s.com/)进行演示。
 
@@ -301,7 +301,7 @@ kubeadm join 192.168.0.8:6443 --token nfs9d0.z7ibv3xokif1mnmv \
 
 ### 查看集群状态
 
-在 master 节点上，执行以下命令。
+在 node1 节点上，执行以下命令。
 
 ```sh
 kubectl get node
@@ -411,13 +411,13 @@ kubectl apply -f ./service.yaml
 
 ![Kubernetes 实战步骤5](devops-kubernetes-step5.png)
 
-可以看到，deployment 和 service 均创建成功，并且已知 service 暴露的 ip 地址为：10.106.74.65，端口号为 80，由于设置了 targetPort service 在接收到请求时，会自动转发到 pod 对应的 8083 端口上。
+可以看到，deployment 和 service 均创建成功，并且已知 service 暴露的 ip 地址为：10.106.74.65，端口号为 80，由于设置了 targetPort，service 在接收到请求时，会自动转发到 pod 对应的 8083 端口上。
 
 ### 访问部署结果
 
 部署成功后，我们可以通过两种方式进行访问：
 
-- 集群内：通过 service 的 cluster-ip + port 端口进行访问。
+- 集群内：通过 service 的 clusterIp + port 端口进行访问。
 - 集群外：通过任意一个 node 节点 + nodePort 端口进行访问。
 
 ```sh
@@ -438,7 +438,7 @@ curl 192.168.0.11:30036
 
 ![Kubernetes 实战步骤6](devops-kubernetes-step7.png)
 
-到这里，已经算部署成功了，大家肯定有疑问，部署一个如此简单的 web 应用就这么麻烦，到底 k8s 好在哪里？
+到这里，已经算部署成功了，大家肯定有疑问，部署一个如此简单的 web 应用就这么麻烦，到底 k8s 好在哪里？我们接着往下看。
 
 ### K8s 运维
 
@@ -483,7 +483,7 @@ kubectl set image deployments/notepad notepad=yhlben/notepad:new
 kubectl rollout undo deployments/notepad
 ```
 
-通过这 2 个案例，感觉到了 k8s 给运维带来了很大的便利：快速高效地部署项目，支持动态扩展、滚动升级，同时还能够按需优化使用的硬件资源。
+通过这 2 个案例，感觉到了 k8s 给运维带来了很大的便利：**快速高效地部署项目**，**支持动态扩展**、**滚动升级**，**同时还能按需优化使用的硬件资源**。
 
 ## 总结
 
