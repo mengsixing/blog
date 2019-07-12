@@ -31,8 +31,11 @@ Subscription 是表示可清理资源的对象，通常是 Observable 的执行�
 
 操作符是 Observable 类型上的方法，比如 .map(...)、.filter(...)、.merge(...)，等等。当操作符被调用时，它们不会改变已经存在的 Observable 实例。相反，它们返回一个新的 Observable ，它的 subscription 逻辑基于第一个 Observable 。
 
-> 操作符是函数，它基于当前的 Observable 创建一个新的 Observable。这是一个无副作用的操作：前面的 Observable 保持不变。
-> 操作符是采用函数式编程风格的纯函数 (pure function)，使用像 map、filter、concat、flatMap 等这样的操作符来处理集合。
+:::tip
+操作符是函数，它基于当前的 Observable 创建一个新的 Observable。这是一个无副作用的操作：前面的 Observable 保持不变。
+
+操作符是采用函数式编程风格的纯函数 (pure function)，使用像 map、filter、concat、flatMap 等这样的操作符来处理集合。
+:::
 
 ## Subject
 
@@ -70,15 +73,15 @@ Schedulers (调度器): 用来控制并发并且是中央集权的调度员，�
 ```javascript
 //第一步，创建一个可观察对象（也可以通过fromEvent...）
 var observable = Rx.Observable.create(function(observer) {
-  observer.next("first");
+  observer.next('first');
   setInterval(function() {
-    observer.next("5");
+    observer.next('5');
   }, 1000);
   setTimeout(function() {
-    throw new Error("错误");
+    throw new Error('错误');
   }, 3000);
   setTimeout(function() {
-    observer.complete("6");
+    observer.complete('6');
   }, 6000);
 })
   .map(e => e.bold()) // 使用操作符过滤观察流
@@ -91,7 +94,7 @@ var observer1 = e => {
   console.log(e);
 };
 var observer2 = e => {
-  console.log("监听2");
+  console.log('监听2');
 };
 
 //未使用subject传播
@@ -103,7 +106,7 @@ var subscription1 = subject.subscribe(observer1);
 var subscription2 = subject.subscribe(observer2);
 observable.subscribe(subject);
 
-console.log("waibu");
+console.log('waibu');
 
 //增加取消监听
 setTimeout(function() {

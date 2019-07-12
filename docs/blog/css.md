@@ -35,9 +35,39 @@ CSS 代码可以很自由的书写，但是为了便于维护，提高渲染效�
 - 保证选择器相同的权重。
 - 类名简短清晰语义化 OOCSS 的名字并不影响 HTML 语义化。
 
+使用案例：
+
+```html
+<!-- 在一个 class 中写成公用的 css 代码，以便进行复用 -->
+<style>
+  .size1of4 {
+    width: 25%;
+  }
+  .bgBlue {
+    background: blue;
+  }
+  .solidGray {
+    border: 1px solid #ccc;
+  }
+  .mts {
+    margin-top: 5px;
+  }
+  .mrm {
+    margin-right: 10px;
+  }
+  .mbm {
+    margin-bottom: 10px;
+  }
+  .mlm {
+    margin-left: 10px;
+  }
+</style>
+<div class="size1of4 bgBlue solidGray mts mlm mrm mbm">xxx</div>
+```
+
 ## CSS 命名规范
 
-CSS 有语义化的命名约定和 CSS 层的分离，团队命名统一规范，方便维护，最常用的是 BEM 规范。
+CSS 有语义化的命名约定和统一的命名规范，最常用的是 BEM 规范。
 
 [BEM](https://en.bem.info/)
 
@@ -60,19 +90,19 @@ CSS 有语义化的命名约定和 CSS 层的分离，团队命名统一规范�
 
 ### CSS 预处理器
 
-预处理器可以让我们使用变量，继承，嵌套规则，运算，函数，scope 等编程的方式，书写 css。**一句话总结：增强 CSS 语法**。
+预处理器可以让我们使用变量，继承，嵌套规则，运算，函数，scope 等编程的方式书写 css。**一句话总结：增强 css 语法**。
 
-我们使用 sass，less，stylus 等语法编写的类 CSS 代码，然后经过编译，最后转换为真正的 CSS 代码。
+我们使用 sass，less，stylus 等语法编写的类 css 代码，然后经过编译，最后转换为真正的 css 代码。
 
 ### CSS 后处理器
 
-后处理器可以将我们的 CSS 进行压缩，美化，以及加上浏览器前缀，减少我们的开发工作量。**一句话总结：增强 css 的兼容性**。
+后处理器可以将我们的 css 进行压缩，美化，以及加上浏览器前缀，减少我们的开发工作量。**一句话总结：增强 css 的兼容性**。
 
-我们使用 PostCSS，将 CSS 进行美化，压缩，加前缀等操作。对 CSS 加入一些扩展。
+我们使用 postcss，将 css 进行美化，压缩，加前缀等操作。对 css 加入一些扩展。
 
 ## CSS 格式化上下文
 
-格式化上下文（Formatting Context）：定义了页面中的一块渲染区域，并且有一套渲染规则，决定了其子元素将如何定位，以及和其他元素的关系和相互作用。常见的 Formatting Context 有 BFC、IFC、FFC、GFC。
+格式化上下文（Formatting Context）：定义了页面中的一块渲染区域，并且有一套渲染规则，决定了其子元素将如何定位，以及和其他元素的关系和相互作用。常见的格式化上下文有 BFC、IFC、FFC、GFC。
 
 ### BFC
 
@@ -80,8 +110,8 @@ BFC(Block Formatting Contexts)：块级格式化上下文，以下几种元素�
 
 - float 的值不是 none。
 - position 的值不是 static 或者 relative。
-- display 的值是 inline-block、table-cell、flex、table-caption 或者 inline-flex
-- overflow 的值不是 visible
+- display 的值是 inline-block、table-cell、flex、table-caption 或者 inline-flex。
+- overflow 的值不是 visible。
 
 BFC 的特点：
 
