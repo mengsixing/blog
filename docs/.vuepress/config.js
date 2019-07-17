@@ -113,6 +113,7 @@ module.exports = {
           title: '编程基础',
           collapsable: false,
           children: [
+            "base-ioc",
             "base-functional",
             "base-structure",
             "base-structure-base-select",
