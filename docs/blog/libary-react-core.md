@@ -12,15 +12,36 @@
 
 ## Fiber
 
-Fiber 是 facebook 折腾两年多做出来的东西，是对核心算法的一次重新实现。虽然对开发层面是无感的，但是对于 react 整个架构的优化是非常到位了，目前还没看出有其他框架能超越的地方，当前阶段出的很多新特性 Concurrent Rendering，Suspense 等都是在 fiber 基础上实现的。
+React 框架内部的运作可以分为 3 层：
+
+- Virtual DOM 层，描述页面长什么样。
+- Reconciler 层，负责调用组件生命周期方法，进行 Diff 运算等。
+- Renderer 层，根据不同的平台，渲染出相应的页面，比较常见的是 ReactDOM 和 ReactNative。
+
+从 React16.8 开始，对 Reconciler 层了做了很大的改动，React 团队也给它起了个新的名字，叫 Fiber Reconciler。这就引入另一个关键词：Fiber。
 
 Fiber 把更新过程碎片化，每执行完一段更新过程，就把控制权交还给 react 负责任务协调的模块，看看有没有其他紧急任务要做，如果没有就继续去更新，如果有紧急任务，那就去做紧急任务。
 
-Fiber 分为 2 个阶段：render 阶段 和 commit 阶段。
+为了达到这种效果，就需要有一个调度器 (Scheduler) 来进行任务分配。任务的优先级有六种：
+
+- synchronous，与之前的 Stack Reconciler 操作一样，同步执行
+- task，在 next tick 之前执行
+- animation，下一帧之前执行
+- high，在不久的将来立即执行
+- low，稍微延迟执行也没关系
+- offscreen，下一次 render 时或 scroll 时才执行
+
+优先级高的任务（如键盘输入）可以打断优先级低的任务（如 Diff）的执行，从而更快的生效。
+
+Fiber Reconciler 在执行过程中，会分为 2 个阶段：render 阶段 和 commit 阶段。
 
 ### Render 阶段
 
 Render 阶段包括 render 以前的生命周期。在这个阶段执行过程中会根据任务的优先级，选择执行或者暂停。故可能发生某个生命周期被执行多次的情况。
+
+:::tip
+Render 阶段可以被打断，让优先级更高的任务先执行，从框架层面大大降低了页面掉帧的概率。
+:::
 
 ### Commit 阶段
 
@@ -149,7 +170,7 @@ getDerivedStateFromError(error) {
 }
 ```
 
-- 异步数据获取
+- 异步数据获取。
 - 创建 promise，调用 then 方法，看是否已获取到数据。
   - 数据获取成功，返回数据，渲染成功。
   - 数据获取失败，抛出错误。
