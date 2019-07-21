@@ -77,6 +77,7 @@ module.exports = {
           children: [
             "osi-http",
             "osi-https",
+            "osi-tcp",
             "osi-web-security",
             'osi-web-login',
             "osi-hijack",
