@@ -1,4 +1,4 @@
-# 《编写可维护的 JavaScript》读书笔记
+# 《编写可维护的 JavaScript》
 
 最近阅读了《编写可维护的 JavaScript》，在这里记录一下读书笔记。书中主要基于三个方向来讲解怎么增加代码的可维护性：**编程风格**、**编程实践**、**自动化**。
 
@@ -23,12 +23,10 @@
 // 好的写法
 var person = null;
 
-function getPerson(num){
-
-  if (num >5) {
+function getPerson(num) {
+  if (num > 5) {
     return new Person('Lily');
   } else {
-
     // 好的写法
     return null;
   }
@@ -49,10 +47,9 @@ var person;
 // 不好的写法
 console.log(person === null);
 
-function doSomeThing(arr1, arr2){
-
+function doSomeThing(arr1, arr2) {
   // 不好的写法
-  if(arr1 === null){
+  if (arr1 === null) {
     console.log('arr1 参数没有传递');
   }
 }
@@ -81,17 +78,15 @@ function doSomeThing(arr1, arr2){
 var person = null;
 
 if (condition) {
-
   // 做一些事情
   doSomeThing(); // 做一些事情
 }
 
 /*
-  * 这是创建一个对象
-  * 第二行
-*/
+ * 这是创建一个对象
+ * 第二行
+ */
 var p = new Person();
-
 
 /**
 @method merge
@@ -99,14 +94,12 @@ var p = new Person();
 @return {Object} 一个新的对象
 **/
 function doSomeThing(obj) {
-  return Object.assign(obj,{asd:123});
+  return Object.assign(obj, { asd: 123 });
 }
 
 // REVIEW: 有更好的写法吗？
-if(document.all){
-
+if (document.all) {
 }
-
 ```
 
 ### 语句和表达式
@@ -177,7 +170,7 @@ JS 可以使用一下几种方式来操作 HTML：
 
 ```js
 // AMD 模块定义
-define('module-name',['dep1','dep2'],function(dep1,dep2){});
+define('module-name', ['dep1', 'dep2'], function(dep1, dep2) {});
 ```
 
 - 使用 RequireJS 更好地引入模块。
@@ -185,7 +178,7 @@ define('module-name',['dep1','dep2'],function(dep1,dep2){});
 RequireJS 增加了另一个全局函数 require()，专门用来加载指定的依赖和执行回调函数。
 
 ```js
-require(['my-book'], function(books){
+require(['my-book'], function(books) {
   console.log(books);
 });
 ```
@@ -204,22 +197,21 @@ require(['my-book'], function(books){
 实际应用场景是这样的：
 
 ```html
-
 <button onclick="doSomeThing()">click me</button>
 
 <script>
-// 事件处理程序
-function doSomeThing(e) {
-  var clientX = e.clientX;
+  // 事件处理程序
+  function doSomeThing(e) {
+    var clientX = e.clientX;
 
-  // 不要将e 传入应用逻辑中，只传递需要使用的字段
-  log(clientX);
-}
+    // 不要将e 传入应用逻辑中，只传递需要使用的字段
+    log(clientX);
+  }
 
-// 应用逻辑
-function log(text){
-  console.log(text);
-}
+  // 应用逻辑
+  function log(text) {
+    console.log(text);
+  }
 </script>
 ```
 
@@ -256,7 +248,7 @@ typeof 是检测 JS 检测函数的最佳选择。但 IE8 及其以前的浏览�
 
 ```js
 // IE 8 会存在问题
-typeof document.getElementById    // object
+typeof document.getElementById; // object
 ```
 
 #### 检测数组
@@ -296,7 +288,7 @@ typeof document.getElementById    // object
 - 对于自定义错误，最好是继承 Error 错误类型，浏览器会给 Error 对象附加一些额外的信息。
 
 ```js
-function MyError(message){
+function MyError(message) {
   this.message = message;
 }
 MyError.prototype = new Error();
@@ -341,10 +333,10 @@ Polyfills 的优点是：如果浏览器提供原生实现，可以非常轻松�
 
 ```js
 // 早期浏览器不支持 getElementById
-if(document.getElementById){
-  var dom = document.getElementById('xx')
-} else if(document.all){
-  var dom = document.all('xx')
+if (document.getElementById) {
+  var dom = document.getElementById('xx');
+} else if (document.all) {
+  var dom = document.all('xx');
 }
 ```
 
@@ -359,8 +351,8 @@ if(document.getElementById){
 推断是假设并非事实。例如：这里根据 getElementsByTagName 去推断 getElementById，显然是不合理的。
 
 ```js
-if(document.getElementsByTagName){
-  var dom = document.getElementById('xx')
+if (document.getElementsByTagName) {
+  var dom = document.getElementById('xx');
 }
 ```
 
@@ -369,7 +361,7 @@ if(document.getElementsByTagName){
 通过 document.all 判断就是 IE 浏览器了，这是“自作聪明”的，因为其他浏览器也可能存在 document.all。
 
 ```js
-if(document.all){
+if (document.all) {
   console.log('This is IE');
 }
 ```

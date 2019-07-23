@@ -167,6 +167,7 @@ module.exports = {
           title: '技术相关',
           collapsable: false,
           children: [
+            "book-microfront",
             "book-webgl",
             "book-maintainable-js",
             "book-how-network-connect",
