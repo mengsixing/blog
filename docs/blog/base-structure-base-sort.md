@@ -5,6 +5,12 @@
 - 三种排序算法都是嵌套循环，故最坏的时间复杂度为 O(n²)。
 - 选择排序是不稳定排序，数组中如果有相同的元素，交换后的位置可能不一致。
 
+:::tip 算法稳定性
+算法的稳定性定义：排序前后两个相等的数相对位置不变，则算法稳定。
+
+例如：[7 2 5 9 3 4 7 1] 使用选择排序算法进行排序时候，第一个 7 和 1 调换，第一个 7 就跑到了第二个 7 的后面了，原来的次序改变了，这样就不稳定了。
+:::
+
 ## 冒泡排序
 
 它是最慢的排序算法之一，数据值会像气泡一样从数组的一端漂浮到另一端。
@@ -56,11 +62,13 @@ function selectSort(array) {
 ```js
 // 插入排序
 function insertSort(array) {
-  for (let outer = 1; outer < array.length - 2; outer++) {
-    for (let inner = outer + 1; inner < array.length; inner++) {
-      if (array[inner] < array[outer]) {
-        swap(array, inner, outer);
-      }
+  for (let outer = 1; outer < array.length; outer++) {
+    for (
+      let inner = outer;
+      inner > 0 && array[inner] < array[inner - 1];
+      inner--
+    ) {
+      swap(array, inner, inner - 1);
       console.log('插入排序循环次数');
     }
   }
@@ -102,11 +110,13 @@ function selectSort(array) {
 
 // 插入排序
 function insertSort(array) {
-  for (let outer = 1; outer < array.length - 2; outer++) {
-    for (let inner = outer + 1; inner < array.length; inner++) {
-      if (array[inner] < array[outer]) {
-        swap(array, inner, outer);
-      }
+  for (let outer = 1; outer < array.length; outer++) {
+    for (
+      let inner = outer;
+      inner > 0 && array[inner] < array[inner - 1];
+      inner--
+    ) {
+      swap(array, inner, inner - 1);
       console.log('插入排序循环次数');
     }
   }

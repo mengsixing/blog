@@ -88,7 +88,7 @@ Libuv 实现了 Node.js 中的 Eventloop ，主要有以下几个阶段：
 - check：执行 `setImmediate` 的 callback。
 - close callbacks：执行 close 事件的 callback，例如 socket.on("close",func)。
 
-**除此之外，Node.js 提供了 process.nextTick 方法，在以上的任意阶段执行结束的时候都会触发。**
+**除此之外，Node.js 提供了 process.nextTick 方法，在以上的任意阶段开始执行的时候都会触发。**
 
 ::: tip 小知识
 

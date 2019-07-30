@@ -122,6 +122,7 @@ module.exports = {
             "base-structure-high-algorithm",
             "base-structure-senior-sort",
             "base-design-pattern",
+            "base-computer"
           ]
         },
         {
@@ -167,6 +168,7 @@ module.exports = {
           title: '技术相关',
           collapsable: false,
           children: [
+            "book-nodejs",
             "book-microfront",
             "book-webgl",
             "book-maintainable-js",

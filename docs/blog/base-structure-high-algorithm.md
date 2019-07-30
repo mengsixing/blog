@@ -1,16 +1,99 @@
 # 高级算法
 
-介绍两种高级算法：动态规划和贪心算法。
+介绍三种高级算法：
 
-## 动态规划
+- 分治法
+- 动态规划
+- 贪心算法
+
+## 分治法
 
 分治法(Divide-and-Conquer) : 将原问题划分成 n 个规模较小而结构与原问题相似的子问题；递归地解决这些子问题，然后再合并其结果，就得到原问题的解。
 
 分治模式在每一层递归上都有三个步骤：
 
-分解(Divide)：将原问题分解成一系列子问题；
-解决(Conquer)：递归地解决各个子问题。若子问题足够小，则直接求解。
-合并(Combine)：将子问题的结果合并成原问题的解。
+- 分解(Divide)：将原问题分解成一系列子问题。
+- 解决(Conquer)：递归地解决各个子问题。若子问题足够小，则直接求解。
+- 合并(Combine)：将子问题的结果合并成原问题的解。
+
+案例：最大子数组问题。在一个数列当中寻找一个子数列，使得这个子数列的元素之和最大。
+
+- 分解：将原数组重中间拆分为 2 个小数组。最大子数组，要么在左边小数组，要么在右边小数组，要么在左右小数组之间。
+- 解决：如果小数组元素很多，继续拆分，当拆到 1 个元素的数组时，直接求值。
+- 合并：分别将最大左小数组，最大右小数组，中间数组的最大子数组进行合并。
+
+```js
+// 分治法
+function findMaxSubArray(array, start, end) {
+  if (start == end) {
+    return [start, end, array[start]];
+  }
+  const mid = Math.floor((start + end) / 2);
+  const leftMaxSum = findMaxSubArray(array, start, mid);
+  const rightMaxSum = findMaxSubArray(array, mid + 1, end);
+  const acrossMaxSum = findAcrossMidSubArray(array, start, end);
+
+  if (leftMaxSum[2] > rightMaxSum[2] && leftMaxSum[2] > acrossMaxSum[2]) {
+    return leftMaxSum;
+  }
+
+  if (rightMaxSum[2] > leftMaxSum[2] && rightMaxSum[2] > acrossMaxSum[2]) {
+    return rightMaxSum;
+  }
+  return acrossMaxSum;
+}
+
+// 在左右数组之间
+function findAcrossMidSubArray(array, start, end) {
+  if (start == end) {
+    return [start, end, array[start]];
+  }
+
+  const mid = Math.floor((start + end) / 2);
+  //求左侧最大数组值及下标
+  var leftMaxSum = Number.NEGATIVE_INFINITY;
+  var leftSum = 0;
+  var maxArrLeftIdx = mid;
+  for (var i = mid; i >= start; i--) {
+    leftSum += array[i];
+    if (leftSum > leftMaxSum) {
+      leftMaxSum = leftSum;
+      maxArrLeftIdx = i;
+    }
+  }
+
+  //求右侧最大数组值
+  var rightMaxSum = Number.NEGATIVE_INFINITY;
+  var rightSum = 0;
+  var maxArrRightIdx = mid;
+  for (var j = mid + 1; j <= end; j++) {
+    rightSum += array[j];
+    if (rightSum > rightMaxSum) {
+      rightMaxSum = rightSum;
+      maxArrRightIdx = j;
+    }
+  }
+  return [maxArrLeftIdx, maxArrRightIdx, leftMaxSum + rightMaxSum];
+}
+
+console.warn(
+  '分治法：',
+  findMaxSubArray([-11, 34, 37, 30, -42, 4, 16, 47, 36, 19], 0, 9)
+);
+```
+
+## 动态规划
+
+动态规划算法的设计可以分为如下 4 个步骤：
+
+- 描述最优解的结构。
+- 递归定义最优解的值。
+- 按自底向上的方式计算最优解的值。
+- 由计算出的结果构造一个最优解。
+
+动态规划适用于子问题独立且重叠的情况，也就是各子问题包含公共的子子问题。在这种情况下，若用分治法则会做许多不必要的工作，即重复地求解公共的子问题。动态规划算法对每个子子问题只求解一次，将其结果保存在一张表中，从而避免每次遇到各个子问题时重新计算答案。
+
+案例：计算斐波那契数列，数列中第 n 项的值 = 第 n-1 项的值 + 第 n-2 项的值。
 
 ```js
 //斐波那契数列
@@ -66,57 +149,26 @@ console.log('动态规划不用数组', iterFib(10));
 
 ## 贪心算法
 
-他是一种寻找“优质解”为手段达成整体解决方案的算法。这些优质的解决方案称为局部最优解。将有希望得到正确答案的最终解决方案称为全局最优解，“贪心”会用那些看起来近乎无法找到完整解决方案的问题，次优解也是可以接受的。
+贪心算法（greedy algorithm），又称贪婪算法，是一种在每一步选择中都采取在当前状态下最好或最优（即最有利）的选择，从而希望导致结果是最好或最优的算法。例如在找零钱时，默认先找最大的金额，然后依次减小，那这就是一种贪心算法。
+
+贪心算法在对问题求解时，总是做出在当前看来是最好的选择。也就是说，不从整体最优上加以考虑，他所做出的仅是在某种意义上的**局部最优解**。
+
+案例：老师分饼干，每个孩子只能得到一块饼干，但每个孩子想要的饼干大小不尽相同。目标是尽量让更多的孩子满意。 如孩子的要求是 [1, 3, 5, 4, 2]，饼干大小是[1, 1]，最多能让 1 个孩子满足。 如孩子的要求是 [10, 9, 8, 7, 6]，饼干大小是[7, 6, 5]，最多能让 2 个孩子满足。
 
 ```js
-//贪心算法
-function makeChange(orginRmb, coins) {
-  var remainRmb = 0;
-  if (originRmb % 50 < originRmb) {
-    coins[3] = parseInt(originRmb % 50, 10);
-    remainRmb = originRmb % 50;
-    originRmb = remainRmb;
+var findContentChildren = function(children, cake) {
+  var sortChildren = children.sort((a, b) => a - b);
+  var sortCake = cake.sort((a, b) => a - b);
+  var i = 0,
+    j = 0;
+  var result = 0;
+  while (sortChildren[i] && sortCake[j]) {
+    if (sortChildren[i] <= sortCake[j]) {
+      result++;
+      i++;
+    }
+    j++;
   }
-  if (originRmb % 10 < originRmb) {
-    coins[2] = parseInt(originRmb % 10, 10);
-    remainRmb = originRmb % 10;
-    originRmb = remainRmb;
-  }
-  if (originRmb % 5 < originRmb) {
-    coins[1] = parseInt(originRmb % 5, 10);
-    remainRmb = originRmb % 5;
-    originRmb = remainRmb;
-  }
-  coins[0] = originRmb % 1;
-}
-var originRmb = 63;
-var coins = [];
-makeChange(originRmb, coins);
-for (var i = 3; i >= 0; i--) {
-  if (coins[i] >= 0) {
-    var text =
-      i == 3
-        ? '使用 50 元找零后，'
-        : i === 2
-        ? '使用 10元 找零后，'
-        : i === 1
-        ? '使用 5 元找零后，'
-        : i === 0
-        ? '使用 1 元找零后，'
-        : '';
-    console.log(text + '剩余：', coins[i]);
-  } else {
-    var text =
-      i == 3
-        ? '没有使用 50 元找零，'
-        : i === 2
-        ? '没有使用 10 元找零，'
-        : i === 1
-        ? '没有使用 5 元找零，'
-        : i === 0
-        ? '没有使用 1 元找零，'
-        : '';
-    console.log(text + '剩余：', coins[i + 1]);
-  }
-}
+  return result;
+};
 ```
