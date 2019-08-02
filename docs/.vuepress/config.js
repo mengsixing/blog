@@ -51,6 +51,7 @@ module.exports = {
             "library-node",
             "library-react",
             "libary-react-core",
+            "library-react-code-1",
             "library-react-ssr",
             'library-react-hooks',
             "library-vue",
