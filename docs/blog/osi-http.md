@@ -191,7 +191,7 @@ HTTP/2 复用 TCP 连接，在一个连接里，客户端和浏览器都可以�
 
 ##### 多路复用的发展史
 
-![多路复用demo](osi-http-duolufuyong.png)
+![多路复用demo](osi-http-duolufuyong-1.png)
 
 - 图 1 请求方式，就是单次发送 request 请求，收到 response 后再进行下一次请求，显示是很低效的。
 - 图 2 请求方式，使用了 HTTP/1.1 的管线化技术，一次性发送多个请求。
