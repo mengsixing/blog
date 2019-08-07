@@ -2,7 +2,9 @@
 
 最公司首页被流量劫持了，首页被插入了小广告，引起了公司层面的注意。大家一起开了个会，发表了一下当前预防劫持的几个方法，我也参与其中，学到了一些防劫持的知识，在这里写个总结。
 
-流量劫持主要分为：**DNS 劫持**，**数据劫持**。
+- DNS 劫持
+- 数据劫持
+- 劫持监控
 
 ## DNS 劫持
 
@@ -84,7 +86,9 @@
 
 #### Subresource Integrity (SRI)
 
-[Subresource Integrity](https://developer.mozilla.org/zh-CN/docs/Web/Security/子资源完整性) 允许浏览器检查其获得的资源（例如从 CDN 获得的）是否被篡改的一项安全特性。
+[Subresource Integrity](https://developer.mozilla.org/zh-CN/docs/Web/Security/子资源完整性) 将使用 base64 编码过后的文件哈希值写入你所引用的 `<script>` 或 `<link>` 标签的 integrity 属性值中即可启用子资源完整性功能。
+
+如果校验不成功，则不会执行对应的 script 或 link 内容。
 
 ```html
 <script crossorigin="anonymous" integrity=“sha256-+Ec97...E=“ src=“https://a.com"></script>
@@ -130,7 +134,7 @@ X-FRAME-OPTIONS 是一个 HTTP 响应头，在现代浏览器有一个很好的�
 
 > 以上方法都只能起到监控数据劫持作用，并不能对劫持后的页面进行修复。
 
-## 现有方案
+## 劫持监控
 
 此方案参考了美团点评 2018 前端分享上的防治方案。
 
