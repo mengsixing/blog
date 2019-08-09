@@ -66,25 +66,74 @@ updateContainer 方法用来更新 fiber，顺着第一次渲染的情况，调�
 - scheduleRootUpdate 调度根组件渲染。
   - 创建 update。
   - 调用 enqueueUpdate(current, update) 更新 update 队列。
-- getCurrentPriorityLevel 获取当前任务的优先级。
 - scheduleWork(current, expiration Time) 进入异步调度流程。
   - renderRoot(root, Sync, true) 渲染 root 组件。
-  - workLoop 执行循环渲染。
+  - workLoopSync 执行循环渲染。
   - performUnitOfWork(workInProgress)
   - beginWork(current, unitOfWork, renderExpirationTime) 创建子节点 fiber。
 
 创建完 Fiber Root 在 unbatchedUpdates 中执行 updateContainer 对容器内容进行更新，更新前会先通过 expirationTime 对节点计算过期时间，具体是通过在 ReactFiberWorkLoop 中 computeExpirationForFiber 进行计算。
 
 ```js
+do {
+  try {
+    if (isSync) {
+      workLoopSync();
+    } else {
+      workLoop();
+    }
+    break;
+  } catch (thrownValue) {
+    // Reset module-level state that was set during the render phase.
+    resetContextDependencies();
+    resetHooks();
+
+    const sourceFiber = workInProgress;
+    // 如果跟节点没有设置 componentDidCatch 生命周期，即没有捕获作物，就会抛出错误。
+    if (sourceFiber === null || sourceFiber.return === null) {
+      // Expected to be working on a non-root fiber. This is a fatal error
+      // because there's no ancestor that can handle it; the root is
+      // supposed to capture all errors that weren't caught by an error
+      // boundary.
+      prepareFreshStack(root, expirationTime);
+      executionContext = prevExecutionContext;
+      throw thrownValue;
+    }
+
+    const returnFiber = sourceFiber.return;
+    throwException(
+      root,
+      returnFiber,
+      sourceFiber,
+      thrownValue,
+      renderExpirationTime
+    );
+    workInProgress = completeUnitOfWork(sourceFiber);
+  }
+} while (true);
+
 function workLoop() {
   // Perform work until Scheduler asks us to yield
   while (workInProgress !== null && !shouldYield()) {
     workInProgress = performUnitOfWork(workInProgress);
   }
 }
+
+function performUnitOfWork(unitOfWork: Fiber): Fiber | null {
+  const current = unitOfWork.alternate;
+  let next;
+  next = beginWork(current, unitOfWork, renderExpirationTime);
+
+  if (next === null) {
+    // 如果没有任务，调用执行完成的方法。
+    next = completeUnitOfWork(unitOfWork);
+  }
+
+  return next;
+}
 ```
 
-reactFiberWorkLoop 其实是一个循环监控的过程，会在执行完一定时间的 requestAnimationFrame 后，进行其他任务的调度。如果有多个任务 expirationTime 都在 25ms 之内，则会进行批量更新，对应一次 batchedUpdates。
+reactFiberWorkLoop 其实是一个循环监控的过程，会在执行完一定时间的 requestAnimationFrame 后（具体下一章会讲到），进行其他任务的调度。如果有多个任务 expirationTime 都在 25ms 之内，则会进行批量更新，对应一次 batchedUpdates。
 
 这个超时时间实现的非常精妙，我们拿 computeAsyncExpiration 举例子，在 computeExpirationBucket 中接收的就是 currentTime、5000 和 250 ，最终的公式：`((((currentTime - 2 + 5000 / 10) / 25) | 0) + 1) * 25`。
 
@@ -117,9 +166,9 @@ React 这么设计抹相当于抹平了 25ms 内计算过期时间的误差，�
 
 细想了一下，这么做也许是为了让非常相近的两次更新得到相同的 expirationTime，然后在一次更新中完成，相当于一个自动的 batchedUpdates。
 
-#### 整理流程分析
+#### 渲染更新流程分析
 
-在了解了创建 fiber 以及更新 fiber 的流程之后，这里总结了一张流程图，方便理解。
+在了解了创建 fiber 以及更新 fiber 的流程之后，这里总结了一张渲染更新的过程图，方便理解 renderRoot 时的更新流程。
 
 ![scheduler-render-root](library-react-scheduler-render-root.png)
 
