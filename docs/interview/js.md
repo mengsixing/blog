@@ -2,10 +2,10 @@
 
 ## 1、请简述 JavaScript 中的 this
 
-- 在调用函数时使用 new 关键字，函数内的 this 是一个全新的对象。
-- 如果 apply、call 或 bind 方法用于调用、创建一个函数，函数内的 this 就是作为参数传入这些方法的对象。
-- 当函数作为对象里的方法被调用时，函数内的 this 是调用该函数的对象。比如当 obj.method()被调用时，函数内的 this 将绑定到 obj 对象。
-- 如果调用函数不符合上述规则，那么 this 的值指向全局对象（global object）。浏览器环境下 this 的值指向 window 对象，但是在严格模式下('use strict')，this 的值为 undefined。
+- 1、在调用函数时使用 new 关键字，函数内的 this 是一个全新的对象。
+- 2、如果 apply、call 或 bind 方法用于调用、创建一个函数，函数内的 this 就是作为参数传入这些方法的对象。
+- 3、当函数作为对象里的方法被调用时，函数内的 this 是调用该函数的对象。比如当 obj.method()被调用时，函数内的 this 将绑定到 obj 对象。
+- 4、如果调用函数不符合上述规则，那么 this 的值指向全局对象（global object）。浏览器环境下 this 的值指向 window 对象，但是在严格模式下，this 的值为 undefined。
 - 如果符合上述多个规则，则较高的规则（1 号最高，4 号最低）将决定 this 的值。
 - 如果该函数是 ES2015 中的箭头函数，将忽略上面的所有规则，this 被设置为它被创建时的上下文。
 
@@ -24,7 +24,7 @@ scrollWidth：
 
 ## 3、写一个节流函数
 
-定义：触发函数事件后，短时间间隔内无法连续调用，只有上一次函数执行后，过了规定的时间间隔，才能进行下一次的函数调用。
+**节流函数**是指触发事件后，在一定时间间隔内无法连续调用，只有过了规定的时间间隔，才能进行下一次函数的调用。
 
 注意事项：
 
@@ -52,7 +52,7 @@ function throttle(callback, timeout) {
 
 ## 4、防抖函数
 
-定义：多次触发事件后，事件处理函数只执行一次，并且是在触发操作结束时执行。
+**防抖函数**是指多次触发事件后，事件处理函数只执行一次，并且是在触发操作结束时执行。
 
 注意点：
 
@@ -86,6 +86,8 @@ arguments 是数组吗？怎么实现用它调用数组方法？类数组和数�
 
 2、可以转换成数组，因为它有 Symbol(Symbol.iterator) 方法。
 
+可以使用以下方法，将含有 Symbol(Symbol.iterator)属性的对象，转换为数组。
+
 ```js
 [...arguments];
 Array.prototype.slice.call(arguments);
@@ -108,7 +110,7 @@ Function.prototype.bind2 = function(ctx, ...rest) {
   const func = this;
   var result = function(...params) {
     return func.apply(
-      // 如果是 new 对象出的，this绑定的应该绑定为构造函数
+      // 如果是 new 对象出的，this 绑定的应该绑定为构造函数
       this instanceof result ? this : ctx,
       rest.concat(params)
     );
@@ -122,7 +124,7 @@ Function.prototype.bind2 = function(ctx, ...rest) {
 
 ## 7、promise、setTimeout、async/await 的执行顺序
 
-微任务包括 process.nextTick ，promise ，MutationObserver，其中 process.nextTick 为 Node 独有。
+微任务包括 process.nextTick ，promise ，MutationObserver，其中 process.nextTick 为 nodejs 独有。
 
 宏任务包括 script ， setTimeout ，setInterval ，setImmediate ，I/O ，UI rendering。
 
@@ -141,7 +143,6 @@ Fetch 采用了 Promise 的异步处理机制，更加简单。在默认情况�
 ## 10、解释一下 JS 中的 `__proto__` 和 prototype
 
 - 任何对象都有一个 `__proto__` 属性。
-
 - 任何方法都有一个 `prototype` 属性。
 
 `__proto__`指向 new 出来的构造函数的原型`prototype`。
@@ -150,7 +151,7 @@ Fetch 采用了 Promise 的异步处理机制，更加简单。在默认情况�
 
 需要注意的是：
 
-`prototype` 也是一个对象 ，所以其中也有一个`__proto__`属性，指向对象的原型 `Object.protytype`。
+`prototype` 也是一个对象 ，所以其中也有一个`__proto__`属性，指向对象的原型 `Object.prototype`。
 
 `Object` 本身是构造函数，继承了 Function.prototype。`Object.__proto__ === Function.prototype`
 
@@ -208,7 +209,7 @@ console.log(a.__proto__.__proto__.__proto__ === null);
 
 ## 12、JS new 过程中发生了什么
 
-1，创建一个以这个函数为原型的空对象.
+1，创建一个以当前函数为原型的空对象。
 
 2，将函数的 `prototype` 赋值给对象的 `__proto__` 属性。
 
@@ -217,7 +218,7 @@ console.log(a.__proto__.__proto__.__proto__ === null);
 ```js
 function newFunc(father, ...rest) {
   var result = {};
-  result.__proto = father.prototype;
+  result.__proto__ = father.prototype;
   var result2 = father.apply(result, rest);
   if (
     (typeof result2 === 'object' || typeof result2 === 'function') &&
@@ -229,11 +230,10 @@ function newFunc(father, ...rest) {
 }
 ```
 
-## 13、setTimeout 和 setInterval 方法有执行顺序吗
+## 13、setTimeout 和 setInterval 方法执行顺序是什么
 
-setTimeout 等待 xx 毫秒后，把方法推入异步队列。
-
-setInterval 每隔 xx 毫秒，把方法推入异步队列。
+- setTimeout 等待 xx 毫秒后，把方法推入异步队列。
+- setInterval 每隔 xx 毫秒，把方法推入异步队列。
 
 setInterval 有个了例外：当间隙时间较小、方法内部执行非常耗时的时候，会导致间隔不连续。
 
@@ -245,11 +245,13 @@ setInterval 有个了例外：当间隙时间较小、方法内部执行非常�
 
 ```js
 Function.prototype.myCall = function(context, ...rest) {
-  // context是需要绑定的作用域
+  // context 是需要绑定的作用域
   var context = context || window;
-  context.fn = this;
-  var result = context.fn(rest);
-  delete context.fn;
+  // 避免修改到原对象的属性
+  var callFn = Symbol('callFn');
+  context[callFn] = this;
+  var result = context[callFn](rest);
+  delete context[callFn];
   return result;
 };
 ```
@@ -281,11 +283,11 @@ function deepClone(obj, cacheObj = new WeakMap()) {
     return obj;
   }
 
-  if(isObject(obj)){
-    result = {...obj};
+  if (isObject(obj)) {
+    result = { ...obj };
   }
 
-  if(isArray(obj)) {
+  if (isArray(obj)) {
     result = [...obj];
   }
 
@@ -308,19 +310,19 @@ function deepClone(obj, cacheObj = new WeakMap()) {
 ## 16、分析这一段代码的返回结果
 
 ```js
-var a = 0
+var a = 0;
 var b = async () => {
-  a = a + await 10
-  console.log('b中的a：', a);
-}
-b()
-a++
-console.log('外部a：', a)
+  a = a + (await 10);
+  console.log('b 中的 a：', a);
+};
+b();
+a++;
+console.log('外部 a：', a);
 ```
 
-- 首先函数 b 先执行，在执行到 await 10 之前变量 a 还是 0，因为 await 内部实现了 generator ，generator 会保留堆栈中东西，所以这时候 a = 0 被保存了下来
-- 因为 await 是异步操作，后来的表达式不返回 Promise 的话，就会包装成 Promise.reslove(返回值)，然后会去执行函数外的同步代码
-- 同步代码执行完毕后开始执行异步代码，将保存下来的值拿出来使用，这时候 a = 0 + 10
+- 首先函数 b 先执行，在执行到 await 10 之前变量 a 还是 0，因为 await 内部实现了 generator ，generator 会保留堆栈中变量，所以这时候 a = 0 被保存了下来。
+- 因为 await 是异步操作，后来的表达式不返回 Promise 的话，就会包装成 Promise.reslove(返回值)，然后会去执行函数外的同步代码。
+- 同步代码执行完毕后开始执行异步代码，将保存下来的值拿出来使用，这时候 a = 0 + 10。
 
 上述解释中提到了 await 内部实现了 generator，其实 await 就是 generator 加上 promise 的语法糖，且内部实现了自动执行 generator。如果你熟悉 co 的话，其实自己就可以实现这样的语法糖。
 
@@ -341,12 +343,12 @@ js 代码如果要运行起来，必须要一个编译器来编译（V8），以
 ## 18、写出以下函数打印结果
 
 ```js
-function Person(){}
+function Person() {}
 
 var p1 = new Person();
 
 Person.prototype.sex = 'man';
-Person.prototype = {sex: 'woman'};
+Person.prototype = { sex: 'woman' };
 
 var p2 = new Person();
 

@@ -36,8 +36,9 @@ body {
 }
 
 .item {
-  padding-bottom: 50%;
+  margin-bottom: 50%;
   width: 100%;
+  background-color: orange;
 }
 ```
 
@@ -45,11 +46,20 @@ body {
 
 - 行内标签它和其它标签处在同一行内。
 - 行内标签无法设置宽度，高度、行高、距顶部距离、距底部距离。
-- 行内标签的宽度是直接由内部的文字或者图片等内容撑开的。
+- 行内标签的宽度是直接由内部的文字或图片等内容撑开的。
 - 行内标签内部不能嵌套行块级元素。
 
-```html
-<a>、<span>、<i>、<em>、<strong>、<label>、<q>、<var>、<cite>、<code>
+```xml
+<a></a>
+<span></span>
+<i></i>
+<em></em>
+<strong></strong>
+<label></label>
+<q></q>
+<var></var>
+<cite></cite>
+<code></code>
 ```
 
 ## 5、data-xxx 属性的作用是什么

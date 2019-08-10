@@ -28,11 +28,11 @@
 
 3、你所了解的 Javascript Bridge 通讯中的优化方案。
 
-JSBridge 是一座用 JavaScript 搭建起来的桥，一端是 web，一端是 native。我们搭建这座桥的目的也很简单，让 native 可以调用 web 的 js 代码，让 web 可以 “调用” 原生的代码。请注意这个“调用”是加了引号的，它并不是直接调用，而是可以根据 web 和 native 约定好的规则来通知 native 要做什么，native 可以根据通知来执行相应的代码。
+JSBridge 是一座用 JavaScript 搭建起来的桥，一端是 web，一端是 native。我们搭建这座桥的目的也很简单，让 native 可以调用 web 的 js 代码，让 web 可以调用原生的代码。但它并不是直接调用，而是可以根据 web 和 native 约定好的规则来通知 native 要做什么，native 可以根据通知来执行相应的代码。
 
 ![jsbridge原理](interview-jsbridge.png)
 
-## 3、TCP/UDP 是什么
+## 3、TCP/UDP 有什么区别
 
 ### TCP
 
@@ -80,7 +80,7 @@ UDP 相比 TCP 简单的多，不需要建立连接，不需要验证数据报�
 
 11、数据库读写分离。
 
-12、加机器。。
+12、加机器。
 
 ## 5、反爬虫方案
 
@@ -94,11 +94,11 @@ UDP 相比 TCP 简单的多，不需要建立连接，不需要验证数据报�
 
 ## 6、什么是 BOM
 
-BOM（Browser Object Model）即浏览器对象模型。
-BOM 提供了独立于内容 而与浏览器窗口进行交互的对象；
-由于 BOM 主要用于管理窗口与窗口之间的通讯，因此其核心对象是 window；
-BOM 由一系列相关的对象构成，并且每个对象都提供了很多方法与属性；
-BOM 缺乏标准，JavaScript 语法的标准化组织是 ECMA，DOM 的标准化组织是 W3C。
+- BOM（Browser Object Model）即浏览器对象模型。
+- BOM 提供了独立于内容而与浏览器窗口进行交互的对象。
+- 由于 BOM 主要用于管理窗口与窗口之间的通讯，因此其核心对象是 window。
+- BOM 由一系列相关的对象构成，并且每个对象都提供了很多方法与属性。
+- BOM 缺乏标准，JavaScript 语法的标准化组织是 ECMA，DOM 的标准化组织是 W3C。
 
 常用对象：location，navigation，history，screen，frames。
 
@@ -106,7 +106,7 @@ BOM 缺乏标准，JavaScript 语法的标准化组织是 ECMA，DOM 的标准�
 
 ## 7、HTTP 常用的请求方式
 
-HTTP 请求方法并不是只有 GET 和 POST，只是最常用的。据 RFC2616 标准（现行的 HTTP/1.1）得知，通常有以下 8 种方法：OPTIONS、GET、HEAD、POST、PUT、DELETE、TRACE 和 CONNECT。
+HTTP 请求方法通常有以下 8 种：OPTIONS、GET、HEAD、POST、PUT、DELETE、TRACE 和 CONNECT。
 
 - GET 获取资源。
 - POST 传输实体的主体。
@@ -117,7 +117,7 @@ HTTP 请求方法并不是只有 GET 和 POST，只是最常用的。据 RFC2616
 - TRACE 追踪路径（让服务器将之前的请求通信返回给客户端）。
 - CONNECT 要求用隧道协议连接代理（主要使用 SSL）。
 
-### 8、OPTIONS 请求方法的主要用途有两个
+### 8、OPTIONS 请求方法的主要用途
 
 1、获取服务器支持的 HTTP 请求方法。
 
@@ -160,7 +160,7 @@ MVVM：
 
 ## 13、PWA 是什么
 
-PWA 主要是为了解决传统 web 的一下几个缺点：
+PWA 主要是为了解决传统 web 的以下几个缺点：
 
 - 传统的 web 应用，数据在 pc 上是没有缓存的，每一次打开页面的时候都会去请求数据。
 - 传统的 web 应用，没有像 app 一样的小图标放在桌面，一点开就进入了应用，而是通过打开浏览器输入网址，
@@ -173,7 +173,9 @@ PWA 主要是为了解决传统 web 的一下几个缺点：
   - 使用 cacheStorage 管理缓存。
   - 使用 Web Push 推送消息。
 
-## 14、浏览器缓存可以分成 Service Worker、Memory Cache、Disk Cache 和 Push Cache，那请求的时候 from memory cache 和 from disk cache 的依据是什么，哪些数据什么时候存放在 Memory Cache 和 Disk Cache 中
+## 14、说一下 Service Worker、Memory Cache、Disk Cache 和 Push Cache 的区别
+
+浏览器缓存可以分成 Service Worker、Memory Cache、Disk Cache 和 Push Cache，那请求的时候 from memory cache 和 from disk cache 的依据是什么？哪些数据什么时候存放在 Memory Cache 和 Disk Cache 中？
 
 从缓存位置上来说分为四种，并且各自有优先级，当依次查找缓存且都没有命中的时候，才会去请求网络。
 
@@ -182,28 +184,25 @@ PWA 主要是为了解决传统 web 的一下几个缺点：
 - Disk Cache
 - Push Cache
 
-  1.Service Worker
+1、Service Worker
 
 Service Worker 是运行在浏览器背后的独立线程，一般可以用来实现缓存功能。使用 Service Worker 的话，传输协议必须为 HTTPS。因为 Service Worker 中涉及到请求拦截，所以必须使用 HTTPS 协议来保障安全。Service Worker 的缓存与浏览器其他内建的缓存机制不同，它可以让我们自由控制缓存哪些文件、如何匹配缓存、如何读取缓存，并且缓存是持续性的。
 
 - 自由控制缓存文件
 - 可持续性缓存
 
-  2.Memory Cache
+2、Memory Cache
 
-Memory Cache 也就是内存中的缓存，主要包含的是当前中页面中已经抓取到的资源,例如页面上已经下载的样式、脚本、图片等。读取内存中的数据肯定比磁盘快,内存缓存虽然读取高效，可是缓存持续性很短，会随着进程的释放而释放。 一旦我们关闭 Tab 页面，内存中的缓存也就被释放了。
+Memory Cache 也就是内存中的缓存，主要包含的是当前中页面中已经抓取到的资源，例如页面上已经下载的样式、脚本、图片等。读取内存中的数据肯定比磁盘快，内存缓存虽然读取高效，可是缓存持续性很短，会随着进程的释放而释放。一旦我们关闭 Tab 页面，内存中的缓存也就被释放了。
 
 - 容量小
 - 读取快
 - 缓存时间短
 
-这是不可能的。计算机中的内存一定比硬盘容量小得多，操作系统需要精打细算内存的使用，所以能让我们使用的内存必然不多。
-当我们访问过页面以后，再次刷新页面，可以发现很多数据都来自于内存缓存。
-
-3.Disk Cache
+3、Disk Cache
 
 Disk Cache 也就是存储在硬盘中的缓存，读取速度慢点，但是什么都能存储到磁盘中，比之 Memory Cache 胜在容量和存储时效性上。
-在所有浏览器缓存中，Disk Cache 覆盖面基本是最大的。它会根据 HTTP Herder 中的字段判断哪些资源需要缓存，哪些资源可以不请求直接使用，哪些资源已经过期需要重新请求。并且即使在跨站点的情况下，相同地址的资源一旦被硬盘缓存下来，就不会再次去请求数据。
+在所有浏览器缓存中，Disk Cache 覆盖面基本是最大的。它会根据 HTTP Header 中的字段判断哪些资源需要缓存，哪些资源可以不请求直接使用，哪些资源已经过期需要重新请求。并且即使在跨站点的情况下，相同地址的资源一旦被硬盘缓存下来，就不会再次去请求数据。
 
 - 读取慢
 - 容量大
@@ -211,13 +210,12 @@ Disk Cache 也就是存储在硬盘中的缓存，读取速度慢点，但是什
 
 浏览器会把哪些文件丢进内存中？哪些丢进硬盘中？
 
-- 对于大文件来说，大概率是不存储在内存中的，反之优先。
+- 对于大文件来说，大概率是不存储在内存中的，存在硬盘中。
 - 当前系统内存使用率高的话，文件优先存储进硬盘。
 
-  4.Push Cache
+4、Push Cache
 
-Push Cache（推送缓存）是 HTTP/2 中的内容，当以上三种缓存都没有命中时，它才会被使用。它只在会话（Session）中存在，一旦会话结束就被释放，并且缓存时间也很短暂，在 Chrome 浏览器中只有 5 分钟左右，同时它也并非严格执行 HTTP 头中的缓存指令。
-Push Cache 在国内能够查到的资料很少，也是因为 HTTP/2 在国内不够普及。
+Push Cache（推送缓存）是 HTTP/2 中的内容，当以上三种缓存都没有命中时，它才会被使用。它只在会话中存在，一旦会话结束就被释放，并且缓存时间也很短暂，在 Chrome 浏览器中只有 5 分钟左右，同时它也并非严格执行 HTTP 头中的缓存指令。Push Cache 在国内能够查到的资料很少，也是因为 HTTP/2 在国内不够普及。
 
 - 只在会话中存在
 - 会话结束后就被释放
