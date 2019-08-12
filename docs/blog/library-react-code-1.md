@@ -9,6 +9,10 @@ React 将源码划分成了很多个单独的包，我们主要分析这几个�
 - react-reconciler
 - scheduler
 
+:::warning 关于 react 版本
+此系列文章中，react 版本为 16.9.0，react-dom 版本为 16.9.0。
+:::
+
 本篇文章提纲。
 
 - JSX 文件转换
