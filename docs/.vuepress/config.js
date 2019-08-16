@@ -54,13 +54,15 @@ module.exports = {
             "library-react-code-1",
             "library-react-code-2",
             "library-react-code-3",
+            "library-react-code-4",
             "library-react-ssr",
             'library-react-hooks',
             "library-vue",
             "library-miniProgram",
             "library-redux",
             "library-rxjs",
-            "libary-koa",
+            "library-koa",
+            "library-koa-diy",
           ]
         },
         {

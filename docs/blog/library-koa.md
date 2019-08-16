@@ -1,4 +1,4 @@
-# Koa 源代码阅读
+# Koa 源码阅读
 
 最近看了一下 koa 的源码，发现源码逻辑非常清晰，这里做一个记录。
 
@@ -21,13 +21,13 @@ koa 库源码核心很简单，就 4 个核心的 js 文件和 1 个控制 middl
 
 ```js
 var request = {
- get header() {
+  get header() {
     return this.req.headers;
   },
   set header(val) {
     this.req.headers = val;
-  },
-}
+  }
+};
 ```
 
 封装后，就可以使用 this.request.header() 获取所有的 header 了。
@@ -48,8 +48,8 @@ delegate(proto, 'response')
   .method('append')
   .method('flushHeaders')
   .access('status')
-  .access('message')
-  
+  .access('message');
+
 delegate(proto, 'request')
   .method('acceptsLanguages')
   .method('acceptsEncodings')
@@ -61,7 +61,7 @@ delegate(proto, 'request')
   .access('idempotent')
   .access('socket')
   .access('search')
-  .access('method')
+  .access('method');
 ```
 
 通过委托以后，就可以通过 this.ctx.body 访问到 this.response.body。
@@ -83,40 +83,41 @@ koa-compose 接收一个 middleware 的集合，并返回一个函数用来执�
 
 ```js
 var middlewareArray = [
-function(context,next) {
+  function(context, next) {
     console.log(1);
     next();
-    console.log(1.5);
-},
-function(context,next) {
+    console.log(3);
+  },
+  function(context, next) {
     console.log(2);
-}
+  }
 ];
 function compose(middleware) {
-    return function(context, next) {
-        let index = -1;
-        return dispatch(0);
-        function dispatch(i) {
-        // 如果在一个middleware中调用了2次next方法，则会报错
-        if (i <= index)
-            return Promise.reject(new Error('next() called multiple times'));
-        index = i;
-        let fn = middleware[i];
-        if (i === middleware.length) fn = next;
-        if (!fn) return Promise.resolve();
-        try {
-            return Promise.resolve(fn(context, dispatch.bind(null, i + 1)));
-        } catch (err) {
-            return Promise.reject(err);
-        }
-        }
-    };
+  return function(context, next) {
+    let index = -1;
+    return dispatch(0);
+    function dispatch(i) {
+      // 如果在一个 middleware 中调用了 2 次 next 方法，则会报错
+      if (i <= index)
+        return Promise.reject(new Error('next() called multiple times'));
+      index = i;
+      let fn = middleware[i];
+      if (i === middleware.length) fn = next;
+      if (!fn) return Promise.resolve();
+      try {
+        return Promise.resolve(fn(context, dispatch.bind(null, i + 1)));
+      } catch (err) {
+        return Promise.reject(err);
+      }
+    }
+  };
 }
-compose(middlewareArray);
 
+var fn = compose(middlewareArray);
+fn();
 // 1
 // 2
-// 1.5
+// 3
 ```
 
 ## application.js
@@ -136,7 +137,7 @@ class Application extends Emitter {
   }
 
   callback() {
-    //   调用 koa-compose 返回一个中间件执行函数。
+    // 调用 koa-compose 返回一个中间件执行函数。
     const fn = compose(this.middleware);
     const handleRequest = (req, res) => {
       const ctx = this.createContext(req, res);
@@ -147,14 +148,16 @@ class Application extends Emitter {
 
   handleRequest(ctx, fnMiddleware) {
     const handleResponse = () => respond(ctx);
-    return fnMiddleware(ctx).then(handleResponse).catch(onerror);
+    return fnMiddleware(ctx)
+      .then(handleResponse)
+      .catch(onerror);
   }
 
   createContext(req, res) {
     //   创建context
     const context = Object.create(this.context);
-    const request = context.request = Object.create(this.request);
-    const response = context.response = Object.create(this.response);
+    const request = (context.request = Object.create(this.request));
+    const response = (context.response = Object.create(this.response));
     context.app = request.app = response.app = this;
     context.req = request.req = response.req = req;
     context.res = request.res = response.res = res;
@@ -167,12 +170,11 @@ class Application extends Emitter {
   }
 
   use(fn) {
-    //   将中间件加入数组中
+    // 将中间件加入数组中
     this.middleware.push(fn);
     return this;
   }
 }
-
 ```
 
 - 在 craeteServer 结束后，会触发 callback。

@@ -116,15 +116,66 @@ Factory.create('Jack').alertName();
 
 ### 建造者模式
 
-将一个复杂对象的构建层与其表示层相互分离，同样的构建过程可采用不同的表示。
+建造者模式是指将一个复杂的对象分解成多个简单的对象来进行构建，将复杂的构建层与表示层分离，使得相同的构建过程可以创建不同的表示。
 
-> 参与创建的具体过程
+案例：创建一个汽车。
+
+```js
+// 产品类：car 目前需要构建一辆车。
+function car() {
+  this.wheel = '';
+  this.engine = '';
+}
+
+// 建造者类，里面有专门负责各个部分的工人
+function carBuilder() {
+  this.wheelBuilder = function() {
+    this.wheel = '轮子';
+  };
+  this.engineBuilder = function() {
+    this.engine = '发动机';
+  };
+  this.getCar = function() {
+    var Car = new car();
+    Car.wheel = this.wheel;
+    Car.engine = this.engine;
+    return Car;
+  };
+}
+
+// 指挥者类，指挥各个部分的工人工作
+function director() {
+  this.action = function(builder) {
+    builder.wheelBuilder();
+    builder.engineBuilder();
+  };
+}
+
+// 开始创建
+var builder = new carBuilder();
+var director = new director();
+director.action(builder);
+var Car = builder.getCar();
+console.log(Car);
+```
 
 ### 原型模式
 
-用原型实例指向创建对象的类，使用于创建新的对象的类共享原型对象的属性以及方法。
+原型模式是指用原型实例指向创建对象的类，使用于创建新的对象的类共享原型对象的属性以及方法。
 
-> 类似原型继承 prototype
+```js
+var someCar = {
+  drive: function() {
+    console.log('drive' + this.name);
+  },
+  name: '马自达 3'
+};
+
+// 使用 Object.create 创建一个新车 x
+var anotherCar = Object.create(someCar); // anotherCar.__proto__ === someCar true
+anotherCar.name = '丰田佳美';
+anotherCar.drive();
+```
 
 ## 结构型设计模式
 
@@ -153,23 +204,51 @@ function addEvent(elm, evType, fn, useCapture) {
 将一个类的接口转化为另外一个接口，以满足用户需求，使类之间接口不兼容问题通过适配器得以解决。
 
 ```js
-class Plug {
-  getName() {
-    return '港版插头';
+class Duck {
+  fly() {
+    console.log('fly Duck');
+  }
+  quack() {
+    console.log('gaga~');
   }
 }
 
-class Target {
-  constructor() {
-    this.plug = new Plug();
+class Turkey {
+  fly() {
+    console.log('fly Turkey');
   }
-  getName() {
-    return this.plug.getName() + ' 适配器转二脚插头';
+  gobble() {
+    console.log('gugu~');
   }
 }
 
-let target = new Target();
-target.getName(); // 港版插头 适配器转二脚插头
+class TurkeyAdapter = {
+  constructor(){
+    super();
+    this.turkey = Turkey.apply(this);
+    this.quack = function(){
+      this.turkey.gobble();
+    }
+  }
+}
+
+// 适配之后 TurkeyAdapter 和 Duck 拥有的方法名就保持一致了。
+var duck = new Duck();
+var turkey = new Turkey();
+var turkeyAdapter = new TurkeyAdapter(turkey);
+
+//原有的鸭子行为
+duck.fly();
+duck.quack();
+
+//原有的火鸡行为
+turkey.fly();
+turkey.gobble();
+
+// 适配器火鸡的行为（火鸡调用鸭子的方法名称）
+turkeyAdapter.fly();
+turkeyAdapter.quack();
+
 ```
 
 可以用来适配对象，适配代码库，适配数据等。
@@ -227,15 +306,79 @@ t.Jack = '111'; // 不可修改
 
 ### 桥接模式
 
-桥接模式（Bridge）将抽象部分与它的实现部分分离，使它们都可以独立地变化。
+桥接模式：在系统沿着多个维度变化的时候，不增加复杂度以达到解耦的目的。
 
-> 一个实现未必不变地绑定在一个接口上，抽象类（函数）的实现可以在运行时刻进行配置，一个对象甚至可以在运行时刻改变它的实现，同将抽象和实现也进行了充分的解耦，也有利于分层，从而产生更好的结构化系统。主要用于解耦。
+在我们日常开发中，需要对相同的逻辑做抽象的处理。桥接模式就是为了解决这类的需求。
+
+```js
+//运动单元
+class Speed {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+  run() {
+    console.log('动起来');
+  }
+}
+
+// 着色单元
+class Color {
+  constructor(cl) {
+    this.color = cl;
+  }
+  draw() {
+    console.log('绘制色彩');
+  }
+}
+
+//说话单元
+class Speak {
+  constructor(wd) {
+    this.word = wd;
+  }
+  say() {
+    console.log('请开始你的表演');
+  }
+}
+
+//创建球类，并且它可以运动可以着色
+class Ball {
+  constructor(x, y, c) {
+    this.speed = new Speed(x, y);
+    this.color = new Color(c);
+  }
+  init() {
+    //实现运动和着色
+    this.speed.run();
+    this.color.draw();
+  }
+}
+
+class People {
+  constructor(x, y, f) {
+    this.speed = new Speed(x, y);
+    this.speak = new Speak(f);
+  }
+  init() {
+    this.speed.run();
+    this.speak.say();
+  }
+}
+
+// 当我们实例化一个人物对象的时候，他就可以有对应的方法实现了
+
+var p = new People(10, 12, '我是一个人');
+p.init();
+var ball = new Ball(10, 12, 'red');
+ball.init();
+```
 
 ### 组合模式
 
-组合模式就是用小的子对象来构建更大的对象，而这些小的子对象本身也许是由更 小的“孙对象”构成的。
+组合模式就是用小的子对象来构建更大的对象，而这些小的子对象本身也许是由更小的孙对象构成的。
 
-组合模式的例子——扫描文件夹
+案例：扫描文件夹。
 
 文件夹和文件之间的关系，非常适合用组合模式来描述。文件夹里既可以包含文件，又可以包含其他文件夹，最终可能组合成一棵树，组合模式在文件夹的应用中有以下两层好处。
 
@@ -440,13 +583,11 @@ var Observer = (function() {
 })();
 ```
 
-> 解决类和对象之间的耦合，解耦 2 个相互依赖的对象，使其依赖于观察者的消息机制。
-
 ### 状态模式
 
 状态模式的关键是区分事物内部的状态，事物内部状态的改变往往会带来事物的行为改变。
 
-案例：开关电灯问题
+案例：开关电灯问题。
 
 ```js
 // OffLightState:
@@ -543,7 +684,7 @@ console.log(calculateBonus('A', 10000)); // 输出:30000
 
 实战案例：
 
-公司针对支付过定金的用户有一定的优惠政策。在正式购买后，已经支付过 500 元定金的用 户会收到 100 元的商城优惠券，200 元定金的用户可以收到 50 元的优惠券，而之前没有支付定金 的用户只能进入普通购买模式，也就是没有优惠券，且在库存有限的情况下不一定保证能买到。
+公司针对支付过定金的用户有一定的优惠政策。在正式购买后，已经支付过 500 元定金的用户会收到 100 元的商城优惠券，200 元定金的用户可以收到 50 元的优惠券，而之前没有支付定金 的用户只能进入普通购买模式，也就是没有优惠券，且在库存有限的情况下不一定保证能买到。
 
 - orderType，表示订单类型(定金用户或者普通购买用户)，code 的值为 1 的时候是 500 元定金用户，为 2 的时候是 200 元定金用户，为 3 的时候是普通购买用户。
 - pay，表示用户是否已经支付定金，值为 true 或者 false, 虽然用户已经下过 500 元定金的 订单，但如果他一直没有支付定金，现在只能降级进入普通购买模式。
@@ -554,21 +695,22 @@ var order500 = function(orderType, pay, stock) {
   if (orderType === 1 && pay === true) {
     console.log('500 元定金预购，得到 100 优惠券');
   } else {
+    // 我不知道下一个节点是谁，反正把请求往后面传递
     return 'nextSuccessor';
-  } // 我不知道下一个节点是谁，反正把请求往后面传递
+  }
 };
 
 var order200 = function(orderType, pay, stock) {
   if (orderType === 2 && pay === true) {
     console.log('200 元定金预购，得到 50 优惠券');
   } else {
+    // 我不知道下一个节点是谁，反正把请求往后面传递
     return 'nextSuccessor';
-  } // 我不知道下一个节点是谁，反正把请求往后面传递
+  }
 };
 
 var orderNormal = function(orderType, pay, stock) {
   if (stock > 0) {
-    7;
     console.log('普通购买，无优惠券');
   } else {
     console.log('手机库存不足');
@@ -686,15 +828,47 @@ chainOrder500.passRequest(1, false, 0); // 输出:手机库存不足
 
 ### 访问者模式
 
-针对于对象结构中的元素，定义在不改变该对象的前提下，访问结构中元素的新方法。
+访问者模式：针对于对象结构中的元素，定义在不改变对象的前提下访问结构中元素的方法。
 
-> 解决数据与数据操作方法之间的耦合，将数据的操作方法独立于数据，使其可以自由化演变。
+在访问者模式中，主要包括下面几个角色
+
+1、抽象访问者：抽象类或者接口，声明访问者可以访问哪些元素，具体到程序中就是 visit 方法中的参数定义哪些对象是可以被访问的。
+
+2、访问者：实现抽象访问者所声明的方法，它影响到访问者访问到一个类后该干什么，要做什么事情。
+
+3、抽象元素类：接口或者抽象类，声明接受哪一类访问者访问，程序上是通过 accept 方法中的参数来定义的。抽象元素一般有两类方法，一部分是本身的业务逻辑，另外就是允许接收哪类访问者来访问。
+
+4、元素类：实现抽象元素类所声明的 accept 方法，通常都是 visitor.visit(this)，基本上已经形成一种定式了。
+
+5、结构对象：一个元素的容器，一般包含一个容纳多个不同类、不同接口的容器，如 List、Set、Map 等，在项目中一般很少抽象出这个角色。
+
+```js
+// 访问者
+function Visitor() {
+  this.visit = function(concreteElement) {
+    concreteElement.doSomething();
+  };
+}
+// 元素类
+function ConceteElement() {
+  this.doSomething = function() {
+    console.log('这是一个具体元素');
+  };
+  this.accept = function(visitor) {
+    visitor.visit(this);
+  };
+}
+// Client
+var ele = new ConceteElement();
+var v = new Visitor();
+ele.accept(v);
+```
 
 ### 中介者模式
 
 中介者模式的作用就是解除对象与对象之间的紧耦合关系。增加一个中介者对象后，所有的相关对象都通过中介者对象来通信，而不是互相引用，所以当一个对象发生改变时，只需要通知中介者对象即可。
 
-案例：泡泡堂游戏
+案例：泡泡堂游戏。
 
 传统的双人对战中，可能出现 A 玩家内部引用 B 玩家，A 玩家胜利时，会调用 A.B.win 方法，通知 B 玩家获胜，但随着玩家不断增多，玩家之间的互相引用势必会造成大量引用，难以维护的问题。以下代码使用中介者模式解决了这个问题。
 
@@ -773,9 +947,28 @@ var playerDirector = (function() {
 
 ### 备忘录模式
 
-在不破坏对象的封装性的前提下，在对象之外捕获并保存该对象内部的状态，以便日后对象使用或者对象恢复到之前的某个状态。
+备忘录模式定义，在不破坏封装性的前提下，捕获一个对象的内部状态，并在该对象之外保存这个状态。这样就可以将该对象恢复到原先保存的状态。
 
-> 分页加载，对已加载的页进行缓存。
+案例：备忘录模式在 js 中经常用于数据缓存. 比如一个分页控件, 从服务器获得某一页的数据后可以存入缓存。以后再翻回这一页的时候，可以直接使用缓存里的数据而无需再次请求服务器。
+
+```js
+var Page = (function() {
+  var page = 1,
+    cache = {},
+    data;
+  return function(page) {
+    if (cache[page]) {
+      data = cache[page];
+      render(data);
+    } else {
+      Ajax.send('cgi.xx.com/xxx', function(data) {
+        cache[page] = data;
+        render(data);
+      });
+    }
+  };
+})();
+```
 
 ### 迭代器模式
 
@@ -783,7 +976,7 @@ var playerDirector = (function() {
 
 目前，恐怕只有在一些“古董级”的语言中才会为实现一个迭代器模式而烦恼，现在流行的 大部分语言如 Java、Ruby 等都已经有了内置的迭代器实现，许多浏览器也支持 JavaScript 的 Array.prototype.forEach。
 
-现在我们来自己实现一个 each 函数，each 函数接受 2 个参数，第一个为被循环的数组，第 二个为循环中的每一步后将被触发的回调函数:
+现在我们来自己实现一个 each 函数，each 函数接受 2 个参数，第一个为被循环的数组，第二个为循环中的每一步后将被触发的回调函数:
 
 ```js
 // 定义迭代器
@@ -801,9 +994,69 @@ each([1, 2, 3], function(i, n) {
 
 ### 解释器模式
 
-对于一种语言，给出其文法表示形式，并定义一种解释器，通过使用这种解释器，来解释语言中定义的句子。
+解释器模式是指，对于一种语言，给出其文法表示形式，并定义一种解释器，通过使用这种解释器，来解释语言中定义的句子。
 
-> 解析 dom 树 html>head|body>button。
+案例：解析 dom 树。
+
+```js
+// xPath解释器
+var Interpreter = (function() {
+  // 获取兄弟元素名称
+  function getSulingName(node) {
+    if (node.previousSibling) {
+      var name = '',
+        count = 1,
+        nodeName = node.nodeName,
+        sibling = node.previousSibling;
+      while (sibling) {
+        if (
+          sibling.nodeType == 1 &&
+          sibling.nodeType === node.nodeType &&
+          sibling.nodeName
+        ) {
+          // 如果节点名称和前一个兄弟元素名称相同
+          if (nodeName == sibling.nodeName) {
+            name += ++count;
+          } else {
+            count = 1;
+            name += '|' + sibling.nodeName.toUpperCase();
+          }
+        }
+        sibling = sibling.previousSibling;
+      }
+      return name;
+    } else {
+      return '';
+    }
+  }
+  return function(node, wrap) {
+    var path = [],
+      wrap = wrap || document;
+    if (node == wrap) {
+      if (wrap.nodeType == 1) {
+        path.push(wrap.nodeName.toUpperCase());
+      }
+      return path;
+    }
+    if (node.parentNode !== wrap) {
+      path = arguments.callee(node.parentNode, wrap);
+    } else {
+      if (wrap.nodeType == 1) {
+        path.push(wrap.nodeName.toUpperCase());
+      }
+    }
+    var sublingsNames = getSulingName(node);
+    if (node.nodeType == 1) {
+      path.push(node.nodeName.toUpperCase() + sublingsNames);
+    }
+    return path;
+  };
+})();
+var path = Interpreter(document.getElementsByTagName('img')[0]);
+// ["HTML", "BODY|HEAD", "DIV", "SECTION", "HEADER", "DIV", "DIV", "DIV", "A", "IMG"]
+```
+
+babel 中的 AST 解析器也是一个比较好的案例。
 
 ## 其他类型设计模式
 
