@@ -378,3 +378,140 @@ setState 渲染流程如下：
 - 合成事件中（jsx 中的事件都是合成事件）。
 
 案例：在 setTimeout 中执行 setstate 时，没有在 react 事务流中，所以会直接进入更新路程，同步渲染。
+
+## 15、Vue Dom Diff 算法原理
+
+这里是指 Vue2.x 中的 Diff 算法，底层使用[snabbdom](https://github.com/snabbdom/snabbdom)库。
+
+Vue 中的 Diff 算法，使用双端比较的原理进行 Dom 比较操作，避免这种多余的 DOM 移动。
+
+例如：比较两个 children 数组，需要四个指针，分别指向 oldStartIdx、oldEndIdx、newStartIdx，newEndIdx。
+
+- new 头和 old 头一致，或 new 尾和 old 尾一致，则直接进行复用，同时双指针往后移。
+- new 头和 old 尾一致，或 new 尾和 old 头一致，则进行节点交换操作，同时双指针往后移。
+- new 头尾和 old 头尾都不一致，并且是一个新节点，则直接插入节点，同时双指针往后移。（这个时候可能导致页面重排）
+- new 头尾和 old 头尾都不一致，但找到 key 可以复用，先将 nodeValue = undefined，然后进行交换，同时双指针往后移。
+- 一旦新 children 或老 children 发生越界。
+  - 如果新 children 越界，删除剩下的 old 节点。
+  - 如果老 children 越界，插入剩下的 new 节点。
+
+具体的部分源码如下：
+
+```js
+function updateChildren() {
+  var oldStartIdx = 0;
+  var newStartIdx = 0;
+  var oldEndIdx = oldCh.length - 1;
+  var newEndIdx = newCh.length - 1;
+
+  while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
+    if (isUndef(oldStartVnode)) {
+      oldStartVnode = oldCh[++oldStartIdx]; // Vnode has been moved left
+    } else if (isUndef(oldEndVnode)) {
+      oldEndVnode = oldCh[--oldEndIdx];
+    } else if (sameVnode(oldStartVnode, newStartVnode)) {
+      // patchVnode();
+      // 节点相同，不做任何处理
+      oldStartVnode = oldCh[++oldStartIdx];
+      newStartVnode = newCh[++newStartIdx];
+    } else if (sameVnode(oldEndVnode, newEndVnode)) {
+      // patchVnode();
+      // 节点相同，不做任何处理
+      oldEndVnode = oldCh[--oldEndIdx];
+      newEndVnode = newCh[--newEndIdx];
+    } else if (sameVnode(oldStartVnode, newEndVnode)) {
+      //  patchVnode();
+      // 首或尾一致，进行移动
+      canMove &&
+        nodeOps.insertBefore(
+          parentElm,
+          oldStartVnode.elm,
+          nodeOps.nextSibling(oldEndVnode.elm)
+        );
+      oldStartVnode = oldCh[++oldStartIdx];
+      newEndVnode = newCh[--newEndIdx];
+    } else if (sameVnode(oldEndVnode, newStartVnode)) {
+      //  patchVnode();
+      // 首或尾一致，进行移动
+      canMove &&
+        nodeOps.insertBefore(parentElm, oldEndVnode.elm, oldStartVnode.elm);
+      oldEndVnode = oldCh[--oldEndIdx];
+      newStartVnode = newCh[++newStartIdx];
+    } else {
+      if (isUndef(oldKeyToIdx)) {
+        oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx);
+      }
+      // 首尾都不一致，寻找是否能复用之前的其他节点，通过 key 进行判断
+      idxInOld = isDef(newStartVnode.key)
+        ? oldKeyToIdx[newStartVnode.key]
+        : findIdxInOld(newStartVnode, oldCh, oldStartIdx, oldEndIdx);
+      if (isUndef(idxInOld)) {
+        // 没有 key 标识，当成新节点，进行创建
+        createElm(
+          newStartVnode,
+          insertedVnodeQueue,
+          parentElm,
+          oldStartVnode.elm,
+          false,
+          newCh,
+          newStartIdx
+        );
+      } else {
+        // 通过 key 找到可以复用的节点
+        vnodeToMove = oldCh[idxInOld];
+        if (sameVnode(vnodeToMove, newStartVnode)) {
+          patchVnode(
+            vnodeToMove,
+            newStartVnode,
+            insertedVnodeQueue,
+            newCh,
+            newStartIdx
+          );
+          // 将老节点的值设置为 undefined
+          oldCh[idxInOld] = undefined;
+          canMove &&
+            nodeOps.insertBefore(parentElm, vnodeToMove.elm, oldStartVnode.elm);
+        } else {
+          // 没有找到可以复用的节点，当成新节点，进行创建
+          createElm(
+            newStartVnode,
+            insertedVnodeQueue,
+            parentElm,
+            oldStartVnode.elm,
+            false,
+            newCh,
+            newStartIdx
+          );
+        }
+      }
+      newStartVnode = newCh[++newStartIdx];
+    }
+  }
+  // 如果老节点首尾指针交叉了，代表老节点都遍历完成了。
+  // 新节点length > 老节点 length
+  // 如果新节点没有遍历完，则直接将剩余节点插入进来。
+  if (oldStartIdx > oldEndIdx) {
+    refElm = isUndef(newCh[newEndIdx + 1]) ? null : newCh[newEndIdx + 1].elm;
+    addVnodes(
+      parentElm,
+      refElm,
+      newCh,
+      newStartIdx,
+      newEndIdx,
+      insertedVnodeQueue
+    );
+  } else if (newStartIdx > newEndIdx) {
+    // 如果新节点首尾指针交叉了，代表新节点都遍历完成了。
+    // 新节点length < 老节点 length
+    // 直接删除剩下的老节点。
+    removeVnodes(parentElm, oldCh, oldStartIdx, oldEndIdx);
+  }
+}
+```
+
+在 Vue3 中将采用另外一种核心 Diff 算法，它借鉴于 [ivi](https://github.com/localvoid/ivi) 和 [inferno](https://github.com/infernojs/inferno)。
+
+- 双指针比较。
+- 判断是否有节点需要移动，将需要移动的节点加入 source 数组中。
+- 根据 source 数组计算出一个最长递增子序列（计算出最小的移动）。
+- 移动 DOM 操作。
