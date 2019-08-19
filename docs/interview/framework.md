@@ -379,7 +379,46 @@ setState 渲染流程如下：
 
 案例：在 setTimeout 中执行 setstate 时，没有在 react 事务流中，所以会直接进入更新路程，同步渲染。
 
-## 15、Vue Dom Diff 算法原理
+## 15、React Dom Diff 原理
+
+React dom diff 操作流程如下：
+
+- 深度优先遍历
+- 同层节点依次比较（跨层次比较时间复杂度高，性能低下）
+  - 只有一个子节点 (1)
+    - 比较节点类型，类型不一致，直接删除，替换。
+    - 比较节点属性，不一致，就修改属性值。
+    - 比较节点的 children。
+  - 子节点是一个数组。
+    - 无 key。
+      - newChild 和 oldChild 一对一比较和 (1) 比较方式一致。
+    - 有 key
+      - 通过 key 找到可以复用的 oldChild，然后进行移动操作，具体操作见下文。
+
+对于有 key 时的具体移动操作，React 使用了顺序优化手段，我们仔细看一下。
+
+- 遍历新子节点 newChildren。
+- lastIndex 用来存储寻找过程中遇到的最大老节点 oldChildren 的索引值。
+- 找到第一个 newChild 对应的 oldChildren 中的索引 \_mountIndex，并赋值给 lastIndex。
+- 找到第二个 newChild，比较 lastIndex 和当前 `newChild._mountIndex`。
+  - lastIndex < `child._mountIndex`，证明在老节点中 child2 在 child1 之后，而新节点中 child2 在 child1 之后，顺序一致，不需要进行交换。
+    - lastIndex = `child._mountIndex` 将 lastIndex 始终指向当前遍历中最大的 oldChildren 索引。
+  - lastIndex > `child._mountIndex`，证明在老节点中 child2 在 child1 之前，而新节点中 child2 在 child1 之后，顺序不一致，则需要进行交换。
+    - 按照 newChildren 的顺序进行排列。
+    - 由于 newChild2 在 newChild1 之后，则需要将 oldChild2 移动到 oldChild1 后面。
+- 找到第三个 newChild，如果是一个新节点。
+  - 直接将该 newChild 插入到之前的节点后面。
+- 找到第四个 newChild...
+  - 直到 newChildren 遍历完成。
+- 遍历老子节点 oldChildren。
+  - 比较 oldChild 是否在 newChildren 中。
+  - 如果 oldChild 不在 newChildren 中，直接删除。
+
+React Dom Diff 算法其实还是有一些问题，例如：将 [1,2,3,4,5]，变成 [5,1,2,3,4]，则会进行 4 次移动操作，所以，尽量减少类似将最后一个节点移动到列表首部的操作，当节点数量过大或更新操作过于频繁时，在一定程度上会影响 React 的渲染性能。
+
+其实，为了解决这个问题，Vue 使用了双端比较的方法。
+
+## 16、Vue Dom Diff 算法原理
 
 这里是指 Vue2.x 中的 Diff 算法，底层使用[snabbdom](https://github.com/snabbdom/snabbdom)库。
 
@@ -387,13 +426,29 @@ Vue 中的 Diff 算法，使用双端比较的原理进行 Dom 比较操作，�
 
 例如：比较两个 children 数组，需要四个指针，分别指向 oldStartIdx、oldEndIdx、newStartIdx，newEndIdx。
 
-- new 头和 old 头一致，或 new 尾和 old 尾一致，则直接进行复用，同时双指针往后移。
-- new 头和 old 尾一致，或 new 尾和 old 头一致，则进行节点交换操作，同时双指针往后移。
-- new 头尾和 old 头尾都不一致，并且是一个新节点，则直接插入节点，同时双指针往后移。（这个时候可能导致页面重排）
-- new 头尾和 old 头尾都不一致，但找到 key 可以复用，先将 nodeValue = undefined，然后进行交换，同时双指针往后移。
-- 一旦新 children 或老 children 发生越界。
-  - 如果新 children 越界，删除剩下的 old 节点。
-  - 如果老 children 越界，插入剩下的 new 节点。
+- newChildren[newStartIdx] 和 oldChildren[oldStartIdx] 比较。
+  - 如果一致，直接复用节点，并将指针往后移 `newStartIdx++;oldStartIdx++`。
+  - 不一致，不可复用，则什么都不做。
+- newChildren[newEndIdx] 和 oldChildren[oldEndIdx] 比较。
+  - 如果一致，直接复用节点，并将指针往后移 `newEndIdx--;oldEndIdx--`。
+  - 不一致，不可复用，则什么都不做。
+- newChildren[newStartIdx] 和 oldChildren[oldEndIdx] 比较。
+  - 如果一致，直接将节点进行移动，并将指针往后移 `newStartIdx++;oldEndIdx--`。
+  - 不一致，不可复用，则什么都不做。
+- newChildren[newEndIdx] 和 oldChildren[oldStartIdx] 比较。
+  - 如果一致，直接将节点进行移动，并将指针往后移 `newEndIdx--;oldStartIdx++`。
+  - 不一致，不可复用，则什么都不做。
+- 如果上述条件都不满足，并且是一个新节点。
+  - 直接插入节点（这个时候可能导致页面重排）。
+  - 同时双指针往后移。
+- 如果上述条件都不满足，但能找到 oldChildren 其他位置的 key 可以复用。
+  - 先将 oldChild 位置移动到新的位置上。
+  - 然后设置 `oldChild.nodeValue = undefined`。
+  - 同时双指针往后移。
+- 当出现 `newStartIdx>=newEndIdx` 表示 newChildren 越界。
+  - 直接删除剩下的 oldChildren。
+- 当出现 `oldStartIdx>=oldEndIdx` 表示 oldChildren 越界。
+  - 直接插入剩下的 newChildren。
 
 具体的部分源码如下：
 
@@ -511,7 +566,49 @@ function updateChildren() {
 
 在 Vue3 中将采用另外一种核心 Diff 算法，它借鉴于 [ivi](https://github.com/localvoid/ivi) 和 [inferno](https://github.com/infernojs/inferno)。
 
-- 双指针比较。
+在进行 Dom Diff 算法之前，先进行预处理过程，将公共的首尾提取出来。
+
+- 队首比较`oldChild[first] = newChild[first]`。
+  - 如果一致则，指针指向下一节点。
+  - 如果不一致，则执行 vue2 的双端比较。
+- 队尾比较`oldChild[last] = newChild[last]`。
+  - 如果一致则，指针指向下一节点。
+  - 如果不一致，则执行 vue2 的双端比较。
+
+双端比较时的优化：
+
 - 判断是否有节点需要移动，将需要移动的节点加入 source 数组中。
 - 根据 source 数组计算出一个最长递增子序列（计算出最小的移动）。
-- 移动 DOM 操作。
+- 移动 Dom 操作。
+
+## 17、React 16 Dom Diff 原理
+
+React 16 之后，将所有的 Virtual Dom 都修改成了 Fiber Dom。
+
+fiberNode 有几个比较重要的属性：
+
+- child，指向该节点的第一个子节点。
+- return，指向当前节点的父节点。
+- sibling，指向当前节点的兄弟节点。
+- alternate，指向 workInprocess Tree 中相同位置的节点。
+- effectTag，副作用标识，标识该节点是否存在变化。
+- updateQueue，当前节点中的更新队列（例：setState 多次产生的更新）。
+
+更新方式如下：
+
+- 克隆 CurrentFiber Tree，生成 WorkInprocess Tree。
+  - WorkInprocess Tree 表示即将渲染到页面上的新的状态，会在下文进行更新。
+  - 每一个 WorkInprocess Tree 上的节点的 alternate 指向 CurrentFiber Tree 上对应的节点。
+- 循环 WorkInprocess Tree。
+  - 根据根节点的 child 深度优先向下遍历。
+- 每找到一个节点，创建 update 对象，并 push 到 fiberNode 节点 updateQueue 属性上。
+- 执行 processUpdateQueue 方法，生成新 state。
+- 比较 newState 和 oldState。
+  - 一致，则跳过。
+  - 不一致，则打上 effectTag = Update 的标识。
+  - 每一个 effectTag 都代表一次 dom 操作，常见的有，Update，Delete 等
+- 遍历完毕。
+  - 将所有打上 effectTag 标识的节点组成一个 effect list 链表。
+  - 循环该链表，执行对应的 Dom 操作。
+- 将 WorkInprocess Tree 和 CurrentFiber Tree 进行交换。
+  - 即当前的 CurrentFiber Tree 变为更新后的状态树。
