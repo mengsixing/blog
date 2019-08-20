@@ -357,3 +357,27 @@ console.log(p2.sex);
 ```
 
 这里的难点在于 p1.sex 没有被修改成 woman，因为在 new 创建一个对象时，原型对象会被挂载到新对象上。修改 Person 的原型，并不能修改到 p1 的原型。
+
+## 19、分析以下函数的打印结果
+
+```js
+var a1 = String('A');
+var a2 = new String('A');
+var a3 = 'A';
+
+console.log(a1 === a2);
+console.log(a1 === a3);
+console.log(a2 === a3);
+```
+
+解释，这道题考察的是 js 包装类型。
+
+- 直接使用 String 方法，是在做参数转字符串的操作，结果返回的是一个字符串。
+- 使用 new String 方式创建的是 String 构造函数的一个实例，是一个 object 对象。
+  - 通过 object.valueOf 方法可以返回包装对象实例对应的原始类型的值。
+
+```js
+new Number(123).valueOf(); // 123`
+new String('abc').valueOf(); // ‘abc’
+new Boolean(true).valueOf(); // true
+```

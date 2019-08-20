@@ -261,3 +261,51 @@ function sum(a, b) {
 - 不同进程间数据资源很难共享，而多个线程可以很方便地共享进程资源。
 - 进程要比线程消耗更多的计算机资源。
 - 进程间不会相互影响，一个线程挂掉可能会导致进程挂掉，从而引发其他线程挂掉。
+
+## 19、浏览器渲染 HTML 流程
+
+当浏览器获取到服务器端 html 时，会进行以下操作：
+
+- parseHTML。解析 html，并构建 dom 树。
+- 在解析过程中遇到 link 标记，引用外部的 css 文件。
+  - Recalculate Style。将 css 文件解析成 css 对象模型(cssom)。
+- Composite Layers。将 dom 和 cssom 合并成一个渲染树。
+  - 将 display：none 的元素从渲染树中删除掉。
+  - 其他 dom 元素绘制样式信息。
+- Layout。根据渲染树进行重排。
+  - 精确地捕获每个元素在视口内的确切位置和尺寸。
+  - 所有相对像素都会转换为屏幕上的绝对像素。
+- Paint。将各个节点绘制到屏幕上。
+  - 这一步通常称为“绘制”或“栅格化”。
+  - 将渲染树中的每个节点转换成屏幕上的实际像素。
+
+:::warning 页面在解析时遇到 js 文件或 css 文件，则会被阻塞
+
+- 解析 css 文件时。
+  - 当解析到 css 文件时，开始执行 cssom 的创建。
+  - 不会阻塞 dom 树的解析（因为 css 和 dom 分开进行解析）。
+  - 会阻塞后面的 js 语句的执行（因为后面的 js 可能会操作该 css）。
+  - 会影响首次渲染时间（因为需要 cssom 创建完毕才能进行渲染）。
+- 解析 js 文件时。
+  - js 执行会阻塞 cssTree 和 domTree 的渲染（因为 js 可能会操作之前的 css 或 dom）。
+
+DOMContentLoaded 是在 dom 树构建完成时触发，如果希望尽快触发，需要将 js 放在 css 前面。因为 css 会影响 js 渲染，而不会影响 dom 树的构建。
+
+:::
+
+优化方案：
+
+应尽量减少关键资源数量，关键路径长度，以及关键字节大小。
+
+- 关键资源： 可能阻止网页首次渲染的资源。
+  - 一般是 js 或 css 文件。
+- 关键路径长度： 获取所有关键资源所需的往返次数或总时间。
+  - 获取 html 时，长度 +1。
+  - 有其他阻塞 js 或者 css 文件，长度 +1。
+- 关键字节： 实现网页首次渲染所需的总字节数，它是所有关键资源传送文件大小的总和。
+  - 如果页面只有 html，没有 css 和 js，那么关键字节数正好是 html 文档本身的传送大小。
+
+参考：
+
+- [css 加载会造成阻塞吗？](https://juejin.im/post/5b88ddca6fb9a019c7717096)
+- [关键渲染路径](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-blocking-css)

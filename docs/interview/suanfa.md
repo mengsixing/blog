@@ -26,3 +26,61 @@ function splitCake(childrenIssue, cake) {
 ```
 
 排序的时间复杂度为 `O(n*log(n))`，两根指针的时间的复杂度为 `O(n)`，总的时间复杂度为`O(n*log(n))`
+
+## 环形链表 II
+
+[leetcode 142](https://leetcode-cn.com/problems/linked-list-cycle-ii/) 给定一个链表，返回链表开始入环的第一个节点。如果链表无环，则返回 null。
+
+为了表示给定链表中的环，我们使用整数 pos 来表示链表尾连接到链表中的位置（索引从 0 开始）。 如果 pos 是 -1，则在该链表中没有环。
+
+说明：不允许修改给定的链表。
+
+示例 1：
+
+输入：head = [3,2,0,-4], pos = 1
+输出：tail connects to node index 1
+解释：链表中有一个环，其尾部连接到第二个节点。
+
+示例  2：
+
+输入：head = [1,2], pos = 0
+输出：tail connects to node index 0
+解释：链表中有一个环，其尾部连接到第一个节点。
+
+示例 3：
+
+输入：head = [1], pos = -1
+输出：no cycle
+解释：链表中没有环。
+
+```js
+var detectCycle = function(head) {
+  var quick = head;
+  var slow = head;
+  var visited;
+  var isCircle = false;
+  while (quick && quick.next) {
+    quick = quick.next.next;
+    slow = slow.next;
+    if (quick === slow) {
+      isCircle = true;
+      xiangyu = quick;
+      break;
+    }
+  }
+
+  if (isCircle) {
+    while (head) {
+      if (head === visited) {
+        return head;
+      }
+      head = head.next;
+      visited = visited.next;
+    }
+  }
+
+  return null;
+};
+```
+
+解析：这里使用的 Floyd 算法，用一个快指针和慢指针来遍历数据，如果相遇，记录下相遇的位置。然后从开始位置和相遇位置进行遍历，再一次相遇的位置即是环的起始位置。
