@@ -612,3 +612,36 @@ fiberNode 有几个比较重要的属性：
   - 循环该链表，执行对应的 Dom 操作。
 - 将 WorkInprocess Tree 和 CurrentFiber Tree 进行交换。
   - 即当前的 CurrentFiber Tree 变为更新后的状态树。
+
+## 18、Redux 中间件处理原理
+
+Redux 中的中间件其实是用柯里化函数编写而成的，例如 logger 中间件：
+
+```js
+// logger 中间件
+const loggerMiddle = store => next => action => {
+  console.log('old state', store.getState());
+  let result = next(action);
+  console.log('next state', store.getState());
+  return result;
+};
+```
+
+接下来我们分析一下中间件的处理过程：
+
+- 执行 applyMiddleware([loggerMiddle]) 方法生成一个中间件执行函数 fn。
+- 将 fn 作为 creteStore 中的第三个参数进行传入。
+- creteStore 中的第三个参数如果存在，会进行 creteStore 覆盖的操作。
+  - 将 oldCreateStore 方法传入 fn 中，进行缓存，生成执行函数 fn1。
+  - 在 fn1 中执行接收 oldCreateStore 的参数，创建 oldStore。
+  - 将中间件集合通过 compose 函数，组合成一个新函数 fn3。
+  - 将老的 dispatch 传入 fn3，生成一个新的 dispatch。
+  - 用新的 dispatch 代替旧的 dispatch，**实际上中间件就是对 dispatch 的增强**。
+  - 这样在执行新 dispatch 时，就会一次触发执行中间件的操作。
+
+Redux 中间件的执行顺序和 koa 很像，都是洋葱式执行顺序。
+
+```js
+applyMiddleware([a, b, c]);
+// aStart -- bStart -- cStart -- cEnd -- bEnd -- aEnd。
+```

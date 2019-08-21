@@ -37,6 +37,8 @@ BFC 生成了一套封闭的布局空间，内部子元素无论怎么布局，�
 
 层叠上下文中的排列规则，从下到上：
 
+![CSS 层叠上下文](https://image.zhangxinxu.com/image/blog/201601/2016-01-07_235108.png)
+
 - background/border
 - 负 z-index
 - block 块状水平盒子
@@ -51,8 +53,18 @@ BFC 生成了一套封闭的布局空间，内部子元素无论怎么布局，�
 
 flex 是 flex-grow、flex-shrink、flex-basis 的缩写。
 
-flex-grow 属性定义项目的放大比例，默认为 0，即如果存在剩余空间，也不放大。
+- flex-grow 属性定义项目的放大比例，默认为 0，即如果存在剩余空间，也不放大。
+- flex-shrink 属性定义了项目的缩小比例，默认为 1，即如果空间不足，该项目将缩小。
+- flex-basis 属性定义了在分配多余空间之前，项目占据的主轴空间，默认为 auto。
 
-flex-shrink 属性定义了项目的缩小比例，默认为 1，即如果空间不足，该项目将缩小。
-
-flex-basis 属性定义了在分配多余空间之前，项目占据的主轴空间，默认为 auto。
+```css
+.item {
+  flex: 1;
+}
+/* 相当于 */
+.item {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0%;
+}
+```
