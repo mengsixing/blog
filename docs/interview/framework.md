@@ -645,3 +645,52 @@ Redux 中间件的执行顺序和 koa 很像，都是洋葱式执行顺序。
 applyMiddleware([a, b, c]);
 // aStart -- bStart -- cStart -- cEnd -- bEnd -- aEnd。
 ```
+
+## 19、Nodejs 中 setImmediate 和 setTimeout 的执行顺序
+
+首先我们得知道 nodejs 的异步调度机制，[链接](/blog/library-node)
+
+```js
+setTimeout(() => {
+  console.log('setTimeout');
+}, 0);
+setImmediate(() => {
+  console.log('setImmediate');
+});
+```
+
+这道题没有正确答案，顺序有时候一致，有时候不一致。
+
+1、首先要明白一点，在 nodejs 中 setTimeout(fn,0) 相当于 setTimeout(fn,1)。
+
+2、在 nodejs 异步回调中，首先进入 timers 阶段，如果机器性能不好，进入该阶段时 1ms 已经过去了，那么 setTimeout 会首先执行。
+
+3、如果机器性能好，进入 timers 阶段时，setTimeOut 还在等待 1ms ，这时会执行后面的阶段，当执行到 check 阶段时，会执行 setImmediate。
+
+4、在下一个事件循环周期中，执行 setTimeout。
+
+```js
+var fs = require('fs');
+
+fs.readFile(__filename, () => {
+  setTimeout(() => {
+    console.log('timeout');
+  }, 0);
+  setImmediate(() => {
+    console.log('immediate');
+  });
+});
+```
+
+这个题的答案就明确了。
+
+1、首先，在 poll 阶段执行 raedFile 函数，执行完成之后 setTimeout 和，setImmediate 都被加入到了对应的阶段。
+
+2、poll 阶段执行完毕，由于没有其他的 io 操作，并且有设置 setImmediate，所以首先执行 setImmediate 方法。
+
+4、在下一个事件循环周期中，执行 setTimeout。
+
+综上所述：
+
+- 如果两者都在主模块中调用，那么执行先后取决于进程性能，也就是随机。
+- 如果两者都不在主模块调用（被一个异步操作包裹），那么 setImmediate 的回调永远先执行。

@@ -81,14 +81,23 @@ Libuv 实现了 Node.js 中的 Eventloop ，主要有以下几个阶段：
    └───────────────────────────┘
 ```
 
+上图中每一个阶段都有一个先进先出的回调队列，只有当队列内的事件执行完成之后，才会进入下一个阶段。
+
 - timers：执行 `setTimeout` 和 `setInterval` 中到期的 callback。
 - pending callbacks：上一轮循环中有少数的 I/O callback 会被延迟到这一轮的这一阶段执行。
+  - 执行一些系统操作的回调，例如 tcp 连接发生错误。
 - idle, prepare：仅内部使用。
-- poll：最为重要的阶段，执行 I/O callback，在适当的条件下会阻塞在这个阶段。
+- poll：最为重要的阶段，执行 I/O callback(node 异步 api 的回调，事件订阅回调等)，在适当的条件下会阻塞在这个阶段。
+  - 如果 poll 队列不为空，直接执行队列内的事件，直到队列清空。
+  - 如果 poll 队列为空。
+    - 如果有设置 setImmediate，则直接进入 check 阶段。
+    - 如果没有设置 setImmediate，则会检查是否有 timers 事件到期。
+      - 如果有 timers 事件到期，则执行 timers 阶段。
+      - 如果没有 timers 事件到期，则会阻塞在当前阶段，等待事件加入。
 - check：执行 `setImmediate` 的 callback。
 - close callbacks：执行 close 事件的 callback，例如 socket.on("close",func)。
 
-**除此之外，Node.js 提供了 process.nextTick 方法，在以上的任意阶段开始执行的时候都会触发。**
+**除此之外，Node.js 提供了 process.nextTick(微任务，promise 也一样) 方法，在以上的任意阶段开始执行的时候都会触发。**
 
 ::: tip 小知识
 

@@ -60,6 +60,7 @@ module.exports = {
             "library-vue",
             "library-miniProgram",
             "library-redux",
+            "library-react-redux-code",
             "library-rxjs",
             "library-koa",
             "library-koa-diy",
