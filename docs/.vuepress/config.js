@@ -165,6 +165,7 @@ module.exports = {
           collapsable: false,
           children: [
             "base",
+            "structure",
             "suanfa"
           ]
         },
