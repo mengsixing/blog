@@ -103,6 +103,7 @@ module.exports = {
           title: 'JS 基础',
           collapsable: false,
           children: [
+            "js-principle",
             "js-promise",
             'js-this',
             'js-operator-priority',
