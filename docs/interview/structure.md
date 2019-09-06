@@ -7,6 +7,7 @@
 - 哈希表
 - 堆
 - 字符串
+- 指针
 
 ## 树
 
@@ -526,3 +527,149 @@ var deleteNode = function(node) {
   node.next = oldNext.next;
 };
 ```
+
+### 160 相交链表
+
+[leetcode 160](https://leetcode-cn.com/problems/intersection-of-two-linked-lists/)
+
+定义两个指针, 第一轮让两个到达末尾的节点指向另一个链表的头部, 最后如果相遇则为交点(在第一轮移动中恰好抹除了长度差)。
+
+两个指针等于移动了相同的距离, 有交点就返回, 无交点就是各走了两条指针的长度。
+
+```js
+var getIntersectionNode = function(headA, headB) {
+  var h1 = headA;
+  var h2 = headB;
+  while (h1 != h2) {
+    h1 = h1 == null ? headB : h1.next;
+    h2 = h2 == null ? headA : h2.next;
+  }
+  return h1;
+};
+```
+
+## 数组
+
+- 11 盛最多水的容器
+- 33 搜索旋转排序数组
+
+### 11 盛最多水的容器
+
+[leetcode 11](https://leetcode-cn.com/problems/container-with-most-water/)
+
+双指针算法，分别从队首和队尾进行移动，每次移动两端比较小的数据，以保证面积最大。
+
+```js
+var maxArea = function(height) {
+  var max = 0;
+  var left = 0;
+  var right = height.length - 1;
+  while (left < right) {
+    var h = Math.min(height[left], height[right]);
+    var area = h * (right - left);
+    max = Math.max(max, area);
+    if (h === height[left]) {
+      left++;
+    }
+    if (h === height[right]) {
+      right--;
+    }
+  }
+  return max;
+};
+```
+
+### 33 搜索旋转排序数组
+
+[leetcode 33](https://leetcode-cn.com/problems/search-in-rotated-sorted-array/)
+
+```js
+var search = function(nums, target) {
+  var start = 0;
+  var end = nums.length - 1;
+  while (start <= end) {
+    var mid = ((start + end) / 2) | 0;
+    // const mid = start + ((end - start) >> 1);
+    if (nums[mid] === target) {
+      return mid;
+    }
+
+    if (nums[mid] >= nums[start]) {
+      // 前半段有序
+      if (target >= nums[start] && target <= nums[mid]) {
+        end = mid - 1;
+      } else {
+        // 不在前半段
+        start = mid + 1;
+      }
+    } else {
+      // 后半段有序
+      if (target >= nums[mid] && target <= nums[end]) {
+        start = mid + 1;
+      } else {
+        // 不在后半段
+        end = mid - 1;
+      }
+    }
+  }
+
+  return -1;
+};
+```
+
+## 54 螺旋矩阵
+
+[leetcode 54](https://leetcode-cn.com/problems/spiral-matrix/)
+
+按照以下顺序进行遍历。
+
+```js
+   c0 c1 c2
+r0  1  2  3
+r1  8  9  4
+r2  7  6  5
+
+// r0 c0->c2
+// c2 r1->r2
+// r2 c2->c0
+// c0 r2->r1
+
+// 遍历内层数组
+// r0 +=1
+// r2 -=1
+// c0 +=1
+// c2 -=1
+```
+
+```js
+var spiralOrder = function(matrix) {
+  var result = [];
+  if (matrix.length == 0) return result;
+  var r1 = 0,
+    r2 = matrix.length - 1; // 规定当前层的上下边界
+  var c1 = 0,
+    c2 = matrix[0].length - 1; // 规定当前层的左右边界
+  while (r1 <= r2 && c1 <= c2) {
+    for (var c = c1; c <= c2; c++) result.push(matrix[r1][c]);
+    for (var r = r1 + 1; r <= r2; r++) result.push(matrix[r][c2]);
+    if (r1 < r2 && c1 < c2) {
+      for (var c = c2 - 1; c > c1; c--) result.push(matrix[r2][c]);
+      for (var r = r2; r > r1; r--) result.push(matrix[r][c1]);
+    }
+    // 往内部进一层
+    r1++;
+    r2--;
+    c1++;
+    c2--;
+  }
+  return result;
+};
+```
+
+## 指针
+
+- 26 删除排序数组中的重复项
+
+### 26 删除排序数组中的重复项
+
+[leetcode 26](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/)

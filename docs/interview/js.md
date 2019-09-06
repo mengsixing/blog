@@ -381,3 +381,11 @@ new Number(123).valueOf(); // 123`
 new String('abc').valueOf(); // ‘abc’
 new Boolean(true).valueOf(); // true
 ```
+
+## 20、写一个 0-100 的正则表达式
+
+直接上代码了。
+
+```js
+/^(\d|[1-9]\d|100)$/;
+```
