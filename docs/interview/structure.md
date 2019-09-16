@@ -669,7 +669,47 @@ var spiralOrder = function(matrix) {
 ## 指针
 
 - 26 删除排序数组中的重复项
+- 415 两字符串相加
 
 ### 26 删除排序数组中的重复项
 
 [leetcode 26](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/)
+
+```js
+var removeDuplicates = function(nums) {
+  var index = 1;
+  for (var i = 1; i < nums.length; i++) {
+    if (nums[i] !== nums[i - 1]) {
+      nums[index] = nums[i];
+      index++;
+    }
+  }
+  return index;
+};
+```
+
+### 415 两字符串相加
+
+[leetcode 415](https://leetcode-cn.com/problems/add-strings/solution/)
+
+```js
+var addStrings = function(num1, num2) {
+  var i = num1.length - 1,
+    j = num2.length - 1;
+  var result = [];
+  var carry = 0;
+  while (i >= 0 || j >= 0 || carry != 0) {
+    if (i >= 0) {
+      carry += Number(num1[i--]);
+    }
+    if (j >= 0) {
+      carry += Number(num2[j--]);
+    }
+
+    result.push(carry % 10);
+    carry = (carry / 10) | 0;
+  }
+
+  return result.reverse().join('');
+};
+```
