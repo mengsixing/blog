@@ -20,7 +20,7 @@ React 将源码划分成了很多个单独的包，我们主要分析这几个�
 
 ## JSX 文件转换
 
-我们在写 react 项目时，都会写 jsx 组件，jsx 组件经过编译后，会转成响应的 js 文件。
+我们在写 react 项目时，都会写 jsx 组件，jsx 组件经过编译后，会转成相应的 js 文件。
 
 我们一起进入到 babel 的官方，看一下我们平时写的 jsx 会被编译成什么样子？
 
@@ -125,7 +125,7 @@ const React = {
 
 为了避免这种情况，react 使用一个 contextPool 来进行复用对象复用，当需要构建 obj 时，直接从 contextPool 里获取第一个 obj，重新进行赋值就可以了，当使用完成后，再将这条数据内容清空，加入到 contextPool 里，以供下次使用。
 
-contextPool 部分的代码如下：
+contextPool 部分代码如下：
 
 ```js
 const POOL_SIZE = 10;

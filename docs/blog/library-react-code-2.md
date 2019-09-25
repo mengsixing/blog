@@ -72,7 +72,7 @@ updateContainer 方法用来更新 fiber，顺着第一次渲染的情况，调�
   - performUnitOfWork(workInProgress)
   - beginWork(current, unitOfWork, renderExpirationTime) 创建子节点 fiber。
 
-创建完 Fiber Root 在 unbatchedUpdates 中执行 updateContainer 对容器内容进行更新，更新前会先通过 expirationTime 对节点计算过期时间，具体是通过在 ReactFiberWorkLoop 中 computeExpirationForFiber 进行计算。
+创建完 Fiber Root 在 unbatchedUpdates 中执行 updateContainer 对容器内容进行更新，更新前会先通过 expirationTime 计算节点过期时间，具体是通过在 ReactFiberWorkLoop 中 computeExpirationForFiber 进行计算。
 
 ```js
 do {
@@ -178,7 +178,7 @@ React 这么设计抹相当于抹平了 25ms 内计算过期时间的误差，�
 
 ### BatchUpdate
 
-首先，我们已经多次的探讨过这个批处理了 batchedUpdates，那么它到底是如何工作的呢？
+首先，我们已经多次探讨过 batchedUpdates 了，那么它到底是如何工作的呢？
 
 我们运行以下代码进行测试。
 

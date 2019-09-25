@@ -33,13 +33,17 @@ scrollWidth：
 
 ```js
 function throttle(callback, timeout) {
-  var first = true;
+  var lastExecTime = +new Date('1970-1-1');
   var throttleId;
   return function(...rest) {
-    if (first) {
+    var now = +new Date();
+    if (now - lastExecTime > timeout) {
+      if (throttleId) {
+        clearTimeout(throttleId);
+      }
       callback.apply(this, rest);
       throttleId = null;
-      first = false;
+      lastExecTime = now;
     } else if (!throttleId) {
       throttleId = setTimeout(() => {
         callback.apply(this, rest);

@@ -248,7 +248,7 @@ function createWorkInProgress(
     workInProgress.elementType = current.elementType;
     workInProgress.type = current.type;
     workInProgress.stateNode = current.stateNode;
-    // workInProgress 和 current 通过 alternate属性相互引用
+    // workInProgress 和 current 通过 alternate 属性相互引用
     workInProgress.alternate = current;
     current.alternate = workInProgress;
   }
