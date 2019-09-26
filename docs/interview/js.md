@@ -393,3 +393,16 @@ new Boolean(true).valueOf(); // true
 ```js
 /^(\d|[1-9]\d|100)$/;
 ```
+
+## 21、JS 内置的一些安全策略
+
+- 无法操作 file
+- 无法删除用户数据，不能读取 history，只能 go，back，forward。
+- 不能设置 fileUpload 的 value
+- 不能提交表单给 mailto:
+- 不能关闭其他浏览器窗口
+- 不能打开宽度小于 100px 的窗口
+- 同源策略
+  - 防止窗口中的 js 操作另一个窗口中的 dom 元素，可能包含隐私信息。
+  - 防止窗口中的 js 拿到另一个域名下的 cookie。
+  - 保护用户隐私。

@@ -311,3 +311,15 @@ DOMContentLoaded 是在 dom 树构建完成时触发，如果希望尽快触发�
 
 - [css 加载会造成阻塞吗？](https://juejin.im/post/5b88ddca6fb9a019c7717096)
 - [关键渲染路径](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-blocking-css)
+
+### Cookie 中包含哪些特性
+
+Cookie 是一个字符串，字符串中通过 key = value 的形式保存数据，除此之外，主要有以下 4 个特性。
+
+- expires 表示 cookie 的过期时间。
+- path 指定了与 cookie 关联在一起的网页。
+  - 例如：www.a.com/about/a.html 创建的 cookie 可以在 www.a.com/about/b.html 中访问
+  - 但不能在 www.a.com/home/index.html 中访问。
+- domain 可以设置二级域名，让多个二级域名共享 cookie。
+- secure 指定了在网络中如何传输 cookie 的值，bool 型。
+  - 例如，强制只能在 https 中传输 cookie。
