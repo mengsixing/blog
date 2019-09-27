@@ -37,7 +37,7 @@ BFC 生成了一套封闭的布局空间，内部子元素无论怎么布局，�
 
 层叠上下文中的排列规则，从下到上：
 
-![CSS 层叠上下文](https://image.zhangxinxu.com/image/blog/201601/2016-01-07_235108.png)
+![CSS 层叠上下文](interview-css.png)
 
 - background/border
 - 负 z-index
@@ -68,3 +68,100 @@ flex 是 flex-grow、flex-shrink、flex-basis 的缩写。
   flex-basis: 0%;
 }
 ```
+
+## 5、垂直居中的方案
+
+1、未知元素宽高，可以使用 position:absolute + transform:translate(-50%,-50%)
+
+2、已知元素宽高，可以使用 position:absolute + margin: -10px 0 0 -10px;
+
+3、使用 table-cell ，vertical-align:middle
+
+4、绝对定位，left:0 ;right:0;top:0;bottom:0;
+
+5、使用 flex 布局。
+
+## 6、CSS3 有什么新特性
+
+- 选择器增加，:not(p)，p:empty 等
+- 背景 background 扩展，background-clip 规定背景绘制区域
+- 线性渐变 linear-gradient
+- 文本效果，text-shadow
+- 2d 变换，transform:scale,translate
+- 3d 变换：transform:perspective
+- 过渡元素：transition
+- 动画：animate
+- 多列布局：multi-column
+- flex 布局
+- 多媒体查询 media query
+
+## 7、CSS 画三角形
+
+只设置底部 border 颜色，其他部分使用透明颜色代替。
+
+```css
+.div {
+  width: 0;
+  height: 0;
+  border-top: 40px solid transparent;
+  border-left: 40px solid transparent;
+  border-right: 40px solid transparent;
+  border-bottom: 40px solid #ff0000;
+}
+```
+
+## 8、请解释以下图片的排列顺序
+
+```html
+<div style="position:relative; z-index:0;">
+  <img src="1.png" style="position:absolute; z-index:2;" />
+</div>
+<div style="position:relative; z-index:0;">
+  <img src="2.png" style="position:relative; z-index:1;" />
+</div>
+```
+
+如果将两个 div 的 z-index 都设置为 auto，排列顺序会改变吗？
+
+## 9、如何实现粘贴定位
+
+粘性定位： position :sticky。刚开始是相对定位，当滚动到指定 top 时，变成 fixed 定位。
+
+## 10、你遇到过哪些 css 的坑
+
+1、chrome 小于 12px 会显示成 12px ，但在最新的 chrome 已支持小于 12px 的显示。
+
+2、margin-top:10%; padding-top:10% 是相对于父级元素的宽度 10% 进行分配。
+
+3、rgba 和 opacity 的透明效果有什么不同？rgba 的子元素不会透明，opacity 0 子元素会继承透明。
+
+## 11、如何优化 CSS
+
+- 避免重复 css
+- 避免使用 important
+- 移除空的 css 规则
+- 值为 0 不需要任何单位
+- 避免重绘重排
+- 减少选择器嵌套，减少匹配次数
+
+css 匹配选择器是从右向左进行的 `ul.ul-style{color:red;}` 先匹配`.ul-style` 再匹配它前面的`ul`标签，应尽量减少选择器的嵌套。
+
+## 12、伪类和伪元素的区别
+
+CSS 伪类表示元素的特殊状态。
+
+- :link
+- :visited
+- :hover
+- :active
+
+伪元素是基于元素的抽象，并不存在于文档中。
+
+- :first-line
+- :first-letter
+- :before
+- :after
+
+## 13、浏览器源生的 inline-block 元素都有哪些
+
+常见的有：img，input，button，textarea。

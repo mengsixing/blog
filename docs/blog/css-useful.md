@@ -21,6 +21,18 @@ mix-blend-mode: lighten; //变亮
 
 这个要更好理解一点，背景的混合模式。可以是背景图片间的混合，也可以是背景图片和背景色的混合。
 
+## 控制小屏手机缩放
+
+text-size-adjust 属性 允许我们控制将文本溢出算法应用到一些手机设备上。
+
+```css
+/* 文本不会放大 */
+.box {
+  text-size-adjust: none;
+}
+```
+
 ## 相关链接
 
 - [CSS3 混合模式 mix-blend-mode/background-blend-mode 简介](https://www.zhangxinxu.com/wordpress/2015/05/css3-mix-blend-mode-background-blend-mode/)
+- [text-size-adjust](https://developer.mozilla.org/zh-CN/docs/Web/CSS/text-size-adjust)
