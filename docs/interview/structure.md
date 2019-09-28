@@ -670,6 +670,7 @@ var spiralOrder = function(matrix) {
 
 - 26 删除排序数组中的重复项
 - 415 两字符串相加
+- 283 移动零
 
 ### 26 删除排序数组中的重复项
 
@@ -711,5 +712,25 @@ var addStrings = function(num1, num2) {
   }
 
   return result.reverse().join('');
+};
+```
+
+### 移动零
+
+[leetcode 283](https://leetcode-cn.com/problems/move-zeroes/)
+
+```js
+var moveZeroes = function(nums) {
+  var i = 0;
+  for (var j = 0; j < nums.length; j++) {
+    if (nums[j] !== 0) {
+      if (i !== j) {
+        nums[i] = nums[j];
+        nums[j] = 0;
+      }
+      i++;
+    }
+  }
+  return nums;
 };
 ```
