@@ -671,6 +671,7 @@ var spiralOrder = function(matrix) {
 - 26 删除排序数组中的重复项
 - 415 两字符串相加
 - 283 移动零
+- 16 最接近的三数之和
 
 ### 26 删除排序数组中的重复项
 
@@ -715,7 +716,7 @@ var addStrings = function(num1, num2) {
 };
 ```
 
-### 移动零
+### 283 移动零
 
 [leetcode 283](https://leetcode-cn.com/problems/move-zeroes/)
 
@@ -732,5 +733,43 @@ var moveZeroes = function(nums) {
     }
   }
   return nums;
+};
+```
+
+## 16 最接近的三数之和
+
+[leetcode 16](https://leetcode-cn.com/problems/3sum-closest/)
+
+1、先排序。
+2、外层遍历，遍历 nums 中的每一项。
+3、内层循环，以 nums[i]、nums[start]、nums[end]为组合进行比较，将最小的替换给全局的 sum 变量，根据组合的大小动态调整 start 和 end 指针，直到 start 和 end 指针重合。
+4、最终得到的 sum 即为最接近 target 的 3 个数的和。
+
+时间复杂度：nlogn + n^2 + 1 = n^2。
+
+```js
+var threeSumClosest = function(nums, target) {
+  var sum = Number.MAX_SAFE_INTEGER;
+  nums = nums.sort((a, b) => a - b);
+  for (let i = 0; i < nums.length; i++) {
+    var start = i + 1;
+    var end = nums.length - 1;
+    while (start < end) {
+      var r = nums[i] + nums[start] + nums[end];
+      if (r > target) {
+        end--;
+      }
+      if (r < target) {
+        start++;
+      }
+      if (r === target) {
+        return target;
+      }
+      if (Math.abs(target - r) < Math.abs(target - sum)) {
+        sum = r;
+      }
+    }
+  }
+  return sum;
 };
 ```
