@@ -672,6 +672,8 @@ var spiralOrder = function(matrix) {
 - 415 两字符串相加
 - 283 移动零
 - 16 最接近的三数之和
+- 19 删除链表的倒数第 N 个节点
+- 27 移除元素
 
 ### 26 删除排序数组中的重复项
 
@@ -741,8 +743,11 @@ var moveZeroes = function(nums) {
 [leetcode 16](https://leetcode-cn.com/problems/3sum-closest/)
 
 1、先排序。
+
 2、外层遍历，遍历 nums 中的每一项。
+
 3、内层循环，以 nums[i]、nums[start]、nums[end]为组合进行比较，将最小的替换给全局的 sum 变量，根据组合的大小动态调整 start 和 end 指针，直到 start 和 end 指针重合。
+
 4、最终得到的 sum 即为最接近 target 的 3 个数的和。
 
 时间复杂度：nlogn + n^2 + 1 = n^2。
@@ -771,5 +776,76 @@ var threeSumClosest = function(nums, target) {
     }
   }
   return sum;
+};
+```
+
+## 19 删除链表的倒数第 N 个节点
+
+[leetcode 19](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/)
+
+1、定义两个指针 start，end，将 end 指针移动 N 个位置。
+
+2、将两个指针移动到链表尾部，这样 start 指针的位置就是倒数第 N+1 的元素的位置。
+
+3、删除 start.next = start.next.next 即可删除倒数第 N 个元素。
+
+```js
+var removeNthFromEnd = function(head, n) {
+  // 拼接新的 head 头部
+  var start = new ListNode(Symbol());
+  start.next = head;
+
+  // 备份newHead
+  var newHeadBackUp = start;
+
+  // 将 end 移动到对应位置
+  var end = start;
+  var newHead = start;
+  for (var i = 0; i < n; i++) {
+    end = newHead.next;
+    newHead = newHead.next;
+  }
+
+  // 将双指针移动到链表末尾
+  while (end.next) {
+    start = start.next;
+    end = end.next;
+  }
+
+  // 删除节点
+  start.next = start.next.next;
+
+  return newHeadBackUp.next;
+};
+```
+
+## 27 移除元素
+
+[leetcode 27](https://leetcode-cn.com/problems/remove-element/)
+
+1、指针 i 从数组开头开始遍历。
+
+2、指针 j 从数组尾部开始计数。
+
+3、当发现指针 nums[i] = val 时，将数组 j 和 i 上的数据交换（即将数组尾部和 i 进行交换，然后把尾部指针往前移，就不用再次遍历了），然后 i--。
+
+4、当 i 和 j 相遇时，即停止遍历 i。
+
+```js
+var removeElement = function(nums, val) {
+  var len = nums.length;
+  var i = 0;
+  var j = len;
+  while (i < j) {
+    if (nums[i] === val) {
+      var temp = nums[j - 1];
+      nums[i] = temp;
+      nums[j - 1] = val;
+      j--;
+    } else {
+      i++;
+    }
+  }
+  return j;
 };
 ```
