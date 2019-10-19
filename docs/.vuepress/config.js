@@ -72,6 +72,7 @@ module.exports = {
           children: [
             "css",
             "css-next",
+            "css-flex",
             "css-useful",
             "css-devicePixelRatio",
             "css-houdini-star",
@@ -129,7 +130,8 @@ module.exports = {
             "base-structure-high-algorithm",
             "base-structure-senior-sort",
             "base-design-pattern",
-            "base-computer"
+            "base-computer",
+            "base-technology"
           ]
         },
         {

@@ -849,3 +849,34 @@ var removeElement = function(nums, val) {
   return j;
 };
 ```
+
+## 28 实现 strStr()
+
+[leetcode 28](https://leetcode-cn.com/problems/implement-strstr/)
+
+这里使用了暴力法。
+
+```js
+var strStr = function(haystack, needle) {
+  if (needle.length === 0) {
+    return 0;
+  }
+  var j = 0;
+  for (var i = 0; i < haystack.length; i++) {
+    if (haystack[i] === needle[j]) {
+      j++;
+      if (j === needle.length) {
+        return i - j + 1;
+      }
+    } else if (j > 0) {
+      i = i - j;
+      j = 0;
+    }
+  }
+  return -1;
+};
+```
+
+更高级的解法有：KMP 算法，Sunday 算法等。
+
+[字符串匹配的 KMP 算法](http://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html)
