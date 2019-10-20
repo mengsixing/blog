@@ -674,6 +674,8 @@ var spiralOrder = function(matrix) {
 - 16 最接近的三数之和
 - 19 删除链表的倒数第 N 个节点
 - 27 移除元素
+- 28 实现 strStr()
+- 61 旋转链表
 
 ### 26 删除排序数组中的重复项
 
@@ -880,3 +882,54 @@ var strStr = function(haystack, needle) {
 更高级的解法有：KMP 算法，Sunday 算法等。
 
 [字符串匹配的 KMP 算法](http://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html)
+
+## 61 旋转链表
+
+[leetcode 61](https://leetcode-cn.com/problems/rotate-list/)
+
+将链表看成一个环形，找到需要截断的部分进行截断。
+
+1、找到链表长度，通过 k % length 找到移动的位置 x。
+
+2、通过 length - x 即找到了最终的头部，length - x - 1 即是新链表的尾部。
+
+3、然后进行截断拼接操作。
+
+```js
+var rotateRight = function(head, k) {
+  // 边界判断
+  if (!head || k === 0) {
+    return head;
+  }
+
+  var length = 1;
+  var headEnd = head;
+  while (headEnd.next) {
+    length++;
+    headEnd = headEnd.next;
+  }
+
+  var moveLength = k % length;
+
+  if (moveLength > 0) {
+    var leftList = head; // 最终的尾部
+    var rightList = head; // 最终的头部
+
+    var i = length - moveLength - 1;
+    while (i > 0) {
+      leftList = leftList.next;
+      rightList = rightList.next;
+      i--;
+    }
+
+    // 将链表看成一个环形，尾部多移动一位就是头部
+    rightList = rightList.next;
+    // 最终的尾部
+    leftList.next = null;
+    // 拼接
+    headEnd.next = head;
+    return rightList;
+  }
+  return head;
+};
+```
