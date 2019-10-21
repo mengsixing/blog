@@ -880,3 +880,50 @@ var strStr = function(haystack, needle) {
 更高级的解法有：KMP 算法，Sunday 算法等。
 
 [字符串匹配的 KMP 算法](http://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html)
+
+## 75 颜色分类
+
+[leetcode 75](https://leetcode-cn.com/problems/sort-colors/)
+
+使用三指针算法进行解答。
+
+1、使用start 指针指向数组第一项。
+
+2、使用end 指针指向数组最后一项。
+
+3、使用current 指针指向当前访问元素。
+
+4、遍历数组。
+
+- 当发现 nums[current] === 0 就把当前元素和 start 位置做交换，然后 current++ start ++
+- 当发现 nums[current] === 1 current++ 
+- 当发现 nums[current] === 2 就把当前元素和 end 位置做交换，然后 end--
+- 当发现 current > end 退出循环
+
+```js
+var sortColors = function(nums) {
+    var start = 0;
+    var end = nums.length - 1;
+    var current = 0;
+    while(current <= end){
+      switch(nums[current]){
+        case 0: 
+          swap(nums,current,start)
+          start++
+          current++
+          break
+        case 2: 
+          swap(nums,current,end)
+          end--
+          break   
+        default:
+          current++
+      }
+    }
+    return nums;
+};
+
+function swap(nums,a,b){
+    [nums[a],nums[b]] = [nums[b],nums[a]]
+}
+```
