@@ -552,6 +552,7 @@ var getIntersectionNode = function(headA, headB) {
 
 - 11 盛最多水的容器
 - 33 搜索旋转排序数组
+- 54 螺旋矩阵
 
 ### 11 盛最多水的容器
 
@@ -617,7 +618,7 @@ var search = function(nums, target) {
 };
 ```
 
-## 54 螺旋矩阵
+### 54 螺旋矩阵
 
 [leetcode 54](https://leetcode-cn.com/problems/spiral-matrix/)
 
@@ -676,6 +677,7 @@ var spiralOrder = function(matrix) {
 - 27 移除元素
 - 28 实现 strStr()
 - 61 旋转链表
+- 75 颜色分类
 
 ### 26 删除排序数组中的重复项
 
@@ -740,7 +742,7 @@ var moveZeroes = function(nums) {
 };
 ```
 
-## 16 最接近的三数之和
+### 16 最接近的三数之和
 
 [leetcode 16](https://leetcode-cn.com/problems/3sum-closest/)
 
@@ -781,7 +783,7 @@ var threeSumClosest = function(nums, target) {
 };
 ```
 
-## 19 删除链表的倒数第 N 个节点
+### 19 删除链表的倒数第 N 个节点
 
 [leetcode 19](https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/)
 
@@ -821,7 +823,7 @@ var removeNthFromEnd = function(head, n) {
 };
 ```
 
-## 27 移除元素
+### 27 移除元素
 
 [leetcode 27](https://leetcode-cn.com/problems/remove-element/)
 
@@ -852,7 +854,7 @@ var removeElement = function(nums, val) {
 };
 ```
 
-## 28 实现 strStr()
+### 28 实现 strStr()
 
 [leetcode 28](https://leetcode-cn.com/problems/implement-strstr/)
 
@@ -883,7 +885,7 @@ var strStr = function(haystack, needle) {
 
 [字符串匹配的 KMP 算法](http://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html)
 
-## 61 旋转链表
+### 61 旋转链表
 
 [leetcode 61](https://leetcode-cn.com/problems/rotate-list/)
 
@@ -932,4 +934,51 @@ var rotateRight = function(head, k) {
   }
   return head;
 };
+```
+
+### 75 颜色分类
+
+[leetcode 75](https://leetcode-cn.com/problems/sort-colors/)
+
+使用三指针算法进行解答。
+
+1、使用 start 指针指向数组第一项。
+
+2、使用 end 指针指向数组最后一项。
+
+3、使用 current 指针指向当前访问元素。
+
+4、遍历数组。
+
+- 当发现 nums[current] === 0 就把当前元素和 start 位置做交换，然后 current++ start ++
+- 当发现 nums[current] === 1 current++
+- 当发现 nums[current] === 2 就把当前元素和 end 位置做交换，然后 end--
+- 当发现 current > end 退出循环
+
+```js
+var sortColors = function(nums) {
+  var start = 0;
+  var end = nums.length - 1;
+  var current = 0;
+  while (current <= end) {
+    switch (nums[current]) {
+      case 0:
+        swap(nums, current, start);
+        start++;
+        current++;
+        break;
+      case 2:
+        swap(nums, current, end);
+        end--;
+        break;
+      default:
+        current++;
+    }
+  }
+  return nums;
+};
+
+function swap(nums, a, b) {
+  [nums[a], nums[b]] = [nums[b], nums[a]];
+}
 ```
