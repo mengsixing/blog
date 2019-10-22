@@ -678,6 +678,7 @@ var spiralOrder = function(matrix) {
 - 28 实现 strStr()
 - 61 旋转链表
 - 75 颜色分类
+- 80 删除排序数组中的重复项 II
 
 ### 26 删除排序数组中的重复项
 
@@ -981,4 +982,32 @@ var sortColors = function(nums) {
 function swap(nums, a, b) {
   [nums[a], nums[b]] = [nums[b], nums[a]];
 }
+```
+
+### 80 删除排序数组中的重复项 II
+
+[leetcode 80](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array-ii/)
+
+典型的双指针算法。
+
+1、start 指针指向已经满足要求的选项索引。
+
+2、i 指针依次进行遍历，每次遍历和上一个 item 以及上上一个 item 进行比较。
+
+- 如果一致，则表示不符合要求，直接 i++ 判断下一个元素。
+- 如果不一致，则表示符合要求，则需要给 start++ 处的元素赋值成最新的 item。
+
+```js
+var removeDuplicates = function(nums) {
+    if(nums.length<=2){
+        return nums.length;
+    }
+    var start = 1;
+    for(var i=2;i<nums.length;i++){
+        if(!(nums[i] === nums[start] && nums[i] ===nums[start-1])){
+            nums[++start] = nums[i]
+        }
+    }
+    return start + 1;
+};
 ```
