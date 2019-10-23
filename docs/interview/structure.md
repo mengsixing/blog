@@ -679,6 +679,7 @@ var spiralOrder = function(matrix) {
 - 61 旋转链表
 - 75 颜色分类
 - 80 删除排序数组中的重复项 II
+- 86 分隔链表
 
 ### 26 删除排序数组中的重复项
 
@@ -1010,4 +1011,37 @@ var removeDuplicates = function(nums) {
     }
     return start + 1;
 };
+```
+
+### 86 分隔链表
+
+[leetcode 86](https://leetcode-cn.com/problems/partition-list/)
+
+构建两个链表，一个小于 x 的链表和一个大于等于 x 的链表，最后将两个链表连起来。
+
+```js
+var partition = function(head, x) {
+    var smallHead = new ListNode(Symbol());
+    var largeHead = new ListNode(Symbol());
+    
+    var smallHeadCopy = smallHead;
+    var largeHeadCopy = largeHead;
+    
+    while(head){
+        var oldNode = new ListNode(head.val);
+        if(head.val < x){
+            smallHeadCopy.next = oldNode;
+            smallHeadCopy = smallHeadCopy.next;
+        } else {
+            largeHeadCopy.next = oldNode;
+            largeHeadCopy = largeHeadCopy.next;
+        }
+        head = head.next;
+    }
+    
+    smallHeadCopy.next = largeHead.next;
+    return smallHead.next;
+   
+};
+
 ```
