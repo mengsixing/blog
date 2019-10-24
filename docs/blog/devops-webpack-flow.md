@@ -205,6 +205,6 @@ console.log(result);
 
 ## 相关链接
 
-- [手写 webpack 模块解析器](https://github.com/yhlben/diy-webpack)
+- [手写 webpack 模块解析器](https://github.com/lmjben/diy-webpack)
 - [Webpack 系列（一）使用总结](devops-webpack.html)
 - [Webpack 系列（三）打包 modules 流程分析](devops-webpack-entry.html)

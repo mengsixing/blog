@@ -1,6 +1,6 @@
 # React 服务器端渲染
 
-最近在学习 React 的服务端渲染，于是使用 Express+React 写了一个 Demo，用于对比和客户端渲染的差异。[github 地址](https://github.com/yhlben/react-ssr-demo)
+最近在学习 React 的服务端渲染，于是使用 Express+React 写了一个 Demo，用于对比和客户端渲染的差异。[github 地址](https://github.com/lmjben/react-ssr-demo)
 
 先看一下效果吧：
 
@@ -188,4 +188,4 @@ prerender 库的原理：_先请求客户端渲染的页面，把客户端渲染
 
 通过这个服务器端渲染实战，让我加深了对服务器端的理解，如有错误，麻烦多多指正，谢谢大家！
 
-如果觉得有用得话给个 ⭐ 吧。[react-ssr-demo](https://github.com/yhlben/react-ssr-demo)
+如果觉得有用得话给个 ⭐ 吧。[react-ssr-demo](https://github.com/lmjben/react-ssr-demo)

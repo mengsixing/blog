@@ -160,4 +160,4 @@ const message = 123;
 ## 相关链接
 
 - [深入响应式原理](https://cn.vuejs.org/v2/guide/reactivity.html)
-- [mini-vue](https://github.com/yhlben/mini-vue)
+- [mini-vue](https://github.com/lmjben/mini-vue)

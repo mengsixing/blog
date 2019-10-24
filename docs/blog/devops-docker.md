@@ -1,6 +1,6 @@
 # Docker 使用总结
 
-最近在学习 Docker，并用 Docker 重新部署了[cdfang-spider](https://github.com/yhlben/cdfang-spider)项目，使用 docker 后确实大幅度地降低了部署难度。如果你也想用 Docker 来部署自己的项目，那就让我们一起往下看。
+最近在学习 Docker，并用 Docker 重新部署了[cdfang-spider](https://github.com/lmjben/cdfang-spider)项目，使用 docker 后确实大幅度地降低了部署难度。如果你也想用 Docker 来部署自己的项目，那就让我们一起往下看。
 
 本文通过以下 3 个方面来聊聊 Docker：
 
@@ -129,11 +129,11 @@ Docker Compose 是一个工具，这个工具可以通过一个 yml 文件定义
 #### 不使用 Docker Compose 创建容器
 
 ```shell
-docker pull yhlben/cdfang-spider
+docker pull lmjben/cdfang-spider
 docker pull mongo
 docker network create webapp-network
 docker run -d --network webapp-network -v ~/data/db:/data/db mongo
-docker run -p 8082:8082 --network webapp-network -d yhlben/cdfang-spider
+docker run -p 8082:8082 --network webapp-network -d lmjben/cdfang-spider
 ```
 
 可见，手动创建容器，需要在命令行中手动执行很多命令，这些命令一旦敲错了，就得重来，不便于容器的管理。
@@ -153,7 +153,7 @@ services:
     networks:
       - webapp-network
   web:
-    image: yhlben/cdfang-spider
+    image: lmjben/cdfang-spider
     depends_on:
       - database
     ports:
@@ -191,7 +191,7 @@ Docker Compose 的配置文件一般定义在 `docker-compose.yml` 文件中，�
 
 ## Docker 项目实战
 
-接下来以 [cdfang-spider](https://github.com/yhlben/cdfang-spider) 项目为例，使用 Docker 部署项目。
+接下来以 [cdfang-spider](https://github.com/lmjben/cdfang-spider) 项目为例，使用 Docker 部署项目。
 
 ### 全手动部署
 
@@ -202,7 +202,7 @@ Docker Compose 的配置文件一般定义在 `docker-compose.yml` 文件中，�
 FROM mhart/alpine-node
 
 # 注释
-LABEL maintainer = "yhlben <yinhengliben@gmail.com>"
+LABEL maintainer = "lmjben <yinhengliben@gmail.com>"
 
 # 创建工作目录
 RUN rm -rf /app
@@ -225,7 +225,7 @@ CMD BUILD_ENV=docker node app.js
 2、通过 Dockerfile 文件构建 Image。
 
 ```shell
-docker build -t yhlben/cdfang-spider .
+docker build -t lmjben/cdfang-spider .
 ```
 
 3、拉取 mongo 官方 Image。
@@ -244,7 +244,7 @@ docker network create webapp-network
 
 ```shell
 docker run -d --network webapp-network -v ~/data/db:/data/db mongo
-docker run -p 8082:8082 --network webapp-network -d yhlben/cdfang-spider
+docker run -p 8082:8082 --network webapp-network -d lmjben/cdfang-spider
 ```
 
 6、通过访问 localhost:8082 访问项目。
@@ -258,7 +258,7 @@ docker run -p 8082:8082 --network webapp-network -d yhlben/cdfang-spider
 FROM mhart/alpine-node
 
 # 注释
-LABEL maintainer = "yhlben <yinhengliben@gmail.com>"
+LABEL maintainer = "lmjben <yinhengliben@gmail.com>"
 
 # 创建工作目录
 RUN rm -rf /app
@@ -293,7 +293,7 @@ services:
     networks:
       - webapp-network
   web:
-    image: yhlben/cdfang-spider
+    image: lmjben/cdfang-spider
     depends_on:
       - database
     ports:

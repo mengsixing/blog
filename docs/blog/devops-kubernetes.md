@@ -226,7 +226,7 @@ metadata:
 spec:
   containers:
     - name: mypod
-      image: yhlben/notepad
+      image: lmjben/notepad
   volumeMounts:
     - name: foo
       mountPath: 'etc/foo'
@@ -261,7 +261,7 @@ spec:
 
 ## Kubernetes 实战
 
-我们来实战部署一个 k8s 记事本项目，项目使用 [yhlben/notepad](https://cloud.docker.com/u/yhlben/repository/docker/yhlben/notepad) 镜像进行构建，该镜像在部署后会在 8083 端口上提供一个 web 版记事本服务，[查看演示](http://yinhengli.com:8083/)。
+我们来实战部署一个 k8s 记事本项目，项目使用 [lmjben/notepad](https://cloud.docker.com/u/lmjben/repository/docker/lmjben/notepad) 镜像进行构建，该镜像在部署后会在 8083 端口上提供一个 web 版记事本服务，[查看演示](http://yinhengli.com:8083/)。
 
 为了避免安装 k8s 出现的各种坑，这里使用 [Play with Kubernetes](https://labs.play-with-k8s.com/)进行演示。
 
@@ -357,7 +357,7 @@ spec:
     spec:
       containers:
         - name: notepad
-          image: yhlben/notepad
+          image: lmjben/notepad
           ports:
             - containerPort: 8083
 ```
@@ -472,7 +472,7 @@ kubectl scale deployments/notepad --replicas=100
 滚动更新就是在不宕机的情况下，实现代码更新。执行以下命令，修改 image 即可。
 
 ```sh
-kubectl set image deployments/notepad notepad=yhlben/notepad:new
+kubectl set image deployments/notepad notepad=lmjben/notepad:new
 ```
 
 也可以通过修改 deployment.yaml 中的 image 字段，执行 `kubectl apply -f deployment.yaml`去执行升级。

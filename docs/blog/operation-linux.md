@@ -107,5 +107,5 @@ netstat -an | grep ':80'
 - nslookup
 
 ```js
-nslookup yhlben.com
+nslookup lmjben.com
 ```

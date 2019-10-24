@@ -1,5 +1,5 @@
 module.exports = {
-  title: "yhlben的前端日志",
+  title: "lmjben的前端日志",
   description: "欢迎访问我的前端日志",
   ga: "UA-121061441-1",
   markdown: {
@@ -9,7 +9,7 @@ module.exports = {
     ['link', { rel: 'icon', href: '/hero.jpeg' }]
   ],
   themeConfig: {
-    repo: "yhlben/blog",
+    repo: "lmjben/blog",
     nav: [
       {
         text: "博客",
