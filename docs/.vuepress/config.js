@@ -160,8 +160,7 @@ module.exports = {
             "js",
             "css",
             "html",
-            "framework",
-            "2019-9"
+            "framework"
           ]
         },
         {

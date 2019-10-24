@@ -680,6 +680,7 @@ var spiralOrder = function(matrix) {
 - 75 颜色分类
 - 80 删除排序数组中的重复项 II
 - 86 分隔链表
+- 125 验证回文串
 
 ### 26 删除排序数组中的重复项
 
@@ -1000,16 +1001,16 @@ function swap(nums, a, b) {
 
 ```js
 var removeDuplicates = function(nums) {
-    if(nums.length<=2){
-        return nums.length;
+  if (nums.length <= 2) {
+    return nums.length;
+  }
+  var start = 1;
+  for (var i = 2; i < nums.length; i++) {
+    if (!(nums[i] === nums[start] && nums[i] === nums[start - 1])) {
+      nums[++start] = nums[i];
     }
-    var start = 1;
-    for(var i=2;i<nums.length;i++){
-        if(!(nums[i] === nums[start] && nums[i] ===nums[start-1])){
-            nums[++start] = nums[i]
-        }
-    }
-    return start + 1;
+  }
+  return start + 1;
 };
 ```
 
@@ -1021,27 +1022,61 @@ var removeDuplicates = function(nums) {
 
 ```js
 var partition = function(head, x) {
-    var smallHead = new ListNode(Symbol());
-    var largeHead = new ListNode(Symbol());
-    
-    var smallHeadCopy = smallHead;
-    var largeHeadCopy = largeHead;
-    
-    while(head){
-        var oldNode = new ListNode(head.val);
-        if(head.val < x){
-            smallHeadCopy.next = oldNode;
-            smallHeadCopy = smallHeadCopy.next;
-        } else {
-            largeHeadCopy.next = oldNode;
-            largeHeadCopy = largeHeadCopy.next;
-        }
-        head = head.next;
-    }
-    
-    smallHeadCopy.next = largeHead.next;
-    return smallHead.next;
-   
-};
+  var smallHead = new ListNode(Symbol());
+  var largeHead = new ListNode(Symbol());
 
+  var smallHeadCopy = smallHead;
+  var largeHeadCopy = largeHead;
+
+  while (head) {
+    var oldNode = new ListNode(head.val);
+    if (head.val < x) {
+      smallHeadCopy.next = oldNode;
+      smallHeadCopy = smallHeadCopy.next;
+    } else {
+      largeHeadCopy.next = oldNode;
+      largeHeadCopy = largeHeadCopy.next;
+    }
+    head = head.next;
+  }
+
+  smallHeadCopy.next = largeHead.next;
+  return smallHead.next;
+};
+```
+
+### 125 验证回文串
+
+[leetcode 125](https://leetcode-cn.com/problems/valid-palindrome/)
+
+1、双指针算法，首尾指针进行对比，如果发现特殊字符，直接过滤掉。
+
+2、一次遍历，将合法字符组装成一个新的字符串，然后进行反转对比即可。
+
+```js
+var isPalindrome = function(s) {
+  if (s.length < 2) {
+    return true;
+  }
+
+  var start = 0;
+  var end = s.length - 1;
+  while (start < end) {
+    if (!/[0-9a-zA-Z]/.test(s[start])) {
+      start++;
+      continue;
+    }
+    if (!/[0-9a-zA-Z]/.test(s[end])) {
+      end--;
+      continue;
+    }
+    if (s[start].toLowerCase() === s[end].toLowerCase()) {
+      start++;
+      end--;
+    } else {
+      return false;
+    }
+  }
+  return true;
+};
 ```
