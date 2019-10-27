@@ -189,6 +189,13 @@ module.exports = {
             "book-http-graph"
           ]
         },
+        {
+          title: '其他',
+          collapsable: false,
+          children: [
+            "book-self-control",
+          ]
+        },
       ],
     },
     lastUpdated: "更新时间",
