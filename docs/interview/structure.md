@@ -148,7 +148,7 @@ nums.insert(13);
 nums.insert(2993);
 nums.inOrder(nums.root);
 nums.remove(123);
-console.warn('删除123以后');
+console.warn("删除123以后");
 nums.inOrder(nums.root);
 //nums.getSmalllest(nums.root);
 //nums.getMax(nums.root);
@@ -386,17 +386,17 @@ function showDistro() {
   var n = 0;
   for (var i = 0; i < this.table.length; i++) {
     if (this.table[i][0] != undefined) {
-      console.log('键是：' + i + '，值是：' + this.table[i]);
+      console.log("键是：" + i + "，值是：" + this.table[i]);
     }
   }
 }
 
 var hTable = new HashTable();
 hTable.buildChains();
-hTable.put('china');
-hTable.put('cainh');
-hTable.put('aosdn');
-hTable.put('vnvnin');
+hTable.put("china");
+hTable.put("cainh");
+hTable.put("aosdn");
+hTable.put("vnvnin");
 
 hTable.showDistro();
 ```
@@ -442,13 +442,13 @@ MinStack.prototype.getMin = function() {
 var isValid = function(s) {
   var stack = [];
   var map = {
-    '(': ')',
-    '[': ']',
-    '{': '}'
+    "(": ")",
+    "[": "]",
+    "{": "}"
   };
 
   for (var i = 0; i < s.length; i++) {
-    if (['(', '[', '{'].includes(s[i])) {
+    if (["(", "[", "{"].includes(s[i])) {
       stack.push(s[i]);
     } else {
       if (map[stack[stack.length - 1]] === s[i]) {
@@ -721,7 +721,7 @@ var addStrings = function(num1, num2) {
     carry = (carry / 10) | 0;
   }
 
-  return result.reverse().join('');
+  return result.reverse().join("");
 };
 ```
 
@@ -1078,5 +1078,76 @@ var isPalindrome = function(s) {
     }
   }
   return true;
+};
+```
+
+### 167 两数之和 II - 输入有序数组
+
+[leetcode 167](https://leetcode-cn.com/problems/two-sum-ii-input-array-is-sorted/)
+
+典型的双指针算法，专门针对于排序好的算法优化。
+
+1、定义 start 指针，指向数组开头。
+
+2、定义 end 指针，指向数组末尾。
+
+3、计算首尾指针的和。
+
+- 如果大于 target，则将尾指针 - 1
+- 如果小于 target，则将首指针 + 1
+- 如果等于 target，直接返回结果
+
+```js
+var twoSum = function(numbers, target) {
+  var start = 0;
+  var end = numbers.length - 1;
+  while (start < end) {
+    if (numbers[start] + numbers[end] < target) {
+      start++;
+    } else if (numbers[start] + numbers[end] > target) {
+      end--;
+    } else {
+      return [start + 1, end + 1];
+    }
+  }
+};
+```
+
+### 209 长度最小的子数组
+
+[leetcode 209](https://leetcode-cn.com/problems/minimum-size-subarray-sum/)
+
+双指针算法
+
+1、外层循环遍历每一个元素
+
+2、从每个元素开始，开始构建子数组，满足子数组总和 sum > s，找到后把数组长度记录下来 minLength。
+
+3、每次找到满足条件的子数组，就讲 minLength 重新赋值为最小项。
+
+还可以优化，优化更少的相加。
+
+```js
+/**
+ * @param {number} s
+ * @param {number[]} nums
+ * @return {number}
+ */
+var minSubArrayLen = function(s, nums) {
+  if (nums.length === 0) {
+    return 0;
+  }
+  var minLength = Number.MAX_SAFE_INTEGER;
+  for (var i = 0; i < nums.length; i++) {
+    var sum = nums[i];
+    var j = i;
+    while (sum < s && j < nums.length - 1) {
+      sum += nums[++j];
+    }
+    if (sum >= s) {
+      minLength = Math.min(minLength, j - i + 1);
+    }
+  }
+  return minLength === Number.MAX_SAFE_INTEGER ? 0 : minLength;
 };
 ```
