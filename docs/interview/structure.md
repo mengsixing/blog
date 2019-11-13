@@ -1151,3 +1151,39 @@ var minSubArrayLen = function(s, nums) {
   return minLength === Number.MAX_SAFE_INTEGER ? 0 : minLength;
 };
 ```
+
+方法二：滑动窗口
+
+1、取滑动列表 [left, right];
+
+2、若列表 [left, right] 中的取值之和小于 s, 则列表的右边界 right 往右扩张。
+
+3、若列表 [left, right] 中的取值之和大于 s, 则列表的左边界 left 往右扩张。
+
+```js
+/**
+ * @param {number} s
+ * @param {number[]} nums
+ * @return {number}
+ */
+var minSubArrayLen = function(s, nums) {
+  let left = 0,
+    right = -1; // [left, right], 左闭右闭
+  let minDistance = nums.length + 1; // 存储 left 与 right 间的距离
+  let sum = 0; // [left, right] 间值的总和
+  while (left < nums.length - 1) {
+    if (right < nums.length - 1 && sum < s) {
+      right++;
+      sum = sum + nums[right];
+    } else {
+      sum = sum - nums[left];
+      left++;
+    }
+    if (sum >= s) {
+      minDistance = Math.min(minDistance, right - left + 1);
+    }
+  }
+  if (minDistance === nums.length + 1) return 0;
+  return minDistance;
+};
+```
