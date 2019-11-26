@@ -681,6 +681,7 @@ var spiralOrder = function(matrix) {
 - 80 删除排序数组中的重复项 II
 - 86 分隔链表
 - 125 验证回文串
+- 925 长按键入
 
 ### 26 删除排序数组中的重复项
 
@@ -1185,5 +1186,41 @@ var minSubArrayLen = function(s, nums) {
   }
   if (minDistance === nums.length + 1) return 0;
   return minDistance;
+};
+```
+
+### 925 长按键入
+
+[leetcode 925](https://leetcode-cn.com/problems/long-pressed-name/)
+
+典型的双指针算法。
+
+1、定义双指针 i=0，j =0，分别指向 name 和 typed 的位置。
+
+2、比对 name 和 typed 分别的位置是否相等。
+
+3、如果相等，则两个指针都向后走一步。
+
+4、如果不相等，则判断typed 指针是否和他之前的指针内容相等。
+
+5、如果typed和之前的指针相等，则 typed 指针向后走一步。
+
+6、如果都不满足情况，就直接返回false。
+
+```js
+var isLongPressedName = function(name, typed) {
+  var i = 0;
+  var j = 0;
+  while (j <= name.length) {
+    if (typed[i] === name[j]) {
+      i++;
+      j++;
+    } else if (typed[i] === typed[i - 1]) {
+      i++;
+    } else {
+      return false;
+    }
+  }
+  return true;
 };
 ```
