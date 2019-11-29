@@ -682,6 +682,7 @@ var spiralOrder = function(matrix) {
 - 86 分隔链表
 - 125 验证回文串
 - 925 长按键入
+- 234 回文链表
 
 ### 26 删除排序数组中的重复项
 
@@ -1201,11 +1202,11 @@ var minSubArrayLen = function(s, nums) {
 
 3、如果相等，则两个指针都向后走一步。
 
-4、如果不相等，则判断typed 指针是否和他之前的指针内容相等。
+4、如果不相等，则判断 typed 指针是否和他之前的指针内容相等。
 
-5、如果typed和之前的指针相等，则 typed 指针向后走一步。
+5、如果 typed 和之前的指针相等，则 typed 指针向后走一步。
 
-6、如果都不满足情况，就直接返回false。
+6、如果都不满足情况，就直接返回 false。
 
 ```js
 var isLongPressedName = function(name, typed) {
@@ -1220,6 +1221,50 @@ var isLongPressedName = function(name, typed) {
     } else {
       return false;
     }
+  }
+  return true;
+};
+```
+
+### 234 回文链表
+
+[leetcode 925](https://leetcode-cn.com/problems/palindrome-linked-list/)
+
+快慢指针，当快指针 fastHead 走到末尾的时候，慢指针 slowHead 正好走到链表的中间位置。
+
+在遍历的同时，构建一个新链表 preHead，存放前半段的链表的翻转结果。
+
+然后只需要比对 slowHead 和 preHead 是否一致即可。
+
+```js
+var isPalindrome = function(head) {
+  if (!head || !head.next) {
+    return true;
+  }
+
+  var slowHead = head;
+  var fastHead = head;
+  var preHead = head;
+  var prepre = null;
+
+  while (fastHead != null && fastHead.next != null) {
+    preHead = slowHead;
+    fastHead = fastHead.next.next;
+    slowHead = slowHead.next;
+    preHead.next = prepre;
+    prepre = preHead;
+  }
+
+  if (fastHead != null) {
+    slowHead = slowHead.next;
+  }
+
+  while (preHead != null && slowHead != null) {
+    if (preHead.val != slowHead.val) {
+      return false;
+    }
+    preHead = preHead.next;
+    slowHead = slowHead.next;
   }
   return true;
 };
