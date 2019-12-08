@@ -147,6 +147,7 @@ module.exports = {
           title: '其它',
           collapsable: false,
           children: [
+            "other-pit",
             "other-tools",
             "other-vscode",
           ]
