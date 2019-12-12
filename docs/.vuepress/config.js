@@ -124,6 +124,7 @@ module.exports = {
           children: [
             "base-ioc",
             "base-functional",
+            "base-webcomponents",
             "base-structure",
             "base-structure-base-select",
             "base-structure-base-sort",

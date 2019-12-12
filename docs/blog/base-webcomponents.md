@@ -1,7 +1,8 @@
-# Web Component
+# Web Component 基础
 
 - 核心概念
 - Web Component 实战
+- 开源库
 
 ## 核心概念
 
@@ -31,6 +32,8 @@ customElements.define("hello-world", HelloWorld);
 
 ### Shadow DOM
 
+Shadow DOM 的一个重要特性是封装——可以将 html 标签结构、css 样式和行为隐藏起来，并从页面上的其他代码中分离开来，这样不同的功能不会混在一起，代码看起来也会更加干净整洁。
+
 实战：给一个 div 元素，绑定一个 shadowDOM，让一个空 div 也能显示出一个 button。
 
 ```html
@@ -50,6 +53,10 @@ customElements.define("hello-world", HelloWorld);
 
 ### HTML templates
 
+当您必须在网页上重复使用相同的标记结构时，使用某种模板而不是一遍又一遍地重复相同的结构是有意义的。此元素及其内容不会在 DOM 中呈现，但仍可使用 JavaScript 去引用它。
+
+实战：实现一个基本的 template 应用。
+
 ```html
 <template id="my-paragraph">
   <p>My paragraph</p>
@@ -63,6 +70,8 @@ customElements.define("hello-world", HelloWorld);
 ```
 
 ## Web Component 实战
+
+实战：将 Custom elements、Shadow DOM、HTML templates 结合起来，实现一个完整的 webComponent 案例。
 
 ```html
 <html lang="en">
@@ -94,9 +103,11 @@ customElements.define("hello-world", HelloWorld);
             alert("click");
           });
 
-          //   获取自定义属性
+          // 获取自定义属性
           const title = this.getAttribute("data-title");
           console.warn("title:", title);
+          // 将自定义属性赋值
+          this.childNodes[1].textContent = title;
         }
       }
       customElements.define("hello-world", HelloWorld);
@@ -104,6 +115,14 @@ customElements.define("hello-world", HelloWorld);
   </body>
 </html>
 ```
+
+## 开源库
+
+基于 webcomponent 有许多非常成熟的开源库。
+
+- [x-tag](https://github.com/x-tag)
+- [polymer](https://github.com/Polymer/polymer)
+- [omi](https://github.com/Tencent/omi)
 
 ## 参考链接
 
