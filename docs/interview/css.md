@@ -165,3 +165,28 @@ CSS 伪类表示元素的特殊状态。
 ## 13、浏览器源生的 inline-block 元素都有哪些
 
 常见的有：img，input，button，textarea。
+
+## 14、移动端如何处理点击穿透
+
+点击穿透的原因：
+
+在 pc 端的事件触发顺序：mousedown -> click -> mouseup
+
+在移动端的事件触发顺序：touchstart -> touchmove -> touchend
+
+移动端的事件优先级高，并且会模拟 mouse 事件，所以综合来看，移动端的执行顺序：
+
+touchstart -> touchmove -> touchend -> mousedown -> click -> mouseup
+
+由于很多时候，我们点击关闭弹窗时，弹窗立马就关闭了，但在移动端还存在一个点击延迟效果，即执行 tap 事件之后 300ms 之后才会触发 click 事件，这个时候弹窗已经没有了，于是 click 事件就作用在了弹窗下的元素上，就形成了点击穿透现象。
+
+解决方案：
+
+1、使用 fastclick 禁止 300ms 点击延迟。
+
+2、使用 pointer-events 控制是否可点击。
+
+- 不允许点击，即让点击穿透 ：pointer-events: none;
+- 允许点击，即禁止穿透（默认值）：pointer-events: auto;
+
+[参考资料](https://blog.csdn.net/zhuyinqinying/article/details/81775671)
