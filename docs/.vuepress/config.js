@@ -71,6 +71,7 @@ module.exports = {
           collapsable: false,
           children: [
             "css",
+            "css-modules",
             "css-next",
             "css-flex",
             "css-useful",
