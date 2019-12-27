@@ -12,14 +12,14 @@
 
 ### 手写源生 CSS
 
-在我们最初学习写页面的时候，大家都应该都学过怎么去写 css，目前也就支持一下几种情况：
+在我们最初学习写页面的时候，大家都学过怎么去写 css，也就以下几种情况：
 
 - 行内样式，即直接在 html 中的 style 属性里编写 css 代码。
 - 内嵌样式，即在 html h 中的 style 标签内编写 class，提供给当前页面使用。
 - 导入样式，即在内联样式中 通过 @import 方法，导入其他样式，提供给当前页面使用。
 - 外部样式，即使用 html 中的 link 标签，加载样式，提供给当前页面使用。
 
-然后我们在不断摸索中，逐渐形成了以编写**内嵌样式**和**外部样式**为主要的编写习惯。
+我们在不断摸索中，逐渐形成了以编写**内嵌样式**和**外部样式**为主要的编写习惯。
 
 读到这里大家肯定有所疑问，为什么不建议使用行内样式？
 
@@ -38,12 +38,12 @@
 
 1、在 IE6-8 下，@import 声明指向的样式表并不会与页面其他资源并发加载，而是等页面所有资源加载完成后才开始下载。
 
-2、当在 link 标签中去 @import 其他 css，页面会等到所有资源加载完成后才开始解析 link 中去 @import 的 css。
+2、如果在 link 标签中去 @import 其他 css，页面会等到所有资源加载完成后，才开始解析 link 标签中 @import 的 css。
 
 :::tip 使用导入样式的缺点
 
-- 导入样式，只能放在 style 标签的第一行，
-- @import 声明的样式表不能充分利用浏览器并发请求资源的行为，因为其加载行为往往会延后触发或会被其他资源加载挂起。
+- 导入样式，只能放在 style 标签的第一行，放其他行则会无效。
+- @import 声明的样式表不能充分利用浏览器并发请求资源的行为，其加载行为往往会延后触发或被其他资源加载挂起。
 - 由于 @import 样式表的延后加载，可能会导致页面样式闪烁。
 
 :::
@@ -52,19 +52,21 @@
 
 随着时间的不断发展，我们逐渐发现，编写源生的 css 其实并不友好，例如：源生的 css 不支持变量，不支持嵌套，不支持父选择器等等，这些种种问题，催生出了像 sass/less 这样的预处理器。
 
-预处理器主要是强化了 css 的语法，弥补了上文说了这些问题，但本质上，打包出来的结果和源生的 css 都是一样的，只能起到良好的开发效果。
+预处理器主要是强化了 css 的语法，弥补了上文说了这些问题，但本质上，打包出来的结果和源生的 css 都是一样的，只是对开发者友好，写起来更顺滑。
 
 ### 后处理器 PostCSS
 
 随着前端工程化的不断发展，越来越多的工具被前端大佬们开发出来，愿景是把所有的重复性的工作都交给机器去做，在 css 领域就产生了 postcss。
 
-postcss 可以称作为 css 界的 babel，它的实现原理是通过 ast 去分析我们的 css 代码，然后将分析的结果进行处理，目的是让最终生成的 css 更高效。
+postcss 可以称作为 css 界的 babel，它的实现原理是通过 ast 去分析我们的 css 代码，然后将分析的结果进行处理，从而衍生出了许多种处理 css 的使用场景。
 
 常用的 postcss 使用场景有：
 
 - 配合 stylelint 校验 css 语法
 - 自动增加浏览器前缀 autoprefixer
 - 编译 css next 的语法
+
+[更多 postcss 使用场景](https://github.com/postcss/postcss/blob/master/README-cn.md)
 
 ### CSS 模块化迅速发展
 
@@ -88,7 +90,9 @@ postcss 可以称作为 css 界的 babel，它的实现原理是通过 ast 去�
 
 ### BEM 命名规范
 
-BEM 的意思就是块（block）、元素（element）、修饰符（modifier）,是由 Yandex 团队提出的一种前端命名方法论。这种巧妙的命名方法让你的 css 类对其他开发者来说更加透明而且更有意义。
+BEM 的意思就是块（block）、元素（element）、修饰符（modifier）。是由 Yandex 团队提出的一种前端命名方法论。这种巧妙的命名方法让你的 css 类对其他开发者来说更加透明而且更有意义。
+
+BEM 的命名规范如下：
 
 ```css
 /* 块即是通常所说的 Web 应用开发中的组件或模块。每个块在逻辑上和功能上都是相互独立的。 */
@@ -170,6 +174,18 @@ module.exports = {
 
 ```
 
+4、最终打包出来的 css 类名就是由一长串 hash 值生成。
+
+```css
+._2DHwuiHWMnKTOYG45T0x34 {
+  color: red;
+}
+
+._10B-buq6_BEOTOl9urIjf8 {
+  background-color: blue;
+}
+```
+
 ### CSS In JS
 
 CSS in JS，意思就是使用 js 语言写 css，完全不需要些单独的 css 文件，所有的 css 代码全部放在组件内部，以实现 css 的模块化。
@@ -232,3 +248,11 @@ const TomatoButton = styled(Button)`
 最后放一张总结好的图。
 
 ![css-modules](css-modules-all.png)
+
+## 参考链接
+
+[bem](http://getbem.com/)
+
+[css modules](https://github.com/css-modules/css-modules)
+
+[css in js](https://github.com/MicheleBertoli/css-in-js)
