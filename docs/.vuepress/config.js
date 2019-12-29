@@ -197,6 +197,7 @@ module.exports = {
           title: '其他',
           collapsable: false,
           children: [
+            "book-act-like-a-leader",
             "book-self-control",
           ]
         },
