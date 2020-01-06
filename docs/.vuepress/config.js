@@ -140,6 +140,7 @@ module.exports = {
           title: '总结思考',
           collapsable: false,
           children: [
+            "2019-12",
             "2019-6",
             "2018",
             "frontend",
