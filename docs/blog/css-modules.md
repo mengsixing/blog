@@ -1,6 +1,6 @@
 # CSS 模块化
 
-最近年底，公司太忙，抽出一点时间总结了一下 css 的模块化。
+最近年底，抽出一点时间总结了一下 css 的模块化。
 
 - CSS 发展
 - CSS 模块化定义
@@ -8,7 +8,13 @@
 
 ## CSS 发展
 
-我们在书写 css 的时候其实经历了一下几个阶段：
+我们在书写 css 的时候其实经历了以下几个阶段：
+
+- 手写源生 CSS
+- 使用预处理器 Sass/Less
+- 使用后处理器 PostCSS
+- 使用 CSS Modules
+- 使用 CSS In JS
 
 ### 手写源生 CSS
 
@@ -251,8 +257,8 @@ const TomatoButton = styled(Button)`
 
 ## 参考链接
 
-[bem](http://getbem.com/)
-
-[css modules](https://github.com/css-modules/css-modules)
-
-[css in js](https://github.com/MicheleBertoli/css-in-js)
+- [bem](http://getbem.com/)
+- [css modules](https://github.com/css-modules/css-modules)
+- [css in js](https://github.com/MicheleBertoli/css-in-js)
+- [浅谈 CSS 模块化](https://mp.weixin.qq.com/s/0N4NLkRNPIjTuEHc6qrsrA)
+- [link vs @import](https://github.com/SamHwang1990/blog/issues/9)

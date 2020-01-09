@@ -18,13 +18,14 @@
   "author": "lmjben",
   "license": "ISC",
   "devDependencies": {
-    "@vuepress/plugin-back-to-top": "^1.0.0-rc.1",
-    "@vuepress/plugin-medium-zoom": "^1.0.0-rc.1",
-    "husky": "^1.3.1",
-    "lint-md": "^0.1.0",
-    "prettier": "1.15.3"
+    "@vuepress/plugin-back-to-top": "^1.2.0",
+    "@vuepress/plugin-medium-zoom": "^1.2.0",
+    "husky": "^4.0.3",
+    "lint-md": "^0.2.0",
+    "prettier": "1.19.1"
   },
   "dependencies": {
-    "vuepress": "^1.0.2"
+    "lint-md-cli": "^0.1.2",
+    "vuepress": "^1.2.0"
   }
 }

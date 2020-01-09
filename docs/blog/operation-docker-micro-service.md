@@ -10,7 +10,7 @@
 
 首先，根据以下目录建立对应的文件。
 
-```dir
+``` text
 .
 ├ test.js
 ├ DockerFile
