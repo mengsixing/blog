@@ -90,6 +90,7 @@
 - commitlint
 - typescript
 - babel
+- jFrog 产出物管理
 
 ## 测试工具
 

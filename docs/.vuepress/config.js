@@ -37,6 +37,7 @@ module.exports = {
             "devops-image",
             "devops-performance",
             "devops-commitlint",
+            "devops-cli-diy",
             "devops-test",
             "devops-webpack-entry",
             "devops-webpack-flow",
@@ -153,6 +154,7 @@ module.exports = {
             "other-pit",
             "other-tools",
             "other-vscode",
+            "other-npm",
           ]
         },
       ],
