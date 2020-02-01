@@ -29,15 +29,17 @@ scrollWidth：
 注意事项：
 
 - 第一次立即执行
-- 停止触发的时候还能再执行一次
+- 每间隔一段时间执行一次
+- 在间隔时间内的触发，需要在间隔末尾执行一次
 
 ```js
 function throttle(callback, timeout) {
-  var lastExecTime = +new Date('1970-1-1');
+  var lastExecTime = 0
   var throttleId;
   return function(...rest) {
     var now = +new Date();
-    if (now - lastExecTime > timeout) {
+    var remaining = now - lastExecTime
+    if (remaining > timeout) {
       if (throttleId) {
         clearTimeout(throttleId);
       }
@@ -48,7 +50,7 @@ function throttle(callback, timeout) {
       throttleId = setTimeout(() => {
         callback.apply(this, rest);
         throttleId = null;
-      }, timeout);
+      }, timeout-remaining);
     }
   };
 }
