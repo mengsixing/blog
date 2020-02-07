@@ -35,3 +35,9 @@ FP：初次渲染
 - fmp 快
 
 服务器端同构：浏览器刷新时请求服务器端渲染，在页面跳转时，由客户端渲染接管。
+
+## WebRTC 是什么
+
+WebRTC（Web Real-Time Communication）web 实时通信技术。简单地说就是在 web 浏览器里面引入实时通信，包括音视频通话等。
+
+[WebRTC 介绍及简单应用](https://www.cnblogs.com/vipzhou/p/7994927.html)

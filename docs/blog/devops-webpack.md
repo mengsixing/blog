@@ -279,6 +279,8 @@ module.exports = {
 
 5、使用 `cache-loader` 启用持久化缓存。使用 package.json 中的 `postinstall` 清除缓存目录。
 
+6、使用 mode 中的 `noParse` 属性，可以设置不必要的依赖解析，例如：我们知道 lodash 是无任何依赖包的，就可以设置此选项，缩小文件解析范围。
+
 6、导出打包的统计文件，使用分析工具进行分析 `webpack --profile --json > stat.json`。
 
 #### 开发环境优化

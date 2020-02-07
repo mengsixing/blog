@@ -99,6 +99,7 @@ module.exports = {
             "operation-docker-micro-service",
             "operation-linux",
             "operation-linux-login",
+            "operation-linux-file",
             "operation-nginx-load-balancing",
           ]
         },
