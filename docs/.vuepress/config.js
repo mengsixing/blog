@@ -100,6 +100,7 @@ module.exports = {
             "operation-linux",
             "operation-linux-login",
             "operation-linux-file",
+            "operation-nginx-match",
             "operation-nginx-load-balancing",
           ]
         },
