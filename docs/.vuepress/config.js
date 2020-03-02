@@ -126,6 +126,7 @@ module.exports = {
           title: '编程基础',
           collapsable: false,
           children: [
+            "base-graphql",
             "base-ioc",
             "base-functional",
             "base-webcomponents",
