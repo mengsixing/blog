@@ -41,13 +41,13 @@ query {
 
 ## GraphQL 核心知识
 
-GraphQL 中最重要的概念就是 Schema，Schema 表示的是接口的类型，也就是前后端接口的一个约定，这个约定是写在文件中的，并且是严格按照这个约定来返回的数据。
+GraphQL 中最重要的概念就是 Schema，Schema 表示的是接口的类型，也就是前后端接口的一个约定，这个约定通常是写在一个单独文件中，也即是 `.graphql` 的文件。
 
-在开发之前，前后端必须先制定这个 Schema，制定之后就可以放心的编写各端的代码了。
+定义好 Schema 之后，前后端就会严格按照这个 Schema 进行请求和响应。
 
 例如：如果我们的数据库中有一个学生表，我们可以定义一个对象类型去表示这个表中的字段，除此之外，我们可以扩展一些方法（根据学生的分数判断是否优秀）。
 
-在 GraphQL 主要有以下几种类型。
+除此之外，在 GraphQL 中还包含有以下几种类型。
 
 ```graphql
 # 内置标量类型：Int、Float、String、Boolean、ID
@@ -62,38 +62,38 @@ type Student {
 
 # 自定义标量类型
 type Photo {
-    url:String
-    size:Int
-    type:PhotoType
-    postedBy:Student
+  url:String
+  size:Int
+  type:PhotoType
+  postedBy:Student
 }
 
 # 枚举类型
 enum PhotoType {
-    SELFLE
-    ACTION
+  SELFLE
+  ACTION
 }
 
 # 查询类型
 type Query {
-    allStudents:[Student]
-    allPhotos:[Photo]
+  allStudents:[Student]
+  allPhotos:[Photo]
 }
 
 # 变更类型
 type Mutation {
-    postPhoto(input: PostPhotoInput): Photo
+  postPhoto(input: PostPhotoInput): Photo
 }
 
 # 输入类型
 input PostPhotoInput {
-    url:String
+  url:String
 }
 
 # 订阅类型
 type Subscription {
-    newPhoto:Photo
-    newStudent:Student
+  newPhoto:Photo
+  newStudent:Student
 }
 ```
 
@@ -101,15 +101,15 @@ type Subscription {
 
 ### Query
 
-一个 query 即表示一次查询，如上面的例子为例，我们可以根据定义的类型，合理的编写我们需要的查询返回值。
+一个 query 即表示一次查询，同时也可以支持嵌套。
 
-例如：我们发送这样一段 query 给服务器端，服务器端就可以根据对应的 resolver 去返回对应的数据格式。
+例如：我们发送 allPhotos 去查询所有的照片，同时嵌套了一层 postedBy 查询，就可以找到照片的上传者。
 
 ```graphql
 query {
-  allPhotos{
-    url,
-    postedBy{
+  allPhotos {
+    url
+    postedBy {
       name
     }
   }
@@ -143,10 +143,10 @@ GraphQL 除了强大的查询系统之外，还提供了 Mutation 变更，其�
 
 ```js
 mutation {
-    postPhoto(url:'https://baidu.com/defaul.png'){
-        url,
-        size
-    }
+  postPhoto(url:'https://baidu.com/defaul.png'){
+    url,
+    size
+  }
 }
 ```
 
@@ -156,10 +156,10 @@ mutation {
 
 ```js
 mutation postPhoto($input: PostPhotoInput){
-    postPhoto(url:$input.url){
-        url,
-        size
-    }
+  postPhoto(url:$input.url){
+    url,
+    size
+  }
 }
 // 参数单独存放
 // http://xx.com/graphql?variables={input:{url:"https://baidu.com/defaul.png"}}
@@ -167,20 +167,20 @@ mutation postPhoto($input: PostPhotoInput){
 
 ### Subscrition
 
-Subscrition 和其他类型类似，主要用来表示订阅，也就是说，如果在 Subscrition 中定义了查询内容，就通过 webSocket 和前后端建立了一个双向数据通道，每当数据有变动，就可以自动向客户端推送。
+Subscrition 和其他类型类似，不同点在于它表示订阅，也就是说，如果在 Subscrition 中定义了查询内容，就通过 webSocket 和前后端建立了一个双向数据通道，每当数据有变动，就可以自动向客户端推送。
 
 例如：上面我们已经定义了 Subscrition 类型，接下来我们定义一个 action 类型的照片，当新的 action 类型的照片插入时，则会通知其他查询刷新数据。
 
 ```graphql
 subscription{
-    newPhoto(type:'ACTION'){
-        url
-        size
-    }
+  newPhoto(type:'ACTION'){
+    url
+    size
+  }
 }
 ```
 
-对应的 Resolver 配置如下
+对应的 Resolver 配置如下。
 
 ```js
 const resolver = {
@@ -198,18 +198,18 @@ const resolver = {
       }
     }
   }
-}
+};
 ```
 
 ## GraphQL 小实战
 
-接下来我们通过 Apollo 和 Express 来搭建一个 GraphQL 服务器。
+接下来我们通过 Apollo 和 Express 来搭建一个 GraphQL 服务器端。
 
 步骤如下：
 
 - 定义 GraphQL 类型
 - 使用 Apollo 启动一个服务
-- 编写 GraphQL 类型对应的处理方法：Resolver
+- 编写处理 GraphQL 类型的方法：Resolver
 
 ### 首先定义 GraphQL 类型
 
@@ -265,6 +265,8 @@ type Subscription {
 
 接下来我们启动一个支持 GraphQL 的 web 服务。
 
+我们使用 apollo-server-express 可以非常方便的创建一个 graphql 环境。
+
 ```js
 const express = require("express");
 const { ApolloServer, PubSub } = require("apollo-server-express");
@@ -278,7 +280,7 @@ httpServer.listen({ port: 4000 }, () =>
 
 ### 编写 Resolver 处理 GraphQL 类型
 
-接下来编写 Resolver ，用于处理 GraphQL 类型对应的业务逻辑，也就是在这里去执行后端的业务逻辑，并返回对应类型的数据。
+接下来编写 Resolver 处理 GraphQL 类型对应的业务逻辑，并返回对应类型的数据。
 
 ```js
 const students = [];
@@ -324,7 +326,7 @@ const server = new ApolloServer({
 });
 ```
 
-完整的代码见下方的参考资料。
+编写好这三步之后，我们的一个 GraphQL Api 就已经完成了，是不是很简单。完整的代码可以在下方链接中找到。
 
 ## 参考资料
 
