@@ -22,7 +22,7 @@
     "@vuepress/plugin-medium-zoom": "^1.2.0",
     "husky": "^4.0.3",
     "lint-md": "^0.2.0",
-    "prettier": "1.19.1"
+    "prettier": "2.0.0"
   },
   "dependencies": {
     "lint-md-cli": "^0.1.2",
