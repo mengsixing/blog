@@ -74,6 +74,7 @@ module.exports = {
             "css",
             "css-modules",
             "css-next",
+            "css-ifc",
             "css-flex",
             "css-useful",
             "css-devicePixelRatio",

@@ -1,81 +1,39 @@
 # CSS IFC 总结
 
-最近在公司遇到一个问题，一个 div 的高度 auto，但总是比子元素的高度要高几 px，调试了很久，发现对 IFC 的概念还不是很深入，根据这篇文章再总结一下吧。
+最近在公司遇到一个问题，一个 div 的高度总是比子元素的高度要高几 px，调试了很久，发现对 IFC 的概念还不够深入，根据这篇文章再总结一下。
 
-- CSS 内联盒子模型
-- CSS line-height
-- CSS vertical-align
+- CSS 内联格式化上下文
+- CSS 内联元素常见问题
 
-## 内联盒子模型
+## CSS 内联格式化上下文
 
-IFC(Inline Formatting Context) 直译为**行内格式化上下文**。我们简单理解为每个盒子都有一个 FC 特性，不同的 FC 值代表一组盒子不同的排列方式。有的 FC 值表示盒子从上到下垂直排列，有的 FC 值表示盒子从左到右水平排列等等。而 IFC 则是表示盒子从左到右的水平排列方式。
+IFC(Inline Formatting Context) 直译为**内联格式化上下文**。我们可以简单理解为每个盒子都有一个 FC 特性，不同的 FC 值代表一组盒子中不同的排列方式。有的 FC 表示盒子从上到下垂直排列，有的 FC 表示盒子从左到右水平排列等等。而 IFC 则是表示盒子从左到右的水平排列方式。
 
-CSS 内联盒子模型是用来渲染内容的，决定了页面中的文本，图片等内联元素如何显示。
+CSS 内联盒子模型主要是用来渲染内容的，它决定了页面中的文本，图片等内联元素如何显示。
 
-- 内联盒子模型特点
-- 内联盒子模型的分类
+- 内联盒子模型
+- IFC 内部元素排列规则
 
-### 内联盒子模型特点
-
-IFC 则是表示盒子从左到右的水平排列方式。
-
-案例 1、父子元素嵌套。
-
-```html
-<span class="parent">
-  <span class="child">
-    <span class="inline-block">display:inline-block元素</span> xp子元素的文字
-  </span>
-  xp父元素的文字
-</span>
-<div class="other">其他元素</div>
-```
-
-#### line box 高度的计算方式
-
-1、根据规则，span.parent 所在行的 line box 的高度受 span.parent、span.child、span.inline-block 元素对应的 inline-level box 高度的影响。
-
-- span.parent 的高度为其 line-height 实际值。
-- span.child 的高度为其 line-height 实际值。
-- span.inline-block 的高度为其 margin box 的高度。
-
-2、根据 vertical-align 属性垂直对齐，造成各高度间并不以上边界或下边界对齐。
-
-3、span.inline-block 红色的上边框(border top)到 span.child 蓝色的下边框(border bottom)的距离再减去 1px 即为 line box 的高度。(line box 的下界其实是 span.child 的 content box 的下限的，你看"其他元素"的上边框不是和 span.child 的下边框重叠了吗？如果那是 line box 的下界，那怎会出现重叠呢)
-
-##### 就盒子模型而言
-
-1. inline-level box 与 block-level box 结构一致;
-2. content box 的高度仅能通过属性 font-size 来设置，content box 的宽度则自适应其内容而无法通过属性 width 设置。
-3. 当 inline-level box 的宽度大于 containing block，且达到内容换行条件时，会将 inline-level 拆散为多个 inline-level box 并分布到多行中，然后当属性 direction 为 ltr 时，margin/border/padding-left 将作用于第一个的 inline-level box，margin/border/padding-right 将作用于最后一个的 inline-level box;若属性 direction 为 rtl 时，margin/border/padding-right 将作用于第一个的 inline-level box，margin/border/padding-left 将作用于最后一个的 inline-level box。
-
-##### 垂直排版特性
-
-inline-level box 排版单位不是其本身，而是 line box。重点在于 line box 高度的计算。
-
-1. 位于该行上的所有的 inline-level box 均参与该行 line box 高度的计算(注意：是所有 inline-level box，而不仅仅是子元素所生成的 inline-level box)
-2. replaced elements, inline-block elements, and inline-table elements 将以其对应的 opaque inline-level box 的 margin box 高度参与 line box 高度的计算。而其他 inline-level box 则以 line-height 的实际值参与 line box 高度的计算。
-3. 各 inline-level box 根据 vertical-align 属性值相对各自的父容器作垂直方向对齐。
-4. 最上方的 box 的上边界到最下方的下边界则是 line box 的高度。
-
-（1） inline-block 元素盒子里，没有内容(流内内容)，是一个空的盒子时，baseline 位置就是该盒子 margin-bottom 的边界（没有 margin-bottom 值，就是盒子的边界值）。
-（2）inline-block 元素盒子里，有内容元素，并且 overflow 属性值为 visible 时(默认值)，那么该盒子的 baseline 位置就是里面最后一个内容元素的 baseline。如下图中间 div
-（3）inline-block 元素盒子里，有内容元素，并且 overflow 属性值为非 visible 时 (比如 overflow:hidden)，那么该盒子的 baseline 位置就是该盒子 margin-bottom 的边界。
-
-### 内联盒子模型下的子盒子
+### 内联盒子模型
 
 ![css-ifc-box.jpg](css-ifc-box.jpg)
 
-css 中的内联盒子模型可以分为以下几个部分：
+CSS 中的内联盒子模型可以分为以下几个部分：
 
-1、内容区域(content area)。内容区域指一种围绕文字看不见的盒子，其大小仅受字符本身特性控制。我们可以把文本选中的背景色区域作为内容区域。
+1、内容区域(content area)。
 
-2、内联盒子(inline box)。内联盒子不会让内容成块显示，而是排成一行，这里的内联盒子实际指的就是元素的外在盒子，用来决定元素是内联还是块级。该盒子又可以细分为内联盒子和匿名内联盒子两类:
+**内容区域**指一种围绕文字看不见的盒子，其大小仅受字符本身特性控制。我们可以把文本选中的背景色区域作为内容区域。
 
-- 内联盒子。用`<span>`、`<a>`和`<em>`等标签包裹的盒子。
-- 匿名内联盒子。直接写的文字部分。
+2、内联盒子(inline box)。
 
-3、行框盒子(line box)。例如:
+**内联盒子**不会让内容成块显示，而是排成一行，该盒子又可以细分为内联盒子和匿名内联盒子两类:
+
+- 内联盒子，用`<span>`、`<a>`和`<em>`等标签包裹的盒子。
+- 匿名内联盒子，直接写的文字部分。
+
+3、行框盒子(line box)。
+
+**行框盒子**是由一个一个内联盒子组成的，每一行就是一个行框盒子。
 
 ```html
 <p>这是一行普通的文字，这里有个 <em>em</em> 标签。</p>
@@ -83,64 +41,138 @@ css 中的内联盒子模型可以分为以下几个部分：
 
 `<p>` 标签中的每一行就是一个行框盒子，每个行框盒子又是由一个一个内联盒子组成的。如果文字超长，会自动换行，新的一行，就会被创建成一个全新的行框盒子，每一行都是一个行框盒子。
 
-4、包含块(containing block)。例如:
+4、包含盒子(containing box)。
+
+**包含盒子**是由一个一个行框盒子组成的，包裹着行框盒子。
 
 ```html
 <p>这是一行普通的文字，这里有个 <em>em</em> 标签。</p>
 ```
 
-`<p>`标签就是一个包含块，此盒子由一行一行的行框盒子组成。
+`<p>`标签就是一个包含盒子，此盒子由一行一行的行框盒子组成。
 
-### 幽灵空白节点
+5、幽灵空白节点(strut)。
 
-**幽灵空白节点**是内联盒模型中非常重要的一个概念，具体指的是:在 HTML5 文档声明 中，内联元素的所有解析和渲染表现就如同每个行框盒子的前面有一个“空白节点”一样。
+**幽灵空白节点**指的是：在 HTML 文档声明中，内联元素的所有解析和渲染表现就如同每个行框盒子的**前面**有一个空白节点一样。
 
-## 内联元素的基石 line-height
+### IFC 内部元素排列规则
 
-先思考下面这个问题:默认空`<div>`高度是 0，但是一旦里面写上几个文字，`<div>`高度就有了，请问这个高度由何而来，或者说是由哪个 CSS 属性决定的?
+我们先看一下行内元素的对齐线，也就是垂直方向上的对齐方式，可以通过 vertical-align 进行控制。
 
-如果仅仅通过表象来确认，估计不少人会认为`<div>`高度是由里面的文字撑开的，也就是`font-size`决定的，但本质上是由`line-height`属性全权决定的，尽管某些场景确实与`font-size`大小有关。
+![css-ifc-baseline](css-ifc-baseline.jpg)
 
-行距 = line-height - font-size
+- 水平垂直方向上的排列。
+  - 内联元素在水平线上一个接一个排列，默认通过基线排列。
+    - 如果行内元素能在一行装下，子元素的排列方式由 text-align 决定。
+    - 如果行内元素不能在一行装下，默认此行内框会被分割，根据 white-space 决定。
+  - 内部元素水平方向上的 margin、padding、border 有效，垂直方向上无效。
+  - 垂直方向上有多种对齐方式: 顶部、底部、基线，根据 vertical-align 属性决定。
+- line box 的计算规则。
+  - line box 的宽度由包含其元素的宽度决定。
+  - line box 的高度受当前行所有内联元素的高度影响，可能比内部最高的元素还要高（由基线对齐所导致）。
 
-行距有分为上下两个部分，
+## CSS 内联元素常见问题
 
-em-box = font-size
+这里分析两个比较常见的问题。
 
-内容区域高度受 font-family 和 font-size 双重影响
+### 普通内联元素导致的图片间隙问题
 
-em-box 仅受 font-size 影响，通常内容区域高度要更高一些
+第一个问题，也就是最常见的内联图片元素，导致的间隙问题，如图所示。
 
-### 为什么 line-height 可以让内联元素垂直居中
+![css-ifc-img1](css-ifc-img1.png)
 
-案例 2：使用 `line-height = height` 的方式让文字近似垂直居中。
+图中的代码如下：
 
-```css
-.title {
-  height: 24px;
-  line-height: 24px;
-}
+```html
+<div style="background-color:#e5edff;">
+  <img src="https://image.zhangxinxu.com/image/study/s/s256/mm1.jpg" />
+</div>
 ```
 
-说近似是因为文字字形的垂直中线位置普遍要比真正的`行框盒子`的垂直中线位置低。
+案例中有一个 div 和一张图片，可以看到图片底部到 div 底部出现了明显的间隙，这是为什么呢？
 
-### 多行文本或替换元素的垂直居中的方法
+我们先把图片后面增加一个文本节点，再来看一下。
 
-如果要居中多行文本或替换元素 则需要借助 `vertical-align` 属性来帮助我们。
+![css-ifc-img1](css-ifc-img2.png)
 
-实现的原理大致如下。
+```html
+<div style="background-color:#e5edff;">
+  <img src="https://image.zhangxinxu.com/image/study/s/s256/mm1.jpg" />
+  <span style="background-color: red;">x</span>
+</div>
+```
 
-1、多行文字使用一个标签包裹，然后设置 `display: inline-block`。好处在于既能重置外部的 `line-height` 为正常的大小，又能保持内联元素特性，从而可以设置 `vertical-align` 属性，以及产生一个非常关键的`行框盒子`。我们需要的其实并不是这个`行框盒子`，而是每个`行框盒子`都会附带的一个产物 —— **幽灵空白节点**，即一个宽度为 0 表现如同普通字符的看不见的节点。有了这个**幽灵空白节点**，我们的 `line-height:120px` 就有了作用的对象，从而相当于在 .content 元素前面撑起了一个高度为 120px 的宽度为 0 的内联元素。
+我们可以看到，其实是由于文本节点高度把这个 div 撑大了。
 
-2、因为内联元素默认都是基线对齐的，所以我们通过对 .content 元素设置 `vertical-align:middle` 来调整多行文本的垂直位置，从而实现我们想要的“垂直居中”效果。如果要借助 line-height 实现图片垂直居中效果，也是类似的原理和做法。
+::: tip 产生问题的原因
 
-不垂直居中与 line-height 无关，而是 vertical-align 导致的
+1、普通的内联元素（非 inline-block 元素）的高度是由 line-height 直接决定的。
 
-无论内联元素 line-height 如何设置，最终父级元素的高度都是由数值大的那个 line-height 决定的，我称之为**内联元素 line-height 的大值特性**。
+2、默认的内联元素都是基线对齐，也就是字符 x 的下边缘。
 
-## line-height 的好朋友 vertical-align
+3、图片是一个 inline-block 元素，他的基线就是 margin box，也就是图片的下边缘。
 
-因为 vertical-align 起作用是有前提条件的，这个前提条件就是：只能应用于内联元素以及 display 值为 table-cell 的元素。
+4、所以这里的图片就和 x 的下边缘对齐了。
 
-vertical-align 和 line-height 之间的关系很明确，即“朋友”关系。
-最明显的就是 vertical-align 的百分比值是相对于 line-height 计算的
+5、文本节点也是有高度的，并根据高度会产生行距，即上下间隙，所以就撑大了 div。
+:::
+
+::: tip 解决问题的方案
+
+1、将图片变成 block 元素，就不存在这个问题了。
+
+2、改变 vertical-align 对齐方式，如 top bottom middle 都可以。
+
+3、将 line-height 设置为为足够小，例如 0，这样文本的高度就为 0 就不会撑大 div 了。
+
+4、将 font-size 设置为为足够小，间接计算出的 line-height 就为 0 ，也就不会撑大 div 了。
+:::
+
+### inline-block 内联元素导致的对齐问题
+
+第二个问题，也就是常见的 inline-block 内联元素对齐问题，如图所示。
+
+![css-ifc-img1](css-ifc-img3.png)
+
+图中的代码如下：
+
+```html
+<div style="background-color:#e5edff">
+  <div
+    style="display:inline-block;width: 100px;height: 100px;background-color: orange"
+  >
+    content
+  </div>
+  <div
+    style="display:inline-block;width: 100px;height: 100px;background-color: red"
+  ></div>
+</div>
+```
+
+案例中的 div 中包含 2 个 inline-block 的盒子，一个盒子中包含内容，另一个却没有包含，呈现出来的样子就是一种错位的样子。
+
+我们使用同样的方式，在父级 div 后面增加一个文本节点，并加上背景图。
+
+![css-ifc-img1](css-ifc-img4.png)
+
+可以看到，现在第一个盒子的 content 文本，第二个盒子的底部，以及 x 的下边缘都在一条直线上。
+
+::: tip 产生问题的原因
+1、内联元素的排列方式，默认是按基线对齐。
+
+2、没有内容的 inline-block 元素的基线是 margin box 的底部，也就是方块的底部。
+
+3、有内容的 inline-block 元素的基线就是元素里面最后一行内联元素的基线。
+
+4、所以这里的 content 就和第二个盒子的底部对齐了，div 就被撑大了。
+:::
+
+::: tip 解决问题的方案
+1、给第二个盒子加一个空白节点，如：`&nbsp`。
+
+2、改变两个盒子的 vertical-align 对齐方式，如 top bottom middle 都可以（如果只改一个，也会出现问题 1 中的问题）。
+:::
+
+## 参考资料
+
+[CSS 深入理解 vertical-align 和 line-height 的基友关系](https://www.zhangxinxu.com/wordpress/2015/08/css-deep-understand-vertical-align-and-line-height/)
