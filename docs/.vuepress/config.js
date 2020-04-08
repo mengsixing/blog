@@ -3,31 +3,29 @@ module.exports = {
   description: "欢迎访问我的前端日志",
   ga: "UA-121061441-1",
   markdown: {
-    lineNumbers: true
+    lineNumbers: true,
   },
-  head: [
-    ['link', { rel: 'icon', href: '/hero.jpeg' }]
-  ],
+  head: [["link", { rel: "icon", href: "/hero.jpeg" }]],
   themeConfig: {
     repo: "lmjben/blog",
     nav: [
       {
         text: "博客",
-        link: "/blog/"
+        link: "/blog/",
       },
       {
         text: "面试题",
-        link: "/interview/"
+        link: "/interview/",
       },
       {
         text: "阅读",
-        link: "/book/"
+        link: "/book/",
       },
     ],
     sidebar: {
       "/blog/": [
         {
-          title: 'DevOps',
+          title: "DevOps",
           collapsable: false,
           children: [
             "devops-kubernetes",
@@ -43,10 +41,10 @@ module.exports = {
             "devops-webpack-flow",
             "devops-webpack",
             "devops-cdfang-spider",
-          ]
+          ],
         },
         {
-          title: 'Framework',
+          title: "Framework",
           collapsable: false,
           children: [
             "library-node",
@@ -57,7 +55,7 @@ module.exports = {
             "library-react-code-3",
             "library-react-code-4",
             "library-react-ssr",
-            'library-react-hooks',
+            "library-react-hooks",
             "library-vue",
             "library-miniProgram",
             "library-redux",
@@ -65,10 +63,10 @@ module.exports = {
             "library-rxjs",
             "library-koa",
             "library-koa-diy",
-          ]
+          ],
         },
         {
-          title: 'CSS',
+          title: "CSS",
           collapsable: false,
           children: [
             "css",
@@ -79,22 +77,22 @@ module.exports = {
             "css-useful",
             "css-devicePixelRatio",
             "css-houdini-star",
-          ]
+          ],
         },
         {
-          title: '网络协议',
+          title: "网络协议",
           collapsable: false,
           children: [
             "osi-http",
             "osi-https",
             "osi-tcp",
             "osi-web-security",
-            'osi-web-login',
+            "osi-web-login",
             "osi-hijack",
-          ]
+          ],
         },
         {
-          title: '运维相关',
+          title: "运维相关",
           collapsable: false,
           children: [
             "operation-docker-micro-service",
@@ -103,16 +101,16 @@ module.exports = {
             "operation-linux-file",
             "operation-nginx-match",
             "operation-nginx-load-balancing",
-          ]
+          ],
         },
         {
-          title: 'JS 基础',
+          title: "JS 基础",
           collapsable: false,
           children: [
             "js-principle",
             "js-promise",
-            'js-this',
-            'js-operator-priority',
+            "js-this",
+            "js-operator-priority",
             "js-jsBridge",
             "js-module",
             "js-inherit",
@@ -121,10 +119,10 @@ module.exports = {
             "js-html5-program",
             "js-recursion",
             "js-object-ergodic",
-          ]
+          ],
         },
         {
-          title: '编程基础',
+          title: "编程基础",
           collapsable: false,
           children: [
             "base-graphql",
@@ -138,55 +136,35 @@ module.exports = {
             "base-structure-senior-sort",
             "base-design-pattern",
             "base-computer",
-            "base-technology"
-          ]
+            "base-technology",
+          ],
         },
         {
-          title: '总结思考',
+          title: "总结思考",
           collapsable: false,
-          children: [
-            "2019-12",
-            "2019-6",
-            "2018",
-            "frontend",
-          ]
+          children: ["2019-12", "2019-6", "2018", "frontend"],
         },
         {
-          title: '其它',
+          title: "其它",
           collapsable: false,
-          children: [
-            "other-pit",
-            "other-tools",
-            "other-vscode",
-            "other-npm",
-          ]
+          children: ["other-pit", "other-tools", "other-vscode", "other-npm"],
         },
       ],
       "/interview/": [
         {
-          title: '前端',
+          title: "前端",
           collapsable: false,
-          children: [
-            "2019-9-1",
-            "js",
-            "css",
-            "html",
-            "framework"
-          ]
+          children: ["2019-9-1", "js", "css", "html", "framework"],
         },
         {
-          title: '编程基础',
+          title: "编程基础",
           collapsable: false,
-          children: [
-            "base",
-            "structure",
-            "suanfa"
-          ]
+          children: ["base", "structure", "suanfa"],
         },
       ],
       "/book/": [
         {
-          title: '技术相关',
+          title: "技术相关",
           collapsable: false,
           children: [
             "book-nodejs",
@@ -197,31 +175,27 @@ module.exports = {
             "book-regular",
             "book-code",
             "book-http2",
-            "book-http-graph"
-          ]
+            "book-http-graph",
+          ],
         },
         {
-          title: '其他',
+          title: "其他",
           collapsable: false,
-          children: [
-            "book-act-like-a-leader",
-            "book-self-control",
-          ]
+          children: ["book-act-like-a-leader", "book-self-control"],
         },
       ],
     },
     lastUpdated: "更新时间",
     docsDir: "docs",
     editLinks: true,
-    editLinkText: "本文源码地址"
+    editLinkText: "本文源码地址",
   },
-  plugins: {
-    '@vuepress/medium-zoom': {
-      selector: 'img',
-      options: {
-          margin: 16
-      }
-    },
-    '@vuepress/back-to-top':true
-  }
+  plugins: [
+    ['@vuepress/pwa', {
+      serviceWorker: true,
+      updatePopup: true
+    }],
+    ['@vuepress/medium-zoom', true],
+    ['@vuepress/back-to-top', true],
+  ],
 };
