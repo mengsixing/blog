@@ -47,7 +47,7 @@ node app.js a=1
 
 如果要实现根据用户的选择，创建不同类型的项目模板，如下图所示：
 
-![inquirer](https://cdn.rawgit.com/SBoudrias/Inquirer.js/28ae8337ba51d93e359ef4f7ee24e79b69898962/assets/screenshots/list.svg)
+![inquirer](devops-cli-diy-inquirer.gif)
 
 对于命令行中的单选操作，我们使用 inquirer 来处理。
 
