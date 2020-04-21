@@ -23,7 +23,7 @@
     "@vuepress/plugin-pwa": "^1.4.0",
     "husky": "^4.2.3",
     "lint-md": "^0.2.0",
-    "prettier": "2.0.4"
+    "prettier": "2.0.5"
   },
   "dependencies": {
     "lint-md-cli": "^0.1.2",
