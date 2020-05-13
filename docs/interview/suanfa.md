@@ -55,7 +55,7 @@ function loop(nums, result, temp) {
   for (var i = 0; i < nums.length; i++) {
     if (temp.includes(nums[i])) continue;
     temp.push(nums[i]);
-    loop(nums, result, temp, i + 1);
+    loop(nums, result, temp);
     temp.pop();
   }
 }
