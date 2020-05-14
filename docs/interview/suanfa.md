@@ -11,9 +11,13 @@
 
 ## 回溯算法
 
+回溯算法实际上就是一个决策树的遍历过程，好像是在走路，先从列表中选一步，然后在剩下的丼中选择第二步，不断重复，直到走到路的尽头，然后再倒回来，把没有走过的路再走一遍。
+
 - 78 子集
 - 46 全排列
 - 89 格雷编码
+- 17 电话号码的字母组合
+- 22 括号生成
 
 ### 78 子集
 
@@ -84,6 +88,82 @@ function grayCode(n) {
     array.push(i ^ (i / 2));
   }
   return array;
+}
+```
+
+### 电话号码的字母组合
+
+[leetcode 17](https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/)
+
+```js
+var letterCombinations = function (digits) {
+  const map = {
+    2: "abc",
+    3: "def",
+    4: "ghi",
+    5: "jkl",
+    6: "mno",
+    7: "pqrs",
+    8: "tuv",
+    9: "wxyz",
+  };
+  const tempArrays = [];
+  const phoneNumbers = digits.split("");
+  phoneNumbers.forEach((phoneNumber) => {
+    const charts = map[phoneNumber].split("");
+    tempArrays.push(charts);
+  });
+  let result = [];
+  loop(tempArrays, result, [], 0);
+  return result;
+};
+
+function loop(array, result, temp, index) {
+  if (temp.length === array.length && array.length>0) {
+    result.push(temp.join(""));
+  }
+  if (index > array.length - 1) {
+    return;
+  }
+  for (var i = 0; i < array[index].length; i++) {
+    temp.push(array[index][i]);
+    loop(array, result, temp, index + 1);
+    temp.pop();
+  }
+}
+```
+
+### 括号生成
+
+[leetcode 22](https://leetcode-cn.com/problems/generate-parentheses/)
+
+```js
+var generateParenthesis = function (n) {
+  let result = [];
+  loop(result, [], n);
+  return result;
+};
+
+function loop(result, temp, n) {
+  const leftTempLength = temp.filter((item) => item === "(").length;
+  const rightTempLength = temp.filter((item) => item === ")").length;
+  if (temp.length === n * 2 && leftTempLength === rightTempLength) {
+    const item = temp.join("");
+    result.push(item);
+    return;
+  }
+
+  if (leftTempLength < n) {
+    temp.push("(");
+    loop(result, temp, n);
+    temp.pop();
+  }
+
+  if (leftTempLength > rightTempLength) {
+    temp.push(")");
+    loop(result, temp, n);
+    temp.pop();
+  }
 }
 ```
 
