@@ -9,6 +9,81 @@
 - 贪心算法
 - 动态规划
 
+## 递归和循环
+
+属于暴利解法，使用递归或循环，将复杂的逻辑拆解，核心在于优化代码的量级，减少循环次数。
+
+- 两数相除
+- 在排序数组中查找元素的第一个和最后一个位置
+
+### 两数相除
+
+[leetcode 29](https://leetcode-cn.com/problems/divide-two-integers/)
+
+```js
+// string 模拟小学除法
+// 除此之外，可以使用 2** 0 2** 1 2** 2 逐渐靠近除数的方式循环求解
+// 使用 << 左移 >> 右移 可以模拟乘法
+var divide = function(dividend, divisor) {
+    var res=0
+    var sign=dividend>0?divisor>0?'':'-':divisor>0?'-':''
+    dividend=Math.abs(dividend)
+    divisor=Math.abs(divisor)
+    var strdiv=String(dividend)
+    var quot='',remainder=''
+    for(var i=0;i<strdiv.length;i++){
+        remainder+=strdiv[i]
+        var temp=0
+        var m=parseInt(remainder)
+        while(divisor<=m){
+            m=m-divisor
+            temp++
+        }
+        quot+=temp
+        remainder=String(m)
+    }
+    var res=parseInt(sign+quot)
+    if(res>Math.pow(2,31)-1||res<Math.pow(-2,31))return Math.pow(2,31)-1
+    return res
+};
+```
+
+### 在排序数组中查找元素的第一个和最后一个位置
+
+[leetcode 34](https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
+
+```js
+var searchRange = function (nums, target) {
+  const result = [-1, -1];
+  let leftIndex = binarySearch(nums, target, true);
+  if (leftIndex == nums.length || nums[leftIndex] != target) {
+    return result;
+  }
+  result[0] = leftIndex;
+  result[1] = binarySearch(nums, target, false) - 1;
+
+  return result;
+};
+
+// flag=true  表示左边坐标
+// flag=false 表示右边坐标
+function binarySearch(nums, target, flag) {
+  let start = 0;
+  let end = nums.length;
+  while (start < end) {
+    const mid = Math.floor((start + end) / 2);
+    if (nums[mid] > target || (nums[mid] === target && flag)) {
+      end = mid;
+    }
+    if (nums[mid] < target || (nums[mid] === target && !flag)) {
+      start = mid + 1;
+    }
+  }
+  return start;
+}
+// binarySearch([5, 7, 7, 8, 8, 10], 8, false);
+```
+
 ## 回溯算法
 
 回溯算法实际上就是一个决策树的遍历过程，好像是在走路，先从列表中选一步，然后在剩下的丼中选择第二步，不断重复，直到走到路的尽头，然后再倒回来，把没有走过的路再走一遍。
