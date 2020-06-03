@@ -8,6 +8,7 @@
 - 回溯算法
 - 贪心算法
 - 动态规划
+- 取巧方法
 
 ## 递归和循环
 
@@ -24,27 +25,29 @@
 // string 模拟小学除法
 // 除此之外，可以使用 2** 0 2** 1 2** 2 逐渐靠近除数的方式循环求解
 // 使用 << 左移 >> 右移 可以模拟乘法
-var divide = function(dividend, divisor) {
-    var res=0
-    var sign=dividend>0?divisor>0?'':'-':divisor>0?'-':''
-    dividend=Math.abs(dividend)
-    divisor=Math.abs(divisor)
-    var strdiv=String(dividend)
-    var quot='',remainder=''
-    for(var i=0;i<strdiv.length;i++){
-        remainder+=strdiv[i]
-        var temp=0
-        var m=parseInt(remainder)
-        while(divisor<=m){
-            m=m-divisor
-            temp++
-        }
-        quot+=temp
-        remainder=String(m)
+var divide = function (dividend, divisor) {
+  var res = 0;
+  var sign = dividend > 0 ? (divisor > 0 ? "" : "-") : divisor > 0 ? "-" : "";
+  dividend = Math.abs(dividend);
+  divisor = Math.abs(divisor);
+  var strdiv = String(dividend);
+  var quot = "",
+    remainder = "";
+  for (var i = 0; i < strdiv.length; i++) {
+    remainder += strdiv[i];
+    var temp = 0;
+    var m = parseInt(remainder);
+    while (divisor <= m) {
+      m = m - divisor;
+      temp++;
     }
-    var res=parseInt(sign+quot)
-    if(res>Math.pow(2,31)-1||res<Math.pow(-2,31))return Math.pow(2,31)-1
-    return res
+    quot += temp;
+    remainder = String(m);
+  }
+  var res = parseInt(sign + quot);
+  if (res > Math.pow(2, 31) - 1 || res < Math.pow(-2, 31))
+    return Math.pow(2, 31) - 1;
+  return res;
 };
 ```
 
@@ -99,7 +102,7 @@ function binarySearch(nums, target, flag) {
 [leetcode 78](https://leetcode-cn.com/problems/subsets/)
 
 ```js
-var subsets = function(nums) {
+var subsets = function (nums) {
   var result = [];
   var temp = [];
   loop(nums, result, temp, 0);
@@ -121,7 +124,7 @@ function loop(nums, result, temp, index) {
 [leetcode 46](https://leetcode-cn.com/problems/permutations/)
 
 ```js
-var permute = function(nums) {
+var permute = function (nums) {
   var result = [];
   loop(nums, result, []);
   return result;
@@ -194,7 +197,7 @@ var letterCombinations = function (digits) {
 };
 
 function loop(array, result, temp, index) {
-  if (temp.length === array.length && array.length>0) {
+  if (temp.length === array.length && array.length > 0) {
     result.push(temp.join(""));
   }
   if (index > array.length - 1) {
@@ -270,3 +273,123 @@ function splitCake(childrenIssue, cake) {
 ```
 
 排序的时间复杂度为 `O(n*log(n))`，两根指针的时间的复杂度为 `O(n)`，总的时间复杂度为`O(n*log(n))`
+
+## 取巧方法
+
+- 下一个排列
+- 有效数独
+
+### 下一个排列
+
+[leetcode 31](https://leetcode-cn.com/problems/next-permutation/)
+
+```js
+var nextPermutation = function (nums) {
+  let i = nums.length - 2;
+  while (i >= 0 && nums[i + 1] <= nums[i]) {
+    i--;
+  }
+  if (i >= 0) {
+    let j = nums.length - 1;
+    while (j >= 0 && nums[j] <= nums[i]) {
+      j--;
+    }
+    swap(nums, i, j);
+  }
+  reverse(nums, i + 1);
+};
+
+function reverse(nums, start) {
+  let i = start,
+    j = nums.length - 1;
+  while (i < j) {
+    swap(nums, i, j);
+    i++;
+    j--;
+  }
+}
+
+function swap(nums, i, j) {
+  const temp = nums[i];
+  nums[i] = nums[j];
+  nums[j] = temp;
+}
+```
+
+### 有效数独
+
+[leetcode 36](https://leetcode-cn.com/problems/valid-sudoku/)
+
+1、行和列很好判断，直接遍历即可。
+2、子数独在判断时，可以根据遍历的行和列，判断出在哪一个子数独里。
+3、一次双循环就可以了。
+
+```js
+/**
+ * @param {character[][]} board
+ * @return {boolean}
+ */
+var isValidSudoku = function (board) {
+  let row = {};
+  let cell = {};
+  let subBoard = {}
+  for(let i=0;i<9;i++){
+    row[i] = new Set()
+    cell[i] = new Set()
+    subBoard[i] = new Set()
+  }
+  for(let i = 0;i<9;i++){
+    for(let j = 0;j<9;j++){
+        if(board[i][j] !=='.'){
+            // 判断行
+            if(row[i].has(board[i][j])){
+                return false
+            }
+            // 判断列
+            if(cell[j].has(board[i][j])){
+                return false
+            }
+            // 判断子数独
+            const subIndex = Math.floor(i / 3) * 3 + Math.floor(j / 3)
+            if(subBoard[subIndex].has(board[i][j])){
+                return false
+            }
+            // 添加到：行、列、子模块
+            row[i].add(board[i][j])
+            cell[j].add(board[i][j])
+            subBoard[subIndex].add(board[i][j])
+        }
+    }
+  }
+  return true
+};
+
+```
+
+### 外观数列
+
+[leetcode 38](https://leetcode-cn.com/problems/count-and-say/)
+
+```js
+var countAndSay = function(n) {
+    let list = ['1']
+    while(list.length<=n){
+        let result = ''
+        let preNumber = list[list.length-1]
+
+        let count = 1
+        for(let i=1;i<preNumber.length;i++){
+            if(preNumber[i] === preNumber[i-1]){
+                count++
+            }else {
+                result += count + preNumber[i-1]
+                count = 1
+            }
+        }
+        result += count + preNumber[preNumber.length-1]
+        list.push(result)
+    }
+    console.log(list)
+    return list[n-1]
+};
+```
