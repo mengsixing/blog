@@ -118,6 +118,7 @@ npm run build
 
 #### | 编程基础
 
+- [Typescript 使用总结](https://lmjben.github.io/blog/base-typescript.html)
 - [GraphQL 使用总结](https://lmjben.github.io/blog/base-graphql.html)
 - [你需要知道的依赖注入](https://lmjben.github.io/blog/base-ioc.html)
 - [函数式编程](https://lmjben.github.io/blog/base-functional.html)
