@@ -66,7 +66,7 @@ let obj: Ixxx = {
   a: 1,
   b: 2,
 };
-let fun: Ixxx = () => {};
+let fun: Iyyy = () => {};
 ```
 
 #### 类型在类中使用
@@ -92,7 +92,7 @@ let greeter = new Greeter("world");
 
 在接口中使用也比较简单，可以理解为组合多个单一类型。
 
-```js
+```ts
 interface IData {
   name: string;
   age: number;
@@ -104,7 +104,7 @@ interface IData {
 
 在函数中使用类型时，主要用于处理函数参数、函数返回值。
 
-```js
+```ts
 // 函数参数
 function a(all: string) {}
 // 函数返回值
@@ -115,7 +115,7 @@ function a(a: number, b?: number) {}
 
 ## Typescript 高级用法
 
-Typescript 中的基本用法非常简单，有 js 基础的同学很快就能上手，接下来我们分析一下 Typescript 中更高级的用法，已完成更精密的类型检查。
+Typescript 中的基本用法非常简单，有 js 基础的同学很快就能上手，接下来我们分析一下 Typescript 中更高级的用法，以完成更精密的类型检查。
 
 ### 类中的高级用法
 
@@ -127,7 +127,7 @@ Typescript 中的基本用法非常简单，有 js 基础的同学很快就能�
 - 公有，私有，受保护的修饰符
 - 抽象类 abstract
 
-继承和存储器和 ES6 里的功能是一致的，这里就不多少了，主要说一下类的修饰符和抽象类。
+继承和存储器和 ES6 里的功能是一致的，这里就不多说了，主要说一下类的修饰符和抽象类。
 
 **类中的修饰符**是体现面向对象封装性的主要手段，类中的属性和方法在被不同修饰符修饰之后，就有了不同权限的划分，例如：
 
@@ -197,20 +197,20 @@ cat.age = 2; // 正常
 抽象类的用法如下。
 
 ```ts
-abstract class Animal3 {
+abstract class Animal {
   abstract makeSound(): void;
-  // 实现方法
+  // 直接定义方法实例
   move(): void {
     console.log("roaming the earch...");
   }
 }
-class Cat3 extends Animal3 {
-  makeSound() {}
+class Cat extends Animal {
+  makeSound() {} // 必须实现的抽象方法
   move() {
-    console.log(123);
+    console.log('move');
   }
 }
-let sss = new Cat3();
+new Cat3();
 ```
 
 ### 接口中的高级用法
@@ -246,7 +246,7 @@ test1.c = 2; // 报错，只读属性
 const item0 = test1[0]; // 索引类型
 ```
 
-接口中同时也支持定义函数类型和构造函数类型。
+接口中同时也支持定义函数类型、构造函数类型。
 
 ```ts
 // 接口定义函数类型
@@ -274,7 +274,9 @@ let test2: IClass = class {
 
 #### 函数重载
 
-函数重载指的是一个函数可以根据不同的入参匹配对应的类型，例如：案例中的 `doSomeThing` 在传一个参数的时候被提示为 `number` 类型，传两个参数的话，第一个参数就必须是 `string` 类型。
+函数重载指的是一个函数可以根据不同的入参匹配对应的类型。
+
+例如：案例中的 `doSomeThing` 在传一个参数的时候被提示为 `number` 类型，传两个参数的话，第一个参数就必须是 `string` 类型。
 
 ```ts
 // 函数重载
@@ -288,9 +290,9 @@ let result1 = doSomeThing("", 2);
 
 #### This 类型
 
-我们都知道，js 中的 this 只有在运行的时候，才能够判断，所以对于 ts 来说是很难做静态判断的，对此 ts 给我们提供了手动绑定 this 类型，让我们能够在明确 this 的情况下，给到静态的类型提示。
+我们都知道，Javascript 中的 this 只有在运行的时候，才能够判断，所以对于 Typescript 来说是很难做静态判断的，对此 Typescript 给我们提供了手动绑定 this 类型，让我们能够在明确 this 的情况下，给到静态的类型提示。
 
-其实在 js 中的 this，就只有这五种情况：
+其实在 Javascript 中的 this，就只有这五种情况：
 
 - 对象调用，指向调用的对象
 - 全局函数调用，指向 window 对象
@@ -300,10 +302,10 @@ let result1 = doSomeThing("", 2);
 
 ```ts
 // 全局函数调用 - window
-function c() {
+function doSomeThing() {
   return this;
 }
-const result2 = c();
+const result2 = doSomeThing();
 
 // 对象调用 - 对象
 interface IObj {
@@ -322,9 +324,7 @@ const obj: IObj = {
     console.log(this);
   },
 };
-
 const result3 = obj.doSomeThing();
-
 let globalDoSomeThing = obj.doSomeThing;
 globalDoSomeThing(); // 这样会报错，因为我们只允许在对象中调用
 
@@ -342,7 +342,7 @@ document.body.addEventListener("click", function () {
 
 ### 泛型
 
-泛型其实表示的是一个类型不确定，需要在调用的时候才能确定的类型，主要包含以下几个知识点：
+泛型表示的是一个类型在定义时并不确定，需要在调用的时候才能确定的类型，主要包含以下几个知识点：
 
 - 泛型函数
 - 泛型类
@@ -350,18 +350,16 @@ document.body.addEventListener("click", function () {
 
 我们试想一下，如果一个函数，把传入的参数直接输出，我们怎么去给它编写类型？传入的参数可以是任何类型，难道我们需要把每个类型都写一遍？
 
-我们来对比一下以下两种方法：
-
 - 使用函数重载，得把每个类型都写一遍，不适合。
 - 泛型，用一个类型占位 T 去代替，在使用时指定对应的类型即可。
 
 ```ts
 // 使用泛型
-function d1<T>(param: T): T {
+function doSomeThing<T>(param: T): T {
   return param;
 }
 
-let y = d1(1);
+let y = doSomeThing(1);
 
 // 泛型类
 class MyClass<T> {
@@ -373,14 +371,14 @@ class MyClass<T> {
 let my = new MyClass<string>();
 my.log("");
 
-// 泛型约束
+// 泛型约束，可以规定最终执行时，只能是哪些类型
 function d2<T extends string | number>(param: T): T {
   return param;
 }
 let z = d2(true);
 ```
 
-许多初学 Typescript 的同学觉得泛型是一个难点，大多是因为泛型可以结合索引查询符 `keyof`、索引访问符 `T[k]` 等，我们来看一下
+其实泛型本来很简单，但许多初学 Typescript 的同学觉得泛型很难，其实是因为泛型可以结合索引查询符 `keyof`、索引访问符 `T[k]` 等写出难以阅读的代码，我们来看一下。
 
 ```ts
 // 以下四种方法，表达的含义是一致的，都是把对象中的某一个属性的 value 取出来，组成一个数组
@@ -414,7 +412,7 @@ let obj22 = showKey4<"age", { name: string; age: number }>(["age"], {
 
 ### 类型兼容性
 
-类型兼容性是 Typescript 中最难理解的一个部分，我们一起分析一下。
+类型兼容性是我认为 Typescript 中最难理解的一个部分，我们来分析一下。
 
 - 对象中的兼容
 - 函数返回值兼容
@@ -425,8 +423,10 @@ let obj22 = showKey4<"age", { name: string; age: number }>(["age"], {
 
 在 Typescript 中是通过结构体来判断兼容性的，如果两个的结构体一致，就直接兼容了，但如果不一致，Typescript 给我们提供了一下两种兼容方式：
 
-- 协变，`A = B` 则 B 的结构体必须包含 A 中的所有结构，即：可以比 A 的属性多，但不能少。
-- 逆变，和协变相反，即：B 的所有属性都在 A 中能找到，但可以比 A 的少。
+以 `A = B` 这个表达式为例：
+
+- 协变，表示 B 的结构体必须包含 A 中的所有结构，即：B 中的属性可以比 A 多，但不能少。
+- 逆变，和协变相反，即：B 中的所有属性都在 A 中能找到，可以比 A 的少。
 - 双向协变，即没有规则，B 中的属性可以比 A 多，也可以比 A 少。
 
 #### 对象中的兼容
@@ -453,15 +453,15 @@ obj1 = obj2; // 报错，因为 obj2 属性不够
 函数返回值中的兼容，采用的是协变。
 
 ```ts
-let fun3 = function (): { a: number; b: string } {
+let fun1 = function (): { a: number; b: string } {
   return { a: 1, b: "" };
 };
-let fun4 = function (): { a: number } {
+let fun2 = function (): { a: number } {
   return { a: 1 };
 };
 
-fun3 = fun4; // 报错，fun4 中没有 b 参数
-fun4 = fun3;
+fun1 = fun2; // 报错，fun2 中没有 b 参数
+fun2 = fun1;
 ```
 
 #### 函数参数个数兼容
@@ -469,7 +469,7 @@ fun4 = fun3;
 函数参数个数的兼容，采用的是逆变。
 
 ```ts
-//  如果函数中的所有参数，都可以在赋值目标中找到，就能赋值
+// 如果函数中的所有参数，都可以在赋值目标中找到，就能赋值
 let fun1 = function (a: number, b: string) {};
 let fun2 = function (a: number) {};
 
@@ -497,8 +497,10 @@ fn1 = fn2; // 正常
 
 1、我们思考一下，一个函数 `dog => dog`，它的子函数是什么？
 
+> 注意：原函数如果被修改成了另一个函数，但他的类型是不会改变的，ts 还是会按照原函数的类型去做类型检查!
+
 - `grayDog => grayDog`
-  - 不对，如果传了其他类型的 dog，没有 grayDog 的方法，会报错
+  - 不对，如果传了其他类型的 dog，没有 grayDog 的方法，会报错。
 - `grayDog => animal`
   - 同上。
 - `animal => animal`
@@ -511,6 +513,10 @@ fn1 = fn2; // 正常
 2、为什么 Typescript 中的函数参数也是协变呢？
 
 ```ts
+enum EventType { Mouse, Keyboard }
+interface Event { timestamp: number; }
+interface MouseEvent extends Event { x: number; y: number }
+
 function listenEvent(eventType: EventType, handler: (n: Event) => void) {
   /* ... */
 }
@@ -562,12 +568,16 @@ y1 = x1;
 
 Typescript 中的高级类型包括：交叉类型、联合类型、字面量类型、索引类型、映射类型等，这里我们主要讨论一下
 
-- 联合类型中的类型保护
+- 联合类型
 - 映射类型
 
-#### 类型保护
+#### 联合类型
 
-类型保护是针对于联合类型，让我们能够通过逻辑判断，确定最终的类型，是来自联合类型中的哪个类型。
+联合类型是指一个对象可能是多个类型中的一个，如：`let a :number | string` 表示 a 要么是 number 类型，要么是 string 类型。
+
+那么问题来了，我们怎么去确定运行时到底是什么类型？
+
+答：类型保护。类型保护是针对于联合类型，让我们能够通过逻辑判断，确定最终的类型，是来自联合类型中的哪个类型。
 
 判断联合类型的方法很多：
 
@@ -601,14 +611,12 @@ if (isFish(pet)) {
 - `ReturnType<T>`，获取函数返回值类型。
 - `InstanceType<T>`，获取构造函数类型的实例类型。
 
-我们也可以编写自定义的映射类型
+我们也可以编写自定义的映射类型。
 
 ```ts
 //定义toPromise映射
 type ToPromise<T> = { [K in keyof T]: Promise<T[K]> };
-
 type NumberList = [number, number];
-
 type PromiseCoordinate = ToPromise<NumberList>;
 // [Promise<number>, Promise<number>]
 ```
@@ -627,7 +635,7 @@ type PromiseCoordinate = ToPromise<NumberList>;
 
 4、出错时，可以大概率排除类型问题，缩短 bug 解决时间。
 
-实战中：
+实战中的优点：
 
 1、发现 es 规范中弃用的方法，如：Date.toGMTString。
 

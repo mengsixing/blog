@@ -41,7 +41,7 @@ console.log(arr);
 
 ```js
 //二分查找
-function bindSearch(arr, data) {
+function binarySearch(arr, data) {
   var upperBound = arr.length - 1;
   var lowerBound = 0;
   while (lowerBound <= upperBound) {
@@ -56,8 +56,6 @@ function bindSearch(arr, data) {
   }
   return -1;
 }
-var sss = bindSearch(arr, 9);
-console.log(sss);
 ```
 
 二分查找的时间复杂度为 log(2^n).

@@ -5,10 +5,45 @@
 - 数学运算
 - 查找
 - 递归和循环
+- 哈希算法
 - 回溯算法
 - 贪心算法
 - 动态规划
 - 取巧方法
+
+## 查找
+
+- 搜索插入位置
+
+### 搜索插入位置
+
+- [leetcode 35](https://leetcode-cn.com/problems/search-insert-position/)
+
+使用二分法，效率最高。
+
+```js
+var searchInsert = function (nums, target) {
+  let start = 0;
+  let end = nums.length;
+  while (start < end) {
+    let mid = Math.floor((start + end) / 2);
+    if (target === nums[mid]) {
+      return mid;
+    } else if (target > nums[mid]) {
+      start = mid + 1;
+    } else {
+      end = mid - 1;
+    }
+  }
+
+  if (nums[start] < target) {
+    return start + 1;
+  } else {
+    return start;
+  }
+};
+searchInsert([1, 3, 5, 6], 2);
+```
 
 ## 递归和循环
 
@@ -85,6 +120,18 @@ function binarySearch(nums, target, flag) {
   return start;
 }
 // binarySearch([5, 7, 7, 8, 8, 10], 8, false);
+```
+
+## 哈希算法
+
+- 字母异位词分组
+
+### 字母异位词分组
+
+[leetcode 49](https://leetcode-cn.com/problems/group-anagrams/)
+
+```js
+// todo
 ```
 
 ## 回溯算法
@@ -278,6 +325,7 @@ function splitCake(childrenIssue, cake) {
 
 - 下一个排列
 - 有效数独
+- 旋转图像
 
 ### 下一个排列
 
@@ -332,38 +380,37 @@ function swap(nums, i, j) {
 var isValidSudoku = function (board) {
   let row = {};
   let cell = {};
-  let subBoard = {}
-  for(let i=0;i<9;i++){
-    row[i] = new Set()
-    cell[i] = new Set()
-    subBoard[i] = new Set()
+  let subBoard = {};
+  for (let i = 0; i < 9; i++) {
+    row[i] = new Set();
+    cell[i] = new Set();
+    subBoard[i] = new Set();
   }
-  for(let i = 0;i<9;i++){
-    for(let j = 0;j<9;j++){
-        if(board[i][j] !=='.'){
-            // 判断行
-            if(row[i].has(board[i][j])){
-                return false
-            }
-            // 判断列
-            if(cell[j].has(board[i][j])){
-                return false
-            }
-            // 判断子数独
-            const subIndex = Math.floor(i / 3) * 3 + Math.floor(j / 3)
-            if(subBoard[subIndex].has(board[i][j])){
-                return false
-            }
-            // 添加到：行、列、子模块
-            row[i].add(board[i][j])
-            cell[j].add(board[i][j])
-            subBoard[subIndex].add(board[i][j])
+  for (let i = 0; i < 9; i++) {
+    for (let j = 0; j < 9; j++) {
+      if (board[i][j] !== ".") {
+        // 判断行
+        if (row[i].has(board[i][j])) {
+          return false;
         }
+        // 判断列
+        if (cell[j].has(board[i][j])) {
+          return false;
+        }
+        // 判断子数独
+        const subIndex = Math.floor(i / 3) * 3 + Math.floor(j / 3);
+        if (subBoard[subIndex].has(board[i][j])) {
+          return false;
+        }
+        // 添加到：行、列、子模块
+        row[i].add(board[i][j]);
+        cell[j].add(board[i][j]);
+        subBoard[subIndex].add(board[i][j]);
+      }
     }
   }
-  return true
+  return true;
 };
-
 ```
 
 ### 外观数列
@@ -371,25 +418,51 @@ var isValidSudoku = function (board) {
 [leetcode 38](https://leetcode-cn.com/problems/count-and-say/)
 
 ```js
-var countAndSay = function(n) {
-    let list = ['1']
-    while(list.length<=n){
-        let result = ''
-        let preNumber = list[list.length-1]
+var countAndSay = function (n) {
+  let list = ["1"];
+  while (list.length <= n) {
+    let result = "";
+    let preNumber = list[list.length - 1];
 
-        let count = 1
-        for(let i=1;i<preNumber.length;i++){
-            if(preNumber[i] === preNumber[i-1]){
-                count++
-            }else {
-                result += count + preNumber[i-1]
-                count = 1
-            }
-        }
-        result += count + preNumber[preNumber.length-1]
-        list.push(result)
+    let count = 1;
+    for (let i = 1; i < preNumber.length; i++) {
+      if (preNumber[i] === preNumber[i - 1]) {
+        count++;
+      } else {
+        result += count + preNumber[i - 1];
+        count = 1;
+      }
     }
-    console.log(list)
-    return list[n-1]
+    result += count + preNumber[preNumber.length - 1];
+    list.push(result);
+  }
+  console.log(list);
+  return list[n - 1];
+};
+```
+
+### 旋转图像
+
+[leetcode 48](https://leetcode-cn.com/problems/rotate-image/)
+
+- 先置换，将不属于该行的元素，放在对应的行中去，通过行列交换。
+- 后反转，交换后，正好每一行反转一下即可得到目标数组。
+
+```js
+/**
+ * @param {number[][]} matrix
+ * @return {void} Do not return anything, modify matrix in-place instead.
+ */
+var rotate = function (matrix) {
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = i; j < matrix.length; j++) {
+      const temp = matrix[i][j];
+      matrix[i][j] = matrix[j][i];
+      matrix[j][i] = temp;
+    }
+  }
+  for (let i = 0; i < matrix.length; i++) {
+    matrix[i].reverse();
+  }
 };
 ```
