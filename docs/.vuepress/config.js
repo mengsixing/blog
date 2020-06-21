@@ -1,6 +1,6 @@
 module.exports = {
-  title: "lmjben的前端日志",
-  description: "欢迎访问我的前端日志",
+  title: "前端日志",
+  description: "欢迎访问公众号：前端日志",
   ga: "UA-121061441-1",
   markdown: {
     lineNumbers: true,
@@ -10,8 +10,12 @@ module.exports = {
     repo: "lmjben/blog",
     nav: [
       {
-        text: "博客",
+        text: "原创",
         link: "/blog/",
+      },
+      {
+        text: "翻译",
+        link: "/translate/",
       },
       {
         text: "面试题",
@@ -162,6 +166,16 @@ module.exports = {
           collapsable: false,
           children: ["base", "structure", "suanfa"],
         },
+      ],
+      "/translate/": [
+        {
+          title: "有趣的小知识",
+          collapsable: false,
+          children: [
+            "translate-uuid",
+            "translate-browser-color",
+          ],
+        }
       ],
       "/book/": [
         {
