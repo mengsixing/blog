@@ -114,6 +114,7 @@ module.exports = {
             "js-principle",
             "js-promise",
             "js-this",
+            "js-canvas",
             "js-operator-priority",
             "js-jsBridge",
             "js-module",
