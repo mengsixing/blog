@@ -309,4 +309,4 @@ body {
 
 最后，如果你对此有任何想法，欢迎留言评论！
 
-![前端日志](https://cdn.yinhengli.com/qianduanrizhi-guanzhu.png)
+![前端日志](https://cdn.yinhengli.com/qianduanrizhi.png)

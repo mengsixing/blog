@@ -33,7 +33,7 @@ npm run build
 
 本文中的内容已同步到微信公众号【前端日志】，欢迎大家订阅。
 
-![前端日志](https://mmbiz.qpic.cn/mmbiz_png/SM05zvmibH7Icib8iamFy0uGLX0ACUBxXT71YJgrQSXjrnic0y2xKMjEazd8oibWlNsvk4kfIdSncscdhGsOkrcA2ZQ/0?wx_fmt=png)
+![前端日志](https://cdn.yinhengli.com/qianduanrizhi.png)
 
 ## 目录整理
 

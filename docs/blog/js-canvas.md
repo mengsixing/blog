@@ -144,4 +144,4 @@ function animate() {
 
 通过这个 Demo，我们使用了 canvasAPI 实现了图片的碎片加载效果，是不是特别简单！
 
-![前端日志](https://mmbiz.qpic.cn/mmbiz_png/SM05zvmibH7Icib8iamFy0uGLX0ACUBxXT7T1yNN5NL1NsXK3mkHDibaPGiazATl1e1QQ6PNibeeMavTx224XUgEpf6g/0?wx_fmt=png)
+![前端日志](https://cdn.yinhengli.com/qianduanrizhi.png)

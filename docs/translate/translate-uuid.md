@@ -35,6 +35,6 @@ for (var i = 0; i < 10; ++i) {
 
 > 注意: URL.createObjectURL 的目的不是生成随机 UUID。 因此，上述生成 UUID 的方法可能会导致我尚未意识到的副作用。 如果你能想到任何问题，麻烦留言回复我，谢谢。
 
-![前端日志](https://cdn.yinhengli.com/qianduanrizhi-guanzhu.png)
+![前端日志](https://cdn.yinhengli.com/qianduanrizhi.png)
 
 参考链接：[Standalone UUID generator in Javascript](https://abhishekdutta.org/blog/standalone_uuid_generator_in_javascript.html)

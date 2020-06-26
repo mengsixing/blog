@@ -172,11 +172,8 @@ module.exports = {
         {
           title: "有趣的小知识",
           collapsable: false,
-          children: [
-            "translate-uuid",
-            "translate-browser-color",
-          ],
-        }
+          children: ["translate-uuid", "translate-browser-color"],
+        },
       ],
       "/book/": [
         {
@@ -197,7 +194,11 @@ module.exports = {
         {
           title: "其他",
           collapsable: false,
-          children: ["book-act-like-a-leader", "book-self-control"],
+          children: [
+            "book-boyilun",
+            "book-act-like-a-leader",
+            "book-self-control",
+          ],
         },
       ],
     },
@@ -207,11 +208,14 @@ module.exports = {
     editLinkText: "本文源码地址",
   },
   plugins: [
-    ['@vuepress/pwa', {
-      serviceWorker: true,
-      updatePopup: true
-    }],
-    ['@vuepress/medium-zoom', true],
-    ['@vuepress/back-to-top', true],
+    [
+      "@vuepress/pwa",
+      {
+        serviceWorker: true,
+        updatePopup: true,
+      },
+    ],
+    ["@vuepress/medium-zoom", true],
+    ["@vuepress/back-to-top", true],
   ],
 };
