@@ -111,6 +111,7 @@ module.exports = {
           title: "JS 基础",
           collapsable: false,
           children: [
+            "js-prototype",
             "js-principle",
             "js-promise",
             "js-this",
