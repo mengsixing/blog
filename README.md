@@ -138,6 +138,7 @@ npm run build
 
 #### | 总结思考
 
+- [我的 2020 总结（上）](https://lmjben.github.io/blog/2020-6.html)
 - [我的 2019 总结（下）](https://lmjben.github.io/blog/2019-12.html)
 - [我的 2019 总结（上）](https://lmjben.github.io/blog/2019-6.html)
 - [我的 2018 总结](https://lmjben.github.io/blog/2018.html)
