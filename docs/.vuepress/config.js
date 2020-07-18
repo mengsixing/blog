@@ -32,6 +32,7 @@ module.exports = {
           title: "DevOps",
           collapsable: false,
           children: [
+            "devops-microfrontend",
             "devops-kubernetes",
             "devops-docker",
             "devops-git",
