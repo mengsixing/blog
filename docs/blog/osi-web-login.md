@@ -33,13 +33,13 @@ Cookie + Session 的登录方式是最经典的一种登录方式，现在仍然
 2. 服务器验证密码无误后，会创建 SessionId，并将它保存起来。
 3. 服务器端响应这个 HTTP 请求，并通过 Set-Cookie 头信息，将 SessionId 写入 Cookie 中。
 
->  服务器端的 SessionId 可能存放在很多地方，例如：内存、文件、数据库等。
+> 服务器端的 SessionId 可能存放在很多地方，例如：内存、文件、数据库等。
 
 第一次登录完成之后，后续的访问就可以直接使用 Cookie 进行身份验证了：
 
 ![](https://cdn.yinhengli.com/image-20200702094559241.png)
 
-1. 用户访问 `a.com/pageB ` 页面时，会自动带上第一次登录时写入的 Cookie。
+1. 用户访问 `a.com/pageB` 页面时，会自动带上第一次登录时写入的 Cookie。
 2. 服务器端比对 Cookie 中的 SessionId 和保存在服务器端的 SessionId 是否一致。
 3. 如果一致，则身份验证成功。
 
@@ -86,7 +86,7 @@ Cookie + Session 的登录方式是最经典的一种登录方式，现在仍然
 
 ### Token 的生成方式
 
-最常见的 Token 生成方式是使用 JWT（Json Web Token），它是一种用于通信双方之间传递安全信息的简洁的、URL安全的表述性声明规范。
+最常见的 Token 生成方式是使用 JWT（Json Web Token），它是一种简洁的，自包含的方法用于通信双方之间以 JSON 对象的形式安全的传递信息。
 
 上文中我们说到，使用 Token 后，服务器端并不会存储 Token，那怎么判断客户端发过来的 Token 是合法有效的呢？
 
