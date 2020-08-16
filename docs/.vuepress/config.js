@@ -63,6 +63,7 @@ module.exports = {
             "library-react-hooks",
             "library-vue",
             "library-vue-flow",
+            "library-vue-nexttick",
             "library-miniProgram",
             "library-redux",
             "library-react-redux-code",
