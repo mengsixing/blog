@@ -466,3 +466,47 @@ var rotate = function (matrix) {
   }
 };
 ```
+
+## 先排序再运算
+
+- 合并区间
+
+### 合并区间
+
+[leetcode 56](https://leetcode-cn.com/problems/merge-intervals/)
+
+- 先排序，然后进行合并
+
+```js
+/**
+ * @param {number[][]} intervals
+ * @return {number[][]}
+ */
+var merge = function (intervals) {
+  if (intervals.length === 0 || intervals.length === 1) {
+    return intervals;
+  }
+  const sortIntervals = intervals.sort((a, b) => {
+    return a[0] - b[0];
+  });
+
+  const result = [];
+  let temp = intervals[0];
+  for (let index = 1; index < sortIntervals.length; index++) {
+    const current = sortIntervals[index];
+
+    if (temp[1] >= current[0]) {
+      const max = Math.max(temp[1], current[1]);
+      temp[1] = max;
+    } else {
+      result.push([...temp]);
+      temp = current;
+    }
+
+    if (index === sortIntervals.length - 1) {
+      result.push(temp);
+    }
+  }
+  return result;
+};
+```
