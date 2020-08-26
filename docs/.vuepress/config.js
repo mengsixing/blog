@@ -76,6 +76,7 @@ module.exports = {
           title: "CSS",
           collapsable: false,
           children: [
+            "css-icon",
             "css",
             "css-modules",
             "css-next",
