@@ -135,6 +135,7 @@ module.exports = {
           title: "编程基础",
           collapsable: false,
           children: [
+            "base-function",
             "base-typescript",
             "base-graphql",
             "base-ioc",
