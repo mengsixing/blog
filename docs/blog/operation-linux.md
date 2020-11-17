@@ -82,6 +82,17 @@ w
 
 创建一个文件夹，可以使用 `mkdir -p xxx/xxx` 创建多层级的文件夹。
 
+## 文件管理
+
+查找，删除文件 or 文件夹
+
+```shell
+# 删除该文件夹下所有 .json 的文件
+find ./ -name *.json -delete
+# 删除该文件夹下所有空文件夹
+find ./ -type d -empty -delete
+```
+
 ## 网络管理
 
 查看和配置网络基本信息
