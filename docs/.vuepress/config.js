@@ -91,6 +91,7 @@ module.exports = {
           title: "网络协议",
           collapsable: false,
           children: [
+            "osi-flow",
             "osi-http",
             "osi-https",
             "osi-tcp",
