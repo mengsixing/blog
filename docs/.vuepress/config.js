@@ -25,6 +25,10 @@ module.exports = {
         text: "阅读",
         link: "/book/",
       },
+      {
+        text: "前端导航",
+        link: "https://mengsixing.github.io/front-end-navigation",
+      },
     ],
     sidebar: {
       "/blog/": [
