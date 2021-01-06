@@ -14,7 +14,7 @@ deploy:
   target-branch: master
   skip-cleanup: true
   local-dir: docs/.vuepress/dist
-  repo: lmjben/lmjben.github.io
+  repo: mengsixing/mengsixing.github.io
   github-token: $REPO_TOKEN
   keep-history: true
   on:

@@ -20,7 +20,7 @@ scrollWidth：
 - 内部元素小于外部元素，scrollWidth = width + padding
 - 内部元素大于外部元素，scrollWidth = width + padding + 溢出部分尺寸
 
-[测试 offsetWidth，clientWidth，scrollWidth](https://codepen.io/lmjben/pen/WgowLz)
+[测试 offsetWidth，clientWidth，scrollWidth](https://codepen.io/mengsixing/pen/WgowLz)
 
 ## 3、写一个节流函数
 
@@ -138,7 +138,7 @@ Function.prototype.bind2 = function(ctx, ...rest) {
 
 ## 8、用过 NodeJS 的 EventEmitter 模块吗，它是怎么实现功能的，步骤是什么
 
-类似于 [观察者模式](https://lmjben.github.io/blog/js-observer.html)
+类似于 [观察者模式](https://mengsixing.github.io/blog/js-observer.html)
 
 ## 9、Fetch 和 Ajax 的比较
 

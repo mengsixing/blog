@@ -1,14 +1,14 @@
 # 实战：手搭一个 React，Typescript，Koa，GraphQL 环境
 
-> 本文系原创，转载请附带作者信息：lmjben
+> 本文系原创，转载请附带作者信息：mengsixing
 >
-> 项目地址：[https://github.com/lmjben/cdfang-spider](https://github.com/lmjben/cdfang-spider)
+> 项目地址：[https://github.com/mengsixing/cdfang-spider](https://github.com/mengsixing/cdfang-spider)
 
 ## 前言
 
 在实际的开发过程中，从零开始初始化一个项目往往很麻烦，所以各种各样的脚手架工具应运而生。crea-react-app，vue-cli，@angular/cli 等脚手架工具，只需要执行一个命令，项目结构以及开发环境就搭建好了。
 
-脚手架工具确实方便了我们使用，开发者可以专注于业务，而不需要考虑太多的环境搭建。但作者认为，学习脚手架工具背后的搭建过程也是很重要的，以防脚手架挂了之后，我们还能正常搭建项目。基于这个目的，作者从零搭建了[cdfang-spider](https://github.com/lmjben/cdfang-spider)项目。
+脚手架工具确实方便了我们使用，开发者可以专注于业务，而不需要考虑太多的环境搭建。但作者认为，学习脚手架工具背后的搭建过程也是很重要的，以防脚手架挂了之后，我们还能正常搭建项目。基于这个目的，作者从零搭建了[cdfang-spider](https://github.com/mengsixing/cdfang-spider)项目。
 
 现在让我们就以这个项目为例，从零开始搭建项目吧。
 
@@ -290,7 +290,7 @@ Mongoose 为 mongodb 提供了一种直接的，基于 scheme 结构去定义你
 
 ```zsh
 # clone with Git Bash
-git clone https://github.com/lmjben/cdfang-spider.git
+git clone https://github.com/mengsixing/cdfang-spider.git
 
 # change directory
 cd cdfang-spider

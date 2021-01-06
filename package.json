@@ -15,7 +15,7 @@
       "pre-commit": "npm run lint"
     }
   },
-  "author": "lmjben",
+  "author": "mengsixing",
   "license": "ISC",
   "devDependencies": {
     "@vuepress/plugin-back-to-top": "^1.4.0",

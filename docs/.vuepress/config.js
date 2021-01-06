@@ -7,7 +7,7 @@ module.exports = {
   },
   head: [["link", { rel: "icon", href: "/hero.jpeg" }]],
   themeConfig: {
-    repo: "lmjben/blog",
+    repo: "mengsixing/blog",
     nav: [
       {
         text: "原创",

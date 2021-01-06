@@ -34,7 +34,7 @@ query {
 }
 // 响应
 // {
-//     name:'lmjben',
+//     name:'mengsixing',
 //     age:26
 // }
 ```
@@ -330,4 +330,4 @@ const server = new ApolloServer({
 
 ## 参考资料
 
-[graphql-demo](https://github.com/lmjben/graphql-demo)
+[graphql-demo](https://github.com/mengsixing/graphql-demo)

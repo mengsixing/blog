@@ -91,7 +91,7 @@ TCP 报文头如下：
 
 接下来，我们看一下 TCP 是怎样建立连接的？
 
-![](https://lmjben.github.io/blog/osi-tcp-connect.png)
+![](https://mengsixing.github.io/blog/osi-tcp-connect.png)
 
 如图所示，建立 TCP 连接需要 3 个步骤，俗称三次握手。
 
@@ -334,13 +334,13 @@ Ok，秘钥协商之后，我们的 SSL 安全层也就建好了。
 
 其中，数字签名又是由服务器公钥和证书私钥加密生成的，目的是为了防止服务器公钥被篡改。
 
-![](https://lmjben.github.io/blog/osi-https-hash1.png)
+![](https://mengsixing.github.io/blog/osi-https-hash1.png)
 
 有了数字证书，客户端就能通过验证证书，来判断服务器是否是真正的服务器了。
 
 验证逻辑如下：
 
-![](https://lmjben.github.io/blog/osi-https-hash2.png)
+![](https://mengsixing.github.io/blog/osi-https-hash2.png)
 
 可以看到，数字证书通过同样的算法进行解密，如果得到相同的信息摘要，就能保证数据是有效的，如果不一致，则会验证失败，拒绝后续的请求。
 
