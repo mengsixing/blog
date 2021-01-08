@@ -25,7 +25,7 @@
 
 文中内容已同步到微信公众号【前端日志】，欢迎订阅。
 
-![前端日志](https://cdn.yinhengli.com/qianduanrizhi.png)
+![前端日志](https://github.com/mengsixing/blog/raw/master/docs/.vuepress/public/qianduanrizhi.png)
 
 ## 使用
 
