@@ -1,6 +1,6 @@
 # 个人博客
 
-[![Build Status](https://www.travis-ci.org/mengsixing/blog.svg?branch=master)](https://www.travis-ci.org/mengsixing/blog)
+[![Build Status](https://github.com/mengsixing/blog/workflows/ci/badge.svg)](https://github.com/mengsixing/blog/actions)
 [![CodeFactor](https://www.codefactor.io/repository/github/mengsixing/blog/badge)](https://www.codefactor.io/repository/github/mengsixing/blog) [![Greenkeeper badge](https://badges.greenkeeper.io/mengsixing/blog.svg)](https://greenkeeper.io/)
 
 记录工作中遇到的问题、看书总结、面试题，以及个人思考。
