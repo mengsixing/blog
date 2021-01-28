@@ -25,8 +25,6 @@
 
 文中内容已同步到微信公众号【前端日志】，欢迎订阅。
 
-![前端日志](https://github.com/mengsixing/blog/raw/master/docs/.vuepress/public/qianduanrizhi.png)
-
 ## 使用
 
 博客采用 vuepress 作为主框架，lint-md 作为语法检查工具。
