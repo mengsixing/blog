@@ -1,6 +1,6 @@
 module.exports = {
   title: "前端日志",
-  description: "欢迎访问公众号：前端日志",
+  description: "前端知识点、面试题、感悟",
   ga: "UA-121061441-1",
   markdown: {
     lineNumbers: true,
@@ -228,6 +228,5 @@ module.exports = {
       },
     ],
     ["@vuepress/medium-zoom", true],
-    ["@vuepress/back-to-top", true],
   ],
 };
