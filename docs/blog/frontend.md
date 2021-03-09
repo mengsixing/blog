@@ -9,7 +9,7 @@
 - svg
 - canvas
 - web workers
-- manifest
+- manifest 配置静态资源不请求
 - pwa：service worker（workbox）
 
 ## CSS 方向
@@ -81,7 +81,7 @@
 ## 前端工程化
 
 - npm/yarn
-- webpack/rollup/parcel
+- webpack/esbuild/rollup/parcel
 - prepack
 - gulp
 - editorconfig
@@ -108,7 +108,7 @@
 ## 服务器端
 
 - node
-- koa
+- koa / nest
 - nginx
 - mongodb
 - pm2
