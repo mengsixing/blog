@@ -33,24 +33,25 @@ scrollWidth：
 - 在间隔时间内的触发，需要在间隔末尾执行一次
 
 ```js
-function throttle(callback, timeout) {
-  var lastExecTime = 0
-  var throttleId;
-  return function(...rest) {
-    var now = +new Date();
-    var remaining = now - lastExecTime
-    if (remaining > timeout) {
+function throttle(fn, timeout) {
+  let lastExecTime = 0;
+  let throttleId = null;
+  return function (...rest) {
+    const now = +new Date();
+    const remaining = now - lastExecTime;
+    if (remaining >= timeout) {
       if (throttleId) {
         clearTimeout(throttleId);
+        throttleId = null;
       }
-      callback.apply(this, rest);
-      throttleId = null;
+      fn.apply(this, rest);
       lastExecTime = now;
     } else if (!throttleId) {
       throttleId = setTimeout(() => {
-        callback.apply(this, rest);
+        fn.apply(this, rest);
+        lastExecTime = now;
         throttleId = null;
-      }, timeout-remaining);
+      }, timeout - remaining);
     }
   };
 }
@@ -109,21 +110,16 @@ Array.from(arguments);
 - 容错处理
 
 ```js
-Function.prototype.bind2 = function(ctx, ...rest) {
+Function.prototype.myBind = (context, ...rest) => {
   if (typeof this !== 'function') {
-    throw new Error('只能由 function 调用');
+    throw new Error('只能作为函数调用');
   }
-  const func = this;
-  var result = function(...params) {
-    return func.apply(
-      // 如果是 new 对象出的，this 绑定的应该绑定为构造函数
-      this instanceof result ? this : ctx,
-      rest.concat(params)
-    );
+  const fn = this;
+  const result = function (...params) {
+    // 如果是 new 对象出的，this 绑定的应该绑定为构造函数
+    return fn.apply(new.target ? this : context, [...rest, ...params]);
   };
-  var fNOP = function() {};
-  fNOP.prototype = func.prototype;
-  result.prototype = new fNOP();
+  result.prototype = Object.create(fn.prototype);
   return result;
 };
 ```
@@ -408,3 +404,14 @@ new Boolean(true).valueOf(); // true
   - 防止窗口中的 js 操作另一个窗口中的 dom 元素，可能包含隐私信息。
   - 防止窗口中的 js 拿到另一个域名下的 cookie。
   - 保护用户隐私。
+
+## 22、NodeJs 多进程怎么配置
+
+需要用到 `child_process` 这个模块，主要分为 3 个方法：
+
+- exec 通过回调和主进程通信，可以执行 shell 或其他命令。
+- spawn 通过事件流和主进程通信，可以执行 shell 或其他命令。
+- fork 特殊的 spawn，只能复制一个 nodejs 进程。
+
+需要需要做 nodejs 端的负载均衡，可以使用 `cluster` 模块克隆多个进程。
+

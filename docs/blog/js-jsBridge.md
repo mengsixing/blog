@@ -1,6 +1,9 @@
 # JS Bridge 总结
 
-构建 Native 和非 Native 间消息通信的通道，而且是 `双向通信的通道`。
+JS Bridge 是构建 Native 和非 Native 间 `双向通信的通道`，本文主要介绍 JS Bridge 的通信策略。
+
+- Js -> Native
+- Native -> Js
 
 ![jsBridge示意图](/blog/js-jsBridge-core.png)
 
@@ -15,7 +18,7 @@ JavaScript 调用 Native 的方式，主要有两种：注入 API 和 拦截 URL
 使用 Native 方式注入后，直接调用：
 
 ```js
-window.postBridgeMessage(message);
+window.nativeAPI.xxx(message);
 ```
 
 ### 拦截 URL SCHEME
@@ -27,19 +30,18 @@ window.postBridgeMessage(message);
 优缺点：
 
 - 兼容性好。
-
 - 使用 iframe.src 发送 URL SCHEME 会有 url 长度的隐患。
 
 ## Native -> Js
 
-Native 调用 JavaScript，其实就是执行拼接 JavaScript 字符串，从外部调用 JavaScript 中的方法，因此 JavaScript 的方法必须在全局的 window 上。
+Native 调用 JS 比较简单，只要 H5 端将 JS 方法暴露在 Window 上给 Native 调用即可。
 
 ## 简单实现
 
 ```js
 (function () {
-    var id = 0,
-        callbacks = {};
+    var id = 0;
+    var callbacks = {};
 
     window.JSBridge = {
         // 调用 Native
@@ -47,7 +49,7 @@ Native 调用 JavaScript，其实就是执行拼接 JavaScript 字符串，从�
             // 判断环境，获取不同的 nativeBridge
             var thisId = id ++; // 获取唯一 id
             callbacks[thisId] = callback; // 存储 Callback
-            nativeBridge.postMessage({
+            nativeAPI.postMessage({
                 bridgeName: bridgeName,
                 data: data || {},
                 callbackId: thisId // 传到 Native 端
@@ -57,14 +59,11 @@ Native 调用 JavaScript，其实就是执行拼接 JavaScript 字符串，从�
             var bridgeName = msg.bridgeName,
                 data = msg.data || {},
                 callbackId = msg.callbackId; // Native 将 callbackId 原封不动传回
-            // 具体逻辑
-            // bridgeName 和 callbackId 不会同时存在
+
             if (callbackId) {
                 if (callbacks[callbackId]) { // 找到相应句柄
                     callbacks[callbackId](msg.data); // 执行调用
                 }
-            } elseif (bridgeName) {
-
             }
         }
     };
@@ -73,4 +72,5 @@ Native 调用 JavaScript，其实就是执行拼接 JavaScript 字符串，从�
 
 ### 参考链接
 
-[jsBridge 原理](https://juejin.im/post/5abca877f265da238155b6bc)
+- [jsBridge 原理](https://juejin.im/post/5abca877f265da238155b6bc)
+- [](https://www.zoo.team/article/jsbridge)

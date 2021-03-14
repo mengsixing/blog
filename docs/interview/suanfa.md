@@ -10,6 +10,7 @@
 - 贪心算法
 - 动态规划
 - 取巧方法
+- 树
 
 ## 查找
 
@@ -509,4 +510,45 @@ var merge = function (intervals) {
   }
   return result;
 };
+```
+
+## 树
+
+### Trie 树
+
+[leetcode 208 实现 Trie 前缀树](https://leetcode-cn.com/problems/implement-trie-prefix-tree/)
+
+```js
+class Trie {
+  constructor() {
+    this.root = {};
+  }
+  insert(word) {
+    let temp = this.root;
+    for (let c of word) {
+      if (!temp[c]) {
+        temp[c] = {};
+      }
+      temp = temp[c];
+    }
+    temp.isWord = true;
+  }
+  traverse(word) {
+    let temp = this.root;
+    for (let c of word) {
+      if (!temp[c]) {
+        return temp[c]
+      }
+      temp = temp[c];
+    }
+    return temp;
+  }
+  search(word) {
+    const node = this.traverse(word);
+    return !!node && !!node.isWord
+  }
+  startsWith(word) {
+    return !!this.traverse(word);
+  }
+}
 ```

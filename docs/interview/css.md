@@ -190,3 +190,15 @@ touchstart -> touchmove -> touchend -> mousedown -> click -> mouseup
 - 允许点击，即禁止穿透（默认值）：pointer-events: auto;
 
 [参考资料](https://blog.csdn.net/zhuyinqinying/article/details/81775671)
+
+## nth-child 和 nth-of-type 的区别
+
+:nth-child(n) 选择器匹配属于其父元素的第 n 个子元素，不论元素的类型，n 可以是数字、关键词或公式。
+
+:nth-of-type(n) 选择器匹配属于父元素的特定类型的第 n 个子元素的每个元素，n 可以是数字、关键词或公式。
+
+![](https://img-blog.csdnimg.cn/20190221170915481.png)
+
+p:nth-of-type(7) 选择的 p元素所在的父元素，下的第7个P元素 即：`<p>第7个p</p>`
+
+p:nth-child(6) 选择的 p元素所在的父元素，下的第6个子元素，且该元素是P元素 即：`<p>第5个p</p>`

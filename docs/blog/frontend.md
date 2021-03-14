@@ -28,7 +28,7 @@
 - es5 常规语法
 - es2015，2016，2017，2018 新语法
 - typescript 书写带类型的 js
-- babel 编译新 js 语法
+- babel / swc 编译新 js 语法
 
 ## 框架方向
 
