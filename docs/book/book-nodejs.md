@@ -197,29 +197,29 @@ Libuv 实现了 Node.js 中的 Eventloop ，主要有以下几个阶段：
 接下来通过一道题来测试一下你对 microtask 和 macrotask 的掌握程度。
 
 ```js
-console.log('start');
+console.log("start");
 const interval = setInterval(() => {
-  console.log('setInterval');
+  console.log("setInterval");
 });
 
 setTimeout(() => {
-  console.log('setTimeout 1');
+  console.log("setTimeout 1");
   Promise.resolve()
     .then(() => {
-      console.log('promise 3');
+      console.log("promise 3");
     })
     .then(() => {
-      console.log('promise 4');
+      console.log("promise 4");
     })
     .then(() => {
       setTimeout(() => {
-        console.log('setTimeout 2');
+        console.log("setTimeout 2");
         Promise.resolve()
           .then(() => {
-            console.log('promise 5');
+            console.log("promise 5");
           })
           .then(() => {
-            console.log('promise 6');
+            console.log("promise 6");
           })
           .then(() => {
             clearInterval(interval);
@@ -230,10 +230,10 @@ setTimeout(() => {
 
 Promise.resolve()
   .then(() => {
-    console.log('promise 1');
+    console.log("promise 1");
   })
   .then(() => {
-    console.log('promise 2');
+    console.log("promise 2");
   });
 ```
 
@@ -253,7 +253,7 @@ buffer 的应用场景：
 - 用作数据结构，处理二进制数据，也可以处理字符编码。
 
 ```js
-let bugger = Buffer.from('Hello world!');
+let bugger = Buffer.from("Hello world!");
 console.log(buffer);
 
 //<Buffer 48 65 6c 6c 6f 20 57 6f 72 6c 62 21>
@@ -278,13 +278,13 @@ Streams 不是 Node.js 独有的概念。它们是几十年前在 Unix 操作系
 例如，当你编写了一段程序用来读取文件时，传统的方法是将文件从头到尾读入内存，然后再进行处理。而使用流的话，你就可以逐块读取它，处理其内容而不将其全部保存在内存中。
 
 ```js
-const fs = require('fs');
-const rs = fs.createReadStream('test.md');
-let data = '';
-rs.on('data', function(chunk) {
+const fs = require("fs");
+const rs = fs.createReadStream("test.md");
+let data = "";
+rs.on("data", function(chunk) {
   data += chunk;
 });
-rs.on('end', function() {
+rs.on("end", function() {
   console.log(data);
 });
 ```
@@ -296,8 +296,8 @@ rs.on('end', function() {
 一般情况下是 Buffer，修改 data 事件的 eventHandler 来验证下。
 
 ```js
-rs.on('data', function(chunk) {
-  console.log('chunk', Buffer.isBuffer(chunk)); // log true
+rs.on("data", function(chunk) {
+  console.log("chunk", Buffer.isBuffer(chunk)); // log true
   data += chunk;
 });
 ```
@@ -328,16 +328,16 @@ rs.on('data', function(chunk) {
 使用观察者模式，代替回调函数，实现数据解耦。
 
 ```js
-const EventEmitter = require('events');
+const EventEmitter = require("events");
 const observer = new EventEmitter();
 
 // 监听事件
-observer.on('topic', function() {
-  console.log('topic has changed');
+observer.on("topic", function() {
+  console.log("topic has changed");
 });
 
 // 触发事件
-observer.emit('topic');
+observer.emit("topic");
 ```
 
 ### 基于第三方异步流程库
@@ -347,10 +347,10 @@ observer.emit('topic');
 ```js
 async.series([
   function(cb) {
-    cb(null, 'one');
+    cb(null, "one");
   },
   function(cb) {
-    cb(null, 'two');
+    cb(null, "two");
   }
 ]);
 ```
@@ -372,8 +372,8 @@ function Thunk(fn) {
 // 手动封装
 var readfileThunk = Thunk(fs.readFile);
 // 自动封装
-var readfileThunk = require('thunkify')(fs.readFile);
-readfileThunk('./xxx.js')(callback);
+var readfileThunk = require("thunkify")(fs.readFile);
+readfileThunk("./xxx.js")(callback);
 ```
 
 ### 基于 promise 异步处理
@@ -386,7 +386,7 @@ readfileThunk('./xxx.js')(callback);
 其中 bluebird 性能比较好，使用也很简洁，兼容源生 promise。
 
 ```js
-Global.Promise = require('bluebird');
+Global.Promise = require("bluebird");
 
 var xxx = new Promise();
 ```
@@ -403,10 +403,10 @@ co(function*() {
   return result;
 }).then(
   function(value) {
-    console.log('value:', value);
+    console.log("value:", value);
   },
   function(err) {
-    console.log('err:', err);
+    console.log("err:", err);
   }
 );
 ```
@@ -419,7 +419,7 @@ co(function*() {
 
 ```js
 async function render() {
-  const result = await ctx.render('./xxx.html');
+  const result = await ctx.render("./xxx.html");
   ctx.body = result;
 }
 ```

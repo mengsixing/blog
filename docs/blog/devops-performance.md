@@ -93,7 +93,7 @@ new HtmlWebpackPlugin({
     minifyCSS: true,
     minifyURLs: true
   },
-  chunksSortMode: 'dependency'
+  chunksSortMode: "dependency"
 });
 ```
 
@@ -102,7 +102,7 @@ new HtmlWebpackPlugin({
 使用 cssnano 压缩 css。在 postcss.config.js 中进行配置。
 
 ```js
-const cssnano = require('cssnano');
+const cssnano = require("cssnano");
 module.exports = {
   plugins: [cssnano]
 };

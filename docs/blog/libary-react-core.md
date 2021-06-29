@@ -97,7 +97,7 @@ Suspense 使得组件可以“等待”某些操作结束后，再进行渲染�
 
 ```jsx
 const Clock = React.lazy(() => {
-  return import('./Clock');
+  return import("./Clock");
 });
 
 <Suspense callback={<div>loading...</div>}>
@@ -109,7 +109,7 @@ const Clock = React.lazy(() => {
 
 ```jsx
 // 这里使用官方的演示库react-cache
-import { unstable_createResource } from 'react-cache';
+import { unstable_createResource } from "react-cache";
 
 const TodoResource = unstable_createResource(fetchTodo);
 
@@ -154,7 +154,7 @@ const createFetcher = promiseTask => {
       throw task;
     }
     //得到结果输出
-    console.log('result:', ref);
+    console.log("result:", ref);
     return ref;
   };
 };
@@ -253,7 +253,7 @@ Portals 提供了一个顶级的方法，使得我们有能力把一个子组件
 
 ```js
 // 创建全局弹窗div
-const globalDiv = document.createElement('div');
+const globalDiv = document.createElement("div");
 document.body.appendChild(globalDiv);
 
 // 组件插槽

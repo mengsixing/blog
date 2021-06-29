@@ -228,7 +228,7 @@ dispatch(action3);
 // 转换为
 dispatch(batchActions([action1, action2, action3]));
 
-const BATCH = 'BATCHED_ACTIONS';
+const BATCH = "BATCHED_ACTIONS";
 const batchActions = actions => ({ type: BATCH, payload: actions });
 
 const canBatchedReducer = reducer => {
@@ -271,12 +271,7 @@ store 对象：
 connect 是连接 redux 和 react 和核心，包含 4 个参数。
 
 ```js
-connect(
-  [mapStateToProps],
-  [mapDispatchToProps],
-  [mergeProps],
-  [options]
-);
+connect([mapStateToProps], [mapDispatchToProps], [mergeProps], [options]);
 ```
 
 #### mapStateToProps

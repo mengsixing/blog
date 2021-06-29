@@ -77,7 +77,7 @@
 ```css
 .icon1,
 .icon2,
-.icon3{
+.icon3 {
   width: 54px;
   height: 54px;
   background: url("../大图.png");

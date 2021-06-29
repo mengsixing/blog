@@ -34,7 +34,7 @@
 export default {
   data() {
     return {
-      message: "hello",
+      message: "hello"
     };
   },
   methods: {
@@ -43,13 +43,13 @@ export default {
       const textContent = document.getElementById("text").textContent;
       // 直接获取，不是最新的
       console.log(textContent === "hello world"); // false
-			// $nextTick 回调中，是最新的
+      // $nextTick 回调中，是最新的
       this.$nextTick(() => {
         const textContent = document.getElementById("text").textContent;
         console.warn(textContent === "hello world"); // true
       });
-    },
-  },
+    }
+  }
 };
 </script>
 ```
@@ -140,7 +140,7 @@ if (typeof Promise !== "undefined") {
   const observer = new MutationObserver(flushCallbacks);
   const textNode = document.createTextNode(String(counter));
   observer.observe(textNode, {
-    characterData: true,
+    characterData: true
   });
   timerFunc = () => {
     counter = (counter + 1) % 2;
@@ -189,7 +189,7 @@ function flushCallbacks() {
 
 ```typescript
 // 我们使用 this.$nextTick 其实就是调用 nextTick 方法
-Vue.prototype.$nextTick = function (fn: Function) {
+Vue.prototype.$nextTick = function(fn: Function) {
   return nextTick(fn, this);
 };
 ```

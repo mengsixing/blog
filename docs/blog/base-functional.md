@@ -80,10 +80,7 @@ function multi(a) {
   return a * a;
 }
 
-const c = compose(
-  add,
-  multi
-);
+const c = compose(add, multi);
 
 c(3); // 18
 ```
@@ -97,14 +94,14 @@ var t;
 function f(a) {
   if (t) return t;
   var e = parseInt(a, 10);
-  alert('测试有没有重复！');
+  alert("测试有没有重复！");
   e = e * e;
   t = e;
   return t;
 }
-alert(f('3'));
-alert(f('3'));
-alert(f('4')); // 不会弹出16的，因为这是“隋性”，只计算一次
+alert(f("3"));
+alert(f("3"));
+alert(f("4")); // 不会弹出16的，因为这是“隋性”，只计算一次
 ```
 
 ### 高阶函数
@@ -113,9 +110,9 @@ alert(f('4')); // 不会弹出16的，因为这是“隋性”，只计算一次
 
 ```js
 function hoc(fn) {
-  console.log('begin');
+  console.log("begin");
   const result = fn();
-  console.log('end');
+  console.log("end");
   return result;
 }
 ```
@@ -210,12 +207,12 @@ new Functor(2).map(function(two) {
 });
 // Functor(4)
 
-new Functor('flamethrowers').map(function(s) {
+new Functor("flamethrowers").map(function(s) {
   return s.toUpperCase();
 });
 // Functor('FLAMETHROWERS')
 
-new Functor('bombs').map(_.concat(' away')).map(_.prop('length'));
+new Functor("bombs").map(_.concat(" away")).map(_.prop("length"));
 // Functor(10)
 ```
 
@@ -366,7 +363,7 @@ Ap.of(add(2)).ap(Maybe.of(3));
 函子是一个容器，可以包含任何值。函子之中再包含一个函子，也是完全合法的。但是，这样就会出现多层嵌套的函子。
 
 ```js
-Maybe.of(Maybe.of(Maybe.of({ name: 'Mulburry', number: 8402 })));
+Maybe.of(Maybe.of(Maybe.of({ name: "Mulburry", number: 8402 })));
 ```
 
 上面这个函子，一共有三个 Maybe 嵌套。如果要取出内部的值，就要连续取三次 this.val。这当然很不方便，因此就出现了 Monad 函子。
@@ -393,11 +390,11 @@ Monad 函子的重要应用，就是实现 I/O （输入输出）操作。
 I/O 是不纯的操作，普通的函数式编程没法做，这时就需要把 IO 操作写成 Monad 函子，通过它来完成。
 
 ```js
-var fs = require('fs');
+var fs = require("fs");
 
 var readFile = function(filename) {
   return new IO(function() {
-    return fs.readFileSync(filename, 'utf-8');
+    return fs.readFileSync(filename, "utf-8");
   });
 };
 
@@ -414,7 +411,7 @@ var print = function(x) {
 如果 IO 函子是一个 Monad，具有 flatMap 方法，那么我们就可以像下面这样调用这两个函数。
 
 ```js
-readFile('./user.txt').flatMap(print);
+readFile("./user.txt").flatMap(print);
 ```
 
 这就是神奇的地方，上面的代码完成了不纯的操作，但是因为 flatMap 返回的还是一个 IO 函子，所以这个表达式是纯的。我们通过一个纯的表达式，完成带有副作用的操作，这就是 Monad 的作用。
@@ -428,12 +425,12 @@ var tail = function(x) {
   });
 };
 
-readFile('./user.txt')
+readFile("./user.txt")
   .flatMap(tail)
   .flatMap(print);
 
 // 等同于
-readFile('./user.txt')
+readFile("./user.txt")
   .chain(tail)
   .chain(print);
 ```

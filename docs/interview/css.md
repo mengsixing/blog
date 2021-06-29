@@ -199,6 +199,6 @@ touchstart -> touchmove -> touchend -> mousedown -> click -> mouseup
 
 ![](https://img-blog.csdnimg.cn/20190221170915481.png)
 
-p:nth-of-type(7) 选择的 p元素所在的父元素，下的第7个P元素 即：`<p>第7个p</p>`
+p:nth-of-type(7) 选择的 p 元素所在的父元素，下的第 7 个 P 元素 即：`<p>第7个p</p>`
 
-p:nth-child(6) 选择的 p元素所在的父元素，下的第6个子元素，且该元素是P元素 即：`<p>第5个p</p>`
+p:nth-child(6) 选择的 p 元素所在的父元素，下的第 6 个子元素，且该元素是 P 元素 即：`<p>第5个p</p>`

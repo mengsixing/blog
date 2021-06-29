@@ -36,7 +36,7 @@ scrollWidth：
 function throttle(fn, timeout) {
   let lastExecTime = 0;
   let throttleId = null;
-  return function (...rest) {
+  return function(...rest) {
     const now = +new Date();
     const remaining = now - lastExecTime;
     if (remaining >= timeout) {
@@ -111,11 +111,11 @@ Array.from(arguments);
 
 ```js
 Function.prototype.myBind = (context, ...rest) => {
-  if (typeof this !== 'function') {
-    throw new Error('只能作为函数调用');
+  if (typeof this !== "function") {
+    throw new Error("只能作为函数调用");
   }
   const fn = this;
-  const result = function (...params) {
+  const result = function(...params) {
     // 如果是 new 对象出的，this 绑定的应该绑定为构造函数
     return fn.apply(new.target ? this : context, [...rest, ...params]);
   };
@@ -223,7 +223,7 @@ function newFunc(father, ...rest) {
   result.__proto__ = father.prototype;
   var result2 = father.apply(result, rest);
   if (
-    (typeof result2 === 'object' || typeof result2 === 'function') &&
+    (typeof result2 === "object" || typeof result2 === "function") &&
     result2 !== null
   ) {
     return result2;
@@ -250,7 +250,7 @@ Function.prototype.myCall = function(context, ...rest) {
   // context 是需要绑定的作用域
   var context = context || window;
   // 避免修改到原对象的属性
-  var callFn = Symbol('callFn');
+  var callFn = Symbol("callFn");
   context[callFn] = this;
   var result = context[callFn](rest);
   delete context[callFn];
@@ -273,7 +273,7 @@ Function.prototype.myCall = function(context, ...rest) {
 ```js
 function deepClone(obj, cacheObj = new WeakMap()) {
   function isObject(obj) {
-    return Object.prototype.toString.call(obj) === '[object Object]';
+    return Object.prototype.toString.call(obj) === "[object Object]";
   }
   function isArray(obj) {
     return Array.isArray(obj);
@@ -315,11 +315,11 @@ function deepClone(obj, cacheObj = new WeakMap()) {
 var a = 0;
 var b = async () => {
   a = a + (await 10);
-  console.log('b 中的 a：', a);
+  console.log("b 中的 a：", a);
 };
 b();
 a++;
-console.log('外部 a：', a);
+console.log("外部 a：", a);
 ```
 
 - 首先函数 b 先执行，在执行到 await 10 之前变量 a 还是 0，因为 await 内部实现了 generator ，generator 会保留堆栈中变量，所以这时候 a = 0 被保存了下来。
@@ -349,8 +349,8 @@ function Person() {}
 
 var p1 = new Person();
 
-Person.prototype.sex = 'man';
-Person.prototype = { sex: 'woman' };
+Person.prototype.sex = "man";
+Person.prototype = { sex: "woman" };
 
 var p2 = new Person();
 
@@ -363,9 +363,9 @@ console.log(p2.sex);
 ## 19、分析以下函数的打印结果
 
 ```js
-var a1 = String('A');
-var a2 = new String('A');
-var a3 = 'A';
+var a1 = String("A");
+var a2 = new String("A");
+var a3 = "A";
 
 console.log(a1 === a2);
 console.log(a1 === a3);
@@ -380,7 +380,7 @@ console.log(a2 === a3);
 
 ```js
 new Number(123).valueOf(); // 123`
-new String('abc').valueOf(); // ‘abc’
+new String("abc").valueOf(); // ‘abc’
 new Boolean(true).valueOf(); // true
 ```
 
@@ -414,4 +414,3 @@ new Boolean(true).valueOf(); // true
 - fork 特殊的 spawn，只能复制一个 nodejs 进程。
 
 需要需要做 nodejs 端的负载均衡，可以使用 `cluster` 模块克隆多个进程。
-

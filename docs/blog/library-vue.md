@@ -102,13 +102,13 @@ Vue 在运行时会检查项目中的模板文件，如果模板文件没有进�
 ```js
 // 需要编译器
 new Vue({
-  template: '<div>{{ hi }}</div>'
+  template: "<div>{{ hi }}</div>"
 });
 
 // 不需要编译器
 new Vue({
   render(h) {
-    return h('div', this.hi);
+    return h("div", this.hi);
   }
 });
 ```

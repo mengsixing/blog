@@ -53,10 +53,10 @@ var Person = (function() {
   };
 })();
 
-var p1 = new Person('张三');
+var p1 = new Person("张三");
 
 Person.prototype.say = function() {
-  console.log('hello');
+  console.log("hello");
 };
 
 var p2 = new Person();
@@ -109,7 +109,7 @@ class Factory {
   }
 }
 
-Factory.create('Jack').alertName();
+Factory.create("Jack").alertName();
 ```
 
 如例子所示，创建 Man 对象的过程可能很复杂，但我们**只需要关心创建结果**。
@@ -123,17 +123,17 @@ Factory.create('Jack').alertName();
 ```js
 // 产品类：car 目前需要构建一辆车。
 function car() {
-  this.wheel = '';
-  this.engine = '';
+  this.wheel = "";
+  this.engine = "";
 }
 
 // 建造者类，里面有专门负责各个部分的工人
 function carBuilder() {
   this.wheelBuilder = function() {
-    this.wheel = '轮子';
+    this.wheel = "轮子";
   };
   this.engineBuilder = function() {
-    this.engine = '发动机';
+    this.engine = "发动机";
   };
   this.getCar = function() {
     var Car = new car();
@@ -166,14 +166,14 @@ console.log(Car);
 ```js
 var someCar = {
   drive: function() {
-    console.log('drive' + this.name);
+    console.log("drive" + this.name);
   },
-  name: '马自达 3'
+  name: "马自达 3"
 };
 
 // 使用 Object.create 创建一个新车 x
 var anotherCar = Object.create(someCar); // anotherCar.__proto__ === someCar true
-anotherCar.name = '丰田佳美';
+anotherCar.name = "丰田佳美";
 anotherCar.drive();
 ```
 
@@ -189,10 +189,10 @@ function addEvent(elm, evType, fn, useCapture) {
     elm.addEventListener(evType, fn, useCapture);
     return true;
   } else if (elm.attachEvent) {
-    var r = elm.attachEvent('on' + evType, fn);
+    var r = elm.attachEvent("on" + evType, fn);
     return r;
   } else {
-    elm['on' + evType] = fn;
+    elm["on" + evType] = fn;
   }
 }
 ```
@@ -271,8 +271,8 @@ turkeyAdapter.quack();
   <li>5</li>
 </ul>
 <script>
-  let ul = document.querySelector('#ul');
-  ul.addEventListener('click', event => {
+  let ul = document.querySelector("#ul");
+  ul.addEventListener("click", event => {
     console.log(event.target);
   });
 </script>
@@ -294,12 +294,12 @@ function readonly(target, key, descriptor) {
 
 class Test {
   @readonly
-  name = 'Jack';
+  name = "Jack";
 }
 
 let t = new Test();
 
-t.Jack = '111'; // 不可修改
+t.Jack = "111"; // 不可修改
 ```
 
 装饰者模式能够在不改变对象自身的基础上，在程序运行期间给对象动态地添加职责。跟继承相比，装饰者是一种更轻便灵活的做法，这是一种**即用即付**的方式，比如天冷了就多穿一件外套，天热了就扇扇子等。
@@ -318,7 +318,7 @@ class Speed {
     this.y = y;
   }
   run() {
-    console.log('动起来');
+    console.log("动起来");
   }
 }
 
@@ -328,7 +328,7 @@ class Color {
     this.color = cl;
   }
   draw() {
-    console.log('绘制色彩');
+    console.log("绘制色彩");
   }
 }
 
@@ -338,7 +338,7 @@ class Speak {
     this.word = wd;
   }
   say() {
-    console.log('请开始你的表演');
+    console.log("请开始你的表演");
   }
 }
 
@@ -368,9 +368,9 @@ class People {
 
 // 当我们实例化一个人物对象的时候，他就可以有对应的方法实现了
 
-var p = new People(10, 12, '我是一个人');
+var p = new People(10, 12, "我是一个人");
 p.init();
-var ball = new Ball(10, 12, 'red');
+var ball = new Ball(10, 12, "red");
 ball.init();
 ```
 
@@ -393,7 +393,7 @@ Folder.prototype.add = function(file) {
 };
 
 Folder.prototype.scan = function() {
-  console.log('开始扫描文件夹: ' + this.name);
+  console.log("开始扫描文件夹: " + this.name);
   for (var i = 0, file, files = this.files; (file = files[i++]); ) {
     file.scan();
   }
@@ -404,16 +404,16 @@ var File = function(name) {
   this.name = name;
 };
 File.prototype.scan = function() {
-  console.log('开始扫描文件: ' + this.name);
+  console.log("开始扫描文件: " + this.name);
 };
 
 // 创建数据
-var folder = new Folder('学习资料');
-var folder1 = new Folder('JavaScript');
-var folder2 = new Folder('jQuery');
-var file1 = new File('JavaScript 设计模式与开发实践');
-var file2 = new File('精通 jQuery');
-var file3 = new File('重构与模式');
+var folder = new Folder("学习资料");
+var folder1 = new Folder("JavaScript");
+var folder2 = new Folder("jQuery");
+var file1 = new File("JavaScript 设计模式与开发实践");
+var file2 = new File("精通 jQuery");
+var file3 = new File("重构与模式");
 folder1.add(file1);
 folder2.add(file2);
 
@@ -440,21 +440,21 @@ var Model = function(sex) {
   this.sex = sex;
 };
 Model.prototype.takePhoto = function() {
-  console.log('sex= ' + this.sex + ' underwear=' + this.underwear);
+  console.log("sex= " + this.sex + " underwear=" + this.underwear);
 };
 // 分别创建一个男模特对象和一个女模特对象:
-var maleModel = new Model('male');
-var femaleModel = new Model('female');
+var maleModel = new Model("male");
+var femaleModel = new Model("female");
 
 // 给男模特依次穿上所有的男装，并进行拍照:
 for (var i = 1; i <= 50; i++) {
-  maleModel.underwear = 'underwear' + i;
+  maleModel.underwear = "underwear" + i;
   maleModel.takePhoto();
 }
 
 // 同样，给女模特依次穿上所有的女装，并进行拍照:
 for (var j = 1; j <= 50; j++) {
-  femaleModel.underwear = 'underwear' + j;
+  femaleModel.underwear = "underwear" + j;
   femaleModel.takePhoto();
 }
 ```
@@ -595,7 +595,7 @@ var OffLightState = function(light) {
   this.light = light;
 };
 OffLightState.prototype.buttonWasPressed = function() {
-  console.log('弱光'); // offLightState 对应的行为
+  console.log("弱光"); // offLightState 对应的行为
   this.light.setState(this.light.weakLightState);
 };
 // WeakLightState:
@@ -603,7 +603,7 @@ var WeakLightState = function(light) {
   this.light = light;
 };
 WeakLightState.prototype.buttonWasPressed = function() {
-  console.log('强光'); // weakLightState 对应的行为
+  console.log("强光"); // weakLightState 对应的行为
   this.light.setState(this.light.strongLightState);
 };
 // StrongLightState:
@@ -611,7 +611,7 @@ var StrongLightState = function(light) {
   this.light = light;
 };
 StrongLightState.prototype.buttonWasPressed = function() {
-  console.log('关灯'); // strongLightState 对应的行为
+  console.log("关灯"); // strongLightState 对应的行为
   this.light.setState(this.light.offLightState); // 切换状态到 offLightState
 };
 
@@ -623,11 +623,11 @@ var Light = function() {
 };
 
 Light.prototype.init = function() {
-  var button = document.createElement('button');
+  var button = document.createElement("button");
   var self = this;
 
   this.button = document.body.appendChild(button);
-  this.button.innerHTML = '开关';
+  this.button.innerHTML = "开关";
   this.setState(this.offLightState);
   this.button.onclick = function() {
     self.currState.buttonWasPressed();
@@ -670,8 +670,8 @@ var strategies = {
 var calculateBonus = function(level, salary) {
   return strategies[level](salary);
 };
-console.log(calculateBonus('S', 20000)); // 输出:80000
-console.log(calculateBonus('A', 10000)); // 输出:30000
+console.log(calculateBonus("S", 20000)); // 输出:80000
+console.log(calculateBonus("A", 10000)); // 输出:30000
 ```
 
 ### 职责链模式
@@ -693,27 +693,27 @@ console.log(calculateBonus('A', 10000)); // 输出:30000
 ```js
 var order500 = function(orderType, pay, stock) {
   if (orderType === 1 && pay === true) {
-    console.log('500 元定金预购，得到 100 优惠券');
+    console.log("500 元定金预购，得到 100 优惠券");
   } else {
     // 我不知道下一个节点是谁，反正把请求往后面传递
-    return 'nextSuccessor';
+    return "nextSuccessor";
   }
 };
 
 var order200 = function(orderType, pay, stock) {
   if (orderType === 2 && pay === true) {
-    console.log('200 元定金预购，得到 50 优惠券');
+    console.log("200 元定金预购，得到 50 优惠券");
   } else {
     // 我不知道下一个节点是谁，反正把请求往后面传递
-    return 'nextSuccessor';
+    return "nextSuccessor";
   }
 };
 
 var orderNormal = function(orderType, pay, stock) {
   if (stock > 0) {
-    console.log('普通购买，无优惠券');
+    console.log("普通购买，无优惠券");
   } else {
-    console.log('手机库存不足');
+    console.log("手机库存不足");
   }
 };
 
@@ -728,7 +728,7 @@ Chain.prototype.setNextSuccessor = function(successor) {
 
 Chain.prototype.passRequest = function() {
   var ret = this.fn.apply(this, arguments);
-  if (ret === 'nextSuccessor') {
+  if (ret === "nextSuccessor") {
     return (
       this.successor &&
       this.successor.passRequest.apply(this.successor, arguments)
@@ -776,16 +776,16 @@ chainOrder500.passRequest(1, false, 0); // 输出:手机库存不足
     // 定义一系列操作
     var Ryu = {
       attack: function() {
-        console.log('攻击');
+        console.log("攻击");
       },
       defense: function() {
-        console.log('防御');
+        console.log("防御");
       },
       jump: function() {
-        console.log('跳跃');
+        console.log("跳跃");
       },
       crouch: function() {
-        console.log('蹲下');
+        console.log("蹲下");
       }
     };
 
@@ -796,10 +796,10 @@ chainOrder500.passRequest(1, false, 0); // 输出:手机库存不足
       };
     };
     var commands = {
-      '119': 'jump', // W
-      '115': 'crouch', // S
-      '97': 'defense', // A
-      '100': 'attack' // D
+      "119": "jump", // W
+      "115": "crouch", // S
+      "97": "defense", // A
+      "100": "attack" // D
     };
     // 保存命令的堆栈
     var commandStack = [];
@@ -813,7 +813,7 @@ chainOrder500.passRequest(1, false, 0); // 输出:手机库存不足
     };
 
     // 点击播放录像
-    document.getElementById('replay').onclick = function() {
+    document.getElementById("replay").onclick = function() {
       var command;
       // 从堆栈里依次取出命令并执行
       while ((command = commandStack.shift())) {
@@ -852,7 +852,7 @@ function Visitor() {
 // 元素类
 function ConceteElement() {
   this.doSomething = function() {
-    console.log('这是一个具体元素');
+    console.log("这是一个具体元素");
   };
   this.accept = function(visitor) {
     visitor.visit(this);
@@ -877,21 +877,21 @@ function Player(name, teamColor) {
   this.name = name; // 角色名字 this.teamColor = teamColor; // 队伍颜色 this.state = 'alive'; // 玩家生存状态
 }
 Player.prototype.win = function() {
-  console.log(this.name + ' won ');
+  console.log(this.name + " won ");
 };
 Player.prototype.lose = function() {
-  console.log(this.name + ' lost');
+  console.log(this.name + " lost");
 };
 
 /*******************玩家死亡*****************/
 Player.prototype.die = function() {
-  this.state = 'dead';
-  playerDirector.reciveMessage('playerDead', this);
+  this.state = "dead";
+  playerDirector.reciveMessage("playerDead", this);
 };
 
 var playerFactory = function(name, teamColor) {
   var newPlayer = new Player(name, teamColor); // 创造一个新的玩家对象
-  playerDirector.reciveMessage('addPlayer', newPlayer); // 给中介者发送消息，新增玩家
+  playerDirector.reciveMessage("addPlayer", newPlayer); // 给中介者发送消息，新增玩家
   return newPlayer;
 };
 
@@ -912,7 +912,7 @@ var playerDirector = (function() {
     var all_dead = true;
     // 玩家死亡 // 玩家所在队伍
     for (var i = 0, player; (player = teamPlayers[i++]); ) {
-      if (player.state !== 'dead') {
+      if (player.state !== "dead") {
         all_dead = false;
         break;
       }
@@ -961,7 +961,7 @@ var Page = (function() {
       data = cache[page];
       render(data);
     } else {
-      Ajax.send('cgi.xx.com/xxx', function(data) {
+      Ajax.send("cgi.xx.com/xxx", function(data) {
         cache[page] = data;
         render(data);
       });
@@ -1004,7 +1004,7 @@ var Interpreter = (function() {
   // 获取兄弟元素名称
   function getSulingName(node) {
     if (node.previousSibling) {
-      var name = '',
+      var name = "",
         count = 1,
         nodeName = node.nodeName,
         sibling = node.previousSibling;
@@ -1019,14 +1019,14 @@ var Interpreter = (function() {
             name += ++count;
           } else {
             count = 1;
-            name += '|' + sibling.nodeName.toUpperCase();
+            name += "|" + sibling.nodeName.toUpperCase();
           }
         }
         sibling = sibling.previousSibling;
       }
       return name;
     } else {
-      return '';
+      return "";
     }
   }
   return function(node, wrap) {
@@ -1052,7 +1052,7 @@ var Interpreter = (function() {
     return path;
   };
 })();
-var path = Interpreter(document.getElementsByTagName('img')[0]);
+var path = Interpreter(document.getElementsByTagName("img")[0]);
 // ["HTML", "BODY|HEAD", "DIV", "SECTION", "HEADER", "DIV", "DIV", "DIV", "A", "IMG"]
 ```
 

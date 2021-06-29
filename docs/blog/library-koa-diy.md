@@ -20,8 +20,8 @@ Application 文件是 koa 的核心，所有逻辑都会经过该文件调度。
 - 中间件执行报错，会调用 onerror 方法，输出错误信息到客户端。
 
 ```js
-const http = require('http');
-const Emitter = require('events');
+const http = require("http");
+const Emitter = require("events");
 
 // koa 继承至 events，这样就可以在实例上使用 on 方法监听事件。
 class DiyKoa extends Emitter {
@@ -119,7 +119,7 @@ class DiyKoa extends Emitter {
   responseBody(ctx) {
     return () => {
       const context = ctx.body;
-      if (typeof context === 'object') {
+      if (typeof context === "object") {
         ctx.res.end(JSON.stringify(context));
       } else {
         ctx.res.end(context);
@@ -128,14 +128,14 @@ class DiyKoa extends Emitter {
   }
   onerror(ctx) {
     return err => {
-      if (err.code === 'ENOENT') {
+      if (err.code === "ENOENT") {
         ctx.status = 404;
       } else {
         ctx.status = 500;
       }
       let msg = err.message;
       ctx.res.end(msg);
-      this.emit('error', err);
+      this.emit("error", err);
     };
   }
 }
@@ -148,7 +148,7 @@ Request 和 Response 文件是对请求和响应的一层浅封装，提供一�
 ### 编写 request 文件
 
 ```js
-var url = require('url');
+var url = require("url");
 
 // 封装源生 request 操作
 // 例如：增加quert方法，快速定位参数。headers 方法快速扩区headers字段
@@ -178,8 +178,8 @@ module.exports = {
     return this.res.statusCode;
   },
   set status(code) {
-    if (typeof code !== 'number') {
-      throw new Error('statusCode 只能是数字');
+    if (typeof code !== "number") {
+      throw new Error("statusCode 只能是数字");
     }
     this.res.statusCode = code;
   }
@@ -210,23 +210,23 @@ function delegateGet(property, name) {
 
 // 定义需要代理的属性
 let requestSet = [];
-let requestGet = ['query', 'url'];
+let requestGet = ["query", "url"];
 
-let responseSet = ['body', 'status'];
+let responseSet = ["body", "status"];
 let responseGet = responseSet;
 
 requestSet.forEach(item => {
-  delegateSet('request', item);
+  delegateSet("request", item);
 });
 requestGet.forEach(item => {
-  delegateGet('request', item);
+  delegateGet("request", item);
 });
 
 responseSet.forEach(item => {
-  delegateSet('response', item);
+  delegateSet("response", item);
 });
 responseGet.forEach(item => {
-  delegateGet('response', item);
+  delegateGet("response", item);
 });
 
 module.exports = proto;

@@ -33,7 +33,7 @@ webpack 构建流程如下：
 ```js
 const webpack = (options, callback) => {
   let compiler;
-  if (typeof options === 'object') {
+  if (typeof options === "object") {
     options = new WebpackOptionsDefaulter().process(options);
     // 创建编译对象
     compiler = new Compiler(options.context);
@@ -77,7 +77,7 @@ compiler.run 执行后，就会根据生命周期，执行对应的事件钩子�
 class SingleEntryPlugin {
   apply(compiler) {
     compiler.hooks.compilation.tap(
-      'SingleEntryPlugin',
+      "SingleEntryPlugin",
       (compilation, { normalModuleFactory }) => {
         compilation.dependencyFactories.set(
           SingleEntryDependency,
@@ -86,7 +86,7 @@ class SingleEntryPlugin {
       }
     );
     compiler.hooks.make.tapAsync(
-      'SingleEntryPlugin',
+      "SingleEntryPlugin",
       (compilation, callback) => {
         const { entry, name, context } = this;
         const dep = SingleEntryPlugin.createDependency(entry, name);

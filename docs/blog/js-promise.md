@@ -63,27 +63,27 @@ promise.then(onFulfilled, onRejected);
 
 1、实现一个 promise ，在 setTimeout 中去 resolve。 ok
 
-2、实现一个 promise，支持同步 resolve。             ok
+2、实现一个 promise，支持同步 resolve。 ok
 
-3、实现一个 promise，防止 resolve 多次。            ok
+3、实现一个 promise，防止 resolve 多次。 ok
 
-4、实现一个 promise，可以让 then 方法链式调用。       ok
+4、实现一个 promise，可以让 then 方法链式调用。 ok
 
-5、实现一个 promise，支持空 then 函数。              ok
+5、实现一个 promise，支持空 then 函数。 ok
 
-6、实现一个 promise，支持 then 传递 thenable 对象。  ok
+6、实现一个 promise，支持 then 传递 thenable 对象。 ok
 
-7、实现一个 promise，支持 then 传递 promise 对象。    ok
+7、实现一个 promise，支持 then 传递 promise 对象。 ok
 
 8、实现一个 promise，支持 resolve 传递 promise 对象。 ok
 
-9、实现一个 promise，处理 then 中的循环 promise。     ok
+9、实现一个 promise，处理 then 中的循环 promise。 ok
 
-10、实现一个 promise，支持静态方法 Promise.all。      ok
+10、实现一个 promise，支持静态方法 Promise.all。 ok
 
-11、实现一个 promise，支持 reject 和 catch。         ok
+11、实现一个 promise，支持 reject 和 catch。 ok
 
-12、实现一个 promise，支持处理完成态或失败态的 then。    ok
+12、实现一个 promise，支持处理完成态或失败态的 then。 ok
 
 除此之外，本代码已经通过 promises-aplus-tests 下 872 个 case。
 

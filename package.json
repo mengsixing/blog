@@ -4,7 +4,7 @@
   "description": "front-end diary blog",
   "main": "index.js",
   "scripts": {
-    "lint": "lint-md ./docs/blog",
+    "lint": "prettier --write ./docs/*/**.md && lint-md ./docs/blog",
     "lint:fix": "lint-md ./docs --fix",
     "dev": "vuepress dev docs",
     "build": "vuepress build docs",
@@ -23,7 +23,8 @@
     "@vuepress/plugin-pwa": "^1.8.0",
     "husky": "^4.3.6",
     "lint-md": "^0.2.0",
-    "lint-md-cli": "^0.1.2"
+    "lint-md-cli": "^0.1.2",
+    "prettier": "^1.19.1"
   },
   "dependencies": {
     "element-ui": "^2.15.1",

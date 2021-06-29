@@ -42,7 +42,7 @@ Hook 是一项新功能提案，可让您在不编写类的情况下使用 state
 在 function 组件中使用 State。
 
 ```js
-import { useState } from 'react';
+import { useState } from "react";
 function Example() {
   const [count, setCount] = useState(0);
   return (
@@ -63,22 +63,19 @@ function Example() {
 在 function 组件中绑定生命周期：componentDidMount，componentDidUpdate 以及 componentWillUnmount。
 
 ```js
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 function Example() {
   const [count, setCount] = useState(0);
   // componentDidMount and componentDidUpdate生命周期
-  useEffect(
-    () => {
-      document.title = `You clicked ${count} times`;
-      // componentWillUnmount 生命周期
-      return () => {
-        console.log('componentWillUnmount');
-      };
-      // 第2个参数，相当于设置shouldComponentUpdate，仅当count改变，才会触发Effect
-    },
-    [count]
-  );
+  useEffect(() => {
+    document.title = `You clicked ${count} times`;
+    // componentWillUnmount 生命周期
+    return () => {
+      console.log("componentWillUnmount");
+    };
+    // 第2个参数，相当于设置shouldComponentUpdate，仅当count改变，才会触发Effect
+  }, [count]);
   return (
     <div>
       <p>You clicked {count} times</p>
@@ -96,8 +93,8 @@ function Example() {
 - 2.使用 Consumer 去使用数据。
 
 ```js
-import React from 'react';
-const ThemeContext = React.createContext('light');
+import React from "react";
+const ThemeContext = React.createContext("light");
 
 // 子组件
 class Child extends React.Component {
@@ -118,7 +115,7 @@ class Child extends React.Component {
 如果换成 useContext 语法，则会非常简单：
 
 ```js
-import { useContext } from 'react';
+import { useContext } from "react";
 function Example() {
   const theme = useContext(ThemeContext);
   return <div>当前主题:{theme}</div>;
@@ -131,7 +128,7 @@ function Example() {
 
 ```js
 // 模拟loading 3秒后，显示Online效果
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 function useFriendStatus(props) {
   const [isOnline, setIsOnline] = useState(null);
@@ -145,9 +142,9 @@ function useFriendStatus(props) {
   }, 3000);
 
   if (isOnline === null) {
-    return 'Loading...';
+    return "Loading...";
   }
-  return isOnline ? 'Online' : 'Offline';
+  return isOnline ? "Online" : "Offline";
 }
 
 // 在另一个组件中使用

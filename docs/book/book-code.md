@@ -45,12 +45,12 @@ AnimalRun(cat);
 如果有多层 if else 嵌套，不妨把条件判断放在放在一个单独的数据池中进行管理。
 
 ```js
-if (xxx === '123' || xxx === '456') {
+if (xxx === "123" || xxx === "456") {
   doSomeThing();
 }
 
 // 可以修改为，如果要新增一项，直接在数据中增加即可
-var currentNumber = ['123', '456'];
+var currentNumber = ["123", "456"];
 
 if (dd.includes(xxx)) {
   doSomeThing();

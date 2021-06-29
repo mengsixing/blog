@@ -64,7 +64,7 @@ let d: undefined;
 let e: boolean;
 let obj: Ixxx = {
   a: 1,
-  b: 2,
+  b: 2
 };
 let fun: Iyyy = () => {};
 ```
@@ -192,7 +192,7 @@ cat.age = 2; // 正常
   - 在 ts 中使用 implements 去实现一个接口。
 - 接口只能做方法声明，抽象类中可以作方法声明，也可以做方法实现。
 - 抽象类是有规律的，抽离的是一个类别的公共部分，而接口只是对相同属性和方法的抽象，属性和方法可以无任何关联。
-:::
+  :::
 
 抽象类的用法如下。
 
@@ -207,7 +207,7 @@ abstract class Animal {
 class Cat extends Animal {
   makeSound() {} // 必须实现的抽象方法
   move() {
-    console.log('move');
+    console.log("move");
   }
 }
 new Cat3();
@@ -240,7 +240,7 @@ interface Ib extends Ia {
 let test1: Ia = {
   a: "",
   c: 2,
-  age: 1,
+  age: 1
 };
 test1.c = 2; // 报错，只读属性
 const item0 = test1[0]; // 索引类型
@@ -253,7 +253,7 @@ const item0 = test1[0]; // 索引类型
 interface SearchFunc {
   (source: string, subString: string): boolean;
 }
-let mySearch: SearchFunc = function (x: string, y: string) {
+let mySearch: SearchFunc = function(x: string, y: string) {
   return false;
 };
 // 接口中编写类的构造函数类型检查
@@ -317,12 +317,12 @@ interface IObj {
 
 const obj: IObj = {
   age: 12,
-  doSomeThing: function () {
+  doSomeThing: function() {
     return this;
   },
   doSomeThing2: () => {
     console.log(this);
-  },
+  }
 };
 const result3 = obj.doSomeThing();
 let globalDoSomeThing = obj.doSomeThing;
@@ -335,7 +335,7 @@ function fn() {
 fn.bind(document)();
 
 // dom.addEventListener
-document.body.addEventListener("click", function () {
+document.body.addEventListener("click", function() {
   console.log(this); // body
 });
 ```
@@ -383,30 +383,30 @@ let z = d2(true);
 ```ts
 // 以下四种方法，表达的含义是一致的，都是把对象中的某一个属性的 value 取出来，组成一个数组
 function showKey1<K extends keyof T, T>(items: K[], obj: T): T[K][] {
-  return items.map((item) => obj[item]);
+  return items.map(item => obj[item]);
 }
 
 function showKey2<K extends keyof T, T>(items: K[], obj: T): Array<T[K]> {
-  return items.map((item) => obj[item]);
+  return items.map(item => obj[item]);
 }
 
 function showKey3<K extends keyof T, T>(
   items: K[],
   obj: { [K in keyof T]: any }
 ): T[K][] {
-  return items.map((item) => obj[item]);
+  return items.map(item => obj[item]);
 }
 
 function showKey4<K extends keyof T, T>(
   items: K[],
   obj: { [K in keyof T]: any }
 ): Array<T[K]> {
-  return items.map((item) => obj[item]);
+  return items.map(item => obj[item]);
 }
 
 let obj22 = showKey4<"age", { name: string; age: number }>(["age"], {
   name: "yhl",
-  age: 12,
+  age: 12
 });
 ```
 
@@ -437,11 +437,11 @@ let obj22 = showKey4<"age", { name: string; age: number }>(["age"], {
 let obj1 = {
   a: 1,
   b: "b",
-  c: true,
+  c: true
 };
 
 let obj2 = {
-  a: 1,
+  a: 1
 };
 
 obj2 = obj1;
@@ -453,10 +453,10 @@ obj1 = obj2; // 报错，因为 obj2 属性不够
 函数返回值中的兼容，采用的是协变。
 
 ```ts
-let fun1 = function (): { a: number; b: string } {
+let fun1 = function(): { a: number; b: string } {
   return { a: 1, b: "" };
 };
-let fun2 = function (): { a: number } {
+let fun2 = function(): { a: number } {
   return { a: 1 };
 };
 
@@ -470,8 +470,8 @@ fun2 = fun1;
 
 ```ts
 // 如果函数中的所有参数，都可以在赋值目标中找到，就能赋值
-let fun1 = function (a: number, b: string) {};
-let fun2 = function (a: number) {};
+let fun1 = function(a: number, b: string) {};
+let fun2 = function(a: number) {};
 
 fun1 = fun2;
 fun2 = fun1; // 报错， fun1 中的 b 参数不能再 fun2 中找到
@@ -513,9 +513,17 @@ fn1 = fn2; // 正常
 2、为什么 Typescript 中的函数参数也是协变呢？
 
 ```ts
-enum EventType { Mouse, Keyboard }
-interface Event { timestamp: number; }
-interface MouseEvent extends Event { x: number; y: number }
+enum EventType {
+  Mouse,
+  Keyboard
+}
+interface Event {
+  timestamp: number;
+}
+interface MouseEvent extends Event {
+  x: number;
+  y: number;
+}
 
 function listenEvent(eventType: EventType, handler: (n: Event) => void) {
   /* ... */

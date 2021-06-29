@@ -19,7 +19,7 @@
 方法 unstable_scheduleCallback 其实是在 scheduler 这个单独的库里。
 
 ```js
-import * as Scheduler from 'scheduler';
+import * as Scheduler from "scheduler";
 const { unstable_scheduleCallback: Scheduler_scheduleCallback } = Scheduler;
 ```
 
@@ -508,7 +508,7 @@ function flushFirstCallback() {
   // A callback may return a continuation. The continuation should be scheduled
   // with the same priority and expiration as the just-finished callback.
   // 如果 callback 返回了一个继续调度的任务。应以同样的优先级调度此任务。
-  if (typeof continuationCallback === 'function') {
+  if (typeof continuationCallback === "function") {
     // 以下内容和初始化构建双向链表的代码几乎一致。
     var continuationNode = {
       callback: continuationCallback,

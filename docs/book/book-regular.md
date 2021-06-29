@@ -7,14 +7,14 @@
 直接使用对应文本就可以匹配单个字符。
 
 ```js
-/abc/.test('abc'); // true
+/abc/.test("abc"); // true
 ```
 
 匹配特殊字符，需要加`\`进行转义。
 
 ```js
 // 匹配.字符
-/abc\.com/.test('abc.com'); // true
+/abc\.com/.test("abc.com"); // true
 ```
 
 ## 匹配一组字符
@@ -23,21 +23,21 @@
 
 ```js
 // 同时能够匹配 x1，y1，z1
-/[xyz]1/.test('x1'); // true
-/[xyz]1/.test('y1'); // true
-/[xyz]1/.test('z1'); // true
+/[xyz]1/.test("x1"); // true
+/[xyz]1/.test("y1"); // true
+/[xyz]1/.test("z1"); // true
 ```
 
 利用字符集合区间，[a-z]。
 
 ```js
 // 同时能够匹配a1~z1
-/[a-z]1/.test('a1'); // true
-/[a-z]1/.test('b1'); // true
-/[a-z]1/.test('c1'); // true
-/[a-z]1/.test('d1'); // true
+/[a-z]1/.test("a1"); // true
+/[a-z]1/.test("b1"); // true
+/[a-z]1/.test("c1"); // true
+/[a-z]1/.test("d1"); // true
 // ...
-/[a-z]1/.test('z1'); // true
+/[a-z]1/.test("z1"); // true
 ```
 
 ## 元字符
@@ -67,7 +67,7 @@
 
 ```js
 // 贪婪型匹配，google匹配到的是最后一个google。
-/.*google/.exec('Hello my name is google and I work on google.');
+/.*google/.exec("Hello my name is google and I work on google.");
 // 匹配结果：Hello my name is google and I work on google
 ```
 
@@ -79,7 +79,7 @@
 
 ```js
 // 懒惰型匹配，google匹配到的是第一个google。
-/.*?google/.exec('Hello my name is google and I work on google.');
+/.*?google/.exec("Hello my name is google and I work on google.");
 // 匹配结果：Hello my name is google
 ```
 
@@ -92,8 +92,8 @@
 
 ```js
 // 两段字符串中都包含cat，但只会匹配cat作为单词开头并作为单词结束的cat。
-/\bcat\b/.test('This is a cat.'); // true
-/\bcat\b/.test('This is a cattle.'); // false
+/\bcat\b/.test("This is a cat."); // true
+/\bcat\b/.test("This is a cattle."); // false
 ```
 
 启动分行匹配模式，(?m)
@@ -111,21 +111,21 @@
 1、子表达式做或运算：(a|b) 编写 or 条件。
 
 ```js
-/(a|b)1/.test('a1'); // true
-/(a|b)1/.test('b1'); // true
+/(a|b)1/.test("a1"); // true
+/(a|b)1/.test("b1"); // true
 ```
 
 2、子表达式处理回溯引用：
 
 ```js
-/h(2).+h\1/.test('h2zzzh2'); // true
+/h(2).+h\1/.test("h2zzzh2"); // true
 ```
 
 3、在替换模式下：$1，$2 代表匹配到的第几个子表达式。
 
 ```js
-var str = 'Hello Lucy.';
-str.replace(/(Lucy)/, 'doctor $1 ');
+var str = "Hello Lucy.";
+str.replace(/(Lucy)/, "doctor $1 ");
 // Hello doctor Lucy.
 ```
 
@@ -134,25 +134,25 @@ str.replace(/(Lucy)/, 'doctor $1 ');
 ?= 向前查找，匹配冒号前面的内容。
 
 ```js
-/.+(?=:)/.exec('https://'); //匹配到的是 https 不会匹配到:
+/.+(?=:)/.exec("https://"); //匹配到的是 https 不会匹配到:
 ```
 
 ?! 负向前查找，匹配非冒号，之前的内容。
 
 ```js
-/https(?!\:)/.exec('https://'); //匹配后面不是:的https，这里匹配不到任何结果。
+/https(?!\:)/.exec("https://"); //匹配后面不是:的https，这里匹配不到任何结果。
 ```
 
 ?<= 向后查找，匹配\$，之后的内容。
 
 ```js
-/(?<=\$).+/.exec('$2.5'); // 匹配到的是 2.5 不会匹配到$
+/(?<=\$).+/.exec("$2.5"); // 匹配到的是 2.5 不会匹配到$
 ```
 
 ?<! 负向后查找，匹配非\$，之后的内容
 
 ```js
-/(?<!\$)2.5/.exec('$2.5'); // 匹配前面没有带$的2.5，这里匹配不到任何结果。
+/(?<!\$)2.5/.exec("$2.5"); // 匹配前面没有带$的2.5，这里匹配不到任何结果。
 ```
 
 ## 嵌入条件
@@ -160,7 +160,7 @@ str.replace(/(Lucy)/, 'doctor $1 ');
 如下代码所示：?(1) 的意思是，只有第一个子表达式匹配成功了，才匹配 456 <\/a>。
 
 ```js
-/(<a>)?123(?(1)456<\/a>)/.exec('<a>123456</a>');
+/(<a>)?123(?(1)456<\/a>)/.exec("<a>123456</a>");
 ```
 
 ::: warning

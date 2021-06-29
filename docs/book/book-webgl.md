@@ -105,10 +105,10 @@ WebGL 程序的结构如下图所示。
 这个实战是在 canvas 中画一个点，可以看出，代码量还是挺大的。
 
 ```js
-var canvas = document.getElementById('WebGL');
+var canvas = document.getElementById("WebGL");
 
 // gl.xxx 方法底层是调用openGL.xxx 方法进行渲染。
-var gl = canvas.getContext('WebGL');
+var gl = canvas.getContext("WebGL");
 
 // 顶点着色器：描述二维或三维空间中的一个点的特性，如大小，位置等。
 var VSHEADERS_SOURCE = `

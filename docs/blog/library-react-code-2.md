@@ -32,7 +32,7 @@ import {
   updateContainer,
   batchedUpdates,
   unbatchedUpdates
-} from 'react-reconciler/inline.dom';
+} from "react-reconciler/inline.dom";
 ```
 
 react-reconciler 负责具体 FiberRoot 的构建，它承载了整个 React 更新调度全部的数据结构。
@@ -153,13 +153,9 @@ function ceiling(num: number, precision: number): number {
 其实可以这样理解：
 
 ```js
-100 / 25 | 0
-= 4 | 0
-= 4
+(100 / 25) | 0 = 4 | 0 = 4;
 
-101 / 25 | 0
-= 4.04 | 0
-= 4
+(101 / 25) | 0 = 4.04 | 0 = 4;
 ```
 
 React 这么设计抹相当于抹平了 25ms 内计算过期时间的误差，那它为什么要这么做呢？
@@ -183,8 +179,8 @@ React 这么设计抹相当于抹平了 25ms 内计算过期时间的误差，�
 我们运行以下代码进行测试。
 
 ```js
-import React from 'react';
-import { unstable_batchedUpdates as batchedUpdates } from 'react-dom';
+import React from "react";
+import { unstable_batchedUpdates as batchedUpdates } from "react-dom";
 
 class App extends React.Component {
   constructor(props) {
@@ -206,34 +202,34 @@ class App extends React.Component {
     me.setState({
       count: me.state.count + 1
     });
-    console.log('第一次 componentDidMount:', me.state.count);
+    console.log("第一次 componentDidMount:", me.state.count);
     me.setState({
       count: me.state.count + 1
     });
-    console.log('第二次 componentDidMount:', me.state.count);
+    console.log("第二次 componentDidMount:", me.state.count);
     setTimeout(function() {
       me.setState({
         count: me.state.count + 1
       });
-      console.log('第一次 setTimeout:', me.state.count);
+      console.log("第一次 setTimeout:", me.state.count);
       me.setState({
         count: me.state.count + 1
       });
-      console.log('第二次 setTimeout:', me.state.count);
+      console.log("第二次 setTimeout:", me.state.count);
     }, 0);
     setTimeout(function() {
       batchedUpdates(() => {
         me.setState({
           count: me.state.count + 1
         });
-        console.log('第一次 batchedUpdates:', me.state.count);
+        console.log("第一次 batchedUpdates:", me.state.count);
         me.setState({
           count: me.state.count + 1
         });
-        console.log('第二次 batchedUpdates:', me.state.count);
+        console.log("第二次 batchedUpdates:", me.state.count);
       });
     }, 0);
-    console.log('第三次 componentDidMount:', me.state.count);
+    console.log("第三次 componentDidMount:", me.state.count);
   }
   render() {
     return (

@@ -25,7 +25,7 @@ var person = null;
 
 function getPerson(num) {
   if (num > 5) {
-    return new Person('Lily');
+    return new Person("Lily");
   } else {
     // 好的写法
     return null;
@@ -50,7 +50,7 @@ console.log(person === null);
 function doSomeThing(arr1, arr2) {
   // 不好的写法
   if (arr1 === null) {
-    console.log('arr1 参数没有传递');
+    console.log("arr1 参数没有传递");
   }
 }
 ```
@@ -140,7 +140,7 @@ String 类型可以调用 String 包装器的方法，是因为语句的背后�
   - 避免 JS 使用写死的 HTML 字符串，去 innerHTML 插入代码。
 
 ```js
-div.innerHTML = '<h1>你好</h1>';
+div.innerHTML = "<h1>你好</h1>";
 ```
 
 JS 可以使用一下几种方式来操作 HTML：
@@ -170,7 +170,7 @@ JS 可以使用一下几种方式来操作 HTML：
 
 ```js
 // AMD 模块定义
-define('module-name', ['dep1', 'dep2'], function(dep1, dep2) {});
+define("module-name", ["dep1", "dep2"], function(dep1, dep2) {});
 ```
 
 - 使用 RequireJS 更好地引入模块。
@@ -178,7 +178,7 @@ define('module-name', ['dep1', 'dep2'], function(dep1, dep2) {});
 RequireJS 增加了另一个全局函数 require()，专门用来加载指定的依赖和执行回调函数。
 
 ```js
-require(['my-book'], function(books) {
+require(["my-book"], function(books) {
   console.log(books);
 });
 ```
@@ -334,9 +334,9 @@ Polyfills 的优点是：如果浏览器提供原生实现，可以非常轻松�
 ```js
 // 早期浏览器不支持 getElementById
 if (document.getElementById) {
-  var dom = document.getElementById('xx');
+  var dom = document.getElementById("xx");
 } else if (document.all) {
-  var dom = document.all('xx');
+  var dom = document.all("xx");
 }
 ```
 
@@ -352,7 +352,7 @@ if (document.getElementById) {
 
 ```js
 if (document.getElementsByTagName) {
-  var dom = document.getElementById('xx');
+  var dom = document.getElementById("xx");
 }
 ```
 
@@ -362,7 +362,7 @@ if (document.getElementsByTagName) {
 
 ```js
 if (document.all) {
-  console.log('This is IE');
+  console.log("This is IE");
 }
 ```
 

@@ -384,7 +384,7 @@ function reconcileChildFibers(
   newChild: any,
   expirationTime: ExpirationTime
 ): Fiber | null {
-  const isObject = typeof newChild === 'object' && newChild !== null;
+  const isObject = typeof newChild === "object" && newChild !== null;
   if (isObject) {
     // 根据不容元素类型，进行不同的 diff 算法。
     switch (newChild.$$typeof) {
@@ -410,12 +410,12 @@ function reconcileChildFibers(
   }
 
   // 文本节点替换
-  if (typeof newChild === 'string' || typeof newChild === 'number') {
+  if (typeof newChild === "string" || typeof newChild === "number") {
     return placeSingleChild(
       reconcileSingleTextNode(
         returnFiber,
         currentFirstChild,
-        '' + newChild,
+        "" + newChild,
         expirationTime
       )
     );

@@ -23,7 +23,7 @@
 使用二分法，效率最高。
 
 ```js
-var searchInsert = function (nums, target) {
+var searchInsert = function(nums, target) {
   let start = 0;
   let end = nums.length;
   while (start < end) {
@@ -61,7 +61,7 @@ searchInsert([1, 3, 5, 6], 2);
 // string 模拟小学除法
 // 除此之外，可以使用 2** 0 2** 1 2** 2 逐渐靠近除数的方式循环求解
 // 使用 << 左移 >> 右移 可以模拟乘法
-var divide = function (dividend, divisor) {
+var divide = function(dividend, divisor) {
   var res = 0;
   var sign = dividend > 0 ? (divisor > 0 ? "" : "-") : divisor > 0 ? "-" : "";
   dividend = Math.abs(dividend);
@@ -92,7 +92,7 @@ var divide = function (dividend, divisor) {
 [leetcode 34](https://leetcode-cn.com/problems/find-first-and-last-position-of-element-in-sorted-array/)
 
 ```js
-var searchRange = function (nums, target) {
+var searchRange = function(nums, target) {
   const result = [-1, -1];
   let leftIndex = binarySearch(nums, target, true);
   if (leftIndex == nums.length || nums[leftIndex] != target) {
@@ -150,7 +150,7 @@ function binarySearch(nums, target, flag) {
 [leetcode 78](https://leetcode-cn.com/problems/subsets/)
 
 ```js
-var subsets = function (nums) {
+var subsets = function(nums) {
   var result = [];
   var temp = [];
   loop(nums, result, temp, 0);
@@ -172,7 +172,7 @@ function loop(nums, result, temp, index) {
 [leetcode 46](https://leetcode-cn.com/problems/permutations/)
 
 ```js
-var permute = function (nums) {
+var permute = function(nums) {
   var result = [];
   loop(nums, result, []);
   return result;
@@ -222,7 +222,7 @@ function grayCode(n) {
 [leetcode 17](https://leetcode-cn.com/problems/letter-combinations-of-a-phone-number/)
 
 ```js
-var letterCombinations = function (digits) {
+var letterCombinations = function(digits) {
   const map = {
     2: "abc",
     3: "def",
@@ -231,11 +231,11 @@ var letterCombinations = function (digits) {
     6: "mno",
     7: "pqrs",
     8: "tuv",
-    9: "wxyz",
+    9: "wxyz"
   };
   const tempArrays = [];
   const phoneNumbers = digits.split("");
-  phoneNumbers.forEach((phoneNumber) => {
+  phoneNumbers.forEach(phoneNumber => {
     const charts = map[phoneNumber].split("");
     tempArrays.push(charts);
   });
@@ -264,15 +264,15 @@ function loop(array, result, temp, index) {
 [leetcode 22](https://leetcode-cn.com/problems/generate-parentheses/)
 
 ```js
-var generateParenthesis = function (n) {
+var generateParenthesis = function(n) {
   let result = [];
   loop(result, [], n);
   return result;
 };
 
 function loop(result, temp, n) {
-  const leftTempLength = temp.filter((item) => item === "(").length;
-  const rightTempLength = temp.filter((item) => item === ")").length;
+  const leftTempLength = temp.filter(item => item === "(").length;
+  const rightTempLength = temp.filter(item => item === ")").length;
   if (temp.length === n * 2 && leftTempLength === rightTempLength) {
     const item = temp.join("");
     result.push(item);
@@ -333,7 +333,7 @@ function splitCake(childrenIssue, cake) {
 [leetcode 31](https://leetcode-cn.com/problems/next-permutation/)
 
 ```js
-var nextPermutation = function (nums) {
+var nextPermutation = function(nums) {
   let i = nums.length - 2;
   while (i >= 0 && nums[i + 1] <= nums[i]) {
     i--;
@@ -378,7 +378,7 @@ function swap(nums, i, j) {
  * @param {character[][]} board
  * @return {boolean}
  */
-var isValidSudoku = function (board) {
+var isValidSudoku = function(board) {
   let row = {};
   let cell = {};
   let subBoard = {};
@@ -419,7 +419,7 @@ var isValidSudoku = function (board) {
 [leetcode 38](https://leetcode-cn.com/problems/count-and-say/)
 
 ```js
-var countAndSay = function (n) {
+var countAndSay = function(n) {
   let list = ["1"];
   while (list.length <= n) {
     let result = "";
@@ -454,7 +454,7 @@ var countAndSay = function (n) {
  * @param {number[][]} matrix
  * @return {void} Do not return anything, modify matrix in-place instead.
  */
-var rotate = function (matrix) {
+var rotate = function(matrix) {
   for (let i = 0; i < matrix.length; i++) {
     for (let j = i; j < matrix.length; j++) {
       const temp = matrix[i][j];
@@ -483,7 +483,7 @@ var rotate = function (matrix) {
  * @param {number[][]} intervals
  * @return {number[][]}
  */
-var merge = function (intervals) {
+var merge = function(intervals) {
   if (intervals.length === 0 || intervals.length === 1) {
     return intervals;
   }
@@ -537,7 +537,7 @@ class Trie {
     let temp = this.root;
     for (let c of word) {
       if (!temp[c]) {
-        return temp[c]
+        return temp[c];
       }
       temp = temp[c];
     }
@@ -545,7 +545,7 @@ class Trie {
   }
   search(word) {
     const node = this.traverse(word);
-    return !!node && !!node.isWord
+    return !!node && !!node.isWord;
   }
   startsWith(word) {
     return !!this.traverse(word);

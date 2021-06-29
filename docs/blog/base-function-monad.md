@@ -58,10 +58,8 @@ function square(x) {
 }
 
 // 接下来，我们就能进行链式调用了
-const a = new Monad(2)
-					.bind(square)
-					.bind(add1);
-					//...
+const a = new Monad(2).bind(square).bind(add1);
+//...
 
 console.log(a.value === 5); // true
 ```
@@ -87,21 +85,21 @@ Ok，我们已经明白了 Monad 的内部结构，接下来，我们再看一�
 $.ajax({
   type: "get",
   url: "request1",
-  success: function (response1) {
+  success: function(response1) {
     $.ajax({
       type: "get",
       url: "request2",
-      success: function (response2) {
+      success: function(response2) {
         $.ajax({
           type: "get",
           url: "request3",
-          success: function (response3) {
+          success: function(response3) {
             console.log(response3); // 得到最终结果
-          },
+          }
         });
-      },
+      }
     });
-  },
+  }
 });
 ```
 
@@ -111,13 +109,13 @@ Promise 的出现，解决了上述问题。
 
 ```javascript
 fetch("request1")
-  .then((response1) => {
+  .then(response1 => {
     return fetch("request2");
   })
-  .then((response2) => {
+  .then(response2 => {
     return fetch("request3");
   })
-  .then((response3) => {
+  .then(response3 => {
     console.log(response3); // 得到最终结果
   });
 ```
@@ -139,7 +137,7 @@ fetch("request1")
 
 // 延迟 1s 然后 加一
 function delayAdd1(x) {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     setTimeout(() => {
       resolve(x + 1);
     });
@@ -148,7 +146,7 @@ function delayAdd1(x) {
 
 // 延迟 1s 然后 求平方
 function delaySquare(x) {
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     setTimeout(() => {
       resolve(x * x);
     });
@@ -173,7 +171,7 @@ const promiseD = a.then(Promise.resolve);
 // 结合律规则：（a * b）* c = a *（b * c）
 const promiseE = Promise.resolve(2);
 const promiseF = promiseE.then(delayAdd1).then(delaySquare);
-const promiseG = promiseE.then(function (x) {
+const promiseG = promiseE.then(function(x) {
   return delayAdd1(x).then(g);
 });
 
@@ -192,9 +190,9 @@ const promiseG = promiseE.then(function (x) {
 
 ```javascript
 // Promise.resolve 传入一个 Promise 对象
-const functionA = function (p) {
+const functionA = function(p) {
   // 这时 p === 1
-  return p.then((n) => n * 2);
+  return p.then(n => n * 2);
 };
 const promiseA = Promise.resolve(1);
 Promise.resolve(promiseA).then(functionA);
@@ -202,15 +200,15 @@ Promise.resolve(promiseA).then(functionA);
 // 由于 Promise.resolve 对传入的 Promise 进行了处理，导致直接运行报错。违背了单位元和结合律。
 
 // Promise.resolve 传入一个 thenable 对象
-const functionB = function (p) {
+const functionB = function(p) {
   // 这时 p === 1
   alert(p);
-  return p.then((n) => n * 2);
+  return p.then(n => n * 2);
 };
 const obj = {
   then(r) {
     r(1);
-  },
+  }
 };
 const promiseB = Promise.resolve(obj);
 Promise.resolve(promiseB).then(functionB);
@@ -232,7 +230,7 @@ Promise.resolve(promiseB).then(functionB);
 var fs = require("fs");
 
 // 纯函数，传入 filename，返回 Monad 对象
-var readFile = function (filename) {
+var readFile = function(filename) {
   // 副作用函数：读取文件
   const readFileFn = () => {
     return fs.readFileSync(filename, "utf-8");
@@ -241,7 +239,7 @@ var readFile = function (filename) {
 };
 
 // 纯函数，传入 x，返回 Monad 对象
-var print = function (x) {
+var print = function(x) {
   // 副作用函数：打印日志
   const logFn = () => {
     console.log(x);
@@ -251,7 +249,7 @@ var print = function (x) {
 };
 
 // 纯函数，传入 x，返回 Monad 对象
-var tail = function (x) {
+var tail = function(x) {
   // 副作用函数：返回最后一行的数据
   const tailFn = () => {
     return x[x.length - 1];
@@ -260,7 +258,9 @@ var tail = function (x) {
 };
 
 // 链式操作文件
-const monad = readFile("./xxx.txt").bind(tail).bind(print);
+const monad = readFile("./xxx.txt")
+  .bind(tail)
+  .bind(print);
 // 执行到这里，整个操作都是纯的，因为副作用函数一直被包裹在 Monad 里，并没有执行
 monad.value(); // 执行副作用函数
 ```

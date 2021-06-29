@@ -1,4 +1,4 @@
-# 你知道空白网页的颜色是什么吗？
+# 你知道空白网页的颜色是什么吗
 
 如果下面这段代码，在浏览器中打开。最终的页面颜色是什么？
 
@@ -11,8 +11,6 @@
 ```
 
 [![It's a CSS trap!](https://res.cloudinary.com/practicaldev/image/fetch/s--IGGIm3Eu--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/c2g4mq0kg4oxd5zmyu99.jpg)](https://res.cloudinary.com/practicaldev/image/fetch/s--IGGIm3Eu--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_auto%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/i/c2g4mq0kg4oxd5zmyu99.jpg)
-
-
 
 你可能意识到这个是陷阱问题，大部分同学会说是白色，但页面其实并不是白色的: 它是透明的。这是因为浏览器的底色是白色的，我们透过了页面的透明色，看到了浏览器的底色而已。
 
@@ -231,7 +229,8 @@ body {
 让我们回到一个非常简单的 css:
 
 ```css
-html, body {
+html,
+body {
   border: 3px dashed black;
 }
 ```
@@ -290,7 +289,7 @@ body {
 
 - body 元素（默认透明）
 - html 元素（默认透明）
-- canvas（依赖于html 及body, 默认透明）
+- canvas（依赖于 html 及 body, 默认透明）
 - 浏览器的背景（通常是白色的）
 
 用一张三维图来看一下：

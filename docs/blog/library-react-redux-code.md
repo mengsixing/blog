@@ -23,7 +23,7 @@ Context 是 React 自带的 API，提供了一种通过组件树传递数据的�
 
 ```js
 // Context.js
-import React from 'react';
+import React from "react";
 const ReactReduxContext = React.createContext();
 export default ReactReduxContext;
 ```
@@ -34,8 +34,8 @@ Provider 组件，通过 Context API，为子组件注入 Store，并对 Store �
 
 ```js
 // Provider.js
-import React from 'react';
-import { ReactReduxContext } from './Context';
+import React from "react";
+import { ReactReduxContext } from "./Context";
 
 class Provider extends React.Component {
   constructor(props) {
@@ -92,8 +92,8 @@ class Provider extends React.Component {
 Connect 也是通过 Context API，负责将 Store 数据传递到需要的组件中，通过 mapStateToProps 和 mapDispatchToProps 方法，将 Store 中的数据通过属性的方式入到组件中。
 
 ```js
-import React from 'react';
-import { ReactReduxContext } from './Context';
+import React from "react";
+import { ReactReduxContext } from "./Context";
 
 const connect = (mapStateToProps, mapDispatchToProps) => WrappedComponent => {
   class HOC extends React.Component {
@@ -180,7 +180,7 @@ function createStore(reducer, initialState, middlewares) {
 通过 React useContext API 创建 Provider，创建完成之后，被包裹的组件就能通过 useContext 来访问 Store 了。
 
 ```js
-import React from 'react';
+import React from "react";
 const { useContext, createContext, useReducer } = React;
 
 function createStore(reducer, initialState, middlewares) {
@@ -210,7 +210,7 @@ function createStore(reducer, initialState, middlewares) {
 React 提供了 useReducer hooks，可以很方便的提供 Dispath 方法，对一个对象进行操作。
 
 ```js
-import React from 'react';
+import React from "react";
 const { useContext, createContext, useReducer } = React;
 
 function createStore(reducer, initialState, middlewares) {
@@ -232,7 +232,7 @@ function createStore(reducer, initialState, middlewares) {
 
     // 实现异步操作，可以 dispatch 一个 function，类似 redux-chunk
     store.dispatch = async action => {
-      if (typeof action === 'function') {
+      if (typeof action === "function") {
         await action(dispatch, state);
       } else {
         dispatch(action);
@@ -265,7 +265,7 @@ const Provider = props => {
   const [state, dispatch] = useReducer(reducer, store._state);
 
   store.dispatch = async action => {
-    if (typeof action === 'function') {
+    if (typeof action === "function") {
       await action(dispatch, state);
     } else {
       dispatch(action);
@@ -317,7 +317,7 @@ function bindActionCreator(actionCreator, dispatch) {
 }
 
 function bindActionCreators(actionCreators, dispatch) {
-  if (typeof actionCreators === 'function') {
+  if (typeof actionCreators === "function") {
     return bindActionCreator(actionCreators, dispatch);
   }
 

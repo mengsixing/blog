@@ -143,7 +143,7 @@ docker run -p 8082:8082 --network webapp-network -d mengsixing/cdfang-spider
 1、新建 docker-compose.yml 文件。
 
 ```yml
-version: '3.7'
+version: "3.7"
 services:
   database:
     image: mongo
@@ -283,7 +283,7 @@ CMD BUILD_ENV=docker node app.js
 3、编写 docker-compose.yml 文件。
 
 ```yml
-version: '3.7'
+version: "3.7"
 services:
   database:
     image: mongo

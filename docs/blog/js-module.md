@@ -86,11 +86,11 @@ xxx.foo = "123";
 本质上，export default 就是输出一个叫做 default 的变量或方法。
 
 ```js
-class MyClass{}
+class MyClass {}
 
 export default MyClass;
 // 相等于
-export { MyClass as default } ;
+export { MyClass as default };
 ```
 
 ### import() 方法
@@ -223,4 +223,3 @@ export let bar = "bar";
 
 - [module 语法](http://ES6.ruanyifeng.com/#docs/module)
 - [module 加载的实现](http://ES6.ruanyifeng.com/#docs/module-loader)
-

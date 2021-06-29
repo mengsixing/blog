@@ -24,7 +24,7 @@ function bubbleSort(array) {
       if (array[inner] > array[inner + 1]) {
         swap(array, inner, inner + 1);
       }
-      console.log('冒泡排序循环次数');
+      console.log("冒泡排序循环次数");
     }
   }
   return array;
@@ -46,7 +46,7 @@ function selectSort(array) {
       if (array[inner] < min) {
         swap(array, inner, outer);
       }
-      console.log('选择排序循环次数');
+      console.log("选择排序循环次数");
     }
   }
   return array;
@@ -69,7 +69,7 @@ function insertSort(array) {
       inner--
     ) {
       swap(array, inner, inner - 1);
-      console.log('插入排序循环次数');
+      console.log("插入排序循环次数");
     }
   }
   return array;
@@ -88,7 +88,7 @@ function bubbleSort(array) {
       if (array[inner] > array[inner + 1]) {
         swap(array, inner, inner + 1);
       }
-      console.log('冒泡排序循环次数');
+      console.log("冒泡排序循环次数");
     }
   }
   return array;
@@ -102,7 +102,7 @@ function selectSort(array) {
       if (array[inner] < min) {
         swap(array, inner, outer);
       }
-      console.log('选择排序循环次数');
+      console.log("选择排序循环次数");
     }
   }
   return array;
@@ -117,7 +117,7 @@ function insertSort(array) {
       inner--
     ) {
       swap(array, inner, inner - 1);
-      console.log('插入排序循环次数');
+      console.log("插入排序循环次数");
     }
   }
   return array;
@@ -131,7 +131,7 @@ function swap(array, index1, index2) {
 
 const array = [2, 3, 1, 9, 6, 4, 7, 8, 5];
 
-console.warn('冒泡排序：', bubbleSort(array));
-console.warn('选择排序：', selectSort(array));
-console.warn('插入排序：', insertSort(array));
+console.warn("冒泡排序：", bubbleSort(array));
+console.warn("选择排序：", selectSort(array));
+console.warn("插入排序：", insertSort(array));
 ```

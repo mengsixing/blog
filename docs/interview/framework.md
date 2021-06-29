@@ -109,27 +109,27 @@ webpack 启动后，会读取配置中的 plugins，并创建对应实例，在 
 class HelloAsyncPlugin {
   apply(compiler) {
     // tapAsync() 基于回调(callback-based)
-    compiler.hooks.emit.tapAsync('HelloAsyncPlugin', function(
+    compiler.hooks.emit.tapAsync("HelloAsyncPlugin", function(
       compilation,
       callback
     ) {
       setTimeout(function() {
-        console.log('Done with async work...');
+        console.log("Done with async work...");
         callback();
       }, 1000);
     });
 
     // tapPromise() 基于 promise(promise-based)
-    compiler.hooks.emit.tapPromise('HelloAsyncPlugin', compilation => {
+    compiler.hooks.emit.tapPromise("HelloAsyncPlugin", compilation => {
       return doSomethingAsync().then(() => {
-        console.log('Done with async work...');
+        console.log("Done with async work...");
       });
     });
 
     // 原先基本的 tap() 也在这里列出：
-    compiler.hooks.emit.tap('HelloAsyncPlugin', () => {
+    compiler.hooks.emit.tap("HelloAsyncPlugin", () => {
       // 这里没有异步任务
-      console.log('Done with sync work...');
+      console.log("Done with sync work...");
     });
   }
 }
@@ -146,14 +146,14 @@ loader 的执行时会先执行最后的 loader，然后再执行前一个 loade
 loader 一般会使用 acorn 将代码转换过成 ast 语法树，然后再进行对应的操作，最后再转换会字符串。
 
 ```js
-import { getOptions } from 'loader-utils';
-import validateOptions from 'schema-utils';
+import { getOptions } from "loader-utils";
+import validateOptions from "schema-utils";
 
 const schema = {
-  type: 'object',
+  type: "object",
   properties: {
     test: {
-      type: 'string'
+      type: "string"
     }
   }
 };
@@ -161,7 +161,7 @@ const schema = {
 module.exports = function(source) {
   const options = getOptions(this);
 
-  validateOptions(schema, options, 'Example Loader');
+  validateOptions(schema, options, "Example Loader");
 
   // 对资源应用一些转换……
 
@@ -182,20 +182,20 @@ module.exports.pitch = function(remainingRequest, precedingRequest, data) {
 
 ```js
 // A 插件
-const SyncHook = require('tapable').SyncHook;
+const SyncHook = require("tapable").SyncHook;
 class APlugin {
   apply(compiler) {
-    if (compiler.hooks.myCustomHook) throw new Error('Already in use');
+    if (compiler.hooks.myCustomHook) throw new Error("Already in use");
     // 声明一个自定义事件，并初始化需要传递的参数。
-    compiler.hooks.myCustomHook = new SyncHook(['参数1', '参数2']);
+    compiler.hooks.myCustomHook = new SyncHook(["参数1", "参数2"]);
     // 在当前插件中监听自定义事件
-    compiler.hooks.myCustomHook.tap('APlugin', (a, b) =>
-      console.log('获取到参数：', a, b)
+    compiler.hooks.myCustomHook.tap("APlugin", (a, b) =>
+      console.log("获取到参数：", a, b)
     );
     // 可以在任意的钩子函数中去触发自定义事件
-    compiler.hooks.compilation.tap('APlugin', compilation => {
-      compilation.hooks.afterOptimizeChunkAssets.tap('APlugin', chunks => {
-        compiler.hooks.myCustomHook.call('a', 'b');
+    compiler.hooks.compilation.tap("APlugin", compilation => {
+      compilation.hooks.afterOptimizeChunkAssets.tap("APlugin", chunks => {
+        compiler.hooks.myCustomHook.call("a", "b");
       });
     });
   }
@@ -205,8 +205,8 @@ class APlugin {
 class BPlugin {
   apply(compiler) {
     // 监听A组件定义的事件
-    compiler.hooks.myCustomHook.tap('BPlugin', (a, b) =>
-      console.log('获取到参数：', a, b)
+    compiler.hooks.myCustomHook.tap("BPlugin", (a, b) =>
+      console.log("获取到参数：", a, b)
     );
   }
 }
@@ -258,14 +258,14 @@ const store = new Vuex.Store({
   actions: {
     increment(context) {
       setTimeout(() => {
-        context.commit('increment');
+        context.commit("increment");
       }, 1500);
     }
   },
   // 派生 store 中的状态
   getters: {
     showCount: state => {
-      return '当前的count是：' + state.count;
+      return "当前的count是：" + state.count;
     }
   }
 });
@@ -620,9 +620,9 @@ Redux 中的中间件其实是用柯里化函数编写而成的，例如 logger 
 ```js
 // logger 中间件
 const loggerMiddle = store => next => action => {
-  console.log('old state', store.getState());
+  console.log("old state", store.getState());
   let result = next(action);
-  console.log('next state', store.getState());
+  console.log("next state", store.getState());
   return result;
 };
 ```
@@ -652,10 +652,10 @@ applyMiddleware([a, b, c]);
 
 ```js
 setTimeout(() => {
-  console.log('setTimeout');
+  console.log("setTimeout");
 }, 0);
 setImmediate(() => {
-  console.log('setImmediate');
+  console.log("setImmediate");
 });
 ```
 
@@ -670,14 +670,14 @@ setImmediate(() => {
 4、在下一个事件循环周期中，执行 setTimeout。
 
 ```js
-var fs = require('fs');
+var fs = require("fs");
 
 fs.readFile(__filename, () => {
   setTimeout(() => {
-    console.log('timeout');
+    console.log("timeout");
   }, 0);
   setImmediate(() => {
-    console.log('immediate');
+    console.log("immediate");
   });
 });
 ```

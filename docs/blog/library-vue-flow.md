@@ -28,9 +28,9 @@
 new Vue({
   data() {
     return {
-      message: "hello world",
+      message: "hello world"
     };
-  },
+  }
 });
 </script>
 ```
@@ -72,7 +72,7 @@ function defineReactive(obj, key, val) {
       val = newVal;
       // 修改数据时，通知页面重新渲染
       dep.notify();
-    },
+    }
   });
 }
 ```
@@ -191,14 +191,14 @@ new Watcher(vm, updateComponent);
 // 9. updateComponent 会执行 vm._update(vm._render())
 
 // 10. 调用 vm._render 生成虚拟 dom
-Vue.prototype._render = function (): VNode {
+Vue.prototype._render = function(): VNode {
   const vm: Component = this;
   const { render } = vm.$options;
   let vnode = render.call(vm._renderProxy, vm.$createElement);
   return vnode;
 };
 // 11. 调用 vm._update(vnode) 渲染虚拟 dom
-Vue.prototype._update = function (vnode: VNode) {
+Vue.prototype._update = function(vnode: VNode) {
   const vm: Component = this;
   if (!prevVnode) {
     // 初次渲染

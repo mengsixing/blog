@@ -77,7 +77,7 @@ function findAcrossMidSubArray(array, start, end) {
 }
 
 console.warn(
-  '分治法：',
+  "分治法：",
   findMaxSubArray([-11, 34, 37, 30, -42, 4, 16, 47, 36, 19], 0, 9)
 );
 ```
@@ -104,7 +104,7 @@ function recurFib(n) {
     return recurFib(n - 1) + recurFib(n - 2);
   }
 }
-console.log('斐波那契数列', recurFib(100));
+console.log("斐波那契数列", recurFib(100));
 
 //动态规划
 function dynFib(n) {
@@ -126,7 +126,7 @@ function dynFib(n) {
     return val[n];
   }
 }
-console.log('动态规划', dynFib(10));
+console.log("动态规划", dynFib(10));
 
 //动态规划，不用数组
 function iterFib(n) {
@@ -144,7 +144,7 @@ function iterFib(n) {
     return 0;
   }
 }
-console.log('动态规划不用数组', iterFib(10));
+console.log("动态规划不用数组", iterFib(10));
 ```
 
 ## 贪心算法

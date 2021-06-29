@@ -38,8 +38,8 @@ CSS Houdini 旨在建立一系列的 api，让开发者能够介入浏览器的 
   --block-font-size: 1rem;
 }
 .btn__active::after {
-  --btn-text: 'This is btn'; /* 相当于 --box-highlight-text:'This is btn been actived'; */
-  --btn-highlight-text: var(--btn-text) ' been actived';
+  --btn-text: "This is btn"; /* 相当于 --box-highlight-text:'This is btn been actived'; */
+  --btn-highlight-text: var(--btn-text) " been actived";
   content: var(--btn-highlight-text); /* 也可以使用 calc 來做运算 */
   font-size: calc(var(--block-font-size) * 1.5);
 }
@@ -95,7 +95,7 @@ Layout API 顾名思义就是提供开发者撰写自己的 Layout module，也�
 
 ```js
 registerLayout(
-  'my-block',
+  "my-block",
   class extends Layout {
     // 在这里编写自定义layout
   }
@@ -106,7 +106,7 @@ registerLayout(
 
 ```css
 .wrapper {
-  display: layout('my-block');
+  display: layout("my-block");
 }
 ```
 
@@ -122,7 +122,7 @@ class SkyStar {
   }
 }
 // 注册星星绘画方法，提供给页面paint函数调用
-registerPaint('sky-star', SkyStar);
+registerPaint("sky-star", SkyStar);
 ```
 
 使用自定义 paint：
@@ -141,7 +141,7 @@ body {
 上文中使用 Layout API，Painting API 都需要在 js 中去自定义类型。但这里的 js 不能直接用 script 标签引用，必须通过 Worklets 引入。
 
 ```js
-CSS.paintWorklet.addModule('sky-star.js');
+CSS.paintWorklet.addModule("sky-star.js");
 ```
 
 ### CSS Parser API
@@ -154,17 +154,17 @@ CSS Typed OM 就是 CSSOM 的强化版，最主要的功能在于将 CSSOM 所�
 
 ```js
 // CSS -> JS
-const map = document.querySelector('.example').styleMap;
-console.log(map.get('font-size'));
+const map = document.querySelector(".example").styleMap;
+console.log(map.get("font-size"));
 // CSSSimpleLength {value: 12, type: "px", cssText: "12px"} // JS -> JS
-console.log(new CSSUnitValue(5, 'px'));
+console.log(new CSSUnitValue(5, "px"));
 // CSSUnitValue{value:5,unit:"px",type:"length",cssText:"5px"}
 // JS -> CSS
 // set style "transform: translate3d(0px, -72.0588%, 0px);"
 elem.outputStyleMap.set(
-  'transform',
+  "transform",
   new CSSTransformValue([
-    new CSSTranslation(0, new CSSSimpleLength(100 - currentPercent, '%'), 0)
+    new CSSTranslation(0, new CSSSimpleLength(100 - currentPercent, "%"), 0)
   ])
 );
 ```
@@ -216,7 +216,7 @@ Font Metrics API 就是希望能暴露出更方便的 API 来达成上述的事�
       }
 
       body:before {
-        content: '';
+        content: "";
         position: absolute;
         left: 0;
         right: 0;
@@ -244,7 +244,7 @@ Font Metrics API 就是希望能暴露出更方便的 API 来达成上述的事�
 
   <body>
     <script>
-      CSS.paintWorklet.addModule('sky-star.js');
+      CSS.paintWorklet.addModule("sky-star.js");
     </script>
   </body>
 </html>
@@ -256,7 +256,7 @@ Font Metrics API 就是希望能暴露出更方便的 API 来达成上述的事�
 class SkyStar {
   // 接受 css 中的自定义属性
   static get inputProperties() {
-    return ['--star-density', '--star-opacity'];
+    return ["--star-density", "--star-opacity"];
   }
   random(size) {
     return Math.random() * size;
@@ -264,8 +264,8 @@ class SkyStar {
   // 绘画函数
   paint(ctx, paintSize, properties) {
     // 密度
-    var density = +properties.get('--star-density').toString();
-    var opacity = +properties.get('--star-opacity').toString();
+    var density = +properties.get("--star-density").toString();
+    var opacity = +properties.get("--star-opacity").toString();
     // 绘制星星
     var starNumbers = paintSize.width * paintSize.height * density;
     for (var i = 0; i < starNumbers; i++) {
@@ -281,7 +281,7 @@ class SkyStar {
   }
 }
 // 注册星星绘画方法，提供给页面paint函数调用
-registerPaint('sky-star', SkyStar);
+registerPaint("sky-star", SkyStar);
 ```
 
 创建完成之后，启动一个 server 服务，就可以运行了，运行效果如下：

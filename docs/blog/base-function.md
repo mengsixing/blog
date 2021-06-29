@@ -86,7 +86,7 @@ for (let i = 0; i < array.length; i++) {
 ```javascript
 // 筛选出数组中为奇数的子集合
 const array = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-const reult = array.filter((item) => item % 2 !== 0);
+const reult = array.filter(item => item % 2 !== 0);
 ```
 
 可以看到，声明式编程没有冗余的操作步骤，代码量非常少，并且非常语义化，当我们读到 filter 的时候，自然而然就知道是在做筛选。
@@ -195,7 +195,7 @@ module.exports = config;
 
 ```js
 function compose(f, g) {
-  return function () {
+  return function() {
     return f.call(this, g.apply(this, arguments));
   };
 }
@@ -241,7 +241,7 @@ console.log("柯里化：", curry(add)(1)(2)(3)(4));
 ```js
 // 偏函数
 function isTypeX(type) {
-  return function (obj) {
+  return function(obj) {
     return Object.prototype.toString.call(obj) === `[object ${type}]`;
   };
 }
@@ -324,11 +324,11 @@ console.log("使用了尾递归，不会栈溢出", fibonacci2(100, 0, 1));
 var users = [
   { user: "barney", age: 36 },
   { user: "fred", age: 40 },
-  { user: "pebbles", age: 1 },
+  { user: "pebbles", age: 1 }
 ];
 var youngest = _.chain(users)
   .sortBy("age")
-  .map(function (o) {
+  .map(function(o) {
     return o.user + " is " + o.age;
   })
   .head()

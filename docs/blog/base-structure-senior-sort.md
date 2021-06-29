@@ -130,9 +130,9 @@ function mergeArray(array, start, mid, end) {
   }
 }
 var arr = [2, 3, 7, 9, 8, 5, 4, 6, 1];
-console.log('原始数组：', arr);
+console.log("原始数组：", arr);
 const result = mergeSort(arr);
-console.log('排列后数组：', result);
+console.log("排列后数组：", result);
 ```
 
 ## 堆排序

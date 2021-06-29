@@ -229,7 +229,7 @@ spec:
       image: mengsixing/notepad
   volumeMounts:
     - name: foo
-      mountPath: 'etc/foo'
+      mountPath: "etc/foo"
       readOnly: true
   volumes:
     - name: foo

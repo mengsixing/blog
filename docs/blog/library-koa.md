@@ -39,29 +39,29 @@ context.js 主要是封装当前上下文的方法和属性。
 核心部分是使用了委托，将 response 和 request 都委托到了 context 上。
 
 ```js
-delegate(proto, 'response')
-  .method('attachment')
-  .method('redirect')
-  .method('remove')
-  .method('vary')
-  .method('set')
-  .method('append')
-  .method('flushHeaders')
-  .access('status')
-  .access('message');
+delegate(proto, "response")
+  .method("attachment")
+  .method("redirect")
+  .method("remove")
+  .method("vary")
+  .method("set")
+  .method("append")
+  .method("flushHeaders")
+  .access("status")
+  .access("message");
 
-delegate(proto, 'request')
-  .method('acceptsLanguages')
-  .method('acceptsEncodings')
-  .method('acceptsCharsets')
-  .method('accepts')
-  .method('get')
-  .method('is')
-  .access('querystring')
-  .access('idempotent')
-  .access('socket')
-  .access('search')
-  .access('method');
+delegate(proto, "request")
+  .method("acceptsLanguages")
+  .method("acceptsEncodings")
+  .method("acceptsCharsets")
+  .method("accepts")
+  .method("get")
+  .method("is")
+  .access("querystring")
+  .access("idempotent")
+  .access("socket")
+  .access("search")
+  .access("method");
 ```
 
 通过委托以后，就可以通过 this.ctx.body 访问到 this.response.body。
@@ -99,7 +99,7 @@ function compose(middleware) {
     function dispatch(i) {
       // 如果在一个 middleware 中调用了 2 次 next 方法，则会报错
       if (i <= index)
-        return Promise.reject(new Error('next() called multiple times'));
+        return Promise.reject(new Error("next() called multiple times"));
       index = i;
       let fn = middleware[i];
       if (i === middleware.length) fn = next;
@@ -125,9 +125,9 @@ fn();
 application.js 主要是封装 use 方法和 listen 方法。
 
 ```js
-import compose from 'koa-compose';
+import compose from "koa-compose";
 // 事件处理库，可使用app.on('xxx') 触发自定义事件
-import Emitter from 'events';
+import Emitter from "events";
 
 class Application extends Emitter {
   listen(...args) {

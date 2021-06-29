@@ -65,10 +65,10 @@ react 设计之初是主要负责 ui 层的渲染，每个组件有自己的状�
 
 ```js
 // 创建context
-const ThemeContext = React.createContext('light');
+const ThemeContext = React.createContext("light");
 
 class ThemeProvider extends React.Component {
-  state = { theme: 'light' };
+  state = { theme: "light" };
 
   render() {
     return (

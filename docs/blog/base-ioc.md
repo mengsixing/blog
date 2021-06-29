@@ -63,7 +63,7 @@
 // 案例中使用伪代码，便于大家理解。
 class Database {
   select(sql) {
-    const mysql = require('mysql');
+    const mysql = require("mysql");
     return new Promise(resolve => {
       // 连接数据库，并执行 sql 语句进行查询
       mysql.createConnection().query(sql, (error, results, fields) => {
@@ -80,14 +80,14 @@ class Service {
     const success = await db.select(
       `select * from user where username=${username} and password=${password}`
     );
-    return success ? '登录成功' : '登录失败';
+    return success ? "登录成功" : "登录失败";
   }
 }
 
 class Web {
   matchRouter(path) {
     switch (path) {
-      case 'login':
+      case "login":
         const service = new Service();
         const { username, password } = path.query;
         return service.login(username, password);
@@ -97,7 +97,7 @@ class Web {
 
 // 使用 web 层
 const web = new Web();
-web.matchRouter('login');
+web.matchRouter("login");
 ```
 
 上面的代码是典型的高层次模块依赖低层次模块案例。web 层依赖 service 层，service 层依赖 database 层。
@@ -116,7 +116,7 @@ web.matchRouter('login');
 // 案例中使用伪代码，便于大家理解。
 class Database {
   select(sql) {
-    const mysql = require('mysql');
+    const mysql = require("mysql");
     return new Promise(resolve => {
       // 连接数据库，并执行 sql 语句进行查询
       mysql.createConnection().query(sql, (error, results, fields) => {
@@ -136,7 +136,7 @@ class Service {
     const success = await this.db.select(
       `select * from user where username=${username} and password=${password}`
     );
-    return success ? '登录成功' : '登录失败';
+    return success ? "登录成功" : "登录失败";
   }
 }
 
@@ -146,7 +146,7 @@ class Web {
   }
   matchRouter(path) {
     switch (path) {
-      case 'login':
+      case "login":
         // const service = new Service();
         const { username, password } = path.query;
         return this.service.login(username, password);
@@ -158,7 +158,7 @@ class Web {
 const database = new Database();
 const service = new Service(database);
 const web = new Web(service);
-web.matchRouter('login');
+web.matchRouter("login");
 ```
 
 上面的代码可以看出，web 层并不直接依赖 service 层，而是通过构造函数将 service 传进来直接用，这就实现了依赖注入的效果。
@@ -195,21 +195,21 @@ export default function createIoC() {
 
 ```js
 // ioc-config.js
-import createIoC from 'ioc.js';
+import createIoC from "ioc.js";
 const ioc = createIoC();
 
 // 手动绑定依赖关系
-ioc.bind('Database', () => {
+ioc.bind("Database", () => {
   return new Database();
 });
 
-ioc.bind('Service', () => {
-  const database = ioc.use('Database');
+ioc.bind("Service", () => {
+  const database = ioc.use("Database");
   return new Service(database);
 });
 
-ioc.bind('Web', () => {
-  const service = ioc.use('Service');
+ioc.bind("Web", () => {
+  const service = ioc.use("Service");
   return new Web(service);
 });
 
@@ -219,10 +219,10 @@ export default ioc;
 使用容器注入依赖。
 
 ```js
-import ioc from 'ioc-config.js';
+import ioc from "ioc-config.js";
 // 使用 web 层
-const web = ioc.use('Web');
-web.matchRouter('login');
+const web = ioc.use("Web");
+web.matchRouter("login");
 ```
 
 上面代码使用 IOC 容器来进行依赖注入，优缺点如下：

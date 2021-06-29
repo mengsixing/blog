@@ -39,34 +39,35 @@ Native 调用 JS 比较简单，只要 H5 端将 JS 方法暴露在 Window 上�
 ## 简单实现
 
 ```js
-(function () {
-    var id = 0;
-    var callbacks = {};
+(function() {
+  var id = 0;
+  var callbacks = {};
 
-    window.JSBridge = {
-        // 调用 Native
-        invoke: function(bridgeName, callback, data) {
-            // 判断环境，获取不同的 nativeBridge
-            var thisId = id ++; // 获取唯一 id
-            callbacks[thisId] = callback; // 存储 Callback
-            nativeAPI.postMessage({
-                bridgeName: bridgeName,
-                data: data || {},
-                callbackId: thisId // 传到 Native 端
-            });
-        },
-        receiveMessage: function(msg) {
-            var bridgeName = msg.bridgeName,
-                data = msg.data || {},
-                callbackId = msg.callbackId; // Native 将 callbackId 原封不动传回
+  window.JSBridge = {
+    // 调用 Native
+    invoke: function(bridgeName, callback, data) {
+      // 判断环境，获取不同的 nativeBridge
+      var thisId = id++; // 获取唯一 id
+      callbacks[thisId] = callback; // 存储 Callback
+      nativeAPI.postMessage({
+        bridgeName: bridgeName,
+        data: data || {},
+        callbackId: thisId // 传到 Native 端
+      });
+    },
+    receiveMessage: function(msg) {
+      var bridgeName = msg.bridgeName,
+        data = msg.data || {},
+        callbackId = msg.callbackId; // Native 将 callbackId 原封不动传回
 
-            if (callbackId) {
-                if (callbacks[callbackId]) { // 找到相应句柄
-                    callbacks[callbackId](msg.data); // 执行调用
-                }
-            }
+      if (callbackId) {
+        if (callbacks[callbackId]) {
+          // 找到相应句柄
+          callbacks[callbackId](msg.data); // 执行调用
         }
-    };
+      }
+    }
+  };
 })();
 ```
 

@@ -38,12 +38,12 @@ TDD（Test Drived Develop）。TDD 的原理是**在开发功能代码之前，�
 - suiteTeardown（每一个测试用例开始之后）
 
 ```js
-suite('Array', function() {
+suite("Array", function() {
   setup(function() {
     // 测试用例开始之前
   });
-  suite('#indexOf', function() {
-    test('should return -1 when not present', function() {
+  suite("#indexOf", function() {
+    test("should return -1 when not present", function() {
       assert.equal(-1, [1, 2, 3].indexOf(4));
     });
   });
@@ -64,12 +64,12 @@ BDD（Behavior Driven Development）。行为驱动的开发，**描述了软件
 - afterEach（每一个测试用例开始之后）
 
 ```js
-describe('Array', function() {
+describe("Array", function() {
   before(function() {
     // 测试用例开始之前
   });
-  describe('#indexOf', function() {
-    it('should return -1 when not present', function() {
+  describe("#indexOf", function() {
+    it("should return -1 when not present", function() {
       [1, 2, 3].indexOf(4).should.equal(-1);
     });
   });
@@ -83,7 +83,7 @@ describe('Array', function() {
 使用 it 来定义一个测试用例：
 
 ```js
-it('should return -1 when not present', function(done) {
+it("should return -1 when not present", function(done) {
   // xxx
 });
 ```
@@ -93,7 +93,7 @@ it('should return -1 when not present', function(done) {
 在执行异步测试用例时，会将 done 函数注入实参。
 
 ```js
-it('should return -1 when not present', function(done) {
+it("should return -1 when not present", function(done) {
   setTimeout(() => {
     done();
   }, 1000);
@@ -135,18 +135,18 @@ var suite = new Benchmark.Suite();
 
 // add tests
 suite
-  .add('RegExp#test', function() {
-    /o/.test('Hello World!');
+  .add("RegExp#test", function() {
+    /o/.test("Hello World!");
   })
-  .add('String#indexOf', function() {
-    'Hello World!'.indexOf('o') > -1;
+  .add("String#indexOf", function() {
+    "Hello World!".indexOf("o") > -1;
   })
   // add listeners
-  .on('cycle', function(event) {
+  .on("cycle", function(event) {
     console.log(String(event.target));
   })
-  .on('complete', function() {
-    console.log('Fastest is ' + this.filter('fastest').map('name'));
+  .on("complete", function() {
+    console.log("Fastest is " + this.filter("fastest").map("name"));
   })
   // run async
   .run({ async: true });

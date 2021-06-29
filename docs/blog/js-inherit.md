@@ -60,20 +60,20 @@ ES6 采用 class extends 进行继承。和 ES5 继承的区别：
 
 super 调用父类的方法时，super 会绑定子类的 this。
 
-### __proto__属性
+### **proto**属性
 
-每一个对象都有__proto__属性，指向对应的构造函数的 prototype 属性。
+每一个对象都有**proto**属性，指向对应的构造函数的 prototype 属性。
 
-子类的__proto__属性表示构造函数的继承，总是指向父类。
+子类的**proto**属性表示构造函数的继承，总是指向父类。
 
-子类 prototype 的__proto__属性表示方法的继承，总是指向父类的 prototype 属性。
+子类 prototype 的**proto**属性表示方法的继承，总是指向父类的 prototype 属性。
 
 ```js
-class A{}
-class B extends A{}
+class A {}
+class B extends A {}
 
-console.log(B.__proto__ ===A); // true
-console.log(B.prototype.__proto__ ===A.prototype); // true
+console.log(B.__proto__ === A); // true
+console.log(B.prototype.__proto__ === A.prototype); // true
 ```
 
 ### 继承目标

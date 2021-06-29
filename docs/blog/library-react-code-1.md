@@ -46,21 +46,21 @@ function App() {
 
 ```js
 function Comp() {
-  return React.createElement('span', null, 'hello');
+  return React.createElement("span", null, "hello");
 }
 
 function App() {
   return React.createElement(
-    'div',
+    "div",
     {
-      id: 'test'
+      id: "test"
     },
     React.createElement(Comp, null),
     React.createElement(
-      'ul',
+      "ul",
       null,
-      React.createElement('li', null, '1'),
-      React.createElement('li', null, '2')
+      React.createElement("li", null, "1"),
+      React.createElement("li", null, "2")
     )
   );
 }
@@ -101,7 +101,7 @@ function createElement(type, config, children) {
 这里介绍一下 React.Children，这个方法封装了处理 props.children 的方法。
 
 ```js
-import { forEach, map, count, toArray, only } from './ReactChildren';
+import { forEach, map, count, toArray, only } from "./ReactChildren";
 const React = {
   Children: {
     map,
