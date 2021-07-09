@@ -55,3 +55,9 @@ TTFB（time-to-first-byte）服务器端返回第一个字节数据的时间。
 WebRTC（Web Real-Time Communication）web 实时通信技术。简单地说就是在 web 浏览器里面引入实时通信，包括音视频通话等。
 
 [WebRTC 介绍及简单应用](https://www.cnblogs.com/vipzhou/p/7994927.html)
+
+## Overlay network 是什么
+
+覆盖网络是一种创建在另一网络之上的计算机网络。覆盖网络中的节点可以被认为是通过虚拟或逻辑链接相连，其中每个链接对应一条路径（Path）。节点之间也可能通过下层网络中的多个物理连接实现相连。 例如：VPN 可视为覆盖网络，因为它们的节点都运行在因特网之上。 因特网自身最初也是作为一个电话网络之上的覆盖网络构建，而当今，电话网络正越来越变成一个创建在因特网之上的覆盖网络。
+
+[wikipedia 覆盖网络](https://zh.wikipedia.org/wiki/%E8%A6%86%E7%9B%96%E7%BD%91%E7%BB%9C)
